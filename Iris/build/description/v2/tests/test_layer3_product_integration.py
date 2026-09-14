@@ -58,11 +58,11 @@ def test_product_contract(tmp_path, monkeypatch):
     accepted, owner = product.accepted_tooltip(ROOT)
     assert len(payload['items']) == 2105
     states = Counter(row['locales'][lang]['expanded']['state'] for row in payload['items'] for lang in product.LOCALES)
-    assert states == {'present': 3962, 'absent': 248}
+    assert states == {'present': 3952, 'absent': 258}
     for lang in product.LOCALES:
         assert sum(r['locales'][lang]['compact']['state']=='absent' and r['locales'][lang]['expanded']['state']=='present' for r in payload['items']) == 0
-        assert sum(r['locales'][lang]['expanded']['state']=='absent' for r in payload['items']) == 124
-    print('input: states=4210 present=3962 absent=248 acquisition supplied separately', flush=True)
+        assert sum(r['locales'][lang]['expanded']['state']=='absent' for r in payload['items']) == 129
+    print('input: states=4210 present=3952 absent=258 acquisition supplied separately', flush=True)
     first, second = workspace / 'a', workspace / 'b'
     manifest = install.admit(first) if resume else product.build_menu_product(ROOT, first)
     other = install.admit(second) if resume else product.build_menu_product(ROOT, second)

@@ -40,6 +40,24 @@ if arg[2] == "expanded" then
                 assert(units[i] == unit.text and value.units[i].first_segment == unit.first_segment and
                     value.units[i].last_segment == unit.last_segment)
                 assert(not pcall(function() model.layer3.units[i].text = "changed" end))
+                if unit.target_groups then
+                    local grouped = model.layer3.units[i].targetGroups
+                    assert(grouped and grouped.groupCount == unit.target_groups.group_count)
+                    for n, group in ipairs(unit.target_groups.groups) do
+                        assert(grouped.groups[n].count == group.count and grouped.groups[n].label == group.label)
+                        assert(grouped.groups[n].scope == group.scope and grouped.groups[n].presentation == group.presentation)
+                        for j, entry in ipairs(group.entries) do
+                            local actual = grouped.groups[n].entries[j]
+                            assert(actual.label == entry.label)
+                            local field = entry.item_ids and "itemIds" or entry.recipe_keys and "recipeKeys" or "targetKeys"
+                            local ids = entry.item_ids or entry.recipe_keys or entry.target_keys
+                            assert(actual.identityCount == #ids)
+                            for k, id in ipairs(ids) do assert(actual[field][k] == id) end
+                            assert(not pcall(function() actual[field][1] = "changed" end))
+                        end
+                    end
+                    assert(not pcall(function() grouped.groups[1].label = "changed" end))
+                end
             end
             assert(model.interactionState.status == "verified_empty")
         end
@@ -82,11 +100,13 @@ if arg[2] == "expanded" then
     function Widget:getIsVisible() return self.visible end
     function Widget:isVisible() return self.visible end
     function Widget:setScrollHeight(h) self.scrollHeight=h end
+    function Widget:getYScroll() return self.yScroll or 0 end
+    function Widget:setYScroll(y) self.yScroll=y end
     for _, name in ipairs({"initialise","instantiate","setAnchorLeft","setAnchorTop","setAnchorRight","setAnchorBottom",
                           "setScrollChildren","addScrollBars","addToUIManager","removeFromUIManager"}) do Widget[name]=function() end end
     ISPanel=Widget
     ISLabel={new=function(_,x,y,h,text) local w=Widget:new(x,y,1,h); w.text=text; return w end}
-    ISButton={new=function(_,x,y,w,h,text) local b=Widget:new(x,y,w,h); b.text=text; return b end}
+    ISButton={new=function(_,x,y,w,h,text,target,onclick) local b=Widget:new(x,y,w,h); b.text=text; b.target=target; b.onclick=onclick; return b end}
     ISTextEntryBox={new=function(_,text,x,y,w,h) local b=Widget:new(x,y,w,h); b.text=text; return b end}
     function Widget:setText(text) self.text=text end
     function Widget:getInternalText() return self.text end
@@ -105,8 +125,31 @@ if arg[2] == "expanded" then
     browser.detailScrollY=0; browser.recipeExpandedByFullType={}
     local function labels(panel)
         local texts={}
-        for _, child in ipairs(panel.children) do if child.text then texts[#texts+1]=child.text end end
+        for _, child in ipairs(panel.children) do
+            if child.text then texts[#texts+1]=child.text end
+            if child.children then texts[#texts+1]=labels(child) end
+        end
         return table.concat(texts," "):gsub("%s", "")
+    end
+    local function buttons(panel)
+        local result = {}
+        for _, child in ipairs(panel.children) do
+            if child.irisTargetGroupKey then result[#result+1] = child end
+        end
+        return result
+    end
+    local function listStarts(panel)
+        local count = 0
+        for _, child in ipairs(panel.children) do
+            if child.text and child.text:sub(1,2) == "- " then count = count + 1 end
+        end
+        return count
+    end
+    local function click(button) assert(button.onclick); button.onclick(button.target, button) end
+    local function toggleAll(panel, expanded)
+        for _, button in ipairs(buttons(panel)) do
+            if button.irisTargetGroupExpanded ~= expanded then click(button) end
+        end
     end
     for _, key in ipairs(expected.samples) do
         for _, lang in ipairs({"KO","EN"}) do
@@ -115,17 +158,69 @@ if arg[2] == "expanded" then
             local wiki=Wiki.createPanel(item(key))
             local content=wiki.children[#wiki.children]
             local source=expected.menu[key][lang:lower()]
+            local groupCount, groupedNames, inlineNames = 0, 0, 0
+            for _, unit in ipairs(source.units) do
+                if unit.target_groups then
+                    for _, group in ipairs(unit.target_groups.groups) do
+                        groupedNames = groupedNames + group.count
+                        if group.presentation == "inline" then inlineNames = inlineNames + group.count
+                        else groupCount = groupCount + 1 end
+                    end
+                end
+            end
+            for _, panel in ipairs({browser.detailPanel, content}) do
+                local controls = buttons(panel)
+                assert(#controls == groupCount)
+                for _, button in ipairs(controls) do
+                    assert(not button.irisTargetGroupExpanded and button.height >= 26)
+                    assert(button.x + button.width <= panel.width)
+                    for _, label in ipairs(button.children) do assert(label.y + label.height <= button.height) end
+                end
+                if groupCount > 0 then
+                    assert(listStarts(panel) == inlineNames, "Long target lists default closed")
+                    local height = panel == content and content.irisContentHeight or browser.detailContentHeight
+                    click(controls[1])
+                    assert(listStarts(panel) > inlineNames and listStarts(panel) <= groupedNames)
+                    local expandedHeight = panel == content and content.irisContentHeight or browser.detailContentHeight
+                    assert(expandedHeight > height, "Expanding adds actual rows")
+                    click(buttons(panel)[1])
+                    assert(listStarts(panel) == inlineNames)
+                    assert((panel == content and content.irisContentHeight or browser.detailContentHeight) == height)
+                    toggleAll(panel, true)
+                    assert(listStarts(panel) == groupedNames, "Every target appears once after expansion")
+                end
+            end
             for _, panel in ipairs({browser.detailPanel, content}) do
                 local bullets = 0
                 for _, child in ipairs(panel.children) do
                     if child.text == "•" then bullets = bullets + 1 end
                 end
                 assert(bullets == #source.units, "One bullet per producer unit, not per wrapped line")
+                local expectedListLines, renderedListLines = 0, 0
+                for _, unit in ipairs(source.units) do
+                    for line in unit.text:gmatch("[^\n]+") do
+                        if line:sub(1,2) == "- " then expectedListLines = expectedListLines + 1 end
+                    end
+                end
+                for _, child in ipairs(panel.children) do
+                    if child.text and child.text:sub(1,2) == "- " then renderedListLines = renderedListLines + 1 end
+                end
+                assert(renderedListLines == expectedListLines, "Recipe list starts must survive physical newlines and wrapping")
+
             end
             for _, unit in ipairs(source.units) do
-                local compact=unit.text:gsub("%s", "")
-                assert(labels(browser.detailPanel):find(compact,1,true), "Browser unit inaccessible")
-                assert(labels(content):find(compact,1,true), "Wiki unit inaccessible")
+                local required = {unit.text}
+                if unit.target_groups then
+                    required = {unit.target_groups.introduction}
+                    for _, group in ipairs(unit.target_groups.groups) do
+                        for _, entry in ipairs(group.entries) do required[#required+1] = "- " .. entry.label end
+                    end
+                end
+                for _, text in ipairs(required) do
+                    local compact=text:gsub("%s", "")
+                    assert(labels(browser.detailPanel):find(compact,1,true), "Browser target/use inaccessible")
+                    assert(labels(content):find(compact,1,true), "Wiki target/use inaccessible")
+                end
             end
             for _, child in ipairs(content.children) do assert(child.y+child.height <= content.scrollHeight) end
             for _, child in ipairs(browser.detailPanel.children) do
@@ -135,6 +230,20 @@ if arg[2] == "expanded" then
             assert(browser.detailScrollY == math.max(0,browser.detailContentHeight-browser.detailPanel.height))
             assert(browser.currentDetailModel.fullType==key and browser.currentDetailModel.locale==lang)
             Wiki.open(item(key)); Wiki.open(item(key)); assert(Wiki._panel.detailModel.locale==lang)
+            if groupCount > 0 then
+                toggleAll(browser.detailPanel, false)
+                assert(browser.detailScrollY <= math.max(0,browser.detailContentHeight-browser.detailPanel.height))
+                content:setYScroll(-math.max(0,content.scrollHeight-content.height))
+                toggleAll(content, false)
+                assert(content:getYScroll() >= -math.max(0,content.scrollHeight-content.height))
+                toggleAll(browser.detailPanel, true)
+                browser:showDetail("Base.Disinfectant", true)
+                assert(#buttons(browser.detailPanel) == 0 and browser.detailScrollY == 0)
+                browser:showDetail(key, true)
+                assert(listStarts(browser.detailPanel) == inlineNames and browser.detailScrollY == 0)
+                assert(listStarts(Wiki._panel.contentPanel) == inlineNames, "Opening a new Wiki panel resets disclosure")
+                Wiki._panel:close(); assert(not Wiki._panel:isVisible())
+            end
         end
     end
     -- Actual payload faults stay distinct from normal absent, including a
@@ -159,6 +268,18 @@ if arg[2] == "expanded" then
     local first=entry.locales.ko.units[1]
     local last=first.last_segment
     reject(function() first.last_segment=0 end,function() first.last_segment=last end)
+    local groupedEntry = lookup.get("Base.DuctTape")
+    local groupedUnit
+    for _, unit in ipairs(groupedEntry.locales.ko.units) do if unit.target_groups then groupedUnit = unit end end
+    if groupedUnit then
+        local savedCount = groupedUnit.target_groups.groups[1].count
+        groupedUnit.target_groups.groups[1].count = savedCount + 1
+        package.loaded["Iris/Data/IrisLayer3DataLookup"] = nil
+        local damaged = require("Iris/Data/IrisLayer3DataLookup")
+        assert(damaged.get("Base.DuctTape") == nil, "Malformed grouped targets fail closed on loading")
+        groupedUnit.target_groups.groups[1].count = savedCount
+        package.loaded["Iris/Data/IrisLayer3DataLookup"] = lookup
+    end
     local descriptor=require("Iris/Data/IrisLayer3ProductCurrent").descriptor_module
     local desc=require(descriptor)
     local descId=desc.product_id
@@ -292,7 +413,8 @@ end
 
 local englishLookup = require("Iris/Data/IrisLayer3EnglishLookup")
 local hammerText = englishLookup.get("Base.HammerStone")
-assert(hammerText and hammerText:find("construction", 1, true))
+-- Check the English building use, not an obsolete synonym for that use.
+assert(hammerText and hammerText:find("build wooden structures with nails", 1, true))
 for index = 1, #hammerText do assert(string.byte(hammerText, index) < 128) end
 local TemplatesKo = require("Iris/Logic/IrisDesc/Templates")
 local TemplatesEn = require("Iris/Logic/IrisDesc/TemplatesEn")

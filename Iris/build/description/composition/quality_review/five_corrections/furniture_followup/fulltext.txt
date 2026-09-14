@@ -1,0 +1,374 @@
+Base.BaseballBat
+KO C 목공 재료로 쓸 수 있다. 무기로 쓸 수 있다.
+KO E 목공 재료로 쓸 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C It can be used as material for woodworking. It can be used as a weapon.
+EN E It can be used as material for woodworking.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+Base.BaseballBatNails
+KO C 무기로 쓸 수 있다.
+KO E 수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C It can be used as a weapon.
+EN E It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+Base.Mattress
+KO C 건축 재료로 쓸 수 있다. 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 건축 재료로 쓸 수 있다.
+배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+EN C It can be used as material for construction. It can be placed for sleeping or resting.
+EN E It can be used as material for construction.
+It can be placed for sleeping or resting.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+
+Base.Mov_AirConditioner, Base.Mov_MetalStool, Base.Mov_ScaleMedical, Base.Mov_Urinal
+KO C 분해해 재료를 회수할 수 있다.
+KO E 배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C It can be dismantled to recover materials.
+EN E After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_AntiqueStove
+KO C 설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다.
+KO E 설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and fueled, it can provide heat or cook food.
+EN E Once installed and fueled, it can provide heat or cook food.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_ArcadeMachine1, Base.Mov_ArcadeMachine2, Base.Mov_Microphone, Base.Mov_TVCamera, Base.Mov_TowelDispenser, Base.Mov_WallClock
+KO C 분해해 재료를 회수할 수 있다.
+KO E 배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다.
+EN C It can be dismantled to recover materials.
+EN E After placement, it can be moved to another location.
+Once placed, it can be dismantled with a screwdriver to recover materials.
+
+Base.Mov_BeachChair, Base.Mov_OfficeChair, Base.Mov_PlasticChair
+KO C 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+EN C It can be placed for sleeping or resting.
+EN E It can be placed for sleeping or resting.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+
+Base.Mov_BinRound
+KO C 배치해 물건을 보관하는 데 쓸 수 있다.
+KO E 배치해 물건을 보관하는 데 쓸 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C It can be placed for storing items.
+EN E It can be placed for storing items.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_BlueComfyChair, Base.Mov_BlueRattanChair, Base.Mov_BrownComfyChair, Base.Mov_DarkBlueChair, Base.Mov_DarkWoodenChair, Base.Mov_FancyBlackChair, Base.Mov_FancyWhiteChair, Base.Mov_GreenChair, Base.Mov_GreenComfyChair, Base.Mov_GreyComfyChair, Base.Mov_OrangeFuton, Base.Mov_OrangeModernChair, Base.Mov_PurpleRattanChair, Base.Mov_PurpleWoodenChair, Base.Mov_RedChair, Base.Mov_RedWoodenChair, Base.Mov_WhiteComfyChair, Base.Mov_WhiteSimpleChair, Base.Mov_WhiteWoodenChair, Base.Mov_WoodenChair, Base.Mov_WoodenStool, Base.Mov_YellowModernChair
+KO C 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C It can be placed for sleeping or resting.
+EN E It can be placed for sleeping or resting.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_BluePlasticChair, Base.Mov_FoldingChair, Base.Mov_GreyChair
+KO C 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C It can be placed for sleeping or resting.
+EN E It can be placed for sleeping or resting.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_BrownLowTable, Base.Mov_FancyLowTable, Base.Mov_FancyTable, Base.Mov_LightRoundTable, Base.Mov_LongTable, Base.Mov_OakRoundTable, Base.Mov_PlasticLowTable, Base.Mov_RoundTable
+KO C 배치한 뒤 물건을 올려둘 수 있다.
+KO E 배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C Items can be placed on its surface once it is set down.
+EN E Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_CabinetMedical
+KO C 설치해 화장할 때 필요한 거울로 쓸 수 있다. 배치해 물건을 보관하는 데 쓸 수 있다.
+KO E 설치해 화장할 때 필요한 거울로 쓸 수 있다.
+배치해 물건을 보관하는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed, it can serve as the mirror needed for applying makeup. It can be placed for storing items.
+EN E Once installed, it can serve as the mirror needed for applying makeup.
+It can be placed for storing items.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_CabinetTool, Base.Mov_Mailbox, Base.Mov_ShoppingBaskets
+KO C 배치해 물건을 보관하는 데 쓸 수 있다.
+KO E 배치해 물건을 보관하는 데 쓸 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+EN C It can be placed for storing items.
+EN E It can be placed for storing items.
+After placement, it can be moved to another location.
+
+Base.Mov_CardboardBox
+KO C 배치해 물건을 보관하는 데 쓸 수 있다.
+KO E 배치해 물건을 보관하는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+EN C It can be placed for storing items.
+EN E It can be placed for storing items.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+
+Base.Mov_ChromeSink, Base.Mov_IndustrialSink
+KO C 설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.
+KO E 배치한 뒤 물건을 올려둘 수 있다.
+설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and connected to a water supply, it can provide water for filling containers or washing.
+EN E Items can be placed on its surface once it is set down.
+Once installed and connected to a water supply, it can provide water for filling containers or washing.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_CoffeeMaker, Base.Mov_Espresso
+KO C 설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.
+KO E 설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다.
+EN C Once installed and powered, it can heat or cook food.
+EN E Once installed and powered, it can heat or cook food.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a screwdriver to recover materials.
+
+Base.Mov_DesktopComputer, Base.Mov_PopcornMachine, Base.Mov_Projector, Base.Mov_SodaMachine
+KO C 배치한 뒤 물건을 올려둘 수 있다.
+KO E 배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다.
+EN C Items can be placed on its surface once it is set down.
+EN E Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a screwdriver to recover materials.
+
+Base.Mov_Doghouse, Base.Mov_PalletEmpty, Base.Mov_RoadBarrier
+KO C 분해해 재료를 회수할 수 있다.
+KO E 배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C It can be dismantled to recover materials.
+EN E After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_FancyDarkTable
+KO C 배치한 뒤 물건을 올려둘 수 있다.
+KO E 배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치로 분해해 재료를 회수할 수 있다.
+EN C Items can be placed on its surface once it is set down.
+EN E Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer to recover materials.
+
+Base.Mov_FancyToilet, Base.Mov_WhiteSink
+KO C 설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.
+KO E 설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and connected to a water supply, it can provide water for filling containers or washing.
+EN E Once installed and connected to a water supply, it can provide water for filling containers or washing.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_FridgeMini
+KO C 설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다.
+KO E 설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and powered, it can keep food and other contents cold.
+EN E Once installed and powered, it can keep food and other contents cold.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_GraveArched, Base.Mov_GraveRound, Base.Mov_GraveSquare, Base.Mov_GraveWorn
+KO C 분해해 재료를 회수할 수 있다.
+KO E 배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치로 분해해 재료를 회수할 수 있다.
+EN C It can be dismantled to recover materials.
+EN E After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer to recover materials.
+
+Base.Mov_GreenOven, Base.Mov_GreyOven, Base.Mov_Microwave, Base.Mov_Microwave2, Base.Mov_ModernOven, Base.Mov_RedOven, Base.Mov_Toaster
+KO C 설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.
+KO E 설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and powered, it can heat or cook food.
+EN E Once installed and powered, it can heat or cook food.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_HotdogMachine
+KO C 배치한 뒤 물건을 올려둘 수 있다.
+KO E 배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Items can be placed on its surface once it is set down.
+EN E Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_Lamp1, Base.Mov_Lamp2, Base.Mov_Lamp3, Base.Mov_Lamp4, Base.Mov_Lamp5, Base.Mov_Lamp6
+KO C 설치하고 전원을 공급해 조명으로 쓸 수 있다.
+KO E 설치하고 전원을 공급해 조명으로 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다.
+EN C Once installed and powered, it can provide light.
+EN E Once installed and powered, it can provide light.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a screwdriver to recover materials.
+
+Base.Mov_LightConstruction
+KO C 설치하고 전원을 공급해 조명으로 쓸 수 있다.
+KO E 설치하고 전원을 공급해 조명으로 쓸 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+EN C Once installed and powered, it can provide light.
+EN E Once installed and powered, it can provide light.
+After placement, it can be moved to another location.
+
+Base.Mov_MannequinFemale, Base.Mov_MannequinMale
+KO C 배치해 의류를 입혀둘 수 있다.
+KO E 배치해 의류를 입혀둘 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치로 분해해 재료를 회수할 수 있다.
+EN C It can be placed and dressed in clothing.
+EN E It can be placed and dressed in clothing.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer to recover materials.
+
+Base.Mov_MetalLocker
+KO C 배치해 물건을 보관하는 데 쓸 수 있다.
+KO E 배치해 물건을 보관하는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C It can be placed for storing items.
+EN E It can be placed for storing items.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_MirrorLarge, Base.Mov_MirrorSmall, Base.Mov_MirrorTall, Base.Mov_MirrorWood
+KO C 설치해 화장할 때 필요한 거울로 쓸 수 있다.
+KO E 설치해 화장할 때 필요한 거울로 쓸 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+EN C Once installed, it can serve as the mirror needed for applying makeup.
+EN E Once installed, it can serve as the mirror needed for applying makeup.
+After placement, it can be moved to another location.
+
+Base.Mov_MobileCounter, Base.Mov_NapkinDispenser, Base.Mov_PinballMachine
+KO C 배치한 뒤 물건을 올려둘 수 있다.
+KO E 배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+EN C Items can be placed on its surface once it is set down.
+EN E Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+
+Base.Mov_PileOCrepeChair
+KO C 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 배치해 잠을 자거나 쉬는 데 쓸 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C It can be placed for sleeping or resting.
+EN E It can be placed for sleeping or resting.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_RedBBQ
+KO C 설치하고 맞는 연료를 넣어 음식을 조리할 수 있다.
+KO E 설치하고 맞는 연료를 넣어 음식을 조리할 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and supplied with suitable fuel, it can cook food.
+EN E Once installed and supplied with suitable fuel, it can cook food.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_SmallTable
+KO C 배치해 물건을 보관하는 데 쓸 수 있다.
+KO E 배치해 물건을 보관하는 데 쓸 수 있다.
+배치한 뒤 물건을 올려둘 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C It can be placed for storing items.
+EN E It can be placed for storing items.
+Items can be placed on its surface once it is set down.
+After placement, it can be moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_WaterDispenser
+KO C 배치해 담긴 물을 받거나 마시는 데 쓸 수 있다.
+KO E 배치해 담긴 물을 받거나 마시는 데 쓸 수 있다.
+배치한 뒤에도 다른 위치로 옮길 수 있다.
+EN C Once placed, it can dispense its stored water for filling containers or drinking.
+EN E Once placed, it can dispense its stored water for filling containers or drinking.
+After placement, it can be moved to another location.
+
+Base.Plank
+KO C 골절을 고정하는 부목 재료로 쓸 수 있다. 건축과 장비 제작에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+KO E 골절을 고정하는 부목 재료로 쓸 수 있다.
+목공과 건축 재료로 쓸 수 있다.
+사냥 장비, 야영 장비 및 도구를 만드는 재료로 쓸 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+EN C It can supply splinting material for fractures. It can supply material for construction and equipment making. It can be used as a weapon. It can be used as fuel for campfires, for example.
+EN E It can supply splinting material for fractures.
+It can be used as material for woodworking and construction.
+It can supply material for making hunting equipment, camping equipment, and tools.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+It can be used as fuel for campfires, for example.
+
+Base.Sledgehammer, Base.Sledgehammer2
+KO C 무기로 쓸 수 있다. 구조물을 철거하는 데 사용할 수 있다.
+KO E 수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+구조물을 철거하는 데 사용할 수 있다.
+EN C It can be used as a weapon. It can be used to demolish structures.
+EN E It can be used for breaking a watermelon.
+It can be used as a weapon.
+It can be used to demolish structures.
+

@@ -25,6 +25,7 @@ CODE = "Iris/tooling/src/iris_tooling/domains/layer3/"
 def _links(units, plan):
     result = {name: sorted({v for u in units for v in u[name]})
               for name in ("block_refs", "branch_refs", "fact_refs", "qualifier_refs", "relation_refs")}
+    result['qualifier_refs'] = [q for q in result['qualifier_refs'] if lex.public_qualifier(plan['qualifiers'][q])]
     result["qualifier_applications"] = [{"qualifier_id": q,
         "applies_to_fact_refs": plan["qualifiers"][q]["applies_to_fact_refs"]} for q in result["qualifier_refs"]]
     result["fact_refs"] = sorted(set(result["fact_refs"]) | {
@@ -44,16 +45,30 @@ def _role(unit):
 def _activity_labels(unit, locale, compact=False):
     return uses.activity_labels(unit, locale, compact)
 
+
+def _forging_tool(units, plan, locale):
+    if not units or not all(_role(u) == (['metal_forging'], ['tool']) for u in units):
+        return None
+    targets = list(dict.fromkeys(r['names'][locale] for u in units for rel in u.get('recipe_targets', [])
+                                for r in rel['results'] if r['kind'] == 'declared'))
+    if len(targets) != 1:
+        return None
+    declared_name = plan.get('source_traits', {}).get('display_names', {}).get('en', '')
+    mold = declared_name.endswith((' Mold', ' Mould'))
+    return (ko.object_name(targets[0]) + ' 단조할 때 ' + ('틀' if mold else '도구') + '로 쓸 수 있다') if locale == 'ko' else ('It can be used as ' + ('a mold' if mold else 'a tool') + ' for forging ' + targets[0])
+
 def _core(unit, locale, compact=False):
     grammar = ko if locale == "ko" else en
     contexts, roles = _role(unit)
+    if contexts == ['food_preparation'] and roles == ['ingredient']:
+        return lex.pair(('요리 재료로 쓸 수 있다', 'It can be used as a cooking ingredient'), locale)
     if contexts == ['sheet_rope_making'] and roles == ['material']:
         return lex.pair(('아이템 자체를 시트 로프 제작 재료로 쓸 수 있다',
                          'The item itself can be used as material for making sheet rope'), locale)
     if contexts == ['food_ingredient_addition'] and roles == ['base']:
         return lex.pair(('재료를 더해 요리를 만들 수 있다', 'Ingredients can be added to prepare food'), locale)
     if contexts == ['fish_preparation'] and roles == ['ingredient']:
-        return lex.pair(('생선을 손질해 살을 얻을 수 있다', 'It can be filleted'), locale)
+        return lex.pair(('도구로 손질해 생선살을 얻을 수 있다', 'It can be filleted with a cutting tool'), locale)
     if contexts:
         names = _activity_labels(unit, locale, compact)
         if roles:
@@ -88,6 +103,10 @@ def _expanded_remaining(plan, locale):
             continue
         segments.append(segment)
         used.update(segment['fact_refs'])
+    # Frames inspect the full scoped evidence. Fallback cannot turn unused
+    # execution predicates into public detail simply because they remain.
+    plan = dict(plan, units=[dict(u, qualifier_refs=[q for q in u['qualifier_refs']
+                    if lex.public_qualifier(plan['qualifiers'][q])]) for u in plan['units']])
     # A split context and role in the same source branch describe one activity.
     # Keep their exact application records separate, but read the shared
     # conditions once and explicitly continue with the role-only requirements.
@@ -200,7 +219,7 @@ def _expanded_remaining(plan, locale):
         } for c in _role(u)[0]) for u in units)
         if targets and not purpose_named and not (len(targets) > 1 and all(_role(u)[0] == ['metal_forging'] for u in units)):
             if len(targets) == 1 and all(_role(u)[0] == ['metal_forging'] and _role(u)[1] == ['tool'] for u in units):
-                text = (targets[0] + ' 단조에 사용할 수 있다.') if locale == 'ko' else ('It can be used for forging ' + targets[0] + '.')
+                text = _forging_tool(units, plan, locale) + '.'
             else:
                 text += (' 제작 대상: ' + '·'.join(targets) + '.') if locale == 'ko' else (' Crafting targets include ' + en.join(targets) + '.')
         if returns:
@@ -258,104 +277,109 @@ def _compact(plan, locale):
     return prefix + _compact_remaining(remaining, locale)
 
 
-def _compact_materials(segments, plan, locale):
-    """Summarize admitted multipurpose materials; expanded owns the inventory.
+def _compact_liquid_containers(segments, plan, locale):
+    """Coordinate only capabilities shared by each admitted liquid.
 
-    Only the existing crafting, medical, garment and wood-use relationships
-    license these phrases. Unsupported roles or actions retain normal wording.
+    No full vanilla function signature is required. A mod container with
+    water only, fuel only or a subset of operations uses the same path.
+    Unknown and mixed-purpose segments retain their original wording.
     """
-    members = [u for u in plan['units'] if any(set(u['fact_refs']) & set(s['fact_refs']) for s in segments)]
-    material = [u for u in members if _role(u)[1] == ['material']]
-    activities = {a for u in material for a in _role(u)[0]}
-    if len(activities) < 3:
+    capabilities = {
+        'store_water': ('물', 'water', {'store'}),
+        'carry_water': ('물', 'water', {'carry'}),
+        'receive_poured_water': ('물', 'water', {'receive'}),
+        'fill_petrol_container': ('연료', 'fuel', {'receive'}),
+        'transfer_vehicle_fuel': ('연료', 'fuel', {'receive', 'supply'}),
+    }
+    selected, liquids = [], {}
+    for segment in segments:
+        refs = set(segment['fact_refs'])
+        payloads = [f['payload'] for u in plan['units'] for f in u['facts'] if f['fact_ref'] in refs]
+        if not payloads or segment.get('qualifier_refs') or not all(p.get('function') in capabilities for p in payloads):
+            continue
+        selected.append(segment)
+        for payload in payloads:
+            ko_name, en_name, operations = capabilities[payload['function']]
+            name = ko_name if locale == 'ko' else en_name
+            liquids.setdefault(name, set()).update(operations)
+    if len(selected) < 2:
         return segments
-    functions = {f['payload']['function'] for u in members for f in u['facts'] if 'function' in f['payload']}
-    allowed = FUEL_FUNCTIONS | TINDER_FUNCTIONS | {'apply_bandage', 'clean_burn', 'apply_splint',
-                                                 'apply_garment_patch', 'melee_attack'}
-    if not functions <= allowed:
-        return segments
-    if any(roles and roles != ['material'] and not (roles == ['tool'] and contexts == ['watermelon_breaking'])
-           for u in members for contexts, roles in [_role(u)]):
-        return segments
-    first_aid = bool(functions & {'apply_bandage', 'clean_burn'})
-    garment = 'apply_garment_patch' in functions
-    wood = 'woodworking' in activities
-    construction = bool(activities & {'construction', 'carpentry_menu_construction'})
-    if not (first_aid or garment or wood or construction):
-        return segments
-    labels = [lex.pair(pair, locale) for enabled, pair in (
-        (first_aid, ('응급처치', 'first aid')), (garment, ('의류 수선', 'clothing repairs')),
-        (wood, ('목공', 'woodworking')), (construction, ('건축', 'construction')))
-        if enabled]
-    # In a first-aid summary, bandage/splint preparation is already named by
-    # its purpose. Other admitted manufacture uses remain a crafting summary.
-    covered = {'woodworking', 'construction', 'carpentry_menu_construction'}
-    if first_aid:
-        covered |= {'bandaging_material_preparation', 'splint_crafting'}
-    crafting = bool(activities - covered)
-    if locale == 'ko':
-        subject = labels[0]
-        if len(labels) > 1:
-            ending = labels[-2][-1]
-            final = (ord(ending) - ord('가')) % 28 if '가' <= ending <= '힣' else 0
-            subject = ', '.join(labels[:-1]) + ('과 ' if final else '와 ') + labels[-1]
-        if first_aid or garment:
-            text = subject + '에 쓸 수 있다'
-            if crafting:
-                text = subject + '에 쓰거나 제작 재료로 사용할 수 있다'
+    groups = {}
+    for liquid, operations in liquids.items():
+        groups.setdefault(tuple(o for o in ('receive', 'store', 'carry', 'supply') if o in operations), []).append(liquid)
+    clauses = []
+    for operations, names in groups.items():
+        noun = ko.object_name('이나 '.join(names)) if locale == 'ko' else ' or '.join(names)
+        ko_verbs = {'store': ('보관하거나', '보관할 수 있다'), 'carry': ('운반하거나', '운반할 수 있다'),
+                    'receive': ('담거나', '담을 수 있다'), 'supply': ('공급하거나', '공급할 수 있다')}
+        en_verbs = {'store': 'store', 'carry': 'carry', 'receive': 'receive', 'supply': 'supply'}
+        if locale == 'ko':
+            purposes = [o for o in operations if o != 'receive']
+            if 'receive' in operations and purposes:
+                clauses.append(noun + ' 담아 ' + ' '.join([ko_verbs[o][0] for o in purposes[:-1]] + [ko_verbs[purposes[-1]][1]]))
+            else:
+                clauses.append(noun + ' ' + ' '.join([ko_verbs[o][0] for o in operations[:-1]] + [ko_verbs[operations[-1]][1]]))
         else:
-            text = subject + '의 재료로 사용할 수 있다'
-            if crafting:
-                text = subject + '이나 다른 물품을 만드는 재료로 사용할 수 있다'
-        text += '.'
-    else:
-        text = 'It can be used as material for ' + en.join(labels + (['crafting'] if crafting else [])) + '.'
-    extra = []
-    if 'apply_splint' in functions and not first_aid:
-        extra.append(lex.pair(('골절 고정', 'splinting fractures'), locale))
-    if any(_role(u) == (['watermelon_breaking'], ['tool']) for u in members):
-        extra.append(lex.pair(('수박 쪼개기', 'breaking a watermelon'), locale))
-    weapon = 'melee_attack' in functions
-    fuel, tinder = bool(functions & FUEL_FUNCTIONS), bool(functions & TINDER_FUNCTIONS)
-    fuel_label = lex.pair(('연료나 불쏘시개' if fuel and tinder else '연료' if fuel else '불쏘시개',
-                           'fuel or tinder' if fuel and tinder else 'fuel' if fuel else 'tinder'), locale)
-    if locale == 'ko':
-        if extra:
-            text += ' ' + '이나 '.join(extra) + '에 쓸 수 있다.'
-        if weapon:
-            text += ' 무기로도 쓸 수 있다.'
-        if fuel or tinder:
-            text += ' ' + fuel_label + '로도 쓸 수 있다.'
-    else:
-        if extra:
-            text += ' It can also be used for ' + en.join(extra) + '.'
-        if weapon:
-            text += ' It can also be used as a weapon.'
-        if fuel or tinder:
-            text += ' It can also be used as ' + fuel_label + '.'
-    # This overview authors a new traversal. Carry the references in that
-    # very order so expanded follows its purposes instead of the input order.
-    links = _links([dict(u, qualifier_refs=[]) for u in members], plan)
-    traversal = []
-    def visit(tokens):
-        traversal.extend(u for u in members if uses.purpose_tokens(u) & tokens and u not in traversal)
-    if first_aid:
-        visit({'apply_bandage', 'clean_burn', 'apply_splint', 'bandaging_material_preparation', 'splint_crafting'})
-    if garment:
-        visit({'apply_garment_patch'})
-    if wood:
-        visit({'woodworking'})
-    if construction:
-        visit({'construction', 'carpentry_menu_construction'})
-    visit(activities - covered)
-    visit({'watermelon_breaking'})
-    visit({'apply_splint', 'melee_attack'})
-    visit(set(FUEL_FUNCTIONS) | set(TINDER_FUNCTIONS))
-    traversal.extend(u for u in members if u not in traversal)
-    links['use_order'] = list(dict.fromkeys(r for u in traversal for r in u['fact_refs']))
-    return [{'text': text, **links, 'expression': 'public_use',
-             'placement_reason': 'existing purpose relationships summarized; independent detail retained in expanded',
-             'qualifier_dispositions': []}]
+            clauses.append('It can ' + en.join([en_verbs[o] for o in operations]) + ' ' + noun)
+    members = [u for u in plan['units'] if any(set(u['fact_refs']) & set(s['fact_refs']) for s in selected)]
+    combined = {'text': '. '.join(clauses) + '.', **_links([dict(u, qualifier_refs=[]) for u in members], plan),
+                'expression': 'public_use', 'qualifier_dispositions': [],
+                'placement_reason': 'liquid-specific capabilities; no capability transferred between liquids'}
+    return [combined if s is selected[0] else s for s in segments if s is selected[0] or s not in selected]
+
+
+def _compact_supporting_details(segments, plan):
+    """Place packaging and individual recipe-tool examples below an overview.
+
+    Bundling participation is kept in Expanded for every participant;
+    the generic material role does not identify which input is bundled.
+    A sole use is never removed.
+    """
+    details = []
+    for segment in segments:
+        units = [u for u in plan['units'] if set(u['fact_refs']) & set(segment['fact_refs'])]
+        def supporting(unit):
+            contexts, roles = _role(unit)
+            functions = {f['payload'].get('function') for f in unit['facts']} - {None}
+            return (bool(functions) and functions <= {'pack_into_box'} or
+                    set(contexts) == {'item_packaging'} or
+                    set(contexts) == {'log_binding'} and set(roles) <= {'material'} or
+                    bool(contexts) and set(contexts) <= planner.PRODUCT_CONTEXTS and set(roles) == {'tool'})
+        if units and all(supporting(u) for u in units):
+            details.append(segment)
+    return [s for s in segments if s not in details] if len(details) < len(segments) else segments
+
+
+def _compact_materials(segments, plan, locale):
+    """Summarize treatment/repair roles without erasing crafting fields."""
+    medical = {'apply_bandage', 'clean_burn', 'apply_splint', 'apply_garment_patch'}
+    selected, members = [], []
+    for segment in segments:
+        units = [u for u in plan['units'] if set(u['fact_refs']) & set(segment['fact_refs'])]
+        functions = {f['payload'].get('function') for u in units for f in u['facts']} - {None}
+        if functions and functions <= medical and all(set(_role(u)[0]) <= {'bandaging_material_preparation', 'splint_crafting'} for u in units):
+            selected.append(segment)
+            members.extend(u for u in units if u not in members)
+    functions = {f['payload'].get('function') for u in members for f in u['facts']}
+    if 'apply_garment_patch' not in functions or not functions & {'apply_bandage', 'clean_burn', 'apply_splint'}:
+        return segments
+    # The independent medical and garment roles remain; more specific patch
+    # and treatment actions are useful in Expanded. Other segment facts,
+    # including material fields, taint risks and fuel uses, remain untouched.
+    text = lex.pair(('응급처치와 의류 수선에 쓸 수 있다' if 'apply_splint' in functions else '상처 처치나 의류 수선에 쓸 수 있다',
+                     'It can be used for first aid or clothing repairs' if 'apply_splint' in functions else 'It can be used for wound care or clothing repairs'), locale) + '.'
+    # Contamination transfer is a use consequence, explained with bandaging
+    # in Expanded. It does not define the combined treatment/repair purpose.
+    summary = {'text': text, **_links([dict(u, qualifier_refs=[]) for u in members], plan),
+               'expression': 'public_use', 'placement_reason': 'medical and garment overview; independent crafting fields retained',
+               'qualifier_dispositions': []}
+    output = []
+    for segment in segments:
+        if segment is selected[0]:
+            output.append(summary)
+        if segment not in selected:
+            output.append(segment)
+    return output
 
 
 def _compact_roles(segments, plan, locale):
@@ -392,9 +416,110 @@ def _compact_roles(segments, plan, locale):
     return output
 
 
+def _compact_purposes(segments, plan, locale):
+    """Summarize related purposes; specific tasks and targets belong in Expanded.
+
+    Match admitted functions/participant roles, never item IDs or prose length.
+    Keep unrecognized purposes and their conditions in their existing segments.
+    """
+    def payloads(segment):
+        refs = set(segment['fact_refs'])
+        values = [f['payload'] for u in plan['units'] for f in u['facts'] if f['fact_ref'] in refs]
+        # Match the same purpose vocabulary as the earlier role-aware frame;
+        # extra recipe evidence must not make an equivalent purpose ineligible.
+        return [{**p, 'activity': 'metal_forging'} if p.get('activity') in uses.FORGING_ACTIVITIES else p
+                for p in values]
+    def summary(selected, text, reason):
+        refs = {r for s in selected for r in s['fact_refs']}
+        members = [u for u in plan['units'] if refs & set(u['fact_refs'])]
+        value = {'text': lex.pair(text, locale) + '.', **_links([dict(u, qualifier_refs=[]) for u in members], plan),
+                 'expression': 'public_use', 'placement_reason': reason, 'qualifier_dispositions': []}
+        value['use_order'] = list(dict.fromkeys(r for s in selected for r in s.get('use_order', s['fact_refs'])))
+        result = []
+        for segment in segments:
+            if segment is selected[0]: result.append(value)
+            if segment not in selected: result.append(segment)
+        return result
+    # A fuel vessel's source and destination menus describe fuel supply. The
+    # fire-starting supply role stays explicit; it is never called an igniter.
+    fuel_functions = {'fill_petrol_container', 'transfer_vehicle_fuel', 'refuel_generator',
+                      'request_corpse_burning', 'light_campfire_with_petrol',
+                      'ignite_hearth_with_petrol', 'ignite_industrial_fire_with_petrol'}
+    selected = [s for s in segments if payloads(s) and all(p.get('function') in fuel_functions for p in payloads(s))]
+    functions = {p.get('function') for s in selected for p in payloads(s)}
+    if functions >= {'fill_petrol_container', 'transfer_vehicle_fuel', 'refuel_generator', 'light_campfire_with_petrol'}:
+        segments = summary(selected, ('연료를 담아 차량·발전기에 공급하거나 불을 붙이는 연료로 쓸 수 있다',
+                            'It can carry fuel for vehicles and generators or supply fuel for lighting fires'),
+                           'fuel supply overview; source menus and individual burning targets remain in Expanded')
+    for segment in list(segments):
+        ps = payloads(segment)
+        if {p.get('function') for p in ps} - {None} == {'melee_attack'} and {p.get('activity') for p in ps} - {None} == {'watermelon_breaking'}:
+            segments = summary([segment], ('무기로 쓸 수 있다', 'It can be used as a weapon'),
+                               'weapon overview; the preparation task remains in Expanded')
+    # Electronic work, woodworking and mechanical attachment work form a
+    # concrete workshop-tool overview when all three are actually admitted.
+    electronic = {'radio_crafting', 'radio_salvage', 'electronic_assembly', 'electronic_salvage'}
+    maintenance = {'manage_weapon_attachments', 'service_vehicle_parts', 'dismantle_built_object', 'convert_lamp_to_battery', 'melee_attack'}
+    selected = [s for s in segments if payloads(s) and all(
+        p.get('activity') in electronic | {'woodworking', 'spear_upgrade'} or p.get('function') in maintenance or
+        p.get('role') in {'tool', 'attachment'} for p in payloads(s))]
+    ps = [p for s in selected for p in payloads(s)]
+    activities = {p.get('activity') for p in ps}
+    functions = {p.get('function') for p in ps}
+    if activities & electronic and 'woodworking' in activities and functions >= {'manage_weapon_attachments', 'service_vehicle_parts'}:
+        text = ('전자기기 제작·분해·개조와 목공·정비 작업에 쓸 수 있다',
+                'It can be used for electronics work, woodworking and mechanical maintenance')
+        if 'melee_attack' in functions:
+            text = (text[0] + '. 무기로도 쓸 수 있다', text[1] + '. It can also serve as a weapon')
+        segments = summary(selected, text, 'workshop tool fields; exact targets and individual attachment operations remain in Expanded')
+    # Remaining compound families share a purpose, not necessarily a verb.
+    # These closed sets were reviewed against every compound candidate.
+    families = [
+        ({'metal_welding_construction', 'welded_parts', 'construction'},
+         {'remove_metal_barricade', 'build_metal_barricade', 'dismantle_burnt_vehicle'}, {'material', 'tool'},
+         {'metal_welding_construction', 'welded_parts'}, {'dismantle_burnt_vehicle'},
+         ('금속 제작·건축과 금속 바리케이드나 불탄 차량 등의 해체에 용접 도구로 쓸 수 있다',
+          'It can serve as a welding tool for metalwork and construction, or dismantling metal barricades and burnt vehicles, for example')),
+        ({'shovel_smithing', 'metal_forging', 'woodworking', 'construction', 'watermelon_breaking'},
+         {'remove_barricade', 'build_wooden_barricade', 'melee_attack'}, {'tool'},
+         {'metal_forging', 'woodworking'}, {'build_wooden_barricade', 'melee_attack'},
+         ('금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다',
+          'It can be used for metal forging, woodworking and construction. It can also be used as a weapon')),
+        (set(), {'collect_ground_into_bag', 'dig_grave', 'fill_grave', 'dig_furrow', 'remove_farm_plant', 'clear_burnt_floor_ashes'}, set(),
+         set(), {'collect_ground_into_bag', 'dig_furrow', 'clear_burnt_floor_ashes'},
+         ('땅을 파고 정리하거나 흙·자갈 등을 포대에 담는 데 쓸 수 있다',
+          'It can be used to dig and clear ground or collect materials such as soil and gravel into bags')),
+    ]
+    for allowed_activities, allowed_functions, roles, required_activities, required_functions, text in families:
+        selected = [s for s in segments if payloads(s) and all(p.get('activity') in allowed_activities or
+                    p.get('function') in allowed_functions or p.get('role') in roles for p in payloads(s))]
+        ps = [p for s in selected for p in payloads(s)]
+        if selected and required_activities <= {p.get('activity') for p in ps} and required_functions <= {p.get('function') for p in ps}:
+            segments = summary(selected, text, 'shared purpose family; individual operations and targets remain in Expanded')
+    cutting = {'food_portioning', 'animal_butchery', 'fish_preparation', 'frog_preparation', 'woodworking',
+               'spear_crafting', 'trap_crafting', 'fishing_gear_crafting', 'explosive_assembly',
+               'pumpkin_carving', 'spear_upgrade', 'shotgun_modification'}
+    selected = [s for s in segments if payloads(s) and all(p.get('activity') in cutting or
+                p.get('function') in {'melee_attack', 'cut_bushes_and_vines', 'dismantle_built_object'} or
+                p.get('role') in {'tool', 'attachment'} for p in payloads(s))]
+    ps = [p for s in selected for p in payloads(s)]
+    activities = {p.get('activity') for p in ps}; functions = {p.get('function') for p in ps}
+    if activities & {'food_portioning', 'animal_butchery', 'fish_preparation', 'frog_preparation'} and 'woodworking' in activities and activities & {'spear_crafting', 'trap_crafting', 'fishing_gear_crafting', 'explosive_assembly'}:
+        ko_text, en_text = '음식·목재 손질과 장비 제작', 'food and wood preparation or equipment making'
+        if 'shotgun_modification' in activities: ko_text += '·개조'; en_text += ' and modification'
+        if 'dismantle_built_object' in functions: ko_text += ', 건축물 해체'; en_text += ', or dismantling structures'
+        ko_text += '에 쓸 수 있다'; en_text = 'It can be used for ' + en_text
+        if 'cut_bushes_and_vines' in functions: ko_text += '. 덤불과 덩굴을 제거할 수도 있다'; en_text += '. It can also clear bushes and vines'
+        if 'melee_attack' in functions: ko_text += '. 무기로도 쓸 수 있다'; en_text += '. It can also serve as a weapon'
+        segments = summary(selected, (ko_text, en_text), 'cutting and fabrication purposes; named targets and spear attachment remain in Expanded')
+    return segments
+
+
 def _compact_remaining(plan, locale):
     grammar = ko if locale == "ko" else en
     frames, used = families.frames(plan, locale, _links)
+    plan = dict(plan, units=[dict(u, qualifier_refs=[q for q in u['qualifier_refs']
+                    if lex.public_qualifier(plan['qualifiers'][q])]) for u in plan['units']])
     groups = defaultdict(list)
     decisions = {}
     role_contexts = {c for u in plan["units"] if not u["detail_reason"] and not (set(u["fact_refs"]) & used) and _role(u)[1]
@@ -447,8 +572,8 @@ def _compact_remaining(plan, locale):
     for key, units in groups.items():
         if key[0] == "role":
             activities = list(dict.fromkeys(label for u in units for label in _activity_labels(u, locale, True)))
-            text = (_core(units[0], locale, True) if all(_role(u) in ((['food_ingredient_addition'], ['base']), (['fish_preparation'], ['ingredient'])) for u in units)
-                    else grammar.role(activities, list(key[1]), compact=True)) + "."
+            text = (_forging_tool(units, plan, locale) or (_core(units[0], locale, True) if all(_role(u) in ((['food_ingredient_addition'], ['base']), (['fish_preparation'], ['ingredient'])) for u in units)
+                    else grammar.role(activities, list(key[1]), compact=True))) + "."
             reason = "existential activity/role overview; exact recipe targets and eligibility in expanded"
         elif key[0] == "consumption":
             text = lex.pair(("연료나 불쏘시개로 쓸 수 있다",
@@ -531,6 +656,7 @@ def compose_item(item):
               "qualifiers": [plan["qualifiers"][q] for q in sorted(plan["qualifiers"])], "locales": {}}
     for locale in model.LOCALES:
         surfaces = {}
+        purpose_order = []
         for surface, realize in (("compact", _compact), ("expanded", _expanded)):
             reason = None
             try:
@@ -541,11 +667,17 @@ def compose_item(item):
                 if surface == 'compact':
                     segments = _compact_materials(segments, plan, locale)
                     segments = _compact_roles(segments, plan, locale)
+                    segments = _compact_purposes(segments, plan, locale)
+                    # Shorter overviews must not reorder the existing detail
+                    # traversal when they combine non-adjacent operations.
+                    purpose_order = list(dict.fromkeys(r for s in segments
+                                                       for r in s.get('use_order', s['fact_refs'])))
+                    segments = _compact_liquid_containers(segments, plan, locale)
+                    segments = _compact_supporting_details(segments, plan)
                 if surface == 'expanded':
                     # Follow the same authored purpose traversal as compact,
                     # while keeping each independently realized use intact.
-                    order = list(dict.fromkeys(r for s in surfaces['compact']['segments']
-                                                for r in s.get('use_order', s['fact_refs'])))
+                    order = purpose_order
                     positions = {r: n for n, r in enumerate(order)}
                     segments.sort(key=lambda s: min((positions[r] for r in s['fact_refs'] if r in positions), default=len(order)))
                     segments = uses.arrange(segments, plan)

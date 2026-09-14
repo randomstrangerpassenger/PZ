@@ -1,0 +1,19 @@
+
+GROUP 1 E KO 금속을 단조하는 데 사용할 수 있다.
+목공과 건축 작업에 쓸 수 있다.
+문과 창문에 판자 바리케이드를 설치할 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다. E EN It can be used for metal forging.
+It can be used for woodworking and construction.
+It can be used to install plank barricades on doors and windows.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+['Base.BallPeenHammer'] C KO 금속을 단조하거나 목재를 가공할 수 있다. 문과 창문의 판자 바리케이드 설치에 쓸 수 있다. 수박을 쪼개는 데 쓸 수 있다. 무기로도 쓸 수 있다. C EN It can be used to forge metal or work wood. It can be used for installing plank barricades on doors and windows. It can be used to break a watermelon. It can also be used as a weapon.
+['Base.HammerStone'] C KO 금속 단조, 목공과 건축에 쓰는 타격 도구이며 무기로도 쓸 수 있다. C EN It can serve as a striking tool for metal forging, woodworking and construction, or as a weapon.
+
+GROUP 2 E KO 재료를 더해 요리를 만들 수 있다.
+무기로 쓸 수 있다. E EN Ingredients can be added to prepare food.
+It can be used as a weapon.
+['Base.GridlePan'] C KO 재료를 더해 요리를 만들 수 있다. 무기로 쓸 수 있다. C EN Ingredients can be added to prepare food. It can be used as a weapon.
+['Base.Pan'] C KO 재료를 담아 요리할 수 있다. 무기로 쓸 수 있다. C EN It can hold ingredients for cooking. It can be used as a weapon.
+GROUPCOUNT 2

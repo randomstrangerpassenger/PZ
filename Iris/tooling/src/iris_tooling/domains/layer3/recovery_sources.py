@@ -4591,7 +4591,9 @@ def supplement_player_uses(root, semantic):
         if item not in semantic['target_ids']:
             continue
         by_item.setdefault(item, []).append((ref, observation))
-    selected, medicines, generators = [], [], []
+    selected, medicines, generators, leisure_reading = [], [], [], []
+    reading_subjects = {f['item_id'] for f in semantic.get('facts', []) if f['fact_kind'] == 'direct_function'
+                        and f['payload'].get('function') == 'read_literature'}
     consumption = {f['item_id'] for f in semantic.get('facts', []) if f['fact_kind'] == 'direct_function'
                    and f['payload'].get('function') in {'take_pills', 'take_food_medicine'}}
     generator_subjects = {f['item_id'] for f in semantic.get('facts', []) if f['fact_kind'] == 'direct_function'
@@ -4611,6 +4613,11 @@ def supplement_player_uses(root, semantic):
         ref, observation = next(iter(unique.values()))
         content = observation['content']
         props = reader.properties({'clauses': content.get('clauses', [])}, '=')
+        if item in reading_subjects and props.get('Type') == ['Literature'] and not props.get('SkillTrained') and not props.get('TeachedRecipes'):
+            mood_values = [values[0] for key, values in props.items()
+                           if key in {'BoredomChange', 'StressChange', 'UnhappyChange'} and len(values) == 1]
+            if any(re.fullmatch(r'-\d+(?:\.\d+)?', value) and float(value) < 0 for value in mood_values):
+                leisure_reading.append((item, ref, observation))
         if item in generator_subjects:
             generators.append((item, ref, observation))
         tooltip = props.get('Tooltip', [])
@@ -4708,10 +4715,59 @@ def supplement_player_uses(root, semantic):
                                generator_rule, ['item:direct'])
             builder.fact(item, 'condition', {'predicate': GENERATOR_EXTERIOR_USE}, evidence,
                          generator_rule, ['item:direct'], applies_to_fact_refs=[fid])
+    leisure_rule = 'declared_morale_reading_purpose'
+    reading_path = 'lua/client/TimedActions/ISReadABook.lua'
+    reading_raw = (root / reading_path).read_bytes()
+    reading_text = reading_raw.decode('utf-8-sig')
+    if not all(token in reading_text for token in ('effectiveness of morale-boosting', 'self.item:getBoredomChange() < 0.0', 'self.character:ReadLiterature(self.item)')):
+        raise ValueError('authored morale-reading relationship changed')
+    source_hashes[reading_path] = hashlib.sha256(reading_raw).hexdigest()
+    reading_ref = builder.observe(reading_path, 'authored morale-boosting literature purpose', {'source_text': reading_text})
+    for item, ref, observation in leisure_reading:
+        source_hashes[observation['source_path']] = observation['source_sha256']
+        builder.observations[ref] = observation
+        builder.fact(item, 'direct_function', {'function': 'read_for_morale'}, [ref, reading_ref], leisure_rule, ['item:direct'])
+    learning_rule = supplement_learning_media(root, semantic, by_item, builder, source_hashes)
+    learning_rule[leisure_rule] = {'revision': '1', 'review_state': 'reviewed',
+        'preconditions': 'Admitted read action and unique non-teaching Literature declaration with negative mood fields; authored ISReadABook description explicitly identifies morale-boosting literature.',
+        'transformation': 'Expose the authored mood-lifting reading purpose, separately from learning.',
+        'exceptions': 'No conversion of the during-reading cap into a decrease; no actual reduction amount, timing or guaranteed native result.'}
+    battery_rule = 'installed_battery_power_purpose'
+    battery_path = 'lua/server/Vehicles/Vehicles.lua'
+    battery_bytes = (root / battery_path).read_bytes()
+    battery_text = reader.mask(battery_bytes.decode('utf-8-sig'), lua=True)
+    if not all(token in battery_text for token in ('function Vehicles.Update.Battery(', 'charge = charge - 0.025',
+                                                  'vehicle:getBatteryCharge() <= 0.0', 'VehicleUtils.chargeBattery(vehicle, -0.000025')):
+        raise ValueError('reviewed vehicle battery power consumer changed')
+    source_hashes[battery_path] = hashlib.sha256(battery_bytes).hexdigest()
+    battery_ref = builder.observe(battery_path, 'Vehicles.Update.Battery/Lightbar', {'source_text': battery_bytes.decode('utf-8-sig')})
+    light_rule = 'installed_vehicle_light_purpose'
+    headlight = battery_text.split('function Vehicles.Update.Headlight(', 1)[1].split('\nfunction ', 1)[0]
+    if not all(token in headlight for token in ('vehicle:getHeadlightsOn()', 'not part:getInventoryItem()',
+                                               'vehicle:getBatteryCharge() <= 0.0', 'part:setLightActive(active)')):
+        raise ValueError('reviewed installed headlight consumer changed')
+    for fact in semantic.get('facts', []):
+        if fact['fact_kind'] != 'direct_function' or fact['payload'].get('function') not in {'install_vehicle_battery', 'install_vehicle_bulb'}:
+            continue
+        if any(o['content'].get('property_conflicts') for _, o in by_item.get(fact['item_id'], [])):
+            continue
+        refs = sorted({ref for pid in fact['provenance_refs'] for ref in semantic['provenance'][pid]['observation_refs']})
+        for ref in refs:
+            observation = semantic['observations'][ref]
+            source_hashes[observation['source_path']] = observation['source_sha256']
+            builder.observations[ref] = observation
+        is_light = fact['payload']['function'] == 'install_vehicle_bulb'
+        builder.fact(fact['item_id'], 'direct_function', {'function': 'provide_vehicle_headlight' if is_light else 'supply_vehicle_electrical_power'},
+                     [battery_ref, *refs], light_rule if is_light else battery_rule, ['item:direct'])
+
+    learning_rule.update(supplement_attachment_purposes(root, semantic, by_item, builder, source_hashes))
+    learning_rule.update(supplement_placed_purposes(root, semantic, by_item, builder, source_hashes))
+    learning_rule.update(supplement_native_device_purposes(root, semantic, by_item, builder, source_hashes))
+
     path = 'Iris/tooling/src/iris_tooling/domains/layer3/recovery_sources.py'
     return {'owner': path, 'producer_sha256': hashlib.sha256((root / path).read_bytes()).hexdigest(),
         'basis': 'successor correction; predecessor semantic payload and adoption remain unchanged',
-        'rules': {rule: {'revision': '1', 'review_state': 'reviewed',
+        'rules': {**learning_rule, light_rule: {'revision': '1', 'review_state': 'reviewed', 'preconditions': 'Admitted vehicle bulb installation and Vehicles.Update.Headlight requiring an installed item and battery power before activating the light.', 'transformation': 'Supply light in compatible vehicle headlights.', 'exceptions': 'No brightness, range, color or universal compatibility claim.'}, battery_rule: {'revision': '1', 'review_state': 'reviewed', 'preconditions': 'Admitted vehicle battery installation and active battery consumers in Vehicles.Update.', 'transformation': 'Supply electrical power for starting and vehicle electrical equipment.', 'exceptions': 'No promise of successful starting, universal compatibility or specific electrical equipment.'}, rule: {'revision': '1', 'review_state': 'reviewed',
             'preconditions': 'Unique admitted declaration with ProtectFromRainWhenEquipped=TRUE; active held-item accessor consumer in outdoor foraging.',
             'transformation': 'Equipped rain-protection capability and reduced precipitation contribution in outdoor foraging.',
             'exceptions': 'No complete dryness, native wetness amount, sprint behavior, reduced fog/snow/cloud effect, or guarantee of improved total foraging results.'},
@@ -4726,3 +4782,424 @@ def supplement_player_uses(root, semantic):
         'source_bindings': [{'path': p, 'sha256': h} for p, h in sorted(source_hashes.items())],
         'observations': builder.observations, 'provenance': builder.provenance,
         'facts': [builder.facts[f] for f in sorted(builder.facts)]}
+
+
+# Subject matter is derived from taught recipe categories or an exact active
+# knowledge consumer, never from magazine IDs or their display names.
+LEARNING_PURPOSES = {
+    'Cooking': ('요리법', 'cooking recipes'),
+    'Farming': ('작물 치료제를 만드는 방법', 'how to make crop treatments'),
+    'Fishing': ('낚시 장비 관련 제작법', 'fishing-equipment recipes'),
+    'Trapper': ('덫을 만드는 방법', 'how to make traps'),
+    'Welding': ('금속 가공 방법', 'metalworking techniques'),
+    'MetalConstruction': ('금속 구조물을 만드는 방법', 'how to build metal structures'),
+    'Smithing': ('금속을 단조해 물품을 만드는 방법', 'how to forge metal items'),
+    'Electrical': ('전자 장치 관련 제작법', 'electronic-device recipes'),
+    'Engineer': ('장치를 만드는 방법', 'how to make devices'),
+    'Mechanics': ('차량 정비 지식', 'vehicle maintenance'),
+    'Herbalist': ('야생 열매와 버섯의 독성을 식별하는 방법', 'how to identify poisonous wild berries and mushrooms'),
+    'Generator': ('발전기를 연결하고 사용하는 방법', 'how to connect and use generators'),
+}
+for _topic, (_ko, _en) in LEARNING_PURPOSES.items():
+    FUNCTIONS['learn_literature_' + _topic.lower()] = ('literature learning',
+        '읽어서 ' + _ko + '을 배울 수 있다', 'It can be read to learn ' + _en)
+for _name, _ko, _en in (
+    ('boredom', '일부 내용은 지루함을 덜어주는 데 쓸 수 있다', 'Some recordings can help relieve boredom'),
+    ('skills', '일부 내용은 기술을 익히는 데 쓸 수 있다', 'Some recordings can help develop skills'),
+    ('recipes', '일부 내용은 제작법을 배우는 데 쓸 수 있다', 'Some recordings can teach recipes'),
+    ('stress', '일부 내용은 스트레스를 줄 수 있다', 'Some recordings can cause stress'),
+    ('panic', '일부 내용은 공포를 느끼게 할 수 있다', 'Some recordings can cause panic')):
+    FUNCTIONS['recorded_content_' + _name] = ('recorded content', _ko, _en)
+
+
+def supplement_learning_media(root, semantic, by_item, builder, source_hashes):
+    """Current declared learning purpose and category-scoped recorded content.
+
+    Runtime learned-state mutation and a particular recording's identity are
+    separate. A category-level existential capability never promises every
+    recording contains the same lesson or effect.
+    """
+    import hashlib
+    rule = 'declared_learning_and_recorded_content'
+    def observe(path, locator=None, content=None):
+        raw = (root / path).read_bytes()
+        source_hashes[path] = hashlib.sha256(raw).hexdigest()
+        text = raw.decode('utf-8-sig')
+        return text, builder.observe(path, locator or path, content or {'source_text': text})
+    read, read_ref = observe('lua/client/TimedActions/ISReadABook.lua')
+    ui, ui_ref = observe('lua/client/ISUI/ISLiteratureUI.lua')
+    tooltip, tooltip_ref = observe('lua/shared/Translate/EN/Tooltip_EN.txt')
+    if not all(x in reader.mask(read, lua=True) for x in (
+            'self.character:ReadLiterature(self.item)', 'self.item:getTeachedRecipes()')) or (
+            'getKnownRecipes():containsAll(item.item:getTeachedRecipes())' not in ui or
+            'Tooltip_Literature_TeachedRecipes = "Teaches Recipe: %1"' not in tooltip):
+        raise ValueError('declared literature learning consumer changed')
+    # Read current script declarations with the existing comment-aware reader.
+    recipes = defaultdict(list)
+    for path in sorted((root / 'scripts').rglob('*.txt')):
+        text = path.read_text(encoding='utf-8-sig')
+        for record in reader.declarations(text, path.relative_to(root).as_posix()):
+            if record['kind'] == 'recipe':
+                recipes[record['name']].append(record)
+    special_sources = {
+        'Mechanics': ('lua/client/Vehicles/ISUI/ISVehicleMechanics.lua', 'self.chr:isRecipeKnown(recipe)'),
+        'Herbalist': ('lua/client/ISUI/ISInventoryPane.lua', 'playerObj:isRecipeKnown("Herbalist")'),
+        'Generator': ('lua/client/ISUI/ISWorldObjectContextMenu.lua', 'playerObj:isRecipeKnown("Generator")'),
+        'MetalConstruction': ('lua/client/Blacksmith/ISUI/ISBlacksmithMenu.lua', 'playerObj:isRecipeKnown("Make Metal Walls")'),
+    }
+    specials = {'Basic Mechanics': 'Mechanics', 'Intermediate Mechanics': 'Mechanics',
+                'Advanced Mechanics': 'Mechanics', 'Herbalist': 'Herbalist', 'Generator': 'Generator',
+                'Make Metal Walls': 'MetalConstruction', 'Make Metal Roof': 'MetalConstruction',
+                'Make Metal Containers': 'MetalConstruction', 'Make Metal Fences': 'MetalConstruction'}
+    reading = {f['item_id'] for f in semantic.get('facts', []) if f['payload'].get('function') == 'read_literature'}
+    media_rows = []
+    for item, declarations in sorted(by_item.items()):
+        if any(o['content'].get('property_conflicts') for _, o in declarations):
+            continue
+        unique = {(o['source_path'], o['content']['raw'].replace('\r\n', '\n')): (ref, o)
+                  for ref, o in declarations if not o['content'].get('property_conflicts')}
+        if len(unique) != 1:
+            continue
+        ref, observation = next(iter(unique.values()))
+        fields = reader.unique_properties(observation['content'])
+        if fields is None or fields.get('OBSOLETE', '').lower() == 'true':
+            continue
+        source_hashes[observation['source_path']] = observation['source_sha256']
+        builder.observations[ref] = observation
+        if fields.get('MediaCategory'):
+            media_rows.append((item, ref, fields['MediaCategory']))
+        if item not in reading or fields.get('Type') != 'Literature' or not fields.get('TeachedRecipes'):
+            continue
+        topics = defaultdict(list)
+        for knowledge in fields['TeachedRecipes'].split(';'):
+            knowledge = knowledge.strip()
+            if knowledge in specials:
+                topic = specials[knowledge]
+                path, guard = special_sources[topic]
+                text, evidence = observe(path)
+                if guard not in reader.mask(text, lua=True):
+                    raise ValueError('literature knowledge consumer changed: ' + knowledge)
+                topics[topic].append(evidence)
+            else:
+                candidates = recipes.get(knowledge, [])
+                if not candidates:
+                    continue  # No inferred subject from the title or a missing recipe.
+                # Repeated recipe names are legitimate overloads. A shared
+                # category across every declaration supports the same lesson;
+                # never select a first overload or its particular result.
+                categories = [reader.properties(recipe, ':').get('Category', []) for recipe in candidates]
+                if any(len(c) != 1 for c in categories) or len({c[0] for c in categories}) != 1:
+                    continue
+                category = categories[0][0]
+                if category not in LEARNING_PURPOSES:
+                    continue
+                for recipe in candidates:
+                    _, evidence = observe(recipe['path'], str(recipe['line']) + ':recipe:' + knowledge, recipe)
+                    topics[category].append(evidence)
+        for topic, evidence in sorted(topics.items()):
+            builder.fact(item, 'direct_function', {'function': 'learn_literature_' + topic.lower()},
+                         [ref, read_ref, ui_ref, tooltip_ref, *sorted(set(evidence))], rule, ['activity:reading'])
+    data, data_ref = observe(MEDIA_DATA)
+    loader, loader_ref = observe(MEDIA_LOADER)
+    interactions, interactions_ref = observe(RADIO_INTERACTIONS)
+    if not all(x in loader for x in ('rc:register(v.category, k, v.itemDisplayName', 'data:addLine(j.text, j.r, j.g, j.b, j.codes)')) or not all(x in interactions for x in ('Events.OnDeviceText.Add', 'player:learnRecipe(recipe)', 'bodyDamage:setBoredomLevel(val)', '_player:getXp():AddXP')):
+        raise ValueError('recorded-content consumer changed')
+    skill_codes = set(re.findall(r'Interactions\.(\w+)\s*=\s*function[^\n]*doSkill', interactions))
+    categories = defaultdict(set)
+    for match in re.finditer(r'RecMedia\["([^"\n]+)"\]\s*=\s*\{(.*?)\n\};', data, re.S):
+        category = re.search(r'category\s*=\s*"([^"\n]+)"', match[2])
+        if category:
+            categories[category[1]].update(code for value in re.findall(r'codes\s*=\s*"([^"\n]*)"', match[2]) for code in value.split(',') if code)
+    for item, ref, category in media_rows:
+        codes = categories.get(category, set())
+        outcomes = set()
+        if any(re.fullmatch(r'BOR-([0-9.]+)', c) and float(c[4:]) > 0 for c in codes): outcomes.add('boredom')
+        if any(c[:3] in skill_codes and re.fullmatch(r'\w{3}\+([0-9.]+)', c) and float(c[4:]) > 0 for c in codes): outcomes.add('skills')
+        if any(c.startswith('RCP=') and len(c)>4 for c in codes): outcomes.add('recipes')
+        for prefix, outcome in (('STS', 'stress'), ('PAN', 'panic')):
+            if any(c.startswith(prefix + '+') and float(c[4:]) > 0 for c in codes): outcomes.add(outcome)
+        for outcome in sorted(outcomes):
+            builder.fact(item, 'direct_function', {'function': 'recorded_content_' + outcome},
+                         [ref, data_ref, loader_ref, interactions_ref], rule, ['item:direct'])
+    return {rule: {'revision': '1', 'review_state': 'reviewed',
+        'preconditions': 'Unique non-obsolete admitted Literature/MediaCategory declaration; active reading/knowledge UI or recorded content loader and interaction consumer.',
+        'transformation': 'Declared taught knowledge is joined to recipe categories or exact active knowledge consumers. Recording purposes are existential over actual registered category contents and signed handlers.',
+        'exceptions': 'No guaranteed native learning completion, particular recording identity, every-recording effect, timing, arithmetic, experience amount or automatic learning by the playback device.'}}
+
+FUNCTIONS['supply_vehicle_electrical_power'] = ('차량의 시동과 전기 장치에 전력을 공급할 수 있다', 'It can supply power for starting a vehicle and operating its electrical equipment')
+FUNCTIONS['provide_vehicle_headlight'] = ('호환 차량의 전조등에 달아 빛을 낼 수 있다', 'It can provide light in a compatible vehicle headlight')
+FUNCTIONS['read_for_morale'] = ('leisure reading', '기분 전환을 위한 읽을거리로 쓸 수 있다', 'It can be read for a change of mood')
+
+
+# Authored attachment purposes joined to admitted installation, not inferred from names.
+ATTACHMENT_PURPOSES = {
+    'Tooltip_AmmoStrap': ('Reduces firearm reload time.', 'reload',
+        (('ReloadTimeModifier', -1),),
+        '호환 총기의 장전 시간을 줄이는 부착물로 쓸 수 있다',
+        'It can serve as an attachment to reduce reload time on a compatible firearm'),
+    'Tooltip_Scope': ("Weapon attachment. Increases firearm's maximum range.<br>Decreases short-range accuracy.", 'scope',
+        (('MaxRangeModifier', 1), ('MinRangeModifier', 1)),
+        '호환 총기의 최대 사거리를 늘리는 부착물로 쓸 수 있다. 근거리 정확도는 낮아진다',
+        'It can extend the maximum range of a compatible firearm, at the cost of short-range accuracy'),
+    'Tooltip_IronSight': ("Weapon attachment. Increases firearm's maximum range.", 'range',
+        (('MaxRangeModifier', 1),),
+        '호환 총기의 최대 사거리를 늘리는 부착물로 쓸 수 있다',
+        'It can serve as an attachment to extend the maximum range of a compatible firearm'),
+    'Tooltip_Sling': ('Weapon attachment. Reduces firearm carry-encumbrance.', 'carry',
+        (('WeightModifier', -1),),
+        '호환 총기를 휴대할 때 무게 부담을 줄이는 부착물로 쓸 수 있다',
+        'It can reduce the carrying burden of a compatible firearm'),
+    'Tooltip_FiberglassStock': ('Weapon attachment. Decreases firearm encumbrance and increases accuracy.', 'stock',
+        (('WeightModifier', -1), ('HitChanceModifier', 1)),
+        '호환 총기의 휴대 무게 부담을 줄이고 정확도를 높이는 부착물로 쓸 수 있다',
+        'It can reduce carrying burden and improve accuracy on a compatible firearm'),
+    'Tooltip_RecoilPad': ('Weapon attachment. Reduces firearm recoil and delay to next shot.', 'recoil',
+        (('RecoilDelayModifier', -1),),
+        '호환 총기의 반동과 다음 발사까지의 지연을 줄이는 부착물로 쓸 수 있다',
+        'It can reduce recoil and delay before the next shot on a compatible firearm'),
+    'Tooltip_Laser': ('Weapon attachment. Increases firearm accuracy.', 'accuracy',
+        (('HitChanceModifier', 1),),
+        '호환 총기의 정확도를 높이는 부착물로 쓸 수 있다',
+        'It can serve as an attachment to improve accuracy on a compatible firearm'),
+    'Tooltip_RedDot': ("Weapon attachment. Increases firearm's aiming speed.", 'aiming',
+        (('AimingTimeModifier', 1),),
+        '호환 총기의 조준 속도를 높이는 부착물로 쓸 수 있다',
+        'It can serve as an attachment to increase aiming speed on a compatible firearm'),
+    'Tooltip_ChokeTubeFull': ('Shotgun attachment. Provides a narrower blast and increased damage.', 'narrow_spread',
+        (('AngleModifier', 1), ('DamageModifier', 1)),
+        '호환 산탄총의 산탄 퍼짐을 좁히고 피해를 높이는 부착물로 쓸 수 있다',
+        'It can narrow pellet spread and increase damage on a compatible shotgun'),
+    'Tooltip_ChokeTubeImproved': ('Shotgun attachment. Provides a wider blast but decreased damage.', 'wide_spread',
+        (('AngleModifier', -1), ('DamageModifier', -1)),
+        '호환 산탄총의 산탄 퍼짐을 넓히는 부착물로 쓸 수 있다. 피해는 줄어든다',
+        'It can widen pellet spread on a compatible shotgun, at the cost of damage'),
+}
+for _expected, _name, _checks, _ko, _en in ATTACHMENT_PURPOSES.values():
+    FUNCTIONS['attachment_purpose_' + _name] = ('weapon attachment purpose', _ko, _en)
+
+
+def supplement_attachment_purposes(root, semantic, by_item, builder, source_hashes):
+    """Expose the exact authored purpose, retaining native stat arithmetic as a boundary."""
+    import hashlib
+    from . import source_reader as reader
+    rule = 'declared_attachment_purpose'
+    path = 'lua/shared/Translate/EN/Tooltip_EN.txt'
+    raw = (root / path).read_bytes()
+    text = raw.decode('utf-8-sig')
+    source_hashes[path] = hashlib.sha256(raw).hexdigest()
+    for item, records in sorted(by_item.items()):
+        if any(o['content'].get('property_conflicts') for _, o in records):
+            continue
+        unique = {(o['source_path'], o['source_sha256'], o['locator'].split(':', 1)[0],
+                   o['content']['raw'].replace('\r\n', '\n')): (ref, o)
+                  for ref, o in records}
+        if len(unique) != 1:
+            continue
+        ref, observation = next(iter(unique.values()))
+        content = observation['content']
+        props = reader.properties({'clauses': content.get('clauses', [])}, '=')
+        if content.get('property_conflicts') or props.get('Type') != ['WeaponPart'] or len(props.get('Tooltip', [])) != 1:
+            continue
+        purpose = ATTACHMENT_PURPOSES.get(props['Tooltip'][0])
+        if purpose is None:
+            continue
+        expected, name, checks, _, _ = purpose
+        for field, sign in checks:
+            values = props.get(field, [])
+            if len(values) != 1 or not re.fullmatch(r'-?\d+(?:\.\d+)?', values[0]) or float(values[0]) * sign <= 0:
+                raise ValueError('attachment purpose declaration changed: ' + item + '/' + field)
+        key = props['Tooltip'][0]
+        readings = re.findall(r'^\s*' + re.escape(key) + r'\s*=\s*"([^"\r\n]*)"\s*,?\s*$', text, re.M)
+        if readings != [expected]:
+            raise ValueError('attachment purpose text changed: ' + key)
+        dispatch = [f for f in semantic['facts'] if f['item_id'] == item and f['fact_kind'] == 'direct_function'
+                    and f['payload'].get('function') == 'attach_weapon_part']
+        if not dispatch:
+            continue
+        refs = sorted({r for f in dispatch for p in f['provenance_refs'] for r in semantic['provenance'][p]['observation_refs']})
+        for r in [ref, *refs]:
+            observed = semantic['observations'][r]
+            source_hashes[observed['source_path']] = observed['source_sha256']
+            builder.observations[r] = observed
+        label = builder.observe(path, key, {'tooltip_key': key, 'purpose_text': expected})
+        builder.fact(item, 'direct_function', {'function': 'attachment_purpose_' + name},
+                     [ref, label, *refs], rule, ['item:direct'])
+    return {rule: {'revision': '1', 'review_state': 'reviewed',
+        'preconditions': 'Unique WeaponPart declaration, admitted compatible mount action, exact authored Tooltip purpose and consistent modifier declarations.',
+        'transformation': 'Expose the explicitly authored attachment purpose and its stated tradeoffs, not just mount/remove procedures.',
+        'exceptions': 'No invented purpose for missing tooltips, inferred function from item names, numeric effect, native recalculation guarantee or universal compatibility.'}}
+
+
+PLACED_PURPOSES = {
+    'hearth': ('설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다', 'Once installed and fueled, it can provide heat or cook food'),
+    'barbecue': ('설치하고 맞는 연료를 넣어 음식을 조리할 수 있다', 'Once installed and supplied with suitable fuel, it can cook food'),
+    'mannequin': ('배치해 의류를 입혀둘 수 있다', 'It can be placed and dressed in clothing'),
+    'salvage_welding': ('설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다', 'Once placed, it can be dismantled with a welding mask and propane torch to recover materials'),
+    'salvage_wood': ('설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다', 'Once placed, it can be dismantled with a hammer and saw to recover materials'),
+    'salvage_screwdriver': ('설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다', 'Once placed, it can be dismantled with a screwdriver to recover materials'),
+    'salvage_hammer': ('설치된 상태에서 망치로 분해해 재료를 회수할 수 있다', 'Once placed, it can be dismantled with a hammer to recover materials'),
+    'sleep': ('놓아서 잠을 자거나 쉬는 데 쓸 수 있다', 'When set down, it provides a place to sleep or rest'),
+    'storage': ('수납용으로 놓아 사용할 수 있다', 'It can serve as storage once set down'),
+    'cold_storage': ('설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다', 'Once installed and powered, it can keep food and other contents cold'),
+    'surface': ('물건을 올려두는 용도로 놓아 쓸 수 있다', 'Its surface can hold items when it is set down'),
+    'water_piped': ('설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다', 'Once installed and connected to a water supply, it can provide water for filling containers or washing'),
+    'water_storage': ('배치해 담긴 물을 받거나 마시는 데 쓸 수 있다', 'Once placed, it can dispense its stored water for filling containers or drinking'),
+    'light': ('설치하고 전원을 공급해 조명으로 쓸 수 있다', 'Once installed and powered, it can provide light'),
+    'mirror': ('설치해 화장할 때 필요한 거울로 쓸 수 있다', 'Once installed, it can serve as the mirror needed for applying makeup'),
+    'cooking': ('설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다', 'Once installed and powered, it can heat or cook food'),
+    'washing': ('설치하고 전기와 물을 공급해 의류를 세탁할 수 있다', 'Once installed and supplied with electricity and water, it can wash clothing'),
+    'drying': ('설치하고 전원을 공급해 젖은 의류를 말릴 수 있다', 'Once installed and powered, it can dry wet clothing'),
+}
+FUNCTIONS['attachment_purpose_movement_aim'] = ('weapon attachment purpose',
+    '호환 총기에 장착해 이동으로 인한 명중률 감소를 줄일 수 있다',
+    'On a compatible firearm, it can reduce the movement-related hit-chance penalty')
+for _name, (_ko, _en) in PLACED_PURPOSES.items():
+    FUNCTIONS['placed_purpose_' + _name] = ('placed object purpose', _ko, _en)
+
+
+FUNCTIONS['emit_attracting_noise'] = ('noise', '소음을 내 좀비의 주의를 끄는 데 쓸 수 있다', 'It can produce noise to attract zombies')
+FUNCTIONS['supply_nearby_electricity'] = ('power supply', '가동해 주변 전기 설비에 전원을 공급할 수 있다', 'It can be operated to power nearby electrical equipment')
+
+
+def supplement_native_device_purposes(root, semantic, by_item, builder, source_hashes):
+    """Admit purposes from reviewed native consumers, not device names."""
+    import hashlib
+    import json
+    from . import source_reader as reader
+    path = 'Iris/build/description/source_support/b41_device_purposes.json'
+    raw = (root / path).read_bytes()
+    digest = hashlib.sha256(raw).hexdigest()
+    if digest != '88b08fe4fdc0bd553c1e22a3b5cb9232c5eb78ef2c1fdd1c3d448493eba8f5b6':
+        raise ValueError('reviewed B41 device-purpose snapshot changed')
+    data = json.loads(raw)
+    source_hashes[path] = digest
+    for binding in data['consumer_bindings']:
+        if hashlib.sha256((root / binding['path']).read_bytes()).hexdigest() != binding['sha256']:
+            raise ValueError('B41 device consumer changed: ' + binding['path'])
+        source_hashes[binding['path']] = binding['sha256']
+    admitted = {}
+    for fact in semantic.get('facts', []):
+        admitted.setdefault(fact['item_id'], set()).add(fact['payload'].get('function'))
+    for item, records in sorted(by_item.items()):
+        unique = {(o['source_path'], o['source_sha256'], o['locator'].split(':', 1)[0],
+                   o['content']['raw'].replace('\r\n', '\n')): (ref, o) for ref, o in records}
+        if len(unique) != 1 or any(o['content'].get('property_conflicts') for _, o in records):
+            continue
+        ref, observation = next(iter(unique.values()))
+        fields = reader.properties({'clauses': observation['content'].get('clauses', [])}, '=')
+        fields = {k: v[0] for k, v in fields.items() if len(v) == 1}
+        functions = admitted.get(item, set())
+        selected = []
+        noise_range = fields.get('NoiseRange', '')
+        if (fields.get('Type') == 'Weapon' and 'place_trigger_device' in functions
+                and re.fullmatch(r'\d+(?:\.\d+)?', noise_range) and float(noise_range) > 0):
+            selected.append(('noise', 'emit_attracting_noise'))
+        if 'control_installed_generator' in functions:
+            selected.append(('power', 'supply_nearby_electricity'))
+        for purpose, function in selected:
+            proof = builder.observe(path, 'native:' + purpose, {'kind': 'reviewed_native_device_purpose',
+                'reading': data['readings'][purpose], 'native_bindings': data['native_bindings'],
+                'consumer_bindings': data['consumer_bindings']})
+            builder.observations[ref] = observation
+            source_hashes[observation['source_path']] = observation['source_sha256']
+            builder.fact(item, 'direct_function', {'function': function}, [ref, proof],
+                         'native_device_purpose', ['item:direct'])
+    return {'native_device_purpose': {'revision': '1', 'review_state': 'reviewed',
+        'preconditions': 'Unique admitted declaration and admitted native placement or generator control; noise additionally requires positive NoiseRange.',
+        'transformation': 'Join placement to native world sound and zombie response, or generator control to surrounding electricity.',
+        'exceptions': 'No inferred damage, universal zombie response, unlimited power range, item-name matching or unreviewed native behavior.'}}
+
+
+def supplement_placed_purposes(root, semantic, by_item, builder, source_hashes):
+    """Join the reviewed B41 base-game sprite projection to admitted placement.
+
+    The snapshot records original binary hashes and matching Lua consumers.
+    No game install, native runtime dependency or mod-sprite inference is used
+    by the producer. Only explicitly joined property consumers license a use.
+    """
+    import hashlib
+    import json
+    from . import source_reader as reader
+    path = 'Iris/build/description/source_support/b41_placed_object_properties.json'
+    raw = (root / path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != '9bad7eb46d3cea3dcef9e4368e73d33643e34105ce157f75982ec0d1b63cd74b':
+        raise ValueError('reviewed B41 placed-property snapshot changed')
+    data = json.loads(raw)
+    source_hashes[path] = hashlib.sha256(raw).hexdigest()
+    for binding in data['consumer_bindings']:
+        if hashlib.sha256((root / binding['path']).read_bytes()).hexdigest() != binding['sha256']:
+            raise ValueError('B41 property consumer changed: ' + binding['path'])
+        source_hashes[binding['path']] = binding['sha256']
+    functions_by_item = {}
+    for fact in semantic.get('facts', []):
+        functions_by_item.setdefault(fact['item_id'], set()).add(fact['payload'].get('function'))
+    registry_path = 'lua/client/Moveables/ISMoveableDefinitions.lua'
+    registry = (root / registry_path).read_text(encoding='utf-8-sig')
+    scrap_tools = {}
+    for material, first, second in re.findall(r'^\s*moveableDefinitions\.addScrapDefinition\(\s*"([^"]+)"\s*,\s*\{([^}]*)\}\s*,\s*\{([^}]*)\}', registry, re.M):
+        if not re.search(r'moveableDefinitions\.addScrapItem\(\s*"' + re.escape(material) + '"', registry):
+            continue
+        tools1 = set(re.findall(r'"([^"]+)"', first)); tools2 = set(re.findall(r'"([^"]+)"', second))
+        if tools1 == {'Base.BlowTorch'} and tools2 == {'Tag.WeldingMask', 'Base.WeldingMask'}: scrap_tools[material] = 'salvage_welding'
+        elif tools1 == {'Base.Hammer'} and tools2 == {'Base.Saw'}: scrap_tools[material] = 'salvage_wood'
+        elif tools1 == {'Base.Screwdriver'} and not tools2: scrap_tools[material] = 'salvage_screwdriver'
+        elif tools1 == {'Base.Hammer'} and not tools2: scrap_tools[material] = 'salvage_hammer'
+    for item, records in sorted(by_item.items()):
+        unique = {(o['source_path'], o['source_sha256'], o['locator'].split(':', 1)[0],
+                   o['content']['raw'].replace('\r\n', '\n')): (ref, o) for ref, o in records}
+        if len(unique) != 1:
+            continue
+        ref, observation = next(iter(unique.values()))
+        if observation['content'].get('property_conflicts'):
+            continue
+        props = reader.properties({'clauses': observation['content'].get('clauses', [])}, '=')
+        props = {k: v[0] for k, v in props.items() if len(v) == 1}
+        functions = functions_by_item.get(item, set())
+        selected = []
+        sprite = props.get('WorldObjectSprite')
+        entry = data['sprites'].get(sprite)
+        if entry and props.get('Type') == 'Moveable' and props.get('DisplayCategory') == 'Furniture' and 'place_moveable_furniture' in functions:
+            fields = entry['properties']
+            if 'bed' in fields: selected.append('sleep')
+            if fields.get('container') in {'fridge', 'freezer'}: selected.append('cold_storage')
+            elif fields.get('IsoType') == 'IsoStove': selected.append('cooking')
+            elif fields.get('IsoType') == 'IsoClothingWasher': selected.append('washing')
+            elif fields.get('IsoType') == 'IsoClothingDryer': selected.append('drying')
+            elif fields.get('IsoType') == 'IsoFireplace': selected.append('hearth')
+            elif fields.get('IsoType') == 'IsoBarbecue': selected.append('barbecue')
+            elif fields.get('IsoType') == 'IsoMannequin': selected.append('mannequin')
+            elif 'container' in fields: selected.append('storage')
+            if float(fields.get('Surface', '0')) + float(fields.get('ItemHeight', '0')) > 0: selected.append('surface')
+            if 'waterPiped' in fields: selected.append('water_piped')
+            elif 'waterAmount' in fields: selected.append('water_storage')
+            if 'lightswitch' in fields and all(k in fields for k in ('lightR', 'lightG', 'lightB')): selected.append('light')
+            if 'IsMirror' in fields: selected.append('mirror')
+            if 'CanScrap' in fields and 'ScrapUseTool' not in fields and fields.get('Material') in scrap_tools:
+                selected.append(scrap_tools[fields['Material']])
+            for purpose in selected:
+                proof = builder.observe(path, 'sprite:' + sprite, {'kind': 'reviewed_sprite_properties',
+                    'sprite': sprite, 'properties': fields, 'original_source': entry['source'],
+                    'consumer_bindings': data['consumer_bindings'], 'native_bindings': data['native_bindings']})
+                builder.observations[ref] = observation
+                source_hashes[observation['source_path']] = observation['source_sha256']
+                builder.fact(item, 'direct_function', {'function': 'placed_purpose_' + purpose},
+                             [ref, proof], 'placed_sprite_purpose', ['item:direct'])
+        # Positive aiming modifiers raise the threshold before the native
+        # ranged hit-chance calculation applies its movement penalty. Missing
+        # Tooltip alone must not hide that supported role. No lighting/stabbing
+        # effect is inferred from a WeaponPart's name or mesh.
+        if props.get('Type') == 'WeaponPart' and 'attach_weapon_part' in functions and float(props.get('AimingTimeModifier', '0')) > 0:
+            proof = builder.observe(path, 'attachment:aiming', {'kind': 'reviewed_native_attachment_parameter',
+                'reading': data['native_readings']['attachment'], 'scope_review': data['attachment_scope_review'], 'native_bindings': data['native_bindings']})
+            builder.observations[ref] = observation
+            source_hashes[observation['source_path']] = observation['source_sha256']
+            builder.fact(item, 'direct_function', {'function': 'attachment_purpose_movement_aim'},
+                         [ref, proof], 'native_attachment_purpose', ['item:direct'])
+    return {'placed_sprite_purpose': {'revision': '1', 'review_state': 'reviewed',
+        'preconditions': 'Unique admitted Moveable/Furniture declaration, admitted placement, exact WorldObjectSprite join and reviewed B41 property consumers.',
+        'transformation': 'Expose supported placed-object purposes with supply conditions; retain unknown properties without inventing uses.',
+        'exceptions': 'No inferred purpose from item names, mod properties, generic decoration or unjoined appliance behavior.'},
+        'native_attachment_purpose': {'revision': '1', 'review_state': 'reviewed',
+        'preconditions': 'Unique WeaponPart, admitted mount action, positive AimingTimeModifier, native part addition and ranged hit-chance movement-penalty consumption.',
+        'transformation': 'Expose the supported movement-related aiming role even without Tooltip.',
+        'exceptions': 'No light source, stabbing, damage or universal mount compatibility inferred from name.'}}

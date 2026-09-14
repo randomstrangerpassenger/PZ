@@ -132,11 +132,39 @@ def test_layer3_composition_contract():
     corrected_refs = {f['fact_id'] for f in correction['facts']}
     assert not predecessor_refs & corrected_refs
     assert {f['fact_id'] for f in semantic_payload['facts']} == predecessor_refs | corrected_refs
-    assert {f['item_id'] for f in correction['facts']} == {
+    assert {f['item_id'] for f in correction['facts'] if f['admission']['rule_ref'] not in {'declared_learning_and_recorded_content', 'installed_battery_power_purpose', 'installed_vehicle_light_purpose', 'declared_morale_reading_purpose', 'declared_attachment_purpose', 'placed_sprite_purpose', 'native_attachment_purpose', 'native_device_purpose'}} == {
         'Base.UmbrellaBlack', 'Base.UmbrellaBlue', 'Base.UmbrellaRed', 'Base.UmbrellaWhite',
         'Base.Pills', 'Base.PillsAntiDep', 'Base.PillsBeta', 'Base.PillsSleepingTablets',
         'Base.PillsVitamins', 'Base.Antibiotics', 'Base.Generator'}
-    assert len(corrected_refs) == 20
+    devices = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'native_device_purpose']
+    assert len(devices) == 7
+    assert {f['item_id'] for f in devices if f['payload']['function'] == 'supply_nearby_electricity'} == {'Base.Generator'}
+    assert {f['item_id'] for f in devices if f['payload']['function'] == 'emit_attracting_noise'} == {
+        'Base.NoiseTrap', 'Base.NoiseTrapTriggered', 'Base.NoiseTrapRemote',
+        'Base.NoiseTrapSensorV1', 'Base.NoiseTrapSensorV2', 'Base.NoiseTrapSensorV3'}
+    lessons = [f for f in correction['facts'] if f['payload'].get('function', '').startswith('learn_literature_')]
+    assert len(lessons) == 30
+    assert {f['payload']['function'] for f in lessons if f['item_id'] == 'Base.CookingMag1'} == {'learn_literature_cooking'}
+    # Recipe-name overloads must not discard the supported common lesson.
+    assert {f['payload']['function'] for f in lessons if f['item_id'] == 'Base.FishingMag1'} == {'learn_literature_fishing'}
+    assert {f['payload']['function'] for f in lessons if f['item_id'] == 'Base.ElectronicsMag3'} == {'learn_literature_electrical'}
+    media = [f for f in correction['facts'] if f['payload'].get('function', '').startswith('recorded_content_')]
+    assert {f['payload']['function'] for f in media if f['item_id'] == 'Base.Disc_Retail'} == {'recorded_content_boredom'}
+    assert {f['item_id'] for f in media} == {'Base.Disc_Retail', 'Base.VHS_Retail', 'Base.VHS_Home'}
+    native_attachments = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'native_attachment_purpose']
+    assert {f['item_id'] for f in native_attachments} == {'Base.Bayonnet', 'Base.GunLight', 'Base.RedDot'}
+    assert all(f['payload'] == {'function': 'attachment_purpose_movement_aim'} for f in native_attachments)
+    placed = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'placed_sprite_purpose']
+    assert placed and all(f['payload']['function'].startswith('placed_purpose_') for f in placed)
+    assert any(f['item_id'] == 'Base.Mov_BluePlasticChair' and f['payload']['function'] == 'placed_purpose_sleep' for f in placed)
+    assert any(f['item_id'] == 'Base.Mov_AirConditioner' and f['payload']['function'] == 'placed_purpose_salvage_welding' for f in placed)
+    assert not any(f['item_id'] == 'Base.Mov_AirConditioner' and f['payload']['function'] != 'placed_purpose_salvage_welding' for f in placed)
+    attachments = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'declared_attachment_purpose']
+    assert len(attachments) == 12
+    assert not {'Base.Bayonnet', 'Base.GunLight'} & {f['item_id'] for f in attachments}
+    assert {f['payload']['function'] for f in attachments if f['item_id'] == 'Base.AmmoStraps'} == {'attachment_purpose_reload'}
+    assert len(corrected_refs) == 88 + len(placed) + len(native_attachments) + len(devices)
+    assert {f['item_id'] for f in correction['facts'] if f['payload'].get('function') == 'supply_vehicle_electrical_power'} == {'Base.CarBattery1', 'Base.CarBattery2', 'Base.CarBattery3'}
     expected = {fact["fact_id"]: fact["item_id"]
                 for payload in (semantic_payload, acquisition_payload) for fact in payload["facts"]}
     represented = {}
@@ -163,6 +191,10 @@ def test_layer3_composition_contract():
             assert set(relation['fact_refs']) <= expected.keys()
             assert set(relation['observation_refs']) <= semantic_payload['observations'].keys()
             assert all(':' not in tool['item_id'] for g in relation['tools'] for tool in g['items'])
+    juice = by_item['Base.CannedFruitBeverage']['use_relations'][0]
+    assert juice['results'][0]['item_id'] == 'Base.CannedFruitBeverageOpen'
+    assert juice['results'][0]['food_type'] == 'Juice'
+    assert juice['result_consumption']['fact']['payload'] == {'function': 'eat_food'}
     corn = by_item['Base.CannedCorn']['use_relations'][0]
     assert corn['results'][0]['item_id'] == 'Base.CannedCornOpen'
     assert corn['results'][0]['names']['ko'] == '옥수수'

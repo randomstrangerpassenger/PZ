@@ -1,0 +1,2891 @@
+{
+  "sources": [
+    {
+      "path": "media/tiledefinitions.tiles",
+      "sha256": "dfc7287dd69661f92b431f0ac2ccc1e9cf2851c82939d024805f790e505ea7ac"
+    },
+    {
+      "path": "media/newtiledefinitions.tiles",
+      "sha256": "91408aa87457c38f42cb1d1620b434e290085f711e91910e66ee6623c87f9ec7"
+    },
+    {
+      "path": "media/tiledefinitions_erosion.tiles",
+      "sha256": "46db87a1c14041f80026655822119bad5aab6e7ad69635d2cce7fa1a9a0cb504"
+    },
+    {
+      "path": "media/tiledefinitions_apcom.tiles",
+      "sha256": "8834c0c4e54c7cb2eaad225265d3c24754aa53f1318b9b70458d23968e06f240"
+    },
+    {
+      "path": "media/tiledefinitions_overlays.tiles",
+      "sha256": "5d3032741059a30b0e3dade4527d5d53fa29cda50da335b108a96e73a1bab4fd"
+    },
+    {
+      "path": "media/tiledefinitions_noiseworks.patch.tiles",
+      "sha256": "bea412472d35ceeb668a067c898dd108cd424b0ca0a5847213b133b6faa51251"
+    }
+  ],
+  "sprites": {
+    "carpentry_02_76": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomItem": "Base.Mattress",
+        "CustomName": "Mattress",
+        "Facing": "E",
+        "ForceSingleItem": "",
+        "GroupName": "Makeshift",
+        "IsMoveAble": "",
+        "PickUpWeight": "80",
+        "SpriteGridPos": "0,0",
+        "Surface": "5",
+        "bed": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "industry_01_4": {
+      "properties": {
+        "CanScrap": "",
+        "CustomName": "Conditioner",
+        "Facing": "S",
+        "GroupName": "Air",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "Material": "MetalScrap",
+        "MoveType": "WallObject",
+        "PickUpTool": "Hammer",
+        "PickUpWeight": "25",
+        "PlaceTool": "Hammer",
+        "ScrapSize": "Small",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_16": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CollisionShape": "WestCounter",
+        "ContainerCapacity": "15",
+        "ContainerPosition": "Low",
+        "CustomName": "Oven",
+        "Facing": "E",
+        "GroupName": "Antique",
+        "IsMoveAble": "",
+        "IsoType": "IsoFireplace",
+        "Material": "MetalPlates",
+        "Material2": "MetalScrap",
+        "Material3": "MetalScrap",
+        "PickUpTool": "Hammer",
+        "PickUpWeight": "400",
+        "PlaceTool": "Hammer",
+        "Surface": "34",
+        "container": "woodstove",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "recreational_01_16": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Machine",
+        "Facing": "S",
+        "GroupName": "Dr. Oids Arcade",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Electric",
+        "Material2": "MetalScrap",
+        "Material3": "MetalPlates",
+        "PickUpWeight": "200",
+        "ScrapSize": "Large",
+        "solid": "",
+        "AmbientSound": "ArcadeMachineAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "ArcadeMachineAmbiance"
+          }
+        }
+      ]
+    },
+    "recreational_01_20": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Machine",
+        "Facing": "S",
+        "GroupName": "Kaboom Arcade",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Electric",
+        "Material2": "MetalScrap",
+        "Material3": "MetalPlates",
+        "PickUpWeight": "200",
+        "solid": "",
+        "AmbientSound": "ArcadeMachineAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "ArcadeMachineAmbiance"
+          }
+        }
+      ]
+    },
+    "furniture_seating_outdoor_01_25": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "ForceSingleItem": "",
+        "GroupName": "Beach",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "PickUpWeight": "150",
+        "SpriteGridPos": "0,0",
+        "Surface": "17",
+        "badBed": "",
+        "bed": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "trashcontainers_01_20": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "ContainerCapacity": "10",
+        "CustomName": "Round Bin",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTrashCan": "",
+        "Material": "MetalScrap",
+        "Material2": "PlasticBag",
+        "PickUpWeight": "50",
+        "container": "bin",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "vegetation_ornamental_01_50": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "Bird Bath",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "PickUpWeight": "150",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_03_25": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Blue Comfy",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairE": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_02_13": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Blue Plastic",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "MetalBars",
+        "Material2": "PlasticHard",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_02_41": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Blue Rattan",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_02_44": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Brown Lazy",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_low_01_13": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Low Table",
+        "Facing": "S",
+        "GroupName": "Brown",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "Surface": "15",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "fixtures_bathroom_01_28": {
+      "properties": {
+        "CanBreak": "",
+        "CanScrap": "",
+        "ContainerCapacity": "10",
+        "ContainerPosition": "High",
+        "CustomName": "Cabinet",
+        "Facing": "S",
+        "GroupName": "Medicine",
+        "IsHigh": "",
+        "IsMirror": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Mirror",
+        "MoveType": "WallObject",
+        "PickUpLevel": "2",
+        "PickUpTool": "Hammer",
+        "PickUpWeight": "100",
+        "PlaceTool": "Hammer",
+        "ScrapSize": "Small",
+        "Surface": "80",
+        "attachedN": "",
+        "container": "medicine"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_business_machinery_01_32": {
+      "properties": {
+        "ContainerCapacity": "20",
+        "ContainerPosition": "Low",
+        "CustomName": "Tool Cabinet",
+        "Facing": "S",
+        "GroupName": "Red Mobile",
+        "IsMoveAble": "",
+        "PickUpWeight": "200",
+        "container": "toolcabinet",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "trashcontainers_01_24": {
+      "properties": {
+        "BlocksPlacement": "",
+        "ContainerCapacity": "10",
+        "CustomName": "Box",
+        "Facing": "S",
+        "GroupName": "Cartboard",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "PickUpWeight": "20",
+        "Surface": "19",
+        "container": "crate",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "fixtures_sinks_01_9": {
+      "properties": {
+        "CanBreak": "",
+        "CanScrap": "",
+        "CustomName": "Sink",
+        "Facing": "S",
+        "GroupName": "Chrome",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Plumbing",
+        "Material2": "Pipes",
+        "Material3": "Sink",
+        "PickUpTool": "Wrench",
+        "PickUpWeight": "50",
+        "PlaceTool": "Wrench",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "attachedSurface": "",
+        "waterAmount": "20",
+        "waterMaxAmount": "20",
+        "waterPiped": "",
+        "SinkType": "Metal"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "SinkType": "Metal"
+          }
+        }
+      ]
+    },
+    "appliances_cooking_01_56": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "X-press",
+        "Facing": "S",
+        "GroupName": "Coffee",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "IsoType": "IsoStove",
+        "Material": "Electric",
+        "Material2": "MetalScrap",
+        "PickUpWeight": "40",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "container": "stove",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "construction_01_6": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "Grinder",
+        "Facing": "S",
+        "GroupName": "Mortar",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "PickUpWeight": "150",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_business_office_generic_01_7": {
+      "properties": {
+        "CustomName": "Noteboard",
+        "Facing": "S",
+        "GroupName": "Cork",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "20"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_03_49": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Darkblue Modern",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_02_0": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Dark Wooden",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_medical_01_14": {
+      "properties": {
+        "CustomName": "Certificate",
+        "Facing": "S",
+        "GroupName": "Doctor Degree",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_medical_01_31": {
+      "properties": {
+        "CustomName": "Certificate",
+        "Facing": "S",
+        "GroupName": "Surgeon Degree",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_com_01_72": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Computer",
+        "Facing": "S",
+        "GroupName": "Desktop",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Electric",
+        "Material2": "AluminumScrap",
+        "Material3": "Plastic",
+        "ModularScript": "Base.DesktopPC",
+        "PickUpWeight": "100",
+        "Surface": "34"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_farm_accesories_01_9": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanBreak": "",
+        "CanScrap": "",
+        "CustomName": "House",
+        "Facing": "S",
+        "GroupName": "Dog",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpLevel": "2",
+        "PickUpTool": "Hammer",
+        "PickUpWeight": "100",
+        "PlaceTool": "Hammer",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_61": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Deluxe",
+        "Facing": "S",
+        "GroupName": "Espresso",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "IsoType": "IsoStove",
+        "Material": "Electric",
+        "Material2": "MetalScrap",
+        "PickUpWeight": "60",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "container": "stove",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_03_41": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Black Fancy",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_high_01_16": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Fancy Dark Table",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Nails",
+        "Material2": "Wood",
+        "PickUpWeight": "100",
+        "ScrapSize": "Small",
+        "Surface": "28",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_low_01_3": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Low Table",
+        "Facing": "S",
+        "ForceSingleItem": "",
+        "GroupName": "Fancy",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "Surface": "12",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_high_01_15": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Fancy Table",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "100",
+        "ScrapSize": "Small",
+        "Surface": "32",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "fixtures_bathroom_01_0": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanBreak": "",
+        "CanScrap": "",
+        "CustomName": "Toilet",
+        "Facing": "S",
+        "GroupName": "Fancy",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Plumbing",
+        "Material2": "Pipes",
+        "MoveType": "WallObject",
+        "PickUpTool": "Wrench",
+        "PickUpWeight": "100",
+        "PlaceTool": "Wrench",
+        "ScrapSize": "Small",
+        "attachedN": "",
+        "waterAmount": "20",
+        "waterMaxAmount": "20",
+        "waterPiped": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_37": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Fancy White",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "recreational_sports_01_41": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "Contraption",
+        "Facing": "S",
+        "ForceSingleItem": "",
+        "GroupName": "Fitness",
+        "IsMoveAble": "",
+        "PickUpWeight": "200",
+        "SpriteGridPos": "0,0"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_18": {
+      "properties": {
+        "CustomName": "Flag",
+        "Facing": "S",
+        "GroupName": "Administrative",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_16": {
+      "properties": {
+        "CustomName": "Flag",
+        "Facing": "S",
+        "GroupName": "Stars n Stripes",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_military_knox_01_8": {
+      "properties": {
+        "CustomName": "Flag",
+        "Facing": "S",
+        "ForceSingleItem": "",
+        "GroupName": "USA",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10",
+        "SpriteGridPos": "0,0"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_60": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Folding",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "MetalScrap",
+        "Material2": "PlasticHard",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_refrigeration_01_25": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "ContainerCapacity": "20",
+        "ContainerPosition": "Low",
+        "CustomName": "Fridge",
+        "Facing": "S",
+        "Freezer": "",
+        "FreezerCapacity": "5",
+        "GroupName": "Mini",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Fridge",
+        "Material2": "MetalScrap",
+        "Material3": "Electric",
+        "PickUpWeight": "100",
+        "ScrapSize": "Small",
+        "Surface": "32",
+        "container": "fridge",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "vegetation_ornamental_01_48": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "The Gnome",
+        "Facing": "S",
+        "GroupName": "David",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "PickUpWeight": "40"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_cemetary_01_2": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Gravestone",
+        "Facing": "S",
+        "GroupName": "Arched",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Stone",
+        "MoveType": "Vegitation",
+        "PickUpTool": "Shovel",
+        "PickUpWeight": "150",
+        "PlaceTool": "Shovel",
+        "ScrapSize": "Small",
+        "StopCar": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_cemetary_01_0": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Gravestone",
+        "Facing": "S",
+        "GroupName": "Round",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Stone",
+        "MoveType": "Vegitation",
+        "PickUpTool": "Shovel",
+        "PickUpWeight": "150",
+        "PlaceTool": "Shovel",
+        "ScrapSize": "Small",
+        "StopCar": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_cemetary_01_4": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Gravestone",
+        "Facing": "S",
+        "GroupName": "Square",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Stone",
+        "MoveType": "Vegitation",
+        "PickUpTool": "Shovel",
+        "PickUpWeight": "150",
+        "PlaceTool": "Shovel",
+        "ScrapSize": "Small",
+        "StopCar": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_cemetary_01_8": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Gravestone",
+        "Facing": "S",
+        "GroupName": "Battered",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Stone",
+        "MoveType": "Vegitation",
+        "PickUpTool": "Shovel",
+        "PickUpWeight": "150",
+        "PlaceTool": "Shovel",
+        "ScrapSize": "Small",
+        "StopCar": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_57": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Green Dinner",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Screws",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_9": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Green Comfy",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_1": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CollisionShape": "NorthCounter",
+        "ContainerCapacity": "15",
+        "ContainerPosition": "Low",
+        "CustomName": "Oven",
+        "Facing": "S",
+        "GroupName": "Green",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsoType": "IsoStove",
+        "Material": "Fridge",
+        "Material2": "Electric",
+        "Material3": "MetalScrap",
+        "PickUpLevel": "3",
+        "PickUpTool": "Electrician",
+        "PickUpWeight": "200",
+        "PlaceTool": "Electrician",
+        "Surface": "34",
+        "container": "stove",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_54": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Grey",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "MetalScrap",
+        "Material2": "PlasticHard",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_03_4": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Light Blue",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_5": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CollisionShape": "NorthCounter",
+        "ContainerCapacity": "15",
+        "ContainerPosition": "Low",
+        "CustomName": "Oven",
+        "Facing": "S",
+        "GroupName": "Grey",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsoType": "IsoStove",
+        "Material": "Fridge",
+        "Material2": "Electric",
+        "Material3": "MetalScrap",
+        "PickUpLevel": "3",
+        "PickUpTool": "Electrician",
+        "PickUpWeight": "200",
+        "PlaceTool": "Electrician",
+        "Surface": "34",
+        "container": "stove",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_shop_fossoil_01_10": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Stand",
+        "Facing": "S",
+        "GroupName": "Fossoil Candy",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "ItemHeight": "20",
+        "Material": "MetalScrap",
+        "PickUpWeight": "30",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "solidtrans": "",
+        "AmbientSound": "HotdogMachineAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "HotdogMachineAmbiance"
+          }
+        }
+      ]
+    },
+    "camping_01_18": {
+      "properties": {
+        "CustomName": "Deer Trophy",
+        "Facing": "S",
+        "GroupName": "Mounted",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "fixtures_sinks_01_16": {
+      "properties": {
+        "CanBreak": "",
+        "CanScrap": "",
+        "CustomName": "Sink",
+        "Facing": "E",
+        "GroupName": "Dark Industrial",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Plumbing",
+        "Material2": "Pipes",
+        "Material3": "Sink",
+        "PickUpTool": "Wrench",
+        "PickUpWeight": "50",
+        "PlaceTool": "Wrench",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "waterAmount": "20",
+        "waterMaxAmount": "20",
+        "waterPiped": "",
+        "SinkType": "Metal"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "SinkType": "Metal"
+          }
+        }
+      ]
+    },
+    "lighting_indoor_01_8": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Lamp",
+        "Facing": "E",
+        "GroupName": "Striped",
+        "HasLightOnSprite": "",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Electric",
+        "PickUpWeight": "20",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "lightB": "98",
+        "lightG": "128",
+        "lightR": "128",
+        "lightswitch": "",
+        "AmbientSound": "LightBulbAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "LightBulbAmbiance"
+          }
+        }
+      ]
+    },
+    "lighting_indoor_01_9": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Lamp",
+        "Facing": "E",
+        "GroupName": "Black",
+        "HasLightOnSprite": "",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Electric",
+        "PickUpWeight": "20",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "lightB": "98",
+        "lightG": "128",
+        "lightR": "128",
+        "lightswitch": "",
+        "AmbientSound": "LightBulbAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "LightBulbAmbiance"
+          }
+        }
+      ]
+    },
+    "lighting_indoor_01_10": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Lamp",
+        "Facing": "E",
+        "GroupName": "Red",
+        "HasLightOnSprite": "",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Electric",
+        "PickUpWeight": "20",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "lightB": "120",
+        "lightG": "100",
+        "lightR": "152",
+        "lightswitch": "",
+        "AmbientSound": "LightBulbAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "LightBulbAmbiance"
+          }
+        }
+      ]
+    },
+    "lighting_indoor_01_11": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Lamp",
+        "Facing": "E",
+        "GroupName": "Grey",
+        "HasLightOnSprite": "",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Electric",
+        "PickUpWeight": "20",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "lightB": "120",
+        "lightG": "118",
+        "lightR": "128",
+        "lightswitch": "",
+        "AmbientSound": "LightBulbAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "LightBulbAmbiance"
+          }
+        }
+      ]
+    },
+    "lighting_indoor_01_12": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Lamp",
+        "Facing": "E",
+        "GroupName": "Blue",
+        "HasLightOnSprite": "",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Electric",
+        "PickUpWeight": "20",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "lightB": "128",
+        "lightG": "100",
+        "lightR": "80",
+        "lightswitch": "",
+        "AmbientSound": "LightBulbAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "LightBulbAmbiance"
+          }
+        }
+      ]
+    },
+    "lighting_indoor_01_13": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Lamp",
+        "Facing": "E",
+        "GroupName": "White",
+        "HasLightOnSprite": "",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Electric",
+        "PickUpWeight": "20",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "lightB": "135",
+        "lightG": "120",
+        "lightR": "142",
+        "lightswitch": "",
+        "AmbientSound": "LightBulbAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "LightBulbAmbiance"
+          }
+        }
+      ]
+    },
+    "lighting_outdoor_01_49": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "Lights",
+        "Facing": "S",
+        "GroupName": "Flood",
+        "HasLightOnSprite": "",
+        "IsMoveAble": "",
+        "PickUpWeight": "150",
+        "lightB": "98",
+        "lightG": "128",
+        "lightR": "128",
+        "lightswitch": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_high_01_7": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Light Round Table",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "100",
+        "ScrapSize": "Small",
+        "Surface": "27",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_high_01_4": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Table",
+        "Facing": "S",
+        "GroupName": "Long",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "100",
+        "Surface": "27",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "street_decoration_01_21": {
+      "properties": {
+        "BlocksPlacement": "",
+        "ContainerCapacity": "5",
+        "CustomName": "Box",
+        "DamagedSprite": "damaged_objects_01_21",
+        "Facing": "N",
+        "GroupName": "Mail",
+        "HitByCar": "",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "MinimumCarSpeedDmg": "15",
+        "MoveType": "Vegitation",
+        "PickUpTool": "Shovel",
+        "PickUpWeight": "50",
+        "PlaceTool": "Shovel",
+        "container": "postbox"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_shop_mall_01_66": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Mannequin",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "IsoType": "IsoMannequin",
+        "Material": "Stone",
+        "PickUpWeight": "150",
+        "Surface": "16"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_shop_mall_01_69": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Mannequin",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "IsoType": "IsoMannequin",
+        "Material": "Stone",
+        "PickUpWeight": "150",
+        "Surface": "16"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_school_01_22": {
+      "properties": {
+        "CustomName": "USA",
+        "Facing": "S",
+        "ForceSingleItem": "",
+        "GroupName": "Map of",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "20",
+        "SpriteGridPos": "0,0"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_storage_02_8": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanBreak": "",
+        "CanScrap": "",
+        "ContainerCapacity": "40",
+        "ContainerPosition": "Low",
+        "CustomName": "Locker",
+        "Facing": "S",
+        "GroupName": "Green Wall",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "MetalPlates",
+        "Material2": "SmallMetalPlates",
+        "Material3": "MetalScrap",
+        "MoveType": "WallObject",
+        "PickUpLevel": "3",
+        "PickUpTool": "Hammer",
+        "PickUpWeight": "150",
+        "PlaceTool": "Hammer",
+        "ScrapSize": "Small",
+        "Surface": "48",
+        "attachedN": "",
+        "container": "locker",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_medical_01_10": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Medical Stool",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "MetalScrap",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_com_01_70": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Microphone",
+        "Facing": "W",
+        "GroupName": "Standing",
+        "IsMoveAble": "",
+        "Material": "Electric",
+        "Material2": "MetalPipe",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_24": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "ContainerCapacity": "10",
+        "CustomName": "Microwave",
+        "Facing": "E",
+        "GroupName": "White",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "IsoType": "IsoStove",
+        "ItemHeight": "15",
+        "Material": "MetalScrap",
+        "Material2": "Electric",
+        "Microwave": "",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "attachedSurface": "",
+        "container": "microwave",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_28": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "ContainerCapacity": "10",
+        "CustomName": "Microwave",
+        "Facing": "S",
+        "GroupName": "Chrome",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "IsoType": "IsoStove",
+        "ItemHeight": "15",
+        "Material": "MetalScrap",
+        "Material2": "Electric",
+        "Microwave": "",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "attachedSurface": "",
+        "container": "microwave",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_5": {
+      "properties": {
+        "CustomName": "Mirror",
+        "Facing": "S",
+        "GroupName": "Large",
+        "IsHigh": "",
+        "IsMirror": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_10": {
+      "properties": {
+        "CustomName": "Mirror",
+        "Facing": "S",
+        "GroupName": "Small",
+        "IsHigh": "",
+        "IsMirror": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_9": {
+      "properties": {
+        "CustomName": "Mirror",
+        "Facing": "S",
+        "GroupName": "Tall",
+        "IsHigh": "",
+        "IsMirror": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_7": {
+      "properties": {
+        "CustomName": "Mirror",
+        "Facing": "S",
+        "GroupName": "Wooden Framed",
+        "IsHigh": "",
+        "IsMirror": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_medical_01_25": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Bloodbag",
+        "Facing": "S",
+        "GroupName": "Mobile",
+        "IsMoveAble": "",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_medical_01_49": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "Counter",
+        "Facing": "S",
+        "GroupName": "Mobile Tool",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "ItemHeight": "30",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_13": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CollisionShape": "NorthCounter",
+        "ContainerCapacity": "15",
+        "ContainerPosition": "Low",
+        "CustomName": "Oven",
+        "Facing": "S",
+        "GroupName": "Modern",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsoType": "IsoStove",
+        "Material": "Fridge",
+        "Material2": "Electric",
+        "Material3": "MetalScrap",
+        "PickUpLevel": "3",
+        "PickUpTool": "Electrician",
+        "PickUpWeight": "200",
+        "PlaceTool": "Electrician",
+        "Surface": "34",
+        "container": "stove",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_shop_accessories_01_10": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Dispenser",
+        "Facing": "S",
+        "GroupName": "Shop",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Mechanical",
+        "Material2": "MetalScrap",
+        "PickUpWeight": "40",
+        "Surface": "34"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_high_01_6": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Oak Round Table",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "100",
+        "ScrapSize": "Small",
+        "Surface": "27",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_50": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Black Office",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Foam",
+        "Material2": "Fabric",
+        "Material3": "PlasticHard",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_46": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Futon",
+        "Facing": "W",
+        "GroupName": "Orange",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_12": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Red Comfy",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_48": {
+      "properties": {
+        "CustomName": "Painting",
+        "Facing": "S",
+        "GroupName": "Betty",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_46": {
+      "properties": {
+        "CustomName": "Painting",
+        "Facing": "S",
+        "GroupName": "Monica Elisa",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_35": {
+      "properties": {
+        "CustomName": "Painting",
+        "Facing": "S",
+        "GroupName": "Waterbeach Hills",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_57": {
+      "properties": {
+        "CustomName": "Painting",
+        "Facing": "S",
+        "GroupName": "Incognito Library",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "construction_01_5": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Empty Pallet",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_restaurant_pileocrepe_01_41": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Pile o' Crepe",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "bed": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "recreational_01_25": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "Machine",
+        "Facing": "S",
+        "ForceSingleItem": "",
+        "GroupName": "PAWS Pinball",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "ItemHeight": "34",
+        "PickUpWeight": "200",
+        "SpriteGridPos": "0,0",
+        "solidtrans": "",
+        "AmbientSound": "ArcadeMachineAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "ArcadeMachineAmbiance"
+          }
+        }
+      ]
+    },
+    "vegetation_ornamental_01_25": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "Flamingo",
+        "Facing": "E",
+        "GroupName": "Imitation",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "PickUpWeight": "40",
+        "attachedFloor": "",
+        "solidfloor": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_outdoor_01_17": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Plastic",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "PlasticHard",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_low_01_20": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Low Table",
+        "Facing": "S",
+        "GroupName": "White",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "Surface": "15",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_entertainment_theatre_01_17": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Popcorn Machine",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "ItemHeight": "40",
+        "Material": "Electric",
+        "Material2": "Glass",
+        "Material3": "MetalScrap",
+        "PickUpWeight": "100",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_33": {
+      "properties": {
+        "CustomName": "Painting",
+        "Facing": "S",
+        "GroupName": "Dr. Oids",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_entertainment_theatre_01_84": {
+      "properties": {
+        "CustomName": "Poster",
+        "Facing": "S",
+        "GroupName": "The Forgotten Element",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_medical_01_11": {
+      "properties": {
+        "CustomName": "Poster",
+        "Facing": "S",
+        "GroupName": "Organs",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "walls_decoration_01_50": {
+      "properties": {
+        "CustomName": "Painting",
+        "Facing": "S",
+        "GroupName": "Omega Department",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "WallOverlay": "",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_entertainment_theatre_01_83": {
+      "properties": {
+        "CustomName": "Poster",
+        "Facing": "S",
+        "GroupName": "PAWS",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_restaurant_pie_01_57": {
+      "properties": {
+        "CustomName": "Poster",
+        "Facing": "S",
+        "GroupName": "Blue Pie",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "20"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_restaurant_pie_01_58": {
+      "properties": {
+        "CustomName": "Poster",
+        "Facing": "S",
+        "GroupName": "Green Pie",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "20"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_restaurant_pie_01_59": {
+      "properties": {
+        "CustomName": "Poster",
+        "Facing": "S",
+        "GroupName": "Pink Pie",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "20"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_restaurant_pie_01_56": {
+      "properties": {
+        "CustomName": "Poster",
+        "Facing": "S",
+        "GroupName": "Red Pie",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "20"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_com_01_85": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Projector",
+        "Facing": "E",
+        "GroupName": "Cinema",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "Material": "Electric",
+        "Material2": "AluminumScrap",
+        "PickUpWeight": "100",
+        "Surface": "34"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_33": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Purple Rattan",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_03_45": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Fancy Wooden",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_35": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Barbecue",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsoType": "IsoBarbecue",
+        "Material": "SmallMetalPlates",
+        "Material2": "MetalScrap",
+        "PickUpWeight": "100",
+        "ScrapSize": "Small",
+        "container": "barbecue",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_01_41": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Modern Red",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_9": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CollisionShape": "NorthCounter",
+        "ContainerCapacity": "15",
+        "ContainerPosition": "Low",
+        "CustomName": "Oven",
+        "Facing": "S",
+        "GroupName": "Red",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsoType": "IsoStove",
+        "Material": "Fridge",
+        "Material2": "Electric",
+        "Material3": "MetalScrap",
+        "PickUpLevel": "3",
+        "PickUpTool": "Electrician",
+        "PickUpWeight": "200",
+        "PlaceTool": "Electrician",
+        "Surface": "34",
+        "container": "stove",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_02_9": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Red Wooden",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "construction_01_8": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Block",
+        "Facing": "S",
+        "GroupName": "Road",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "PickUpWeight": "200",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "street_decoration_01_26": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Road Cone",
+        "DamagedSprite": "damaged_objects_01_26",
+        "HitByCar": "",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "PlasticHard",
+        "MinimumCarSpeedDmg": "5"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "street_decoration_01_27": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Road Cone",
+        "DamagedSprite": "damaged_objects_01_27",
+        "HitByCar": "",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "PlasticHard",
+        "MinimumCarSpeedDmg": "5"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_tables_high_01_14": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Round Table",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "100",
+        "ScrapSize": "Small",
+        "Surface": "27",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_com_01_20": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Dish",
+        "Facing": "S",
+        "GroupName": "Satellite",
+        "IsMoveAble": "",
+        "Material": "AluminumScrap",
+        "Material2": "Electric",
+        "Material3": "Transmission",
+        "MoveType": "WallObject",
+        "PickUpLevel": "2",
+        "PickUpTool": "Electrician",
+        "PickUpWeight": "200",
+        "PlaceTool": "Electrician"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_medical_01_9": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Scale",
+        "Facing": "S",
+        "GroupName": "Weighing",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "MetalBars",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_shop_greenes_01_37": {
+      "properties": {
+        "BlocksPlacement": "",
+        "ContainerCapacity": "10",
+        "CustomName": "Basket",
+        "Facing": "S",
+        "GroupName": "Vegetable",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTableTop": "",
+        "PickUpWeight": "10",
+        "container": "smallbox"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_military_generic_01_18": {
+      "properties": {
+        "AttachedToGlass": "",
+        "CustomName": "Sign",
+        "Facing": "S",
+        "GroupName": "Property",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_shop_accessories_01_27": {
+      "properties": {
+        "CustomName": "Sign",
+        "Facing": "S",
+        "GroupName": "Citrus",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_military_generic_01_19": {
+      "properties": {
+        "AttachedToGlass": "",
+        "CustomName": "Sign",
+        "Facing": "S",
+        "ForceSingleItem": "",
+        "GroupName": "Restricted Area",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10",
+        "SpriteGridPos": "0,0"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_military_generic_01_21": {
+      "properties": {
+        "AttachedToGlass": "",
+        "CustomName": "Sign",
+        "Facing": "S",
+        "GroupName": "Warning",
+        "IsMoveAble": "",
+        "MoveType": "WallObject",
+        "PickUpWeight": "10"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_storage_01_52": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "ContainerCapacity": "10",
+        "CustomName": "Table",
+        "Facing": "S",
+        "GroupName": "Small",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "IsTable": "",
+        "Material": "Wood",
+        "Material2": "Screws",
+        "PickUpTool": "Hammer",
+        "PickUpWeight": "50",
+        "PlaceTool": "Hammer",
+        "ScrapSize": "Small",
+        "Surface": "15",
+        "container": "sidetable",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_shop_accessories_01_8": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Machine",
+        "Facing": "S",
+        "GroupName": "Tabletop Soda",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "ItemHeight": "25",
+        "Material": "Electric",
+        "Material2": "MetalScrap",
+        "PickUpWeight": "80",
+        "ScrapSize": "Small",
+        "Surface": "34"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_com_01_44": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "HK533p",
+        "Facing": "S",
+        "GroupName": "Imekagi",
+        "IsMoveAble": "",
+        "Material": "Electric",
+        "Material2": "MetalBars",
+        "Material3": "MetalScrap",
+        "PickUpWeight": "250"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "appliances_cooking_01_32": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "ContainerCapacity": "3",
+        "CustomName": "Toaster",
+        "Facing": "N",
+        "GroupName": "Small Chrome",
+        "IsMoveAble": "",
+        "IsSurfaceOffset": "",
+        "IsTableTop": "",
+        "IsoType": "IsoStove",
+        "Material": "MetalScrap",
+        "Material2": "Electric",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "Surface": "34",
+        "attachedSurface": "",
+        "container": "stove",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "fixtures_bathroom_01_16": {
+      "properties": {
+        "CanScrap": "",
+        "CustomName": "Blower",
+        "Facing": "S",
+        "GroupName": "Air",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "Material": "Electric",
+        "Material2": "MetalScrap",
+        "MoveType": "WallObject",
+        "PickUpTool": "Hammer",
+        "PickUpWeight": "50",
+        "PlaceTool": "Hammer",
+        "ScrapSize": "Small",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "fixtures_bathroom_01_8": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanBreak": "",
+        "CanScrap": "",
+        "CustomName": "Toilet",
+        "Facing": "S",
+        "GroupName": "Hanging",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Plumbing",
+        "Material2": "Pipes",
+        "MoveType": "WallObject",
+        "PickUpTool": "Wrench",
+        "PickUpWeight": "100",
+        "PlaceTool": "Wrench",
+        "ScrapSize": "Small",
+        "attachedN": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_community_school_01_32": {
+      "properties": {
+        "CanScrap": "",
+        "CustomName": "Clock",
+        "Facing": "S",
+        "GroupName": "Wall",
+        "IsHigh": "",
+        "IsMoveAble": "",
+        "Material": "Electric",
+        "MoveType": "WallObject",
+        "PickUpWeight": "30",
+        "ScrapSize": "Small",
+        "AmbientSound": "ClockAmbiance"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "AmbientSound": "ClockAmbiance"
+          }
+        }
+      ]
+    },
+    "location_business_office_generic_01_49": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CustomName": "Dispenser",
+        "Facing": "S",
+        "GroupName": "Water",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "MetalScrap",
+        "Material2": "WaterContainer",
+        "PickUpWeight": "300",
+        "ScrapSize": "Small",
+        "solidtrans": "",
+        "waterAmount": "250",
+        "waterMaxAmount": "250"
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_02_20": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "White Lazy",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_03_57": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "White Simple",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "fixtures_sinks_01_12": {
+      "properties": {
+        "BlocksPlacement": "",
+        "CanBreak": "",
+        "CanScrap": "",
+        "CustomName": "Sink",
+        "Facing": "S",
+        "GroupName": "White Standing",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Plumbing",
+        "Material2": "Pipes",
+        "Material3": "Sink",
+        "MoveType": "WallObject",
+        "PickUpTool": "Wrench",
+        "PickUpWeight": "50",
+        "PlaceTool": "Wrench",
+        "ScrapSize": "Small",
+        "attachedN": "",
+        "waterAmount": "20",
+        "waterMaxAmount": "20",
+        "waterPiped": "",
+        "SinkType": "Ceramic"
+      },
+      "source": "newtiledefinitions.tiles",
+      "patches": [
+        {
+          "source": "tiledefinitions_noiseworks.patch.tiles",
+          "properties": {
+            "SinkType": "Ceramic"
+          }
+        }
+      ]
+    },
+    "furniture_seating_indoor_02_56": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "White Wooden",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_02_5": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Wooden",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "PickUpWeight": "75",
+        "ScrapSize": "Small",
+        "Surface": "17",
+        "badBed": "",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "location_restaurant_bar_01_26": {
+      "properties": {
+        "BedType": "badBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Bar Stool",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "PickUpWeight": "50",
+        "ScrapSize": "Small",
+        "Surface": "25",
+        "bed": "",
+        "chairS": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    },
+    "furniture_seating_indoor_03_28": {
+      "properties": {
+        "BedType": "averageBed",
+        "BlocksPlacement": "",
+        "CanScrap": "",
+        "CustomName": "Chair",
+        "Facing": "S",
+        "GroupName": "Yellow Modern",
+        "IsLow": "",
+        "IsMoveAble": "",
+        "Material": "Wood",
+        "Material2": "Nails",
+        "Material3": "Fabric",
+        "PickUpWeight": "75",
+        "Surface": "17",
+        "averageBed": "",
+        "bed": "",
+        "chairS": "",
+        "livingRoom": "",
+        "solidtrans": ""
+      },
+      "source": "newtiledefinitions.tiles"
+    }
+  },
+  "schema": "iris_b41_placed_properties_v1",
+  "version": "41.78",
+  "extraction": "IsoWorld little-endian header/string/property reader; native base load order then noiseworks patch, excluding unloaded legacy _4 file.",
+  "consumer_bindings": [
+    {
+      "path": "lua/client/Moveables/ISMoveableSpriteProps.lua",
+      "sha256": "9800c1c162ad7925662785259128b1d8e0991425f78044832621280f7c6e0fad"
+    },
+    {
+      "path": "lua/client/ISUI/ISWorldObjectContextMenu.lua",
+      "sha256": "3560bb01fa0f474283f208b055587b20b0d398fcfd560682d26e3c617506ac28"
+    },
+    {
+      "path": "lua/client/ISUI/ISInventoryPaneContextMenu.lua",
+      "sha256": "6db61b9f54e1368a339719635bc60341f3e5420cfb3593e5b03fc32c340b56a4"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISPlace3DItemCursor.lua",
+      "sha256": "a2b58ccb02b2c07593076bf8388f2b26112d139e9ce539373ff330e37c0f3d77"
+    },
+    {
+      "path": "scripts/newitems.txt",
+      "sha256": "06cb9bcd39cab185f3b956785c955302b39df90ef301b4f986c3b115f7668347"
+    },
+    {
+      "path": "lua/client/ISUI/ISBBQMenu.lua",
+      "sha256": "604f13d3ef269b75a578329bdea4fb3ef049daea23c7e2db4b6e0bbbb3dd3131"
+    },
+    {
+      "path": "lua/client/ISUI/ISFireplaceMenu.lua",
+      "sha256": "ee2771ad63893185fea931e9580d2f322fbbea6099511c9f5ccaf0148aee44cd"
+    },
+    {
+      "path": "lua/client/TimedActions/ISInventoryTransferAction.lua",
+      "sha256": "89ffc41869cae7625afdcf3bb87000d4462414972d2cfea7a38bf62b9305d9bb"
+    },
+    {
+      "path": "lua/client/Moveables/ISMoveableDefinitions.lua",
+      "sha256": "766681dde6e9a625ee2e271a7fe6aeb1d176ddc247508888ac3611cda1995bdb"
+    },
+    {
+      "path": "lua/shared/Translate/EN/Tooltip_EN.txt",
+      "sha256": "5217b24221ea76e74c1eff90a2da425a640d6088f3ed1fe2e2b7b22357752cd6"
+    }
+  ],
+  "native_bindings": [
+    {
+      "path": "zombie/core/Core.class",
+      "sha256": "a2e07d383c6124bf31d38de4315db85eb98065cbd7f7e9f94b3edd7a27ed8bc0"
+    },
+    {
+      "path": "zombie/iso/IsoWorld.class",
+      "sha256": "b4c1a5cbc1513ccdba4f01a9c4ee90e19ef9c527d0508e1fd19ea5474b39ec91"
+    },
+    {
+      "path": "zombie/iso/IsoObject.class",
+      "sha256": "aec77dbf4f58db8428ac452c98e0e53a5f4f213a7fcf146650483c6828aa27f9"
+    },
+    {
+      "path": "zombie/inventory/ItemContainer.class",
+      "sha256": "b0969efdaf83b2cbf583b0366dc84f970bafd818dfcb8a27ebebdc27f05aa9a6"
+    },
+    {
+      "path": "zombie/inventory/types/HandWeapon.class",
+      "sha256": "4831e10497e461ab175742fcd06a6d5205886086143c670473d60f99cedbf2cc"
+    },
+    {
+      "path": "zombie/iso/objects/IsoFireplace.class",
+      "sha256": "d085feb2917b10827ae2ee187518778f3de620b3fcd0a80bee9bf0f5fc84a7c2"
+    },
+    {
+      "path": "zombie/iso/objects/IsoBarbecue.class",
+      "sha256": "06143d95c62ec32dc9e59d99b04ed4f57e31aa8b3dde8703b6b8cb1c7090ca3d"
+    },
+    {
+      "path": "zombie/iso/objects/IsoMannequin.class",
+      "sha256": "45720e8aca62ab0e7c6e55c3d774698600ffb9a4c50756a03331c6152c705dee"
+    },
+    {
+      "path": "zombie/ai/states/SwipeStatePlayer.class",
+      "sha256": "921a3c8cd66021a11a1e9e32494d2be0b7b5e646af6854e07242e1396f868909"
+    },
+    {
+      "path": "zombie/scripting/objects/Item.class",
+      "sha256": "766b650fe9e0edb48321efdc96d28832319e52137a9562f89ade5e2a1b6aae69"
+    },
+    {
+      "path": "zombie/inventory/types/WeaponPart.class",
+      "sha256": "3c4f646f724931cb21f2d3ed88b699662f09630552f31d6f8edb330aa21901f0"
+    },
+    {
+      "path": "zombie/characters/IsoPlayer.class",
+      "sha256": "4bc35b2aa54fe0391d2255c2c569156507e693e368a01dc19bf18e0646bee8ec"
+    }
+  ],
+  "native_readings": {
+    "version": "Core static initializer constructs GameVersion(41,78).",
+    "surface": "IsoObject.getSurfaceOffsetNoTable returns Surface plus render offset and ItemHeight; ISPlace3DItemCursor selects positive surfaces.",
+    "container": "IsoObject.createContainersFromSpriteProperties creates the declared container; Freezer creates the secondary freezer.",
+    "cold_storage": "ItemContainer.getTemprature checks isPowered and fridge/freezer; returns cold temperature when powered.",
+    "attachment": "HandWeapon.attachWeaponPart adds the part AimingTime to the weapon; detach subtracts it. SwipeStatePlayer ranged hit-chance calculation subtracts beenMovingFor minus (weapon AimingTime plus Aiming skill) only when positive. A positive modifier raises this threshold and can reduce the movement-related hit-chance penalty. No light-source or bayonet-stabbing route is inferred. Item parses AimingTimeModifier and copies it into WeaponPart.aimingTime; its getter is a direct field read. IsoPlayer critical-chance calculation also consumes the movement threshold, using twice the Aiming skill. Neither inspected gameplay consumer measures or shortens a separate aiming duration.",
+    "fireplace": "IsoFireplace.getTemperature returns heated temperature when lit; updateHeatSource adds IsoHeatSource.",
+    "barbecue": "IsoBarbecue creates barbecue container and supplies heated temperature when lit with fuel.",
+    "mannequin": "IsoMannequin.wearItem updates WornItems for allowed Clothing/Container body slots; inventory transfer calls wearItem on the placed mannequin."
+  },
+  "attachment_scope_review": {
+    "admitted_weapon_parts": [
+      {
+        "item_id": "Base.IronSight",
+        "properties": {
+          "WeightModifier": "0.1",
+          "MaxRangeModifier": "3",
+          "MountOn": "HuntingRifle; VarmintRifle; Pistol; Pistol2; Pistol3; Revolver; Revolver_Long; AssaultRifle; AssaultRifle2",
+          "PartType": "Scope",
+          "Tooltip": "Tooltip_IronSight"
+        }
+      },
+      {
+        "item_id": "Base.x2Scope",
+        "properties": {
+          "WeightModifier": "0.3",
+          "MaxRangeModifier": "7",
+          "MinRangeModifier": "6",
+          "MountOn": "HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2",
+          "PartType": "Scope",
+          "Tooltip": "Tooltip_Scope"
+        }
+      },
+      {
+        "item_id": "Base.x4Scope",
+        "properties": {
+          "WeightModifier": "0.4",
+          "MaxRangeModifier": "13",
+          "MinRangeModifier": "8",
+          "MountOn": "HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2",
+          "PartType": "Scope",
+          "Tooltip": "Tooltip_Scope"
+        }
+      },
+      {
+        "item_id": "Base.x8Scope",
+        "properties": {
+          "WeightModifier": "0.8",
+          "MaxRangeModifier": "20",
+          "MinRangeModifier": "10",
+          "MountOn": "HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2",
+          "PartType": "Scope",
+          "Tooltip": "Tooltip_Scope"
+        }
+      },
+      {
+        "item_id": "Base.AmmoStraps",
+        "properties": {
+          "WeightModifier": "0.5",
+          "ReloadTimeModifier": "-5",
+          "MountOn": "HuntingRifle; VarmintRifle; Shotgun",
+          "PartType": "Sling",
+          "Tooltip": "Tooltip_AmmoStrap"
+        }
+      },
+      {
+        "item_id": "Base.Sling",
+        "properties": {
+          "WeightModifier": "-0.3",
+          "MountOn": "HuntingRifle; VarmintRifle; Shotgun",
+          "PartType": "Sling",
+          "Tooltip": "Tooltip_Sling"
+        }
+      },
+      {
+        "item_id": "Base.FiberglassStock",
+        "properties": {
+          "WeightModifier": "-0.5",
+          "HitChanceModifier": "8",
+          "MountOn": "HuntingRifle; VarmintRifle",
+          "PartType": "Stock",
+          "Tooltip": "Tooltip_FiberglassStock"
+        }
+      },
+      {
+        "item_id": "Base.RecoilPad",
+        "properties": {
+          "WeightModifier": "0.1",
+          "RecoilDelayModifier": "-10.0",
+          "MountOn": "HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2",
+          "PartType": "RecoilPad",
+          "Tooltip": "Tooltip_RecoilPad"
+        }
+      },
+      {
+        "item_id": "Base.Laser",
+        "properties": {
+          "WeightModifier": "0.2",
+          "HitChanceModifier": "5",
+          "MountOn": "Pistol; Pistol2; Pistol3; AssaultRifle; AssaultRifle2",
+          "PartType": "Canon",
+          "Tooltip": "Tooltip_Laser"
+        }
+      },
+      {
+        "item_id": "Base.RedDot",
+        "properties": {
+          "WeightModifier": "0.2",
+          "AimingTimeModifier": "5",
+          "MountOn": "Pistol; Pistol2; Pistol3; Revolver; Revolver_Long; AssaultRifle; AssaultRifle2; HuntingRifle; VarmintRifle",
+          "PartType": "Scope",
+          "Tooltip": "Tooltip_RedDot"
+        }
+      },
+      {
+        "item_id": "Base.GunLight",
+        "properties": {
+          "WeightModifier": "0.2",
+          "AimingTimeModifier": "5",
+          "MountOn": "Pistol; Pistol2; Pistol3",
+          "PartType": "Canon"
+        }
+      },
+      {
+        "item_id": "Base.Bayonnet",
+        "properties": {
+          "WeightModifier": "0.2",
+          "AimingTimeModifier": "5",
+          "MountOn": "VarmintRifle; HuntingRifle",
+          "PartType": "Canon"
+        }
+      },
+      {
+        "item_id": "Base.ChokeTubeFull",
+        "properties": {
+          "WeightModifier": "0.1",
+          "AngleModifier": "0.05",
+          "DamageModifier": "0.5",
+          "MountOn": "Shotgun",
+          "PartType": "Canon",
+          "Tooltip": "Tooltip_ChokeTubeFull"
+        }
+      },
+      {
+        "item_id": "Base.ChokeTubeImproved",
+        "properties": {
+          "WeightModifier": "0.1",
+          "AngleModifier": "-0.1",
+          "DamageModifier": "-0.5",
+          "MountOn": "Shotgun",
+          "PartType": "Canon",
+          "Tooltip": "Tooltip_ChokeTubeImproved"
+        }
+      }
+    ],
+    "same_parameter_items": [
+      "Base.RedDot",
+      "Base.GunLight",
+      "Base.Bayonnet"
+    ],
+    "interpretation": "The installed B41.78 Tooltip_RedDot says aiming speed, while the same +5 parameter on all three parts reaches the same native movement hit-chance penalty threshold. Use the narrower observed movement-accuracy purpose for all three, retaining authored tooltip as evidence rather than a separate speed claim. The other eleven parts do not declare this parameter and retain their other confirmed purposes.",
+    "reference_scan": "All installed zombie/**/*.class files scanned for getAimingTime/AimingTimeModifier; references found in Item, WeaponPart, HandWeapon, IsoPlayer, SwipeStatePlayer. Lua matches only admin item editor; no separate player aiming-duration use found in this scan."
+  }
+}

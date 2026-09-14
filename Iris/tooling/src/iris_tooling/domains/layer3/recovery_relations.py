@@ -35,6 +35,68 @@ def enrich(root, semantic, composition):
     locale_raw = (root / locale_path).read_bytes()
     locale_text = locale_raw.decode('utf-16' if locale_raw[:2] in (b'\xff\xfe', b'\xfe\xff') else 'utf-8-sig')
     labels = dict(re.findall(r'ItemName_([\w.]+)\s*=\s*"([^"]+)"', locale_text))
+    recipe_locale_path = 'lua/shared/Translate/KO/Recipes_KO.txt'
+    recipe_locale_raw = (root / recipe_locale_path).read_bytes()
+    recipe_locale_text = recipe_locale_raw.decode('utf-16' if recipe_locale_raw[:2] in (b'\xff\xfe', b'\xfe\xff') else 'utf-8-sig')
+    recipe_labels = dict(re.findall(r'Recipe_([^\s=]+)\s*=\s*"([^"\r\n]*)"', recipe_locale_text))
+    # Minimal display spelling corrections; source labels and recipe keys stay
+    # available as evidence. These replacements never select a use or role.
+    source_labels, source_recipe_labels = dict(labels), dict(recipe_labels)
+    def corrected_label(value):
+        for original, corrected in (('스크류드라이버', '드라이버'), ('쿠기', '쿠키'), ('봉합용 바늘 집개', '봉합용 바늘 집게')):
+            value = value.replace(original, corrected)
+        return value
+    labels = {key: corrected_label(value) for key, value in labels.items()}
+    recipe_labels = {key: corrected_label(value) for key, value in recipe_labels.items()}
+    # Vanilla KO has no entry for this declared recipe key. Translate the
+    # recipe label itself; do not substitute another trap recipe or item text.
+    recipe_labels.setdefault('Make_Wooden_Box_Trap', '나무 상자 덫 만들기')
+    # The actual fallback explicitly names stairs and lamp-on-pillar. Other
+    # dismantable constructors alone do not resolve normal-moveable routing.
+    target_sources = {
+        'lua/server/BuildingObjects/ISWoodenStairs.lua': ('thumpable:setIsDismantable(true)', '목제 계단', 'wooden stairs'),
+        'lua/server/BuildingObjects/ISLightSource.lua': ('o.dismantable = true', '기둥 조명', 'pillar lamps'),
+    }
+    props_path = 'lua/client/Moveables/ISMoveableSpriteProps.lua'
+    props_raw = (root / props_path).read_bytes()
+    props_text = props_raw.decode('utf-8-sig')
+    if 'like stairs and lamp-on-pillar' not in props_text or 'return ISThumpableSpriteProps.new(_object)' not in reader.mask(props_text, lua=True):
+        raise ValueError('reviewed dismantling fallback target examples changed')
+    target_bindings = [{'path': props_path, 'sha256': hashlib.sha256(props_raw).hexdigest()}]
+    for path, (token, _, _) in target_sources.items():
+        raw = (root / path).read_bytes()
+        if token not in reader.mask(raw.decode('utf-8-sig'), lua=True):
+            raise ValueError('constructed dismantling target changed: ' + path)
+        target_bindings.append({'path': path, 'sha256': hashlib.sha256(raw).hexdigest()})
+    use_target_paths = (
+        'lua/server/BuildingObjects/PaintingReference.lua',
+        'lua/server/BuildingObjects/ISPaintCursor.lua',
+        'lua/client/BuildingObjects/ISUI/ISPaintMenu.lua',
+        'lua/server/BuildingObjects/ISWoodenContainer.lua',
+        'lua/server/BuildingObjects/ISBuildUtil.lua',
+        'lua/client/BuildingObjects/ISUI/ISBuildMenu.lua',
+        'lua/client/ISUI/ISWorldObjectContextMenu.lua',
+    )
+    use_target_bindings = [{'path': path, 'sha256': hashlib.sha256((root / path).read_bytes()).hexdigest()}
+                           for path in use_target_paths]
+    paint_path = 'lua/server/BuildingObjects/PaintingReference.lua'
+    paint_source = (root / paint_path).read_text(encoding='utf-8-sig')
+    paint_groups = []
+    for table, scope, category, names in (
+        ('Painting', 'mapped', {'ko': '벽', 'en': 'walls'},
+         {'wall': ('벽', 'Walls'), 'doorframe': ('문틀', 'Door frames'), 'windowsframe': ('창틀', 'Window frames'), 'pillar': ('기둥', 'Pillars')}),
+        ('OtherPainting', 'some', {'ko': '가구', 'en': 'furniture'},
+         {'door': ('문', 'doors'), 'chair': ('의자', 'chairs'), 'crates': ('상자', 'crates'), 'table': ('탁자', 'tables')}),
+    ):
+        observed = set(re.findall(r'^' + table + r'\["([^"\]]+)"\]\s*=\s*\{', paint_source, re.M))
+        if observed != set(names):
+            raise ValueError('reviewed paint target mapping changed')
+        paint_groups.append({'scope': scope, 'category': category, 'source_path': paint_path,
+                             'targets': [{'key': key, 'ko': pair[0], 'en': pair[1]} for key, pair in names.items()]})
+    purpose_fields = ('Type', 'DisplayCategory', 'Categories', 'SubCategory', 'Tags', 'Ranged', 'Poison',
+                      'ExplosionPower', 'FirePower', 'SmokeRange', 'NoiseRange',
+                      'RemoteController', 'RemoteRange', 'SensorRange', 'ExplosionTimer',
+                      'CanBeRemote', 'AcceptMediaType', 'MediaCategory', 'ClothingItemExtraOption', 'WorldObjectSprite', 'BodyLocation', 'CanBeEquipped')
 
     def named(item, food=False):
         fields = declarations[item]
@@ -42,6 +104,8 @@ def enrich(root, semantic, composition):
         # name: e.g. mushroom soup must not become a claim of plain mushrooms.
         english = fields.get('DisplayName') or item
         korean = labels.get(item, english)
+        if korean.endswith(' (수제작)'):
+            korean = '수제 ' + korean.removesuffix(' (수제작)')
         if food:
             # The opening frame already states container opening. Remove only
             # that explicit container/state label, preserving every food word:
@@ -54,6 +118,9 @@ def enrich(root, semantic, composition):
                 korean = korean.removesuffix(' 통조림 (열림)')
         return {'item_id': item, 'names': {'en': english, 'ko': korean},
                 'name_basis': 'DisplayName/ItemName',
+                'source_names': {'en': english, 'ko': source_labels.get(item, english)},
+                'declared_traits': {k: fields[k] for k in purpose_fields if k in fields},
+                **({'food_type': fields['FoodType']} if food and fields.get('FoodType') else {}),
                 'observation_ref': declaration_refs[item]}
 
     # Consumption belongs to the exact declared opened result, never to the
@@ -101,13 +168,74 @@ def enrich(root, semantic, composition):
     for item in composition['items']:
         item_id = item['item_id']
         item['source_traits'] = {k: declarations.get(item_id, {})[k]
-                                 for k in ('FabricType',) if k in declarations.get(item_id, {})}
+                                 for k in ('FabricType', 'FoodType') + purpose_fields if k in declarations.get(item_id, {})}
+        learned = []
+        for fact in by_item[item_id]:
+            fn = fact['payload'].get('function', '')
+            if fn.startswith('learn_literature_') and fn not in {'learn_literature_mechanics', 'learn_literature_herbalist', 'learn_literature_generator'}:
+                refs = sorted({ref for pid in fact['provenance_refs'] for ref in semantic['provenance'][pid]['observation_refs']})
+                recipe_names = {observations[ref]['content'].get('name') for ref in refs
+                                if isinstance(observations[ref].get('content'), dict) and observations[ref]['content'].get('kind') == 'recipe'}
+                if fn == 'learn_literature_metalconstruction':
+                    recipe_names.update({'Make Metal Walls', 'Make Metal Roof', 'Make Metal Containers', 'Make Metal Fences'})
+                values = [x.strip() for x in declarations.get(item_id, {}).get('TeachedRecipes', '').split(';') if x.strip() in recipe_names]
+                if values:
+                    learned.append({'function': fn, 'fact_ref': fact['fact_id'], 'observation_refs': refs,
+                        'recipes': [{'key': value, 'source_names': {'ko': source_recipe_labels.get(value.replace(' ', '_'), value), 'en': value}, 'operation': ('make' if value.startswith(('Make ', 'Craft ')) else 'repair' if value.startswith('Fix ') else 'modify' if value.startswith('Add ') else 'recover' if value.startswith('Get ') and value.endswith(' Back') else 'other'), 'names': {'ko': recipe_labels.get(value.replace(' ', '_'), value), 'en': value}} for value in dict.fromkeys(values)]})
+        if learned:
+            # Classify only the contents already admitted as learned recipes.
+            # Declared results describe those contents, not new uses of inputs.
+            for lesson in learned:
+                for recipe in lesson['recipes']:
+                    results = {}
+                    for ref in lesson['observation_refs']:
+                        observation = observations[ref]
+                        content = observation.get('content', {})
+                        if not isinstance(content, dict) or content.get('kind') != 'recipe' or content.get('name') != recipe['key']:
+                            continue
+                        record = recipe_record(observation)
+                        # This is the declared result's category, not a claim
+                        # about callback effects or a new result-use relation.
+                        if record is None:
+                            continue
+                        participants, opaque = reader.recipe_participants(record, declarations, groups)
+                        if opaque:
+                            continue
+                        for participant in participants:
+                            if participant['role'] == 'result' and participant['item_id'] in declarations:
+                                value = named(participant['item_id'])
+                                value['recipe_observation_ref'] = ref
+                                results[participant['item_id']] = value
+                    recipe['declared_results'] = list(results.values())
+            item['source_traits']['learned_recipes'] = learned
+        if any(f['payload'].get('function') == 'paint_supported_surface' for f in by_item[item_id]):
+            item['source_traits']['action_targets'] = [{'function': 'paint_supported_surface', 'action': 'paint',
+                'role': 'painting_supply', 'coverage': 'mapped_categories', 'groups': deepcopy(paint_groups)}]
+        if any(f['payload'].get('function') == 'dismantle_built_object' for f in by_item[item_id]):
+            item['source_traits']['dismantling_targets'] = [{'ko': ko, 'en': en, 'source_path': path}
+                for path, (_, ko, en) in target_sources.items()]
         if item_id in declarations:
             # Reuse the admitted declaration and existing locale reader for
             # the current subject as well as results. No name-based use rules.
             subject = named(item_id)
             item['source_traits']['display_names'] = subject['names']
             item['source_traits']['name_observation_ref'] = subject['observation_ref']
+            fields = declarations[item_id]
+            alternate_names = fields.get('ClothingItemExtra', '').split(';')
+            alternate_options = fields.get('ClothingItemExtraOption', '').split(';')
+            if len(alternate_names) == len(alternate_options):
+                alternatives = []
+                for target, option in zip(alternate_names, alternate_options):
+                    if not target:
+                        continue
+                    if '.' not in target:
+                        target = item_id.split('.')[0] + '.' + target
+                    if target in declarations:
+                        destination = declarations[target]
+                        location = destination.get('BodyLocation') or destination.get('CanBeEquipped')
+                        if location:
+                            alternatives.append({'option': option, 'location': location, 'observation_ref': declaration_refs[target]})
+                item['source_traits']['wearing_alternatives'] = alternatives
         recovered = named_fabrics.get(item_id.split('.', 1)[-1]) or fabric_results.get(item['source_traits'].get('FabricType'))
         if recovered in declarations:
             item['source_traits']['fabric_result'] = named(recovered)
@@ -115,6 +243,24 @@ def enrich(root, semantic, composition):
             if dirty in declarations and 'FindItem(materials[1] .. "Dirty")' in groups_text:
                 item['source_traits']['fabric_dirty_result'] = named(dirty)
         relations = []
+        repair_targets = {}
+        for fact in by_item[item_id]:
+            if fact['payload'] != {'role': 'repair_material'}:
+                continue
+            for provenance in fact['provenance_refs']:
+                for ref in semantic['provenance'][provenance]['observation_refs']:
+                    content = observations[ref].get('content', {})
+                    if not isinstance(content, dict) or not content.get('raw', '').lstrip().startswith('fixing '):
+                        continue
+                    props = reader.properties({'clauses': content.get('clauses', [])}, ':')
+                    for value in props.get('Require', []):
+                        for token in value.split(';'):
+                            target = token.strip()
+                            if '.' not in target:
+                                target = 'Base.' + target
+                            if target in declarations:
+                                repair_targets[target] = {**named(target), 'fixing_observation_ref': ref}
+        item['source_traits']['repair_targets'] = [repair_targets[k] for k in sorted(repair_targets)]
         functions = {f['payload'].get('function'): f for f in by_item[item_id]
                      if f['fact_kind'] == 'direct_function'}
         for fn in sorted(FUNCTIONS & functions.keys()):
@@ -226,6 +372,14 @@ def enrich(root, semantic, composition):
                                  'count': p['clause'].split('=', 1)[1] if '=' in p['clause'] else '1'} for p in outputs],
                     'observation_refs': sorted({ref, groups_ref}) if callbacks else [ref],
                 }
+                if context['payload']['activity'] == 'explosive_modification':
+                    # The admitted Add recipes consume the device first,
+                    # the fitted component second, then assembly supplies.
+                    inputs = [p for p in participants if p['role'] in {'input', 'destroy'}]
+                    ordinals = sorted({p['ordinal'] for p in inputs})
+                    positions = {ordinals.index(p['ordinal']) for p in inputs if p['item_id'] == item_id}
+                    if len(positions) == 1:
+                        recipe_relations[key]['modification_role'] = {0: 'target', 1: 'component'}.get(next(iter(positions)), 'assembly_material')
                 if callbacks == ['Recipe.OnCreate.SlicePizza']:
                     # The callback explicitly names the result as a slice;
                     # the KO base item label alone omits that distinction.
@@ -246,6 +400,9 @@ def enrich(root, semantic, composition):
         item['use_relations'] = relations
     composition['source']['relation_adapter'] = {'name': 'admitted source participants', 'locale_path': locale_path,
         'locale_sha256': hashlib.sha256(locale_raw).hexdigest(),
+        'recipe_locale_path': recipe_locale_path, 'recipe_locale_sha256': hashlib.sha256(recipe_locale_raw).hexdigest(),
+        'dismantling_target_sources': target_bindings,
+        'paint_and_padlock_target_sources': use_target_bindings,
         'fabric_path': fabric_path, 'fabric_sha256': hashlib.sha256(fabric_raw).hexdigest(),
         'producer_sha256': hashlib.sha256((root / 'Iris/tooling/src/iris_tooling/domains/layer3/recovery_relations.py').read_bytes()).hexdigest()}
     return composition

@@ -1,0 +1,42 @@
+{
+  "version": "B41.78",
+  "native_bindings": [
+    {
+      "path": "zombie/iso/objects/IsoTrap.class",
+      "sha256": "ff8604b181fd6b61c0b97eb185727b959a7f262abc79f6161e0461488897086a"
+    },
+    {
+      "path": "zombie/characters/IsoZombie.class",
+      "sha256": "dd298b2b62ac7ae44911f72f391819381099db46e75c66542a7b7ec12a823237"
+    },
+    {
+      "path": "zombie/iso/objects/IsoGenerator.class",
+      "sha256": "4574fc753e23a5d4d330e88f6fd10879bdad8c8f5807540e716383ea19f6b183"
+    }
+  ],
+  "consumer_bindings": [
+    {
+      "path": "lua/client/TimedActions/ISPlaceTrap.lua",
+      "sha256": "846801d060c58def44a6bb150d607cffd62325725049cfe42986ef164a88717a"
+    },
+    {
+      "path": "lua/client/TimedActions/ISActivateGenerator.lua",
+      "sha256": "0cf7901a38fe723c5991847338465701e9f74c5fa8c4f2dccd056265baa2cc72"
+    }
+  ],
+  "readings": {
+    "noise": {
+      "entry": "ISPlaceTrap.perform creates IsoTrap from the admitted weapon",
+      "property": "IsoTrap constructor copies HandWeapon.getNoiseRange and getNoiseDuration",
+      "effect": "IsoTrap.triggerExplosion(false), offsets 94-127: positive noise range calls WorldSoundManager.addSound; updateSounds repeats sound during NoiseDuration",
+      "consumer": "IsoZombie.RespondToSound obtains WorldSoundManager sounds and attraction, then may turn and pathToSound at offsets 734-749",
+      "limit": "Only admitted placement with positive NoiseRange; no guarantee that every zombie responds, no damage or safety claim."
+    },
+    "power": {
+      "entry": "ISActivateGenerator.perform calls generator.setActivated",
+      "effect": "IsoGenerator.setSurroundingElectricity checks activation, spatial bounds and AllowExteriorGenerator; offsets 402-430 setHaveElectricity on eligible squares",
+      "consumers": "Same method registers powered clothes dryers, washers, combination appliances, stoves, televisions, radios and refrigerated containers",
+      "limit": "Nearby electrical equipment; outdoor supply follows sandbox permission, no unlimited range or universal compatibility claim."
+    }
+  }
+}

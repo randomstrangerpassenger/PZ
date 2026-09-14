@@ -1,0 +1,758 @@
+[
+  {
+    "item": "Base.BleachEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다.",
+    "after": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다."
+  },
+  {
+    "item": "Base.BleachEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can hold, carry and transfer water or fuel.",
+    "after": "It can receive and supply fuel. It can receive, store, and carry water."
+  },
+  {
+    "item": "Base.CannedBellPepper",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Bell Pepper. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Bell Pepper for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBellPepper",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Bell Pepper.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Bell Pepper for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBolognese",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Spaghetti Bolognese. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Spaghetti Bolognese for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBolognese",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Spaghetti Bolognese.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Spaghetti Bolognese for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBroccoli",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Broccoli. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Broccoli for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBroccoli",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Broccoli.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Broccoli for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCabbage",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Cabbage. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Cabbage for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCabbage",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Cabbage.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Cabbage for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCarrots",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Carrots. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Carrots for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCarrots",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Carrots.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Carrots for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCarrots2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Carrots. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Carrots for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCarrots2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Carrots.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Carrots for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedChili",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Chili. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Chili for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedChili",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Chili.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Chili for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCorn",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Corn. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Corn for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCorn",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Corn.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Corn for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCornedBeef",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Corned Beef. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Corned Beef for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCornedBeef",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Corned Beef.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Corned Beef for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedEggplant",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Eggplant. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Eggplant for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedEggplant",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Eggplant.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Eggplant for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedFruitBeverage",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to consume the Fruit Beverage. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Fruit Beverage for consumption. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedFruitBeverage",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to consume the Fruit Beverage.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Fruit Beverage for consumption.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedFruitCocktail",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Fruit Cocktail. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Fruit Cocktail for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedFruitCocktail",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Fruit Cocktail.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Fruit Cocktail for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedLeek",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Leek. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Leek for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedLeek",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Leek.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Leek for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedMilk",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to drink the Evaporated Milk. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Evaporated Milk for drinking. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedMilk",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to drink the Evaporated Milk.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Evaporated Milk for drinking.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedMushroomSoup",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Mushroom Soup. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Mushroom Soup for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedMushroomSoup",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Mushroom Soup.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Mushroom Soup for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPeaches",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Peaches. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Peaches for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPeaches",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Peaches.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Peaches for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPeas",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Peas. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Peas for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPeas",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Peas.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Peas for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPineapple",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Pineapple. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Pineapple for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPineapple",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Pineapple.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Pineapple for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPotato",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Potato. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Potato for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPotato",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Potato.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Potato for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPotato2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Potato. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Potato for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPotato2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Potato.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Potato for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedRedRadish",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Radish. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Radish for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedRedRadish",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Radish.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Radish for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedSardines",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Sardines. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Sardines for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedSardines",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Sardines.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Sardines for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedTomato",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Tomato. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Tomato for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedTomato",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Tomato.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Tomato for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedTomato2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Tomato. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Tomato for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedTomato2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Tomato.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Tomato for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.Dogfood",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Dog Food.",
+    "after": "It can be opened with a Can Opener to obtain Dog Food for eating."
+  },
+  {
+    "item": "Base.Dogfood",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Dog Food.",
+    "after": "It can be opened with a Can Opener to obtain Dog Food for eating."
+  },
+  {
+    "item": "Base.EggCarton",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Egg. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Egg for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.EggCarton",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Egg.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Egg for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.ElectronicsScrap",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "전자기기와 장치의 제작, 개조, 발전기 수리에 재료로 쓸 수 있다.",
+    "after": "장치 개조, 조명의 건전지용 개조 및 발전기 수리, 장비 제작에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.ElectronicsScrap",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for making or modifying electronic devices and equipment, or repairing generators.",
+    "after": "It can supply material for modifying devices, converting lamps to battery power, and repairing generators or for making equipment."
+  },
+  {
+    "item": "Base.Glue",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "무기 수리 및 호환 차량 부품 수리에 재료로 쓸 수 있다. 전자 기기 제작에도 쓸 수 있다.",
+    "after": "무기 수리 및 호환 차량 부품 수리, 전자 기기 제작에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.GunPowder",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "금속 단조에 재료로 쓸 수 있다. 폭발 장치 제작에도 쓸 수 있다.",
+    "after": "금속 단조, 폭발 장치 제작에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Log",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축, 야영 준비와 숯 제작에 재료로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "목공 및 건축, 야영 장비 및 숯 제작에 재료로 쓸 수 있다. 모아서 묶을 수 있다. 수박을 쪼개는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Log",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for construction, camping preparations and charcoal making. It can be used as fuel for campfires, for example.",
+    "after": "It can supply material for woodworking and construction or for making camping equipment and charcoal. It can be bundled with other logs. It can be used for breaking a watermelon. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.MetalPipe",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "금속 부품 용접 및 용접 건축에 재료로 쓸 수 있다. 폭발 장치 제작에도 쓸 수 있다. 무기로 쓸 수 있다.",
+    "after": "금속 부품 용접 및 용접 건축, 폭발 장치 제작에 재료로 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Nails",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "목공과 건축, 사냥과 낚시 장비 제작 및 무기 수리에 재료로 쓸 수 있다.",
+    "after": "목공, 건축 및 무기 수리, 사냥 장비 및 낚시 장비 제작에 재료로 쓸 수 있다. 모아서 상자로 포장할 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다."
+  },
+  {
+    "item": "Base.Nails",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for woodworking, construction, making hunting and fishing equipment, and repairing weapons.",
+    "after": "It can supply material for woodworking and construction and repairing weapons or for making hunting equipment and fishing equipment. It can be collected and packed into a box. It can be used to anchor an escape rope at an upper-floor window or similar attachment."
+  },
+  {
+    "item": "Base.Plank",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 건축과 장비 제작에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공 및 건축, 사냥 장비, 야영 장비 및 도구 제작에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Plank",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for construction and equipment making. It can be used as a weapon. It can be used as fuel for campfires, for example.",
+    "after": "It can supply splinting material for fractures. It can supply material for woodworking and construction or for making hunting equipment, camping equipment, and tools. It can be used as a weapon. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.PopBottleEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다.",
+    "after": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다."
+  },
+  {
+    "item": "Base.PopBottleEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can hold, carry and transfer water or fuel.",
+    "after": "It can receive and supply fuel. It can receive, store, and carry water."
+  },
+  {
+    "item": "Base.RippedSheets",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축과 장비 제작에 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축, 장비 제작에 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.RippedSheets",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for first aid or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for construction and equipment making. It can be used as fuel or tinder, for example in campfires.",
+    "after": "It can be used for first aid or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for construction or for making equipment. It can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.RippedSheetsDirty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축과 장비 제작에 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축, 장비 및 부목 제작에 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.RippedSheetsDirty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for construction and equipment making. It can be used as fuel or tinder, for example in campfires.",
+    "after": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for construction or for making equipment and splints. It can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.Stone",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축과 장비 제작에 재료로 쓸 수 있다.",
+    "after": "건축, 도구 제작에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Stone",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for construction and equipment making.",
+    "after": "It can supply material for construction or for making tools."
+  },
+  {
+    "item": "Base.TinnedBeans",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Beans. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Beans for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TinnedBeans",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Beans.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Beans for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TinnedSoup",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to drink the Vegetable Soup. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Vegetable Soup for drinking. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TinnedSoup",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to drink the Vegetable Soup.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to obtain Vegetable Soup for drinking.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TreeBranch",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공과 장비 제작에 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공, 사냥 장비 및 도구 제작에 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.TreeBranch",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for woodworking and equipment making. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.",
+    "after": "It can supply splinting material for fractures. It can supply material for woodworking or for making hunting equipment and tools. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.TunaTin",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the tuna. Its contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Tin of Tuna for eating. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TunaTin",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the tuna.\nIts contents can also be used as a cooking ingredient.",
+    "after": "It can be opened to obtain Tin of Tuna for eating.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.Twine",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축과 장비 제작에 재료로 쓸 수 있다.",
+    "after": "건축, 장비 제작에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Twine",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for construction and equipment making.",
+    "after": "It can supply material for construction or for making equipment."
+  },
+  {
+    "item": "Base.WaterBottleEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다.",
+    "after": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.WaterBottleEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can hold, carry and transfer water or fuel. It can be used as material for making incendiary devices.",
+    "after": "It can receive and supply fuel. It can receive, store, and carry water. It can be used as material for making incendiary devices."
+  },
+  {
+    "item": "Base.WhiskeyEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.WhiskeyEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can hold, carry and transfer water or fuel. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle.",
+    "after": "It can receive and supply fuel. It can receive, store, and carry water. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle."
+  },
+  {
+    "item": "Base.WineEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.WineEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can hold, carry and transfer water or fuel. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle.",
+    "after": "It can receive and supply fuel. It can receive, store, and carry water. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle."
+  },
+  {
+    "item": "Base.WineEmpty2",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.WineEmpty2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can hold, carry and transfer water or fuel. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle.",
+    "after": "It can receive and supply fuel. It can receive, store, and carry water. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle."
+  },
+  {
+    "item": "Base.Wire",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "용접 건축에 재료로 쓸 수 있다. 사냥 장비 및 낚시 장비 제작에도 쓸 수 있다.",
+    "after": "용접 건축, 사냥 장비 및 낚시 장비 제작에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.WoodenStick",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 사냥 장비, 낚시 장비 및 야영 장비를 만드는 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "골절을 고정하는 부목 재료로 쓸 수 있다. 장비를 만드는 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.WoodenStick",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for making hunting equipment, fishing equipment, and camping equipment. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.",
+    "after": "It can supply splinting material for fractures. It can supply material for making equipment. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "farming.BroccoliBagSeed",
+    "locale": "en",
+    "surface": "compact",
+    "before": "The Broccoli Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Broccoli Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.BroccoliBagSeed",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "The Broccoli Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Broccoli Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.CabbageBagSeed",
+    "locale": "en",
+    "surface": "compact",
+    "before": "The Cabbage Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Cabbage Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.CabbageBagSeed",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "The Cabbage Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Cabbage Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.CarrotBagSeed",
+    "locale": "en",
+    "surface": "compact",
+    "before": "The Carrot Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Carrot Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.CarrotBagSeed",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "The Carrot Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Carrot Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.PotatoBagSeed",
+    "locale": "en",
+    "surface": "compact",
+    "before": "The Potato Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Potato Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.PotatoBagSeed",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "The Potato Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Potato Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.RedRadishBagSeed",
+    "locale": "en",
+    "surface": "compact",
+    "before": "The Radish Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Radish Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.RedRadishBagSeed",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "The Radish Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Radish Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.StrewberrieBagSeed",
+    "locale": "en",
+    "surface": "compact",
+    "before": "The Strawberry Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Strawberries Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.StrewberrieBagSeed",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "The Strawberry Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Strawberries Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.TomatoBagSeed",
+    "locale": "en",
+    "surface": "compact",
+    "before": "The Tomato Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Tomato Seeds for sowing in a planting bed."
+  },
+  {
+    "item": "farming.TomatoBagSeed",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "The Tomato Seeds in the packet can be sown in a planting bed.",
+    "after": "It can be opened to obtain Tomato Seeds for sowing in a planting bed."
+  }
+]

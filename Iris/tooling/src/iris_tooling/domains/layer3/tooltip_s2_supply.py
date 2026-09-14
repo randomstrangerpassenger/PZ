@@ -17,7 +17,7 @@ from iris_tooling.domains.tooltip_t1.models import TooltipContractError
 
 DESCRIPTION = {
     'path': descriptions.DEFAULT_OUTPUT,
-    'sha256': 'e8d6c3a2320f63b9ab75b9aeac3edc0977ebada5c9a698982b3e12b666aa859b',
+    'sha256': '8510f3003f7150ad034d83ef1496a2540b3fc5ac62acecb622d7c3bce7ba6ed3',
 }
 SCHEMA = 'iris-tooltip-s2-supply-v2'
 STATES = {'present', 'absent', 'out_of_dvf_target'}

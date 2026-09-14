@@ -42,9 +42,9 @@ LOCALES = ("ko", "en")
 
 MENU_SCHEMA = "iris-layer3-product-v2"
 DESCRIPTION = {"path": "Iris/build/description/composition/descriptions.json",
-               "sha256": "e8d6c3a2320f63b9ab75b9aeac3edc0977ebada5c9a698982b3e12b666aa859b"}
+               "sha256": "8510f3003f7150ad034d83ef1496a2540b3fc5ac62acecb622d7c3bce7ba6ed3"}
 BLOCKS = {"path": "Iris/build/description/composition/blocks.json",
-          "sha256": "9d68e982cd508b3a4beafc9d1a8892668c9470d4581f7db0d1761e602926e161"}
+          "sha256": "e290c79b0f6d3b8738df5203926aa249309f8c14eaf6eebbed13e809a40ed455"}
 ACCEPTED_TOOLTIP = {"path": ".tmp/tooltip/preview/Iris.zip",
                     "sha256": "33b5927127442b16dca917c6f49f3e661743123c0cbd3d5890d47cb6fca96860"}
 ACCEPTED_DESCRIPTION = {"path": "Iris/build/description/composition/descriptions.json",
@@ -151,6 +151,10 @@ def expanded_projection(payload, blocks):
                     continue
                 units.append({"first_segment": start + 1, "last_segment": end,
                               "text": " ".join(s["text"] for s in segments[start:end])})
+                grouped = [s['target_groups'] for s in segments[start:end] if s.get('target_groups')]
+                require(not grouped or (len(grouped) == 1 and end - start == 1), 'Grouped targets must own one independent use')
+                if grouped:
+                    units[-1]['target_groups'] = deepcopy(grouped[0])
                 for position in range(start, end):
                     destinations[position] = len(units)
             runtime[key][locale] = {"schema_version": "iris_expanded_display_v1", "state": row["state"],

@@ -118,6 +118,25 @@ local function safeEvolvedRecipeState(fullType)
     return {status = "fault", reason = "evolved_lookup_failed", relations = {}}
 end
 
+local function readonlyTargetGroups(detail)
+    if not detail then return nil end
+    local groups = {}
+    for i, group in ipairs(detail.groups) do
+        local entries = {}
+        for n, entry in ipairs(group.entries) do
+            local ids = {}
+            local field = entry.item_ids and "itemIds" or entry.recipe_keys and "recipeKeys" or "targetKeys"
+            for j, id in ipairs(entry.item_ids or entry.recipe_keys or entry.target_keys) do ids[j] = id end
+            local value = {label=entry.label, identityCount=#ids}
+            value[field] = readonlyArray(ids)
+            if entry.item_ids then value.itemCount = #ids end
+            entries[n] = readonly(value)
+        end
+        groups[i] = readonly({key=group.key, label=group.label, scope=group.scope, presentation=group.presentation, count=group.count, entries=readonlyArray(entries)})
+    end
+    return readonly({introduction=detail.introduction, groups=readonlyArray(groups), groupCount=#groups})
+end
+
 local function layer3Payload(fullType, locale)
     local ok, renderer = safeRequire("Iris/Data/layer3_renderer")
     if not ok or not renderer or not renderer.getText or not fullType then
@@ -134,7 +153,8 @@ local function layer3Payload(fullType, locale)
             local units, texts = {}, {}
             if payload.state == "present" then
                 for i, unit in ipairs(payload.units) do
-                    units[i] = readonly({text=unit.text, firstSegment=unit.first_segment, lastSegment=unit.last_segment})
+                    units[i] = readonly({text=unit.text, firstSegment=unit.first_segment, lastSegment=unit.last_segment,
+                        targetGroups=readonlyTargetGroups(unit.target_groups)})
                     texts[i] = unit.text
                 end
             end

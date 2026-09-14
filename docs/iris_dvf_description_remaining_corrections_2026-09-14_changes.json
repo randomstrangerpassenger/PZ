@@ -1,0 +1,821 @@
+[
+  {
+    "item": "Base.BleachEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 물을 담아 보관하거나 운반할 수 있다.",
+    "after": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.BleachEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle. It can hold water for storage or carrying.",
+    "after": "It can hold, carry and transfer water or fuel."
+  },
+  {
+    "item": "Base.CannedBellPepper",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Bell Pepper. The extracted Bell Pepper can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Bell Pepper. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBellPepper",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Bell Pepper.\nThe extracted Bell Pepper can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Bell Pepper.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBolognese",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Spaghetti Bolognese. The extracted Spaghetti Bolognese can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Spaghetti Bolognese. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBolognese",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Spaghetti Bolognese.\nThe extracted Spaghetti Bolognese can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Spaghetti Bolognese.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBroccoli",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Broccoli. The extracted Broccoli can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Broccoli. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedBroccoli",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Broccoli.\nThe extracted Broccoli can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Broccoli.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCabbage",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Cabbage. The extracted Cabbage can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Cabbage. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCabbage",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Cabbage.\nThe extracted Cabbage can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Cabbage.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCarrots",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Carrots. The extracted Carrots can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Carrots. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCarrots",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Carrots.\nThe extracted Carrots can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Carrots.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCarrots2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Carrots. The extracted Carrots can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Carrots. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCarrots2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Carrots.\nThe extracted Carrots can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Carrots.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedChili",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Chili. The extracted Chili can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Chili. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedChili",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Chili.\nThe extracted Chili can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Chili.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCorn",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Corn. The extracted Corn can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Corn. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCorn",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Corn.\nThe extracted Corn can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Corn.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCornedBeef",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Corned Beef. The extracted Corned Beef can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Corned Beef. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedCornedBeef",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Corned Beef.\nThe extracted Corned Beef can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Corned Beef.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedEggplant",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Eggplant. The extracted Eggplant can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Eggplant. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedEggplant",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Eggplant.\nThe extracted Eggplant can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Eggplant.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedFruitBeverage",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to consume the Fruit Beverage. The extracted Fruit Beverage can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to consume the Fruit Beverage. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedFruitBeverage",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to consume the Fruit Beverage.\nThe extracted Fruit Beverage can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to consume the Fruit Beverage.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedFruitCocktail",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Fruit Cocktail. The extracted Fruit Cocktail can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Fruit Cocktail. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedFruitCocktail",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Fruit Cocktail.\nThe extracted Fruit Cocktail can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Fruit Cocktail.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedLeek",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Leek. The extracted Leek can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Leek. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedLeek",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Leek.\nThe extracted Leek can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Leek.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedMilk",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to drink the Evaporated Milk. The extracted Evaporated Milk can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to drink the Evaporated Milk. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedMilk",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to drink the Evaporated Milk.\nThe extracted Evaporated Milk can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to drink the Evaporated Milk.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedMushroomSoup",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Mushroom Soup. The extracted Mushroom Soup can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Mushroom Soup. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedMushroomSoup",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Mushroom Soup.\nThe extracted Mushroom Soup can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Mushroom Soup.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPeaches",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Peaches. The extracted Peaches can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Peaches. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPeaches",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Peaches.\nThe extracted Peaches can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Peaches.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPeas",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Peas. The extracted Peas can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Peas. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPeas",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Peas.\nThe extracted Peas can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Peas.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPineapple",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Pineapple. The extracted Pineapple can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Pineapple. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPineapple",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Pineapple.\nThe extracted Pineapple can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Pineapple.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPotato",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Potato. The extracted Potato can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Potato. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPotato",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Potato.\nThe extracted Potato can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Potato.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPotato2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Potato. The extracted Potato can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Potato. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedPotato2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Potato.\nThe extracted Potato can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Potato.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedRedRadish",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Radish. The extracted Radish can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Radish. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedRedRadish",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Radish.\nThe extracted Radish can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Radish.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedSardines",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Sardines. The extracted Sardines can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Sardines. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedSardines",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Sardines.\nThe extracted Sardines can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Sardines.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedTomato",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Tomato. The extracted Tomato can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Tomato. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedTomato",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Tomato.\nThe extracted Tomato can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Tomato.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedTomato2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Tomato. The extracted Tomato can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Tomato. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CannedTomato2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Tomato.\nThe extracted Tomato can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Tomato.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.CarBatteryCharger",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used to charge vehicle batteries.",
+    "after": "When supplied with power, it can be used to charge vehicle batteries."
+  },
+  {
+    "item": "Base.CarBatteryCharger",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used to charge vehicle batteries.",
+    "after": "When supplied with power, it can be used to charge vehicle batteries."
+  },
+  {
+    "item": "Base.CraftedFishingRod",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for rod fishing at water with matching bait. It can be used as a weapon.",
+    "after": "It can be used to fish from the water's edge with matching bait. It can be used as a weapon."
+  },
+  {
+    "item": "Base.CraftedFishingRod",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for rod fishing at water with matching bait.\nIt can be used as a weapon.",
+    "after": "It can be used to fish from the water's edge with matching bait.\nIt can be used as a weapon."
+  },
+  {
+    "item": "Base.CraftedFishingRodTwineLine",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for rod fishing at water with matching bait. It can be used as a weapon.",
+    "after": "It can be used to fish from the water's edge with matching bait. It can be used as a weapon."
+  },
+  {
+    "item": "Base.CraftedFishingRodTwineLine",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for rod fishing at water with matching bait.\nIt can be used as a weapon.",
+    "after": "It can be used to fish from the water's edge with matching bait.\nIt can be used as a weapon."
+  },
+  {
+    "item": "Base.EggCarton",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Egg. The extracted Egg can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Egg. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.EggCarton",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Egg.\nThe extracted Egg can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the Egg.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.FishingRod",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for rod fishing at water with matching bait. It can be used as a weapon.",
+    "after": "It can be used to fish from the water's edge with matching bait. It can be used as a weapon."
+  },
+  {
+    "item": "Base.FishingRod",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for rod fishing at water with matching bait.\nIt can be used as a weapon.",
+    "after": "It can be used to fish from the water's edge with matching bait.\nIt can be used as a weapon."
+  },
+  {
+    "item": "Base.FishingRodTwineLine",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for rod fishing at water with matching bait. It can be used as a weapon.",
+    "after": "It can be used to fish from the water's edge with matching bait. It can be used as a weapon."
+  },
+  {
+    "item": "Base.FishingRodTwineLine",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for rod fishing at water with matching bait.\nIt can be used as a weapon.",
+    "after": "It can be used to fish from the water's edge with matching bait.\nIt can be used as a weapon."
+  },
+  {
+    "item": "Base.HoodieDOWN_WhiteTINT",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "착용할 수 있다. 후드를 쓸 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다.",
+    "after": "후드를 조절해 착용할 수 있다. 천 조각을 얻거나 시트 로프를 만드는 데 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item": "Base.HoodieDOWN_WhiteTINT",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be worn in alternate forms. It can be ripped to obtain cloth scraps. It can also be used to make sheet rope. It can be used as fuel and tinder.",
+    "after": "It can be worn with the hood up or down. It can provide cloth scraps or be used to make sheet rope. It can also be used as fuel and tinder."
+  },
+  {
+    "item": "Base.HoodieUP_WhiteTINT",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "착용할 수 있다. 후드를 벗을 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다.",
+    "after": "후드를 조절해 착용할 수 있다. 천 조각을 얻거나 시트 로프를 만드는 데 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item": "Base.HoodieUP_WhiteTINT",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be worn in alternate forms. It can be ripped to obtain cloth scraps. It can also be used to make sheet rope. It can be used as fuel and tinder.",
+    "after": "It can be worn with the hood up or down. It can provide cloth scraps or be used to make sheet rope. It can also be used as fuel and tinder."
+  },
+  {
+    "item": "Base.Log",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축, 야영 준비와 숯 제작에 재료로 쓸 수 있다. 모아서 묶을 수 있다. 수박을 쪼개는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "건축, 야영 준비와 숯 제작에 재료로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Log",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for construction, camping preparations and charcoal making. It can be bundled with other logs. It can be used for breaking a watermelon. It can be used as fuel for campfires, for example.",
+    "after": "It can supply material for construction, camping preparations and charcoal making. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.Nails",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "목공, 건축 및 무기 수리에 재료로 쓸 수 있다. 사냥 장비 및 낚시 장비 제작에도 쓸 수 있다. 모아서 상자로 포장할 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다.",
+    "after": "목공과 건축, 사냥과 낚시 장비 제작 및 무기 수리에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Nails",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for woodworking and construction and repairing weapons or for making hunting equipment and fishing equipment. It can be collected and packed into a box. It can be used to anchor an escape rope at an upper-floor window or similar attachment.",
+    "after": "It can supply material for woodworking, construction, making hunting and fishing equipment, and repairing weapons."
+  },
+  {
+    "item": "Base.PopBottleEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 물을 담아 보관하거나 운반할 수 있다.",
+    "after": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.PopBottleEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle. It can hold water for storage or carrying.",
+    "after": "It can hold, carry and transfer water or fuel."
+  },
+  {
+    "item": "Base.SpearBreadKnife",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearBreadKnife",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearButterKnife",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearButterKnife",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearCrafted",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be fitted with an attachment. It can be used as a weapon. It can be used for spear fishing at water without bait.",
+    "after": "It can be fitted with an attachment. It can be used as a weapon. It can be used to spear fish from the water's edge without bait."
+  },
+  {
+    "item": "Base.SpearCrafted",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be fitted with an attachment.\nIt can be used as a weapon.\nIt can be used for spear fishing at water without bait.",
+    "after": "It can be fitted with an attachment.\nIt can be used as a weapon.\nIt can be used to spear fish from the water's edge without bait."
+  },
+  {
+    "item": "Base.SpearFork",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearFork",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearHandFork",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearHandFork",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearHuntingKnife",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearHuntingKnife",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearIcePick",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearIcePick",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearKnife",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearKnife",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearLetterOpener",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearLetterOpener",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearMachete",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearMachete",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearScalpel",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearScalpel",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearScissors",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearScissors",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearScrewdriver",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearScrewdriver",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearSpoon",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for spear fishing at water without bait. It can be used as a weapon. Its spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered."
+  },
+  {
+    "item": "Base.SpearSpoon",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for spear fishing at water without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered.",
+    "after": "It can be used to spear fish from the water's edge without bait.\nIt can be used as a weapon.\nIts spear attachment can be recovered."
+  },
+  {
+    "item": "Base.Splint",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "골절 부위를 고정하는 데 쓸 수 있다.",
+    "after": "머리와 몸통을 제외한 골절 부위를 고정하는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.TinnedBeans",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to eat the Beans. The extracted Beans can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Beans. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TinnedBeans",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to eat the Beans.\nThe extracted Beans can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to eat the Beans.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TinnedSoup",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened with a Can Opener to drink the Vegetable Soup. The extracted Vegetable Soup can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to drink the Vegetable Soup. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TinnedSoup",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened with a Can Opener to drink the Vegetable Soup.\nThe extracted Vegetable Soup can also be used as a cooking ingredient.",
+    "after": "It can be opened with a Can Opener to drink the Vegetable Soup.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TunaTin",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be opened to eat the Tin of Tuna. The extracted Tin of Tuna can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the tuna. Its contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.TunaTin",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be opened to eat the Tin of Tuna.\nThe extracted Tin of Tuna can also be used as a cooking ingredient.",
+    "after": "It can be opened to eat the tuna.\nIts contents can also be used as a cooking ingredient."
+  },
+  {
+    "item": "Base.WaterBottleEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다.",
+    "after": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.WaterBottleEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle. It can be used as material for making incendiary devices. It can hold water for storage or carrying.",
+    "after": "It can hold, carry and transfer water or fuel. It can be used as material for making incendiary devices."
+  },
+  {
+    "item": "Base.WhiskeyEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.WhiskeyEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle. It can be used as material for making incendiary devices. It can hold water for storage or carrying. It can be broken to obtain Smashed Bottle.",
+    "after": "It can hold, carry and transfer water or fuel. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle."
+  },
+  {
+    "item": "Base.WineEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.WineEmpty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle. It can be used as material for making incendiary devices. It can hold water for storage or carrying. It can be broken to obtain Smashed Bottle.",
+    "after": "It can hold, carry and transfer water or fuel. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle."
+  },
+  {
+    "item": "Base.WineEmpty2",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "물이나 연료를 담아 운반하고 옮기는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.WineEmpty2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle. It can be used as material for making incendiary devices. It can hold water for storage or carrying. It can be broken to obtain Smashed Bottle.",
+    "after": "It can hold, carry and transfer water or fuel. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle."
+  },
+  {
+    "item": "farming.StrewberrieBagSeed",
+    "locale": "en",
+    "surface": "compact",
+    "before": "The Strawberries Seeds in the packet can be sown in a planting bed.",
+    "after": "The Strawberry Seeds in the packet can be sown in a planting bed."
+  },
+  {
+    "item": "farming.StrewberrieBagSeed",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "The Strawberries Seeds in the packet can be sown in a planting bed.",
+    "after": "The Strawberry Seeds in the packet can be sown in a planting bed."
+  }
+]

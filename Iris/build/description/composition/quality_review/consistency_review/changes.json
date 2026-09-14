@@ -1,0 +1,2440 @@
+[
+  {
+    "item_id": "Base.BallPeenHammer",
+    "before": {
+      "ko": {
+        "compact": "금속을 단조하거나 목재를 가공할 수 있다. 문과 창문의 판자 바리케이드 설치에 쓸 수 있다. 수박을 쪼개는 데 쓸 수 있다. 무기로도 쓸 수 있다.",
+        "expanded": "금속을 단조하는 데 사용할 수 있다.\n목공과 건축 작업에 쓸 수 있다.\n문과 창문에 판자 바리케이드를 설치할 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to forge metal or work wood. It can be used for installing plank barricades on doors and windows. It can be used to break a watermelon. It can also be used as a weapon.",
+        "expanded": "It can be used for metal forging.\nIt can be used for woodworking and construction.\nIt can be used to install plank barricades on doors and windows.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다.",
+        "expanded": "금속을 단조하는 데 사용할 수 있다.\n목공과 건축 작업에 쓸 수 있다.\n문과 창문에 판자 바리케이드를 설치할 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for metal forging, woodworking and construction. It can also be used as a weapon.",
+        "expanded": "It can be used for metal forging.\nIt can be used for woodworking and construction.\nIt can be used to install plank barricades on doors and windows.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Hammer",
+    "before": {
+      "ko": {
+        "compact": "금속 단조, 목공과 건축에 쓰는 타격 도구이며 무기로도 쓸 수 있다.",
+        "expanded": "금속을 단조하는 데 사용할 수 있다.\n목공과 건축 작업에 쓸 수 있다.\n문과 창문의 판자 바리케이드를 설치하거나 철거할 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as a striking tool for metal forging, woodworking and construction, or as a weapon.",
+        "expanded": "It can be used for metal forging.\nIt can be used for woodworking and construction.\nIt can be used to install or remove plank barricades on doors and windows.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다.",
+        "expanded": "금속을 단조하는 데 사용할 수 있다.\n목공과 건축 작업에 쓸 수 있다.\n문과 창문의 판자 바리케이드를 설치하거나 철거할 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for metal forging, woodworking and construction. It can also be used as a weapon.",
+        "expanded": "It can be used for metal forging.\nIt can be used for woodworking and construction.\nIt can be used to install or remove plank barricades on doors and windows.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon."
+      }
+    }
+  },
+  {
+    "item_id": "Base.HammerStone",
+    "before": {
+      "ko": {
+        "compact": "금속 단조, 목공과 건축에 쓰는 타격 도구이며 무기로도 쓸 수 있다.",
+        "expanded": "금속을 단조하는 데 사용할 수 있다.\n목공과 건축 작업에 쓸 수 있다.\n문과 창문에 판자 바리케이드를 설치할 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as a striking tool for metal forging, woodworking and construction, or as a weapon.",
+        "expanded": "It can be used for metal forging.\nIt can be used for woodworking and construction.\nIt can be used to install plank barricades on doors and windows.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다.",
+        "expanded": "금속을 단조하는 데 사용할 수 있다.\n목공과 건축 작업에 쓸 수 있다.\n문과 창문에 판자 바리케이드를 설치할 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for metal forging, woodworking and construction. It can also be used as a weapon.",
+        "expanded": "It can be used for metal forging.\nIt can be used for woodworking and construction.\nIt can be used to install plank barricades on doors and windows.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mattress",
+    "before": {
+      "ko": {
+        "compact": "건축 재료로 쓸 수 있다. 배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "건축 재료로 쓸 수 있다.\n배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be used as material for construction. It can be placed for sleeping or resting.",
+        "expanded": "It can be used as material for construction.\nIt can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "건축 재료로 쓸 수 있다. 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "건축 재료로 쓸 수 있다.\n놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be used as material for construction. When set down, it provides a place to sleep or rest.",
+        "expanded": "It can be used as material for construction.\nWhen set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_AirConditioner",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_AntiqueStove",
+    "before": {
+      "ko": {
+        "compact": "설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다.",
+        "expanded": "설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and fueled, it can provide heat or cook food.",
+        "expanded": "Once installed and fueled, it can provide heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다.",
+        "expanded": "설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and fueled, it can provide heat or cook food.",
+        "expanded": "Once installed and fueled, it can provide heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_ArcadeMachine1",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_ArcadeMachine2",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_BeachChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_BinRound",
+    "before": {
+      "ko": {
+        "compact": "배치해 물건을 보관하는 데 쓸 수 있다.",
+        "expanded": "배치해 물건을 보관하는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for storing items.",
+        "expanded": "It can be placed for storing items.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "수납용으로 놓아 사용할 수 있다.",
+        "expanded": "수납용으로 놓아 사용할 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as storage once set down.",
+        "expanded": "It can serve as storage once set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_BlueComfyChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_BluePlasticChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_BlueRattanChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_BrownComfyChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_BrownLowTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_CabinetMedical",
+    "before": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다. 배치해 물건을 보관하는 데 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n배치해 물건을 보관하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup. It can be placed for storing items.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nIt can be placed for storing items.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다. 수납용으로 놓아 사용할 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n수납용으로 놓아 사용할 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup. It can serve as storage once set down.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nIt can serve as storage once set down.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_CabinetTool",
+    "before": {
+      "ko": {
+        "compact": "배치해 물건을 보관하는 데 쓸 수 있다.",
+        "expanded": "배치해 물건을 보관하는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for storing items.",
+        "expanded": "It can be placed for storing items.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "수납용으로 놓아 사용할 수 있다.",
+        "expanded": "수납용으로 놓아 사용할 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as storage once set down.",
+        "expanded": "It can serve as storage once set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_CardboardBox",
+    "before": {
+      "ko": {
+        "compact": "배치해 물건을 보관하는 데 쓸 수 있다.",
+        "expanded": "배치해 물건을 보관하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for storing items.",
+        "expanded": "It can be placed for storing items.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "수납용으로 놓아 사용할 수 있다.",
+        "expanded": "수납용으로 놓아 사용할 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as storage once set down.",
+        "expanded": "It can serve as storage once set down.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_ChromeSink",
+    "before": {
+      "ko": {
+        "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and connected to a water supply, it can provide water for filling containers or washing.",
+        "expanded": "Items can be placed on its surface once it is set down.\nOnce installed and connected to a water supply, it can provide water for filling containers or washing.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and connected to a water supply, it can provide water for filling containers or washing.",
+        "expanded": "Its surface can hold items when it is set down.\nOnce installed and connected to a water supply, it can provide water for filling containers or washing.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_CoffeeMaker",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_DarkBlueChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_DarkWoodenChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_DesktopComputer",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Doghouse",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Espresso",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_FancyBlackChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_FancyDarkTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_FancyLowTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_FancyTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_FancyToilet",
+    "before": {
+      "ko": {
+        "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.",
+        "expanded": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and connected to a water supply, it can provide water for filling containers or washing.",
+        "expanded": "Once installed and connected to a water supply, it can provide water for filling containers or washing.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.",
+        "expanded": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and connected to a water supply, it can provide water for filling containers or washing.",
+        "expanded": "Once installed and connected to a water supply, it can provide water for filling containers or washing.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_FancyWhiteChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_FoldingChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_FridgeMini",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다.",
+        "expanded": "설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can keep food and other contents cold.",
+        "expanded": "Once installed and powered, it can keep food and other contents cold.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다.",
+        "expanded": "설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can keep food and other contents cold.",
+        "expanded": "Once installed and powered, it can keep food and other contents cold.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GraveArched",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GraveRound",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GraveSquare",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GraveWorn",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GreenChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GreenComfyChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GreenOven",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GreyChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GreyComfyChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_GreyOven",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_HotdogMachine",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_IndustrialSink",
+    "before": {
+      "ko": {
+        "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and connected to a water supply, it can provide water for filling containers or washing.",
+        "expanded": "Items can be placed on its surface once it is set down.\nOnce installed and connected to a water supply, it can provide water for filling containers or washing.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and connected to a water supply, it can provide water for filling containers or washing.",
+        "expanded": "Its surface can hold items when it is set down.\nOnce installed and connected to a water supply, it can provide water for filling containers or washing.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Lamp1",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Lamp2",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Lamp3",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Lamp4",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Lamp5",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Lamp6",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_LightConstruction",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 조명으로 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can provide light.",
+        "expanded": "Once installed and powered, it can provide light.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_LightRoundTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_LongTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Mailbox",
+    "before": {
+      "ko": {
+        "compact": "배치해 물건을 보관하는 데 쓸 수 있다.",
+        "expanded": "배치해 물건을 보관하는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for storing items.",
+        "expanded": "It can be placed for storing items.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "수납용으로 놓아 사용할 수 있다.",
+        "expanded": "수납용으로 놓아 사용할 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as storage once set down.",
+        "expanded": "It can serve as storage once set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MannequinFemale",
+    "before": {
+      "ko": {
+        "compact": "배치해 의류를 입혀둘 수 있다.",
+        "expanded": "배치해 의류를 입혀둘 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed and dressed in clothing.",
+        "expanded": "It can be placed and dressed in clothing.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "배치해 의류를 입혀둘 수 있다.",
+        "expanded": "배치해 의류를 입혀둘 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed and dressed in clothing.",
+        "expanded": "It can be placed and dressed in clothing.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MannequinMale",
+    "before": {
+      "ko": {
+        "compact": "배치해 의류를 입혀둘 수 있다.",
+        "expanded": "배치해 의류를 입혀둘 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed and dressed in clothing.",
+        "expanded": "It can be placed and dressed in clothing.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "배치해 의류를 입혀둘 수 있다.",
+        "expanded": "배치해 의류를 입혀둘 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed and dressed in clothing.",
+        "expanded": "It can be placed and dressed in clothing.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MetalLocker",
+    "before": {
+      "ko": {
+        "compact": "배치해 물건을 보관하는 데 쓸 수 있다.",
+        "expanded": "배치해 물건을 보관하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for storing items.",
+        "expanded": "It can be placed for storing items.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "수납용으로 놓아 사용할 수 있다.",
+        "expanded": "수납용으로 놓아 사용할 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as storage once set down.",
+        "expanded": "It can serve as storage once set down.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MetalStool",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Microphone",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Microwave",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Microwave2",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MirrorLarge",
+    "before": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MirrorSmall",
+    "before": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MirrorTall",
+    "before": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MirrorWood",
+    "before": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다.",
+        "expanded": "설치해 화장할 때 필요한 거울로 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once installed, it can serve as the mirror needed for applying makeup.",
+        "expanded": "Once installed, it can serve as the mirror needed for applying makeup.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_MobileCounter",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_ModernOven",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_NapkinDispenser",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_OakRoundTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_OfficeChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_OrangeFuton",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_OrangeModernChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_PalletEmpty",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_PileOCrepeChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_PinballMachine",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_PlasticChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_PlasticLowTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_PopcornMachine",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Projector",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_PurpleRattanChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_PurpleWoodenChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_RedBBQ",
+    "before": {
+      "ko": {
+        "compact": "설치하고 맞는 연료를 넣어 음식을 조리할 수 있다.",
+        "expanded": "설치하고 맞는 연료를 넣어 음식을 조리할 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and supplied with suitable fuel, it can cook food.",
+        "expanded": "Once installed and supplied with suitable fuel, it can cook food.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 맞는 연료를 넣어 음식을 조리할 수 있다.",
+        "expanded": "설치하고 맞는 연료를 넣어 음식을 조리할 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and supplied with suitable fuel, it can cook food.",
+        "expanded": "Once installed and supplied with suitable fuel, it can cook food.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_RedChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_RedOven",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_RedWoodenChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_RoadBarrier",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_RoundTable",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_ScaleMedical",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_ShoppingBaskets",
+    "before": {
+      "ko": {
+        "compact": "배치해 물건을 보관하는 데 쓸 수 있다.",
+        "expanded": "배치해 물건을 보관하는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for storing items.",
+        "expanded": "It can be placed for storing items.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "수납용으로 놓아 사용할 수 있다.",
+        "expanded": "수납용으로 놓아 사용할 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as storage once set down.",
+        "expanded": "It can serve as storage once set down.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_SmallTable",
+    "before": {
+      "ko": {
+        "compact": "배치해 물건을 보관하는 데 쓸 수 있다.",
+        "expanded": "배치해 물건을 보관하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for storing items.",
+        "expanded": "It can be placed for storing items.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "수납용으로 놓아 사용할 수 있다.",
+        "expanded": "수납용으로 놓아 사용할 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as storage once set down.",
+        "expanded": "It can serve as storage once set down.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_SodaMachine",
+    "before": {
+      "ko": {
+        "compact": "배치한 뒤 물건을 올려둘 수 있다.",
+        "expanded": "배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Items can be placed on its surface once it is set down.",
+        "expanded": "Items can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "물건을 올려두는 용도로 놓아 쓸 수 있다.",
+        "expanded": "물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Its surface can hold items when it is set down.",
+        "expanded": "Its surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_TVCamera",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Toaster",
+    "before": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.",
+        "expanded": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and powered, it can heat or cook food.",
+        "expanded": "Once installed and powered, it can heat or cook food.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_TowelDispenser",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_Urinal",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_WallClock",
+    "before": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "After placement, it can be moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "분해해 재료를 회수할 수 있다.",
+        "expanded": "집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be dismantled to recover materials.",
+        "expanded": "It can be picked up and moved to another location.\nOnce placed, it can be dismantled with a screwdriver to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_WaterDispenser",
+    "before": {
+      "ko": {
+        "compact": "배치해 담긴 물을 받거나 마시는 데 쓸 수 있다.",
+        "expanded": "배치해 담긴 물을 받거나 마시는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once placed, it can dispense its stored water for filling containers or drinking.",
+        "expanded": "Once placed, it can dispense its stored water for filling containers or drinking.\nAfter placement, it can be moved to another location."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "배치해 담긴 물을 받거나 마시는 데 쓸 수 있다.",
+        "expanded": "배치해 담긴 물을 받거나 마시는 데 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다."
+      },
+      "en": {
+        "compact": "Once placed, it can dispense its stored water for filling containers or drinking.",
+        "expanded": "Once placed, it can dispense its stored water for filling containers or drinking.\nIt can be picked up and moved to another location."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_WhiteComfyChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_WhiteSimpleChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_WhiteSink",
+    "before": {
+      "ko": {
+        "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.",
+        "expanded": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and connected to a water supply, it can provide water for filling containers or washing.",
+        "expanded": "Once installed and connected to a water supply, it can provide water for filling containers or washing.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.",
+        "expanded": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "Once installed and connected to a water supply, it can provide water for filling containers or washing.",
+        "expanded": "Once installed and connected to a water supply, it can provide water for filling containers or washing.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a welding mask and propane torch to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_WhiteWoodenChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_WoodenChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_WoodenStool",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Mov_YellowModernChair",
+    "before": {
+      "ko": {
+        "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "배치해 잠을 자거나 쉬는 데 쓸 수 있다.\n배치한 뒤 물건을 올려둘 수 있다.\n배치한 뒤에도 다른 위치로 옮길 수 있다.\n배치한 뒤 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can be placed for sleeping or resting.",
+        "expanded": "It can be placed for sleeping or resting.\nItems can be placed on its surface once it is set down.\nAfter placement, it can be moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.",
+        "expanded": "놓아서 잠을 자거나 쉬는 데 쓸 수 있다.\n물건을 올려두는 용도로 놓아 쓸 수 있다.\n집어 들어 다른 위치로 옮길 수 있다.\n설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다."
+      },
+      "en": {
+        "compact": "When set down, it provides a place to sleep or rest.",
+        "expanded": "When set down, it provides a place to sleep or rest.\nIts surface can hold items when it is set down.\nIt can be picked up and moved to another location.\nOnce placed, it can be dismantled with a hammer and saw to recover materials."
+      }
+    }
+  },
+  {
+    "item_id": "Base.RedDot",
+    "before": {
+      "ko": {
+        "compact": "호환 총기의 조준 속도를 높이는 부착물로 쓸 수 있다.",
+        "expanded": "호환 총기의 조준 속도를 높이는 부착물로 쓸 수 있다.\n드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다."
+      },
+      "en": {
+        "compact": "It can serve as an attachment to increase aiming speed on a compatible firearm.",
+        "expanded": "It can serve as an attachment to increase aiming speed on a compatible firearm.\nWith a screwdriver, it can be attached to a compatible firearm or detached and recovered."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "호환 총기에 장착해 이동으로 인한 명중률 감소를 줄일 수 있다.",
+        "expanded": "호환 총기에 장착해 이동으로 인한 명중률 감소를 줄일 수 있다.\n드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다."
+      },
+      "en": {
+        "compact": "On a compatible firearm, it can reduce the movement-related hit-chance penalty.",
+        "expanded": "On a compatible firearm, it can reduce the movement-related hit-chance penalty.\nWith a screwdriver, it can be attached to a compatible firearm or detached and recovered."
+      }
+    }
+  }
+]

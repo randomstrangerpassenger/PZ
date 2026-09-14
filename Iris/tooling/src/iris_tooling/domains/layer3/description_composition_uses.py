@@ -8,15 +8,17 @@ from . import description_composition_lexicon as lex
 from . import description_composition_en as en
 from . import description_composition_ko as ko
 
+FORGING_ACTIVITIES = {'metal_forging', 'shovel_smithing', 'smithing_parts'}
+
 MAINTENANCE = {'wash_carried_equipment', 'receive_garment_patch', 'remove_garment_patch',
                'rename_selected_item', 'rename_prepared_food'}
 WASH_RESULTS = {'item_surface_blood', 'clothing_surface_dirt', 'clothing_wetness',
                 'washed_surface_blood', 'washed_surface_dirt', 'food_chef_attribution'}
 FUEL = {'supply_campfire_fuel': ('모닥불', 'campfires'),
-        'supply_hearth_fuel': ('비프로판 바비큐·벽난로', 'non-propane barbecues and fireplaces'),
+        'supply_hearth_fuel': ('프로판을 쓰지 않는 바비큐와 벽난로', 'non-propane barbecues and fireplaces'),
         'supply_furnace_fuel': ('화로', 'furnaces')}
 TINDER = {'provide_campfire_tinder': ('모닥불', 'campfires'),
-          'provide_hearth_tinder': ('비프로판 바비큐·벽난로', 'non-propane barbecues and fireplaces'),
+          'provide_hearth_tinder': ('프로판을 쓰지 않는 바비큐와 벽난로', 'non-propane barbecues and fireplaces'),
           'provide_industrial_tinder': ('통나무가 든 드럼', 'drums containing logs')}
 
 # Local relationships between already admitted purposes. These have no public
@@ -28,7 +30,7 @@ PURPOSE_NEIGHBORS = (
      'food_ingredient_addition', 'batter_preparation',
      'cookie_preparation', 'dough_preparation', 'receive_portioned_food', 'supply_trap_bait'),
     ('stitch_wound', 'remove_embedded_glass', 'remove_embedded_bullet', 'clean_burn',
-     'apply_bandage', 'apply_splint', 'apply_poultice', 'bandaging_material_preparation', 'splint_crafting'),
+     'apply_bandage', 'apply_splint', 'apply_poultice', 'bandaging_material_preparation', 'disinfect_wound', 'splint_crafting'),
     ('apply_garment_patch', 'unpick_garment_patch'),
     ('groom_hair', 'groom_beard'),
     ('electronic_assembly', 'radio_crafting', 'electronic_salvage', 'radio_salvage', 'convert_lamp_to_battery'),
@@ -80,6 +82,9 @@ SELF_FUNCTIONS = MAINTENANCE | {
     'receive_weapon_upgrade', 'detach_weapon_upgrade', 'use_alternate_reload_controls',
     'control_installed_generator', 'handle_generator',
     'place_radio_world_form', 'read_recorded_media_label',
+    'avoid_first_door_alarm_trigger', 'pickup_floor_glass',
+    'set_device_timer', 'retrieve_placed_device',
+    'place_noise_device', 'place_trigger_device',
 }
 INTERNAL_PROPERTIES = WASH_RESULTS | {
     'treatment_panic', 'additional_pain',
@@ -87,7 +92,9 @@ INTERNAL_PROPERTIES = WASH_RESULTS | {
     'reading_page_progress', 'doctor_experience', 'food_preservation_age',
     'fish_size_nutrition', 'installed_vehicle_part_condition',
     'splint_factor', 'poultice_factor', 'applied_bandage_life', 'crop_water_level',
-    'installed_vehicle_battery_charge',
+    'installed_vehicle_battery_charge', 'fishing_rod_form',
+    'item_condition', 'held_stone_hammer_condition', 'installed_tire_air_or_attachment',
+    'hand_scratch', 'hand_embedded_glass', 'delivered_media_code_outcome', 'inventory_presence',
 }
 SUPPORTING_PROPERTIES = {'splint_factor', 'poultice_factor', 'applied_bandage_life',
     'item_condition', 'held_stone_hammer_condition',
@@ -117,6 +124,25 @@ TOOL_DETAIL_PREDICATES = {
 }
 
 
+def device_category(result, locale):
+    traits = result.get('declared_traits', {})
+    def positive(key):
+        try:
+            return float(traits.get(key, 0)) > 0
+        except ValueError:
+            return False
+    for enabled, label in (
+        (str(traits.get('RemoteController', '')).lower() == 'true', ('원격 조종기', 'remote controllers')),
+        (positive('FirePower'), ('화염 장치', 'incendiary devices')),
+        (positive('ExplosionPower'), ('폭발 장치', 'explosive devices')),
+        (positive('SmokeRange'), ('연막 장치', 'smoke devices')),
+        (positive('NoiseRange'), ('소음 발생 장치', 'noise-making devices')),
+    ):
+        if enabled:
+            return lex.pair(label, locale)
+    return None
+
+
 def activity_labels(unit, locale, compact=False):
     contexts = list(dict.fromkeys(f['payload']['activity'] for f in unit['facts'] if f['fact_kind'] == 'use_context'))
     if not contexts and unit.get('context'):
@@ -126,40 +152,16 @@ def activity_labels(unit, locale, compact=False):
         return [lex.pair(('일부 가구 집기와 설치', 'picking up or placing certain furniture'), locale)]
     if 'tool' in roles and contexts == ['fabric_recovery'] and all(
             f.get('admission_rule_ref') == 'fabric_conditions' for f in unit['facts']):
-        return [lex.pair(('데님이나 가죽 의류의 조각 회수', 'recovering strips from denim or leather clothing'), locale)]
+        return [lex.pair(('데님이나 가죽 의류 자르기', 'recovering strips from denim or leather clothing'), locale)]
     relations = unit.get('recipe_targets', [])
     targets = {r['item_id']: r['names'][locale] for relation in relations
                for r in relation['results'] if r['kind'] == 'declared'}
     exact = bool(targets) and all(len(r['results']) == 1 and r['results'][0]['kind'] == 'declared'
                                   for r in relations)
-    if contexts == ['electronic_assembly']:
-        if exact and len(targets) == 1:
-            name = next(iter(targets.values()))
-            return [name + ' 제작' if locale == 'ko' else 'making ' + name]
-        if exact and set(targets) <= {'Base.RemoteCraftedV1', 'Base.RemoteCraftedV2', 'Base.RemoteCraftedV3'}:
-            return [lex.pair(('원격제어 조정기 제작', 'making remote controllers'), locale)]
-        return [lex.pair(('전자 부품 제작', 'electronic-component crafting'), locale)]
-    if exact and contexts == ['explosive_assembly']:
-        if len(targets) == 1:
-            name = next(iter(targets.values()))
-            return [name + ' 제작' if locale == 'ko' else 'making ' + name]
-        labels = []
-        fire = {'Base.FlameTrap', 'Base.Molotov'}
-        remotes = {'Base.RemoteCraftedV1', 'Base.RemoteCraftedV2', 'Base.RemoteCraftedV3'}
-        remaining = dict(targets)
-        for family, label in ((fire, ('화염 장치', 'incendiary devices')),
-                              (remotes, ('원격제어 조정기', 'remote controllers'))):
-            if set(remaining) & family:
-                labels.append(lex.pair(label, locale))
-                remaining = {k: v for k, v in remaining.items() if k not in family}
-        for family, label in (({'Base.SmokeBomb'}, ('연막 장치', 'smoke devices')),
-                              ({'Base.PipeBomb', 'Base.Aerosolbomb'}, ('폭발 장치', 'explosive devices')),
-                              ({'Base.NoiseTrap'}, ('소음 발생 장치', 'noise-making devices'))):
-            if set(remaining) & family:
-                labels.append(lex.pair(label, locale))
-                remaining = {k: v for k, v in remaining.items() if k not in family}
-        labels.extend(remaining.values())
-        return [((', '.join(labels) + ' 제작') if locale == 'ko' else 'making ' + en.join(labels))]
+    if contexts in (['electronic_assembly'], ['explosive_assembly']) and exact:
+        labels = list(dict.fromkeys(device_category(r, locale) or r['names'][locale]
+                                   for relation in relations for r in relation['results']))
+        return [label + ' 제작' if locale == 'ko' else 'making ' + label for label in labels]
     if exact and len(targets) == 1 and contexts == ['metal_forging'] and roles & {'material', 'tool'}:
         name = next(iter(targets.values()))
         return [name + ' 단조' if locale == 'ko' else 'forging ' + name]
@@ -170,6 +172,9 @@ def activity_labels(unit, locale, compact=False):
             return [lex.pair(('붕대 재료 소독', 'disinfecting bandaging material'), locale)]
         if not targets:
             return [lex.pair(('붕대 재료 소독', 'disinfecting bandaging material'), locale)]
+    if contexts == ['pumpkin_carving'] and exact and len(targets) == 1:
+        name = next(iter(targets.values()))
+        return [name + ' 만들기' if locale == 'ko' else 'making ' + name]
     if contexts == ['grain_preparation'] and unit.get('subject_names') and 'ingredient' in roles:
         return [lex.pair(('요리 준비', 'preparing dishes'), locale)]
     return [lex.context(c, locale, compact) for c in contexts]
@@ -208,7 +213,7 @@ def tool_purposes(units, locale, with_order=False):
                                '전자기기 제작' if electronic_build else '전자기기 분해',
                                'making and dismantling electronic devices' if electronic_build and electronic_strip else
                                'making electronic devices' if electronic_build else 'dismantling electronic devices'), locale))
-    family({'metal_forging', 'shovel_smithing', 'smithing_parts'}, '금속 단조', 'metal forging')
+    family(FORGING_ACTIVITIES, '금속 단조', 'metal forging')
     family({'animal_butchery', 'fish_preparation', 'food_portioning', 'frog_preparation'}, '음식 손질', 'food preparation')
     dough = remaining & {'cookie_preparation', 'dough_preparation'}
     batter = 'batter_preparation' in remaining
@@ -219,7 +224,7 @@ def tool_purposes(units, locale, with_order=False):
     if woodworking:
         remaining.difference_update(woodworking)
         order.extend(a for a in ('woodworking', 'construction', 'carpentry_menu_construction') if a in woodworking)
-        labels.append(lex.pair(('목공·건축' if 'woodworking' in woodworking and len(woodworking)>1 else '목공' if woodworking=={'woodworking'} else '건축',
+        labels.append(lex.pair(('목공과 건축' if 'woodworking' in woodworking and len(woodworking)>1 else '목공' if woodworking=={'woodworking'} else '건축',
                                'woodworking and construction' if 'woodworking' in woodworking and len(woodworking)>1 else 'woodworking' if woodworking=={'woodworking'} else 'construction'), locale))
     if woodworking and 'moving_furniture' in remaining:
         remaining.remove('moving_furniture')
@@ -229,7 +234,7 @@ def tool_purposes(units, locale, with_order=False):
         else:
             labels[-1] = ('woodworking, construction and furniture work' if len(woodworking)>1 else 'woodworking and furniture work' if woodworking=={'woodworking'} else 'construction and furniture work')
     if {'fishing_gear_crafting', 'spear_crafting'} <= remaining:
-        family({'fishing_gear_crafting', 'spear_crafting'}, '낚시 장비·창 제작', 'fishing-gear and spear crafting')
+        family({'fishing_gear_crafting', 'spear_crafting'}, '낚시 장비와 창 제작', 'fishing-gear and spear crafting')
     family({'metal_welding_construction', 'welded_parts'}, '금속 용접', 'metal welding')
     for activity, specific in overrides.items():
         labels.extend(specific)
@@ -265,7 +270,7 @@ def disposition(unit):
             if function not in lex.FUNCTIONS:
                 raise ValueError('unclassified function: ' + str(function))
         elif kind == 'effect':
-            if payload.get('property') in INTERNAL_PROPERTIES:
+            if payload.get('property') in INTERNAL_PROPERTIES or payload.get('direction') == 'cap_at_reading_start':
                 return 'internal', 'attribution, bookkeeping or procedure metadata'
             # Lexical support is checked here, not by a leftover renderer.
             lex.core(fact, 'ko')
@@ -295,8 +300,119 @@ def internal_reason(unit):
     return reason if category in {'internal', 'self-management'} else None
 
 
+def target_groups(targets, locale, introduction):
+    """Group already admitted repair targets; labels never infer compatibility."""
+    labels = {
+        'vehicle': ('차량 부품', 'Vehicle parts'), 'instrument': ('악기', 'Musical instruments'),
+        'sport': ('스포츠 용품', 'Sports equipment'), 'gardening': ('원예 도구', 'Gardening tools'), 'spear': ('창', 'Spears'),
+        'axe': ('도끼', 'Axes'), 'blade': ('칼날 도구', 'Bladed tools'),
+        'blunt': ('둔기와 도구', 'Blunt weapons and tools'), 'other': ('그 밖의 대상', 'Other listed items'),
+    }
+    records = {}
+    for target in targets:
+        fields = target.get('declared_traits', {})
+        categories = set(fields.get('Categories', '').split(';'))
+        display = fields.get('DisplayCategory')
+        tags = set(fields.get('Tags', '').split(';'))
+        key = ('vehicle' if display == 'VehicleMaintenance' else 'instrument' if display == 'Instrument' else
+               'sport' if display == 'Sports' else 'gardening' if display == 'Gardening' or 'DigPlow' in tags else
+               'spear' if 'Spear' in categories else
+               'axe' if 'Axe' in categories else 'blade' if categories & {'SmallBlade', 'LongBlade'} else
+               'blunt' if categories & {'Blunt', 'SmallBlunt'} else 'other')
+        name = target['names'][locale]
+        record = records.setdefault(name, {'label': name, 'item_ids': [], 'categories': set()})
+        if target['item_id'] not in record['item_ids']:
+            record['item_ids'].append(target['item_id'])
+        record['categories'].add(key)
+    return grouped_detail(records, labels, locale, introduction)
+
+
+def grouped_detail(records, labels, locale, introduction):
+    buckets = {key: [] for key in labels}
+    for record in records.values():
+        keys = record.pop('categories')
+        key = next(iter(keys)) if len(keys) == 1 else 'other'
+        buckets[key].append(record)
+    groups = [{'key': key, 'label': lex.pair(labels[key], locale), 'entries': entries, 'count': len(entries), 'presentation': 'inline' if len(entries) == 1 else 'disclosure'}
+              for key, entries in buckets.items() if entries]
+    return {'introduction': introduction, 'groups': groups, 'group_count': len(groups)}
+
+
+def learning_groups(recipes, locale, introduction):
+    """Group admitted lessons by declared result categories, preserving recipe keys.
+
+    Fold when distinct named families each contain related lessons. A long
+    homogeneous list, unrelated singletons or unknown outputs offer no benefit.
+    Declared results classify existing lessons; they never add result-use facts.
+    """
+    labels = {'material': ('재료', 'Materials'), 'household': ('생활용품', 'Household items'),
+              'cooking': ('조리용품', 'Cooking items'), 'food': ('음식', 'Food'),
+              'medical': ('응급처치 용품', 'First-aid supplies'),
+              'tools': ('도구와 무기', 'Tools and weapons'),
+              'ammo': ('탄약 관련 물품', 'Ammunition-related items'),
+              'sports': ('스포츠 용품', 'Sports equipment'),
+              'electronic': ('전자 장치', 'Electronic devices'),
+              'explosive': ('폭발물과 장치', 'Explosives and devices'),
+              'fishing': ('낚시 장비', 'Fishing equipment'), 'trapping': ('덫', 'Traps'),
+              'other': ('그 밖의 학습 항목', 'Other lessons')}
+    categories = {'Material': 'material', 'Household': 'household', 'Cooking': 'cooking', 'Food': 'food',
+                  'FirstAid': 'medical', 'Tool': 'tools', 'ToolWeapon': 'tools', 'Weapon': 'tools',
+                  'Gardening': 'tools', 'Ammo': 'ammo', 'Sports': 'sports', 'Electronics': 'electronic',
+                  'Explosives': 'explosive', 'Fishing': 'fishing', 'Trapping': 'trapping'}
+    records = {}
+    for recipe in recipes:
+        name = recipe['names'][locale]
+        record = records.setdefault(name, {'label': name, 'recipe_keys': [], 'categories': set()})
+        record['recipe_keys'].append(recipe['key'])
+        results = recipe.get('declared_results', [])
+        record['categories'].update(categories.get(x['declared_traits'].get('DisplayCategory'), 'other') for x in results)
+        if not results:
+            record['categories'].add('other')
+    detail = grouped_detail(records, labels, locale, introduction)
+    coherent = [g for g in detail['groups'] if g['key'] != 'other' and g['count'] > 1]
+    return detail if len(coherent) > 1 else None
+
+
+def scoped_groups(source_groups, entries, locale, introduction):
+    """Keep the source's mapped/some scope beside each existing target name."""
+    records, labels, scopes = {}, {}, {}
+    position = 0
+    for ordinal, group in enumerate(source_groups):
+        key = 'scope_' + str(ordinal + 1)
+        labels[key] = tuple(('일부 ' if lang == 'ko' else 'Some ') + (', '.join(t[lang] for t in group['targets']) if lang == 'ko' else en.join([t[lang] for t in group['targets']]))
+                            if group['scope'] == 'some' else (', '.join(t[lang] for t in group['targets']) if lang == 'ko' else en.join([t[lang] for t in group['targets']])) for lang in ('ko', 'en'))
+        scopes[key] = group['scope']
+        for target in group['targets']:
+            name = entries[position]
+            position += 1
+            records[name] = {'label': name, 'target_keys': [target['key']], 'categories': {key}}
+    detail = grouped_detail(records, labels, locale, introduction)
+    for group in detail['groups']:
+        group['scope'] = scopes[group['key']]
+    return detail
+
+
+def detail_text(summary, introduction, entries, *, compact, relationship, inline=None):
+    """Choose structure by the relationship, never by text length or item ID.
+
+    Lessons have individual contents. Scoped target groups need their scope
+    beside each name; heterogeneous compatibility sets need named choices.
+    A single action with a homogeneous target family stays an inline sentence.
+    """
+    if compact:
+        return summary
+    if relationship == 'homogeneous_targets':
+        return inline or summary
+    if relationship not in {'learning_content', 'scoped_target_groups', 'compatibility_choices'}:
+        raise ValueError('unreviewed public detail relationship: ' + relationship)
+    if not entries:
+        return inline or summary
+    return introduction.rstrip('.') + '.\n' + '\n'.join('- ' + entry for entry in entries)
+
+
 def frames(plan, locale, links, compact):
     output, used = [], set()
+    material_frames = []
     units = plan['units']
     from . import description_composition_families as families
 
@@ -308,7 +424,7 @@ def frames(plan, locale, links, compact):
         if not members:
             return
         allowed = set()
-        if compact and any(f['payload'].get('role') == 'tool' for u in members for f in u['facts']):
+        if any(f['payload'].get('role') == 'tool' for u in members for f in u['facts']):
             allowed.update(TOOL_DETAIL_PREDICATES)
         by_function = {
             'provide_equipped_rain_protection': {'EQUIPPED_RAIN_USE'},
@@ -321,10 +437,17 @@ def frames(plan, locale, links, compact):
             'annotate_item_map': {'MAP_ANNOTATION'},
             'erase_item_map_annotations': {'MAP_ERASURE'},
             'place_moveable_furniture': {'PLACEMENT'},
+            'install_combination_padlock': {'CODE_LOCK_USE'},
+            'remove_combination_padlock': {'CODE_UNLOCK'},
+            'exercise_barbell_curl': {'WEIGHT_EXERCISE'},
+            'exercise_dumbbell_press': {'WEIGHT_EXERCISE'},
+            'exercise_biceps_curl': {'WEIGHT_EXERCISE'},
             'remove_placed_furniture': {'PICKUP', 'PICKUP_LOSS'},
             'supply_escape_rope': {'ESCAPE_ROPE_INSTALL'},
             'remove_installed_escape_rope': {'ESCAPE_ROPE_REMOVE'},
             'start_escape_rope_ascent': {'ESCAPE_ROPE_CLIMB'},
+            'remove_embedded_glass': {'GLASS_REMOVAL'},
+            'remove_embedded_bullet': {'BULLET_REMOVAL'},
             'clean_burn': {'BURN_CLEANING'},
             'unpick_garment_patch': {'GARMENT_PATCH_REMOVAL'},
             'pitch_tent': {'CAMP_PLACEMENT', 'TENT_PLACEMENT'},
@@ -333,6 +456,7 @@ def frames(plan, locale, links, compact):
             'receive_portioned_food': {'BOWL_PORTIONING'},
             'set_alarm': {'ALARM_SETTING'},
             'stop_alarm': {'ALARM_STOPPING'},
+            'salvage_vehicle_engine': {'ENGINE_SALVAGE'},
             'control_device_media': {'RADIO_MEDIA_CONTROL'},
             'insert_recorded_media': {'MEDIA_INSERT'},
             'tune_radio': {'RADIO_TUNING'},
@@ -348,6 +472,7 @@ def frames(plan, locale, links, compact):
             'provide_campfire_tinder': {'CAMP_TINDER_USE'},
             'provide_hearth_tinder': {'HEARTH_TINDER'},
             'provide_industrial_tinder': {'INDUSTRIAL_TINDER'},
+            'supply_drum_logs': {'DRUM_LOGS'},
             'wear_on_body': {'WEARING', 'WEAR_ACTION'},
             'wear_configured_clothing': {'WEARING', 'WEAR_ACTION'},
             'prepare_frog_meat': {'FROG_PREPARATION'},
@@ -379,6 +504,9 @@ def frames(plan, locale, links, compact):
             'attach_weapon_part': {'WEAPON_ATTACHMENT'},
             'remove_weapon_part': {'WEAPON_PART_REMOVAL'},
             'insert_matching_magazine': {'MAGAZINE_LOADING'},
+            'fill_magazine': {'MAGAZINE_FILL'},
+            'convert_lamp_to_battery': {'LAMP_CONVERSION'},
+            'repair_generator': {'GENERATOR_REPAIR'},
         }
         for u in members:
             for f in u['facts']:
@@ -450,25 +578,183 @@ def frames(plan, locale, links, compact):
         # These frames express the admitted capability and selected structured
         # relationships, not the complete execution predicate.
         claims = [dict(u, qualifier_refs=[]) for u in (members if ordered else adjacent(members, purpose_tokens))]
-        output.append({'text': text + '.', **links(claims, plan), 'expression': 'public_use',
+        output.append({'text': text if '\n- ' in text else text + '.', **links(claims, plan), 'expression': 'public_use',
                        'placement_reason': reason,
                        'qualifier_dispositions': []})
         used.update(r for u in members for r in u['fact_refs'])
+
+    def emit_material(members, purposes, text):
+        before = len(output)
+        emit(members, text)
+        if len(output) > before and (compact or all(kind == 'craft' for kind, _ in purposes)):
+            material_frames.append((output[-1], members, purposes))
+
+    def parallel_names(values):
+        values = list(dict.fromkeys(values))
+        if locale != 'ko':
+            return en.join(values)
+        if len(values) < 2:
+            return ''.join(values)
+        return ', '.join(values[:-1]) + ' 및 ' + values[-1]
 
     def names(items):
         words = list(dict.fromkeys(i['names'][locale] for i in items))
         return '·'.join(words) if locale == 'ko' else en.join(words)
 
     def object_name(noun):
-        ending = noun.rstrip(')]} ')[-1]
-        final = (ord(ending) - ord('가')) % 28 if '가' <= ending <= '힣' else 0
-        return noun + ('을' if final else '를')
+        return ko.object_name(noun)
 
     functions = {f['payload'].get('function') for u in units for f in u['facts']}
-    if {'link_remote_device', 'send_remote_trigger'} <= functions:
+    forms = select({'switch_declared_clothing_form'})
+    options = set(plan.get('source_traits', {}).get('ClothingItemExtraOption', '').split(';'))
+    form_actions = []
+    for identifiers, phrase in (
+        ({'UpHoodie'}, ('후드를 쓸 수 있다', 'Its hood can be raised')),
+        ({'DownHoodie'}, ('후드를 벗을 수 있다', 'Its hood can be lowered')),
+        ({'ReverseCap'}, ('뒤로 돌려 쓸 수 있다', 'It can be worn with the brim facing backwards')),
+        ({'ForwardCap'}, ('앞으로 돌려 쓸 수 있다', 'It can be worn with the brim facing forwards')),
+        ({'FannyPack_WearFront'}, ('몸 앞으로 돌려 찰 수 있다', 'It can be worn at the front')),
+        ({'FannyPack_WearBack'}, ('몸 뒤로 돌려 찰 수 있다', 'It can be worn at the back')),
+        ({'EyeRight'}, ('오른쪽 눈으로 옮겨 달 수 있다', 'It can be worn over the right eye')),
+        ({'EyeLeft'}, ('왼쪽 눈으로 옮겨 달 수 있다', 'It can be worn over the left eye')),
+        ({'TieBandana'}, ('묶어 머리에 쓸 수 있다', 'It can be tied around the head')),
+        ({'UntieBandana'}, ('매듭을 풀 수 있다', 'The bandana can be untied')),
+        ({'TieBandanaFace'}, ('얼굴을 덮을 수 있다', 'It can be worn over the face')),
+        ({'PutOnEarlobe'}, ('귓불로 옮겨 달 수 있다', 'It can be worn on the earlobe')),
+        ({'PutOnEartop'}, ('귀 위쪽으로 옮겨 달 수 있다', 'It can be worn on the upper ear')),
+        ({'LeftWrist'}, ('왼쪽 손목으로 옮겨 찰 수 있다', 'It can be worn on the left wrist')),
+        ({'RightWrist'}, ('오른쪽 손목으로 옮겨 찰 수 있다', 'It can be worn on the right wrist')),
+        ({'LeftMiddleFinger', 'LeftRingFinger', 'RightMiddleFinger', 'RightRingFinger'}, ('다른 손가락으로 옮겨 낄 수 있다', 'It can be moved to another finger')),
+    ):
+        if options & identifiers:
+            form_actions.append(lex.pair(phrase, locale))
+    form_text = '. '.join(form_actions)
+    fabric_wear = bool(functions & {'wear_on_body', 'wear_configured_clothing'}) and plan.get('source_traits', {}).get('FabricType') in {'Cotton', 'Denim', 'Leather'}
+    traits = plan.get('source_traits', {})
+    current_location = traits.get('BodyLocation') or traits.get('CanBeEquipped')
+    locations = {r['location'] for r in traits.get('wearing_alternatives', [])} | {current_location}
+    combined_wearing = None
+    if locations == {'Hat', 'Mask'}:
+        combined_wearing = ('머리에 쓰거나 얼굴을 가리는 형태로 바꿔 쓸 수 있다', 'It can be worn on the head or changed to cover the face')
+    elif locations == {'LeftWrist', 'RightWrist'}:
+        combined_wearing = ('왼쪽이나 오른쪽 손목에 골라 찰 수 있다', 'It can be worn on either wrist')
+    elif locations == {'LeftEye', 'RightEye'}:
+        combined_wearing = ('왼쪽이나 오른쪽 눈에 골라 달 수 있다', 'It can be worn over either eye')
+    elif locations == {'FannyPackFront', 'FannyPackBack'}:
+        combined_wearing = ('몸 앞이나 뒤로 위치를 바꿔 찰 수 있다', 'It can be worn at the front or back')
+    elif compact and locations == {'Left_MiddleFinger', 'Left_RingFinger', 'Right_MiddleFinger', 'Right_RingFinger'}:
+        combined_wearing = ('양손의 중지나 약지에 골라 낄 수 있다', 'It can be worn on either middle or ring finger')
+    if forms and combined_wearing:
+        places = [u for u in units if not used & set(u['fact_refs']) and all(f['payload'].get('state') == 'worn_location' for f in u['facts'])]
+        emit(forms + select({'wear_on_body', 'wear_configured_clothing'}) + places, lex.pair(combined_wearing, locale))
+        forms = []
+    if forms and form_actions and not (compact and fabric_wear and functions & (FUEL.keys() | TINDER.keys())):
+        emit(forms, form_text)
+    if plan.get('source_traits', {}).get('FoodType') == 'Juice':
+        emit(select({'eat_food', 'consume_edible_food'}), lex.pair(('섭취할 수 있다', 'It can be consumed'), locale))
+    lessons = select({fn for fn in functions if fn and fn.startswith('learn_literature_')})
+    if lessons:
+        learned = plan.get('source_traits', {}).get('learned_recipes', [])
+        recipes = {r['key']: r for entry in learned for r in entry['recipes']}
+        if recipes:
+            overviews = []
+            fields = {'engineer': ('장치', 'devices'), 'electrical': ('전자 장치', 'electronic equipment'),
+                      'cooking': ('요리', 'food'), 'farming': ('작물 치료제', 'crop treatments'),
+                      'fishing': ('낚시 장비', 'fishing equipment'), 'trapper': ('덫', 'traps'),
+                      'welding': ('금속 물품', 'metal items'), 'smithing': ('금속 물품', 'metal items'),
+                      'metalconstruction': ('금속 구조물', 'metal structures')}
+            for entry in learned:
+                topic = entry['function'].removeprefix('learn_literature_')
+                operations = {r['operation'] for r in entry['recipes']}
+                if operations <= {'make'}:
+                    # Keep the admitted process (notably forging vs metalwork).
+                    fact = next(f for u in lessons for f in u['facts'] if f['payload'].get('function') == entry['function'])
+                    text = lex.core(fact, locale)
+                    if topic == 'engineer':
+                        text = lex.pair(('읽어서 장치 제작법을 배울 수 있다', 'It can be read to learn a device crafting recipe' if len(entry['recipes']) == 1 else 'It can be read to learn device crafting recipes'), locale)
+                else:
+                    noun = lex.pair(fields.get(topic, ('물품', 'items')), locale)
+                    ordered = [op for op in ('make', 'repair', 'modify', 'recover', 'other') if op in operations]
+                    if locale == 'ko':
+                        labels = {'make': '제작', 'repair': '수리', 'modify': '개조', 'recover': '재료 회수', 'other': '관련 작업'}
+                        text = '읽어서 ' + noun + ' ' + parallel_names([labels[op] for op in ordered]) + ' 방법을 배울 수 있다'
+                    else:
+                        related = [op for op in ('make', 'repair', 'modify') if op in operations]
+                        phrases = [en.join(related) + ' ' + noun] if related else []
+                        if 'recover' in operations:
+                            phrases.append('recover materials')
+                        if 'other' in operations:
+                            phrases.append('work with ' + noun)
+                        text = 'It can be read to learn how to ' + en.join(phrases)
+                if locale == 'en' and len(entry['recipes']) == 1:
+                    text = text.replace('learn electronic-device recipes', 'learn an electronic-device recipe')
+                overviews.append(text)
+            overview = '. '.join(dict.fromkeys(overviews))
+            overview = detail_text(overview, overview, [r['names'][locale] for r in recipes.values()],
+                                   compact=compact, relationship='learning_content')
+            emit(lessons + select({'read_literature'}), overview)
+            if not compact:
+                detail = learning_groups(recipes.values(), locale, overview.split('\n', 1)[0])
+                if detail:
+                    output[-1]['target_groups'] = detail
+        else:
+            emit(lessons + select({'read_literature'}), '. '.join(lex.core(u['facts'][0], locale) for u in lessons))
+    leisure = select({'read_for_morale'})
+    if leisure:
+        emit(leisure + select({'read_literature'}), lex.pair(('기분 전환을 위한 읽을거리로 쓸 수 있다', 'It can be read for a change of mood'), locale))
+
+    # Scope is attached to each target group by the reviewed source adapter.
+    for relation in plan.get('source_traits', {}).get('action_targets', []):
+        members = select({relation['function']})
+        if not members:
+            continue
+        groups = relation['groups']
+        categories = list(dict.fromkeys(g['category'][locale] for g in groups))
+        target_entries = [('일부 ' if g['scope'] == 'some' else '') + name[locale] if locale == 'ko'
+                          else ('Some ' if g['scope'] == 'some' else '') + name[locale]
+                          for g in groups for name in g['targets']]
+        action = relation['action']
+        if action == 'paint':
+            summary = ('벽이나 가구 등을 칠할 수 있다' if locale == 'ko' else 'It can be used to paint walls or furniture, for example')
+            # Categories are an overview of this evidenced target set, not a
+            # claim that every object in those categories supports the action.
+            if set(categories) != ({'벽', '가구'} if locale == 'ko' else {'walls', 'furniture'}):
+                raise ValueError('unreviewed paint target categories')
+            signs = select({'paint_wall_sign'}) if compact else []
+            if signs:
+                summary = '벽이나 가구 등을 칠하고, 벽에 표식을 그릴 수 있다' if locale == 'ko' else 'It can be used to paint walls or furniture, for example, and paint signs on walls'
+            text = detail_text(summary, '다음 대상을 칠할 수 있다' if locale == 'ko' else 'It can be used to paint the following targets',
+                               target_entries, compact=compact, relationship='scoped_target_groups')
+            emit(members + signs, text)
+            if not compact:
+                output[-1]['target_groups'] = scoped_groups(groups, target_entries, locale, text.split('\n', 1)[0])
+
+    dismantling = select({'dismantle_built_object'})
+    targets = plan.get('source_traits', {}).get('dismantling_targets', [])
+    if not compact and dismantling and targets:
+        selected_targets = targets
+        target_names = [t[locale] for t in selected_targets]
+        text = (('' if compact else '톱과 드라이버로 ') + parallel_names(target_names) + ' 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다') if locale == 'ko' else (('It can be used to dismantle constructed objects such as ' if compact else 'A saw and screwdriver can be used to dismantle constructed objects such as ') + en.join(target_names) + ' and recover materials')
+        emit(dismantling, text)
+        if all(set(u['fact_refs']) <= used for u in dismantling):
+            functions.discard('dismantle_built_object')
+
+    battery_power = select({'supply_vehicle_electrical_power'})
+    if battery_power:
+        emit(battery_power + select({'install_vehicle_battery'}), lex.pair(('호환 차량의 시동과 전기 장치에 전력을 공급할 수 있다', 'It can supply power for starting a compatible vehicle and operating its electrical equipment'), locale))
+    headlight = select({'provide_vehicle_headlight'})
+    if headlight:
+        emit(headlight + select({'install_vehicle_bulb'}), lex.pair(('호환 차량의 전조등에 달아 빛을 낼 수 있다', 'It can provide light in a compatible vehicle headlight'), locale))
+
+    engine_salvage = select({'salvage_vehicle_engine'})
+    emit(engine_salvage, lex.pair((
+        '엔진에서 부품을 회수할 수 있다',
+        'It can be used to salvage engine parts'), locale))
+    if 'link_remote_device' in functions:
+        controller = plan.get('source_traits', {}).get('RemoteController', '').lower() == 'true'
         emit(select({'link_remote_device', 'send_remote_trigger'}), lex.pair((
-            '함께 소지한 호환 장치를 연결해 조종 범위 안에서 원격으로 작동시킬 수 있다',
-            'It can be linked to a compatible device carried together and remotely activate that device within range'), locale))
+            '호환 장치를 연결해 원격으로 작동시킬 수 있다' if controller else '호환 조종기에 연결하면 원격으로 작동시킬 수 있다',
+            'It can be linked to a compatible device and remotely activate that device' if controller else 'It can be activated remotely after linking it to a compatible controller'), locale))
     key_actions = {
         'operate_door_lock': ('문 잠금과 해제', 'locking and unlocking doors'),
         'remove_matching_padlock': ('구조물 자물쇠 제거', 'removing structure padlocks'),
@@ -476,10 +762,12 @@ def frames(plan, locale, links, compact):
     }
     if compact and len(functions & key_actions.keys()) > 1:
         labels = [lex.pair(label, locale) for fn, label in key_actions.items() if fn in functions]
-        text = ('·'.join(labels) + '에 쓸 수 있으며 대상과 열쇠가 맞아야 한다' if locale == 'ko' else
-                'It can be used for ' + en.join(labels) + ', with a matching key required for each target')
-        if 'remove_matching_padlock' in functions:
-            text += lex.pair(('. 자물쇠 제거 시 소모된다', '. Removing a padlock consumes the key'), locale)
+        verbs = {'operate_door_lock': ('맞는 문을 잠그거나 잠금을 풀', '맞는 문을 잠그거나 잠금을 풀'),
+                 'remove_matching_padlock': ('구조물의 자물쇠를 제거하', '구조물의 자물쇠를 제거할'),
+                 'request_matching_vehicle_start': ('차량 시동을 걸', '차량 시동을 걸')}
+        actions = [verbs[fn] for fn in key_actions if fn in functions]
+        text = (actions[0][1] + ' 수 있다. ' + '거나 '.join([v[0] for v in actions[1:-1]] + [actions[-1][1]]) + ' 수도 있다' if locale == 'ko' else
+                'It can be used for ' + en.join(labels))
         if 'avoid_first_door_alarm_trigger' in functions:
             text += lex.pair(('. 차량 첫 개방 경보를 막지만 이미 울리는 경보는 끄지 못한다',
                               '. It prevents the first-entry vehicle alarm but cannot silence an active alarm'), locale)
@@ -488,6 +776,13 @@ def frames(plan, locale, links, compact):
         emit(select({'request_matching_vehicle_start', 'avoid_first_door_alarm_trigger'}), lex.pair((
             '맞는 차량의 시동을 거는 데 쓸 수 있다. 차량 문을 처음 열 때 경보를 막지만 이미 울리는 경보는 끄지 못한다',
             'It can be used to start the matching vehicle. It prevents the alarm when first opening a vehicle door but cannot silence an active alarm'), locale))
+    code_lock = select({'install_combination_padlock', 'remove_combination_padlock'})
+    if len(code_lock) == 2:
+        emit(code_lock, lex.pair((
+            '제작한 나무 상자 같은 보관함을 비밀번호로 잠그거나 잠금을 해제할 수 있다. 문에는 쓸 수 없다',
+            'It can lock or unlock storage containers such as crafted wooden crates with a code, except doors') if compact else (
+            '제작한 나무 상자 같은 보관함에 비밀번호 잠금을 설정할 수 있다. 설정한 번호로 잠금을 해제할 수 있다. 문에는 쓸 수 없다',
+            'It can secure storage containers such as crafted wooden crates with a chosen code. The configured code can unlock them. It cannot be used on doors'), locale))
     for activity in ('spear_upgrade', 'explosive_modification', 'crop_spray_preparation'):
         members = [u for u in units if activity in purpose_tokens(u) and not used & set(u['fact_refs'])
                    and any(f['payload'].get('role') in {'material', 'tool', 'container'} for f in u['facts'])]
@@ -499,18 +794,61 @@ def frames(plan, locale, links, compact):
                 ('창에 부착물을 다는 데 쓸 수 있다', 'It can be used to fit attachments to spears') if 'tool' in roles else
                 ('창에 부착물을 다는 재료로 쓸 수 있다', 'It can be used as material for attaching items to spears'))
         elif activity == 'explosive_modification':
-            # In the admitted Add recipes, the second selector is the fitted component.
-            components = {'Base.' + parts[1] for _, parts, context, _ in lex.source.ITEM_TRANSFORMATION_RECIPES if context == activity}
-            component = plan['item_id'] in components
-            target = bool(functions & {'request_physics_attack', 'place_noise_device', 'place_trigger_device'})
-            wording = ('장치에 작동 부품으로 달아 쓸 수 있다', 'It can be fitted to a device as a triggering component') if component else ('작동 부품을 달아 개조할 수 있다', 'It can be modified by fitting triggering components') if target else (
-                ('장치에 작동 부품을 다는 데 쓸 수 있다', 'It can be used to fit triggering components to devices') if 'tool' in roles else
-                ('장치에 작동 부품을 다는 재료로 쓸 수 있다', 'It can be used as material for fitting triggering components to devices'))
+            results = [r for u in members for rel in u.get('recipe_targets', []) for r in rel['results']]
+            modes = []
+            for result in results:
+                fields = result.get('declared_traits', {})
+                label = (('움직임 감지', 'motion sensing') if float(fields.get('SensorRange', 0)) > 0 else
+                         ('원격 작동', 'remote activation') if fields.get('CanBeRemote', '').lower() == 'true' else
+                         ('시간 지연', 'time delay') if float(fields.get('ExplosionTimer', 0)) > 0 else None)
+                if label and lex.pair(label, locale) not in modes:
+                    modes.append(lex.pair(label, locale))
+            purpose = ('·'.join(modes) if locale == 'ko' else en.join(modes)) or lex.pair(('격발', 'triggering'), locale)
+            traits = plan.get('source_traits', {})
+            modification_roles = {rel.get('modification_role') for u in members for rel in u.get('recipe_targets', [])}
+            target = modification_roles == {'target'}
+            component = modification_roles == {'component'}
+            if locale == 'ko':
+                text = (purpose + ' 기능을 더해 개조할 수 있다' if target else
+                        '장치에 달아 ' + purpose + ' 기능을 더하는 부품으로 쓸 수 있다' if component else
+                        '장치에 ' + purpose + ' 기능을 더하는 ' + ('도구' if 'tool' in roles else '재료') + '로 쓸 수 있다')
+                wording = (text, text)
+            else:
+                text = ('It can be modified for ' + purpose if target else
+                        'It can serve as a component for adding ' + purpose + ' to devices' if component else
+                        'It can be used as ' + ('a tool' if 'tool' in roles else 'material') + ' for adding ' + purpose + ' to devices')
+                wording = (text, text)
         else:
             vessel = bool(functions & {'store_water', 'carry_water'}) and not functions & {'drink_food_contents', 'smoke_cigarette'}
             wording = ('작물 치료용 분무액을 만드는 용기로 쓸 수 있다', 'It can hold the mixture when making crop-treatment spray') if vessel else (
                 '작물 치료용 분무액을 만드는 재료로 쓸 수 있다', 'It can be used as an ingredient for making crop-treatment spray')
-        emit(members, lex.pair(wording, locale))
+        if activity in {'spear_upgrade', 'explosive_modification'} and 'tool' not in roles and not (activity == 'explosive_modification' and (target or component)) and not (activity == 'spear_upgrade' and 'fish_with_spear' in functions):
+            purpose_label = lex.pair(('창 부착물 고정', 'attaching items to spears') if activity == 'spear_upgrade' else ('장치 개조', 'modifying devices'), locale)
+            emit_material(members, [('action', purpose_label)], lex.pair(wording, locale))
+        else:
+            emit(members, lex.pair(wording, locale))
+
+    electricity = select({'supply_nearby_electricity'})
+    if electricity:
+        pumps = select({'power_exterior_fuel_pumps'})
+        text = lex.pair(('가동해 주변 전기 설비에 전원을 공급할 수 있다',
+                         'It can be operated to power nearby electrical equipment'), locale)
+        if not compact:
+            # A setting-dependent target is evidence for the broader purpose,
+            # not a reason to publish game configuration advice or promise it
+            # works in every setting. Use confirmed indoor-appliance examples.
+            text = lex.pair(('가동해 주변의 냉장고나 세탁기 등 전기 설비에 전원을 공급할 수 있다',
+                             'It can be operated to power nearby electrical equipment such as refrigerators and washing machines'), locale)
+        emit(electricity + pumps, text)
+
+    noise = select({'emit_attracting_noise'})
+    if noise:
+        throwing = select({'request_physics_attack'})
+        text = lex.pair(('소음을 내 좀비의 주의를 끄는 데 쓸 수 있다',
+                         'It can produce noise to attract zombies'), locale)
+        if throwing and not compact:
+            text += lex.pair(('. 던져서 사용할 수도 있다', '. It can also be thrown'), locale)
+        emit(noise + throwing, text)
 
     tent = select({'pitch_tent', 'rest_at_placed_tent'})
     if len(tent) == 2:
@@ -520,8 +858,12 @@ def frames(plan, locale, links, compact):
     # construction action; neither participation makes it a building material.
     if any('metal_welding_construction' in purpose_tokens(u) and any(f['payload'].get('role') == 'tool' for f in u['facts']) for u in units):
         welding = [u for u in units if not used & set(u['fact_refs']) and purpose_tokens(u) & {'construction', 'metal_welding_construction', 'welded_parts'}]
-        if not compact:
-            emit(welding, lex.pair(('금속 부품 용접과 용접 건축에 쓸 수 있다', 'It can be used for metal-part welding and welded construction'), locale))
+        wearable = bool(select({'wear_on_body', 'wear_configured_clothing'}))
+        if wearable:
+            places = [u for u in units if not used & set(u['fact_refs']) and all(f['payload'].get('state') == 'worn_location' for f in u['facts'])]
+            emit(welding + select({'wear_on_body', 'wear_configured_clothing'}) + places, '용접 작업을 할 때 착용하는 장비다' if locale == 'ko' else 'It is equipment worn for welding work')
+        else:
+            emit(welding, lex.pair(('금속 부품을 만들거나 금속 구조물을 세울 때 용접 도구로 쓸 수 있다', 'It can be used as a tool for metal-part welding and welded construction'), locale))
 
     seat = select({'use_vehicle_seat', 'store_vehicle_items'})
     if functions >= {'use_vehicle_seat', 'store_vehicle_items'}:
@@ -529,8 +871,8 @@ def frames(plan, locale, links, compact):
     tank = select({'store_vehicle_fuel', 'supply_vehicle_engine_fuel', 'transfer_vehicle_fuel'})
     if functions >= {'store_vehicle_fuel', 'supply_vehicle_engine_fuel', 'transfer_vehicle_fuel'}:
         emit(tank + select({'install_vehicle_storage_part'}), lex.pair((
-            '호환 차량에 장착해 연료를 보관하고 엔진에 공급할 수 있다. 엔진을 끄면 맞는 용기로 연료를 넣거나 뺄 수 있다. 탱크 상태가 70 미만이면 연료가 추가로 줄 수 있다',
-            'It can be installed in a compatible vehicle to store fuel and supply the engine. With the engine stopped, fuel can be added or siphoned with a compatible container. Tank condition below 70 can cause additional fuel loss'), locale))
+            '차량에 장착해 연료를 보관하고 엔진에 공급할 수 있다',
+            'It can be installed in a compatible vehicle to store fuel and supply the engine'), locale))
     doors = select({'operate_installed_vehicle_door', 'operate_installed_vehicle_lock', 'operate_installed_vehicle_window'})
     panel = [u for u in units if not used & set(u['fact_refs']) and any(f['payload'].get('function', '').startswith('install_vehicle_') for f in u['facts'])]
     if doors and len(panel) == 1:
@@ -540,13 +882,32 @@ def frames(plan, locale, links, compact):
         if 'operate_installed_vehicle_lock' in functions:
             labels.append(('잠그거나 잠금을 풀 수 있다', 'It can be locked and unlocked'))
         opening = lex.core(panel[0]['facts'][0], locale).rstrip('.')
-        emit(panel + doors, opening + ('. 장착 후 ' + ( '여닫거나 잠그고 잠금을 풀 수 있다' if len(labels) == 2 else labels[0][0]) if locale == 'ko' else '. Once installed, it can be opened, closed, locked or unlocked' if len(labels) == 2 else '. ' + labels[0][1]))
+        if compact:
+            fn = panel[0]['facts'][0]['payload']['function']
+            name = lex.pair(lex.source.PANEL_NAMES[fn.removeprefix('install_vehicle_')], locale)
+            emit(panel + doors, '호환 차량의 ' + name + ' 교체 부품으로 쓸 수 있다' if locale == 'ko' else 'It can replace the ' + name + ' in a compatible vehicle')
+        else:
+            emit(panel + doors, opening + ('. 장착 후 ' + ('여닫거나 잠그고 잠금을 풀 수 있다' if len(labels) == 2 else labels[0][0]) if locale == 'ko' else '. Once installed, it can be opened, closed, locked or unlocked' if len(labels) == 2 else '. ' + labels[0][1]))
+    replacement_names = {**lex.source.PANEL_NAMES,
+        'tire': ('타이어', 'tire'), 'brake': ('브레이크', 'brake'),
+        'suspension': ('서스펜션', 'suspension'), 'muffler': ('머플러', 'muffler')}
+    for fn in sorted(f for f in functions if f and f.startswith('install_vehicle_')):
+        key = fn.removeprefix('install_vehicle_')
+        if key in replacement_names:
+            name = lex.pair(replacement_names[key], locale)
+            emit(select({fn}), '호환 차량의 ' + name + ' 교체 부품으로 쓸 수 있다' if locale == 'ko' else 'It can replace the ' + name + ' in a compatible vehicle')
+    emit(select({'install_light_bulb'}), lex.pair(('호환 조명에 넣는 교체용 전구다', 'It can serve as a replacement bulb for compatible lamps'), locale))
+
     fuel_transfer = select({'fill_petrol_container', 'transfer_vehicle_fuel'})
     if len(fuel_transfer) == 2:
-        emit(fuel_transfer, lex.pair(('전원이 있는 주유기에서 급유받거나 시동이 꺼진 차량과 연료를 주고받을 수 있다', 'It can receive fuel from a powered pump or exchange fuel with a vehicle whose engine is off'), locale))
+        emit(fuel_transfer, lex.pair(('주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다', 'It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle'), locale))
+    embedded = select({'remove_embedded_glass', 'remove_embedded_bullet'})
+    if len(embedded) == 2:
+        embedded += [u for u in units if not used & set(u['fact_refs']) and all(f['fact_kind'] == 'effect' and f['payload'].get('property') in {'embedded_glass', 'embedded_bullet'} and f['payload'].get('direction') == 'remove' for f in u['facts'])]
+        emit(embedded, lex.pair(('상처에 박힌 유리나 총알을 제거하는 데 쓸 수 있다', 'It can be used to remove glass or bullets embedded in wounds'), locale))
     patch = select({'apply_garment_patch', 'unpick_garment_patch'})
     if len(patch) == 2:
-        emit(patch, lex.pair(('의류의 구멍을 덧대거나 패딩을 붙이고 패치를 제거할 수 있다. 제거 시 재료가 회수될 수 있다', 'It can mend garment holes, add padding and remove patches, with a chance to recover the removed material'), locale))
+        emit(patch, lex.pair(('의류를 수선하거나 덧댄 천을 떼는 데 쓸 수 있다', 'It can be used to mend clothing or remove patches') if compact else ('의류의 구멍을 덧대거나 패딩을 붙이고, 덧댄 천을 떼어낼 수 있다. 떼어낸 천은 회수할 수도 있다', 'It can mend garment holes, add padding and remove patches, with a chance to recover the removed fabric'), locale))
     electronics_contexts = {'electronic_assembly', 'radio_crafting', 'electronic_salvage', 'radio_salvage'}
     electronics_tools = [u for u in units if not used & set(u['fact_refs'])
                          and purpose_tokens(u) & electronics_contexts
@@ -554,12 +915,17 @@ def frames(plan, locale, links, compact):
     electronics_activities = set().union(*(purpose_tokens(u) for u in electronics_tools)) if electronics_tools else set()
     if electronics_activities >= electronics_contexts:
         lamp = select({'convert_lamp_to_battery'})
-        text = lex.pair(('전자 부품·무전기 제작과 전자기기 분해에 쓸 수 있다' if compact else
-                         '전자 부품·무전기를 만들거나 전자기기(라디오·TV 포함)를 분해해 부품을 회수할 수 있다',
-                         'It can make electronic components and radios or dismantle electronic devices' +
-                         ('' if compact else ', including radios and TVs, to recover parts')), locale)
+        text = lex.pair(('전자기기를 만들거나 분해할 수 있다' if compact else
+                         '전자 부품과 무전기를 만들 수 있다. 라디오와 TV를 포함한 전자기기를 분해해 부품을 회수할 수 있다',
+                         'It can be used to make or dismantle electronic devices' if compact else
+                         'It can be used to make electronic components and radios. It can be used to dismantle electronic devices, including radios and TVs, to recover parts'), locale)
         if lamp:
-            text += lex.pair(('. 조명을 건전지용으로 개조할 수 있다', '. It can convert lamps to battery power'), locale)
+            if compact and locale == 'ko':
+                text = text.removesuffix('할 수 있다') + '하고, 조명을 건전지용으로 개조할 수 있다'
+            elif compact:
+                text += ' and convert lamps to battery power'
+            else:
+                text += lex.pair(('. 조명을 건전지용으로 개조할 수 있다', '. It can convert lamps to battery power'), locale)
         emit(electronics_tools + lamp, text)
     if not compact:
         for contexts, wording in (({'woodworking', 'construction', 'carpentry_menu_construction'}, ('목공과 건축 작업에 쓸 수 있다', 'It can be used for woodworking and construction')),
@@ -571,10 +937,41 @@ def frames(plan, locale, links, compact):
 
     if not compact:
         tires = [u for u in units if all(f['payload'].get('property') == 'installed_tire_air_or_attachment' for f in u['facts'])]
-        emit(tires, lex.pair(('주행 중 공기와 상태가 줄 수 있으며 공기나 상태가 나쁘면 타이어를 잃을 수 있다', 'Driving can reduce tire air and condition; poor air or condition can cause tire loss'), locale))
+        emit(tires, lex.pair(('주행 중 공기압이 낮아지고 타이어가 닳을 수 있다. 공기압이 낮거나 많이 닳으면 타이어가 빠질 수 있다', 'Driving can reduce tire pressure and wear the tire; low pressure or poor condition can cause it to come off'), locale))
     water_handling = select({'store_water', 'carry_water', 'pour_water_into_container', 'supply_world_water_storage'})
     if not compact and functions >= {'store_water', 'carry_water', 'pour_water_into_container', 'supply_world_water_storage'}:
         emit(water_handling + select({'receive_poured_water'}), lex.pair(('물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다', 'It can store and carry water and transfer it to other containers or water storage fixtures'), locale))
+
+    # Recipe participants explain a field of use, not a catalogue of outputs.
+    crafting_members, crafting_phrases = [], []
+    for contexts, wording in (
+        ({'fishing_gear_crafting', 'spear_crafting', 'trap_crafting', 'trap_preparation'}, ('사냥이나 낚시에 쓸 장비를 만드는 데 쓸 수 있다', 'It can be used to make hunting or fishing equipment')),
+        ({'bomb_crafting', 'explosive_assembly'}, ('폭발 장치를 만드는 데 쓸 수 있다', 'It can be used to make explosive devices')),
+        ({'pumpkin_carving'}, ('호박을 장식용으로 깎는 데 쓸 수 있다', 'It can be used to carve decorative pumpkins'))):
+        members = [u for u in units if not used & set(u['fact_refs'])
+                   and purpose_tokens(u) - {None} <= contexts and purpose_tokens(u) & contexts
+                   and {f['payload'].get('role') for f in u['facts'] if f['fact_kind'] == 'context_role'} == {'tool'}]
+        if members and 'fishing_gear_crafting' in contexts:
+            activities = set().union(*(purpose_tokens(u) for u in members))
+            field = ('사냥과 낚시 장비', 'hunting and fishing equipment') if 'fishing_gear_crafting' in activities and activities & {'spear_crafting', 'trap_crafting', 'trap_preparation'} else ('낚시 장비', 'fishing equipment') if 'fishing_gear_crafting' in activities else ('사냥 장비', 'hunting equipment')
+            wording = (field[0] + '를 만드는 데 쓸 수 있다', 'It can be used to make ' + field[1])
+        if members:
+            crafting_members += members
+            crafting_phrases.append(wording)
+    if crafting_members:
+        if locale == 'ko':
+            actions = [p[0].removesuffix(' 데 쓸 수 있다') for p in crafting_phrases]
+            if all(a.endswith(' 만드는') for a in actions):
+                nouns = [a.removesuffix(' 만드는') for a in actions]
+                nouns = [n[:-1] if n.endswith(('을', '를')) else n for n in nouns]
+                text = object_name(ko.alternatives(nouns)) + ' 만드는 데 쓸 수 있다'
+            else:
+                stems = [a.removesuffix('만드는') + '만들' if a.endswith('만드는') else a.removesuffix('는') for a in actions[:-1]]
+                text = '거나 '.join(stems + actions[-1:]) + ' 데 쓸 수 있다'
+        else:
+            actions = [p[1].removeprefix('It can be used to ') for p in crafting_phrases]
+            text = 'It can be used to ' + ('make ' + en.join([a.removeprefix('make ') for a in actions]) if all(a.startswith('make ') for a in actions) else en.join(actions))
+        emit(crafting_members, text)
 
     if not compact:
         food_tasks = {'animal_butchery', 'fish_preparation', 'frog_preparation', 'food_portioning', 'food_preparation'}
@@ -609,6 +1006,14 @@ def frames(plan, locale, links, compact):
             wording = ('약초 찜질제를 만드는 데 쓸 수 있다', 'It can be used to make herbal poultices')
         elif activities == {'poultice_preparation'} and roles == {'tool'}:
             wording = ('약초 찜질제를 만드는 도구로 쓸 수 있다', 'It can be used as a tool for making herbal poultices')
+        if wording and wording[0] == '천이나 솜을 소독하는 데 쓸 수 있다' and select({'disinfect_wound'}):
+            wounds = select({'disinfect_wound'})
+            wound_effects = [u for u in units if not used & set(u['fact_refs']) and any(
+                f['payload'].get('property') == 'wound_alcohol_level' and f['payload'].get('direction') == 'increase'
+                for f in u['facts'])]
+            emit([unit] + wounds + wound_effects, '천, 솜, 상처를 소독하는 데 쓸 수 있다' if locale == 'ko'
+                 else 'It can be used to disinfect cloth, cotton or wounds')
+            continue
         if wording:
             cooking_partners = [u for u in units if not used & set(u['fact_refs'])
                                 and purpose_tokens(u) & {'food_preparation', 'food_ingredient_addition', 'grain_preparation'}
@@ -618,68 +1023,133 @@ def frames(plan, locale, links, compact):
             else:
                 emit([unit], lex.pair(wording, locale))
 
-    # A material's woodworking and building recipes share a supplied purpose.
-    # Installation, repair, packaging and processing the item itself stay out.
-    craft = {'woodworking', 'construction', 'metal_welding_construction', 'carpentry_menu_construction',
-             'campfire_kit_preparation', 'furniture_crafting', 'tool_crafting',
-             'spear_crafting', 'splint_crafting', 'trap_crafting', 'fishing_gear_crafting',
-             'mattress_preparation', 'tent_kit_making', 'camping_kit_preparation', 'stone_tool_crafting', 'electronic_assembly', 'radio_crafting',
-             'explosive_assembly', 'explosive_modification'}
-    material_units = [u for u in units if not used & set(u['fact_refs'])
-                      and purpose_tokens(u) - {None} <= craft and purpose_tokens(u) & craft
-                      and {f['payload'].get('role') for f in u['facts'] if f['fact_kind'] == 'context_role'} == {'material'}
-                      and {plan['qualifiers'][q]['payload']['predicate'] for q in u['qualifier_refs']} <= CONSTRUCTION_PREDICATES | {lex.source.WELDING_CONSTRUCTION}]
-    selected = material_units
-    activities = set().union(*(purpose_tokens(u) for u in selected)) if selected else set()
-    minimum = 2 if not activities & {'electronic_assembly', 'radio_crafting', 'explosive_assembly', 'explosive_modification'} else 3
-    if len(activities - {None}) >= (minimum if compact else 2):
-        woodworking = bool(activities & {'woodworking', 'furniture_crafting'})
-        building = bool(activities & {'construction', 'carpentry_menu_construction', 'metal_welding_construction'})
-        electronics = bool(activities & {'electronic_assembly', 'radio_crafting'})
-        devices = bool(activities & {'explosive_assembly', 'explosive_modification'})
-        other = bool(activities - {None, 'woodworking', 'furniture_crafting', 'construction', 'carpentry_menu_construction', 'metal_welding_construction',
-                                  'electronic_assembly', 'radio_crafting', 'explosive_assembly', 'explosive_modification'})
-        labels = [lex.pair(pair, locale) for enabled, pair in (
-            (woodworking, ('목공', 'woodworking')), (building, ('용접을 포함한 건축', 'construction including welding') if 'metal_welding_construction' in activities else ('건축', 'construction')),
-            (electronics, ('전자 부품과 기기 제작', 'electronic-component and device crafting')),
-            (devices, ('폭발물 등의 장치 제작과 작동 부품 장착' if 'explosive_modification' in activities else '장치 제작',
-                       'crafting explosive or similar devices and fitting triggering components' if 'explosive_modification' in activities else 'device crafting')),
-            (other, ('기타 제작' if electronics or devices else '물품 제작', 'other crafting' if electronics or devices else 'crafting'))) if enabled]
-        selected += [u for u in units if u not in selected and not used & set(u['fact_refs'])
-                     and all(f['fact_kind'] == 'use_context' for f in u['facts'])
-                     and any(u['branch_refs'] == member['branch_refs'] for member in selected)]
-        if building and compact:
-            selected += select({'build_wooden_barricade'})
-        repairs = [u for u in units if not used & set(u['fact_refs']) and 'repair' in purpose_tokens(u)
-                   and any(f['payload'].get('role') == 'repair_material' for f in u['facts'])]
-        if compact and repairs:
-            labels.append(lex.pair(('호환 물품 수리', 'repairing compatible items'), locale))
-            selected += repairs
-        if not compact:
-            building_contexts = {'woodworking', 'construction', 'carpentry_menu_construction', 'furniture_crafting', 'metal_welding_construction'}
-            labels = [lex.pair(('용접을 포함한 건축', 'construction including welding') if 'metal_welding_construction' in activities else ('목공과 건축', 'woodworking and construction') if woodworking and building else ('목공', 'woodworking') if woodworking else ('건축', 'construction'), locale)] if activities & building_contexts else []
-            objects = {'campfire_kit_preparation': ('모닥불 키트', 'campfire kits'), 'spear_crafting': ('창', 'spears'), 'splint_crafting': ('부목', 'splints'), 'trap_crafting': ('덫', 'traps'), 'fishing_gear_crafting': ('낚시 장비', 'fishing gear'), 'mattress_preparation': ('매트리스', 'mattresses'), 'tent_kit_making': ('텐트 키트', 'tent kits'), 'stone_tool_crafting': ('석제 도구', 'stone tools')}
-            craft_names = [lex.pair(v, locale) for k,v in objects.items() if k in activities]
-            if craft_names:
-                labels.append(', '.join(craft_names) + ' 제작' if locale == 'ko' else 'making ' + en.join(craft_names))
-            labels += list(dict.fromkeys(label for u in selected if not purpose_tokens(u) & (building_contexts | objects.keys()) for label in activity_labels(u, locale, False)))
-        if compact and woodworking and building:
-            labels[0:2] = ['목공과 ' + labels[1] if locale == 'ko' else 'woodworking and ' + labels[1]]
-        if compact and devices and other and 'explosive_modification' not in activities:
-            device_label = lex.pair(('장치 제작', 'device crafting'), locale)
-            other_label = lex.pair(('기타 제작', 'other crafting'), locale)
-            labels = [label for label in labels if label not in {device_label, other_label}]
-            labels.append(lex.pair(('장치 등 물품 제작', 'crafting devices and other items'), locale))
-        if not compact and locale == 'ko':
-            craft = [label.removesuffix(' 제작') for label in labels if label.endswith(' 제작')]
-            labels = [label for label in labels if not label.endswith(' 제작')]
-            if craft:
-                labels.append(', '.join(craft) + ' 제작')
-        emit(selected, (', '.join(labels) + '에 재료로 쓸 수 있다') if locale == 'ko' else
-             'It can be used as material for ' + en.join(labels))
+    splint_materials = [u for u in units if not used & set(u['fact_refs']) and 'splint_crafting' in purpose_tokens(u)
+                        and any(f['payload'].get('role') == 'material' for f in u['facts'])]
+    if splint_materials and select({'apply_splint'}):
+        members = splint_materials + select({'apply_splint'})
+        wording = lex.pair(('골절을 고정하는 부목 재료로 쓸 수 있다',
+                           'It can supply splinting material for fractures'), locale)
+        if compact and not select({'apply_garment_patch'}):
+            # Share the material role with other fields. Clothing/first-aid
+            # participants still use their existing combined treatment frame.
+            emit_material(members, [('action', lex.pair(('부목 제작', 'making splints'), locale))], wording)
+        else:
+            emit(members, wording)
+
+    # Group by supplied purpose and role before realizing sentences. A named
+    # result is covered only by an actually established parent category.
+    for fn, label, wording in (
+        ('convert_lamp_to_battery', ('장치 개조', 'modifying devices'),
+         ('조명을 건전지용으로 개조하는 재료로 쓸 수 있다', 'It can supply material for converting lamps to battery power')),
+        ('repair_generator', ('발전기 수리', 'repairing generators'),
+         ('손상된 발전기를 수리하는 재료로 쓸 수 있다', 'It can supply repair material for damaged generators')),
+    ):
+        members = select({fn})
+        if members and plan.get('source_traits', {}).get('DisplayCategory') != 'Tool':
+            emit_material(members, [('action', lex.pair(label, locale))], lex.pair(wording, locale))
+    purpose_groups = (
+        ({'woodworking', 'furniture_crafting', 'construction', 'carpentry_menu_construction', 'metal_welding_construction', 'welded_parts'}, ('목공과 건축에 쓰는', 'woodworking and construction')),
+        ({'electronic_assembly', 'radio_crafting'}, ('전자 기기를 만드는', 'making electronic devices')),
+        ({'explosive_assembly'}, None),
+        ({'spear_crafting', 'trap_crafting', 'fishing_gear_crafting'}, ('사냥과 낚시 장비를 만드는', 'making hunting and fishing equipment')),
+        ({'campfire_kit_preparation', 'mattress_preparation', 'tent_kit_making', 'camping_kit_preparation'}, ('야영 장비를 만드는', 'making camping equipment')),
+        ({'tool_crafting', 'stone_tool_crafting'}, ('도구를 만드는', 'making tools')),
+        ({'hat_crafting'}, ('모자를 만드는', 'making hats')),
+        ({'splint_crafting'}, ('골절을 고정할 부목을 만드는', 'making splints for fractures')),
+    )
+    for contexts, label in purpose_groups:
+        members = [u for u in units if not used & set(u['fact_refs'])
+                   and purpose_tokens(u) - {None} <= contexts and purpose_tokens(u) & contexts
+                   and {f['payload'].get('role') for f in u['facts'] if f['fact_kind'] == 'context_role'} == {'material'}
+                   and {plan['qualifiers'][q]['payload']['predicate'] for q in u['qualifier_refs']} <= CONSTRUCTION_PREDICATES | {lex.source.WELDING_CONSTRUCTION} | ({lex.source.WELDED_PARTS} if compact else set())]
+        if contexts == {'tool_crafting', 'stone_tool_crafting'}:
+            members += [u for u in units if not used & set(u['fact_refs']) and purpose_tokens(u) - {None} == {'metal_forging'}
+                        and any(f['payload'].get('role') == 'material' for f in u['facts']) and not u['qualifier_refs']
+                        and u.get('recipe_targets') and all(r.get('declared_traits', {}).get('DisplayCategory') == 'Tool'
+                            for rel in u['recipe_targets'] for r in rel['results'])]
+        if not members:
+            continue
+        activities = set().union(*(purpose_tokens(u) for u in members))
+        if contexts == {'spear_crafting', 'trap_crafting', 'fishing_gear_crafting'}:
+            label = (('사냥과 낚시 장비를 만드는', 'making hunting and fishing equipment') if 'fishing_gear_crafting' in activities and activities & {'spear_crafting', 'trap_crafting'} else
+                     ('낚시 장비를 만드는', 'making fishing equipment') if 'fishing_gear_crafting' in activities else ('사냥 장비를 만드는', 'making hunting equipment'))
+        building = activities & {'construction', 'carpentry_menu_construction', 'metal_welding_construction'}
+        woodworking = activities & {'woodworking', 'furniture_crafting'}
+        if 'woodworking' in contexts:
+            if building and woodworking:
+                label = ('목공과 건축에 쓰는', 'woodworking and construction')
+            elif building and 'welded_parts' in activities:
+                label = ('금속 부품 용접과 건축에 쓰는', 'metal-part welding and construction')
+            elif 'metal_welding_construction' in activities:
+                label = ('용접 건축에 쓰는', 'welded construction')
+            elif building:
+                label = ('건축에 쓰는', 'construction')
+            elif woodworking:
+                label = ('목공에 쓰는', 'woodworking')
+            else:
+                label = ('금속 부품을 용접하는', 'metal-part welding')
+        if contexts == {'electronic_assembly', 'radio_crafting'}:
+            results = {r['item_id']: r for u in members for rel in u.get('recipe_targets', []) for r in rel['results']}
+            categories = {device_category(r, locale) or r['names'][locale] for r in results.values()}
+            if len(categories) == 1:
+                name = next(iter(categories))
+                label = (object_name(name) + ' 만드는', 'making ' + name)
+        barricades = select({'build_wooden_barricade', 'build_metal_barricade'}) if building else []
+        members += barricades
+        members += [u for u in units if u not in members and not used & set(u['fact_refs'])
+                    and all(f['fact_kind'] == 'use_context' for f in u['facts'])
+                    and any(u['branch_refs'] == other['branch_refs'] for other in members)]
+        if label is None:
+            labels = list(dict.fromkeys(device_category(r, locale) or r['names'][locale]
+                         for u in members for rel in u.get('recipe_targets', []) for r in rel['results']))
+            if not labels:
+                continue
+            # Each category states one use; never embed a growing list into
+            # another list of unrelated camping, medical or building purposes.
+            clauses = [object_name(word) + ' 만들 때 재료로 쓸 수 있다' if locale == 'ko' else
+                       'It can be used as material for making ' + word for word in labels]
+        else:
+            phrase = lex.pair(label, locale)
+            if not compact and contexts == {'campfire_kit_preparation', 'mattress_preparation', 'tent_kit_making', 'camping_kit_preparation'}:
+                targets = {r['item_id']: r for u in members for rel in u.get('recipe_targets', []) for r in rel['results'] if r['kind'] == 'declared'}
+                if len(targets) == 1:
+                    name = next(iter(targets.values()))['names'][locale]
+                    phrase = object_name(name) + ' 만드는' if locale == 'ko' else 'making ' + name
+            clauses = [(phrase.removesuffix('에 쓰는') + ' 재료로 쓸 수 있다' if phrase.endswith('에 쓰는') else phrase + ' 재료로 쓸 수 있다') if locale == 'ko' else 'It can be used as material for ' + phrase]
+            if barricades and not compact:
+                kind = '금속' if any('build_metal_barricade' in purpose_tokens(u) for u in barricades) else '판자'
+                clauses[0] += ('. 문과 창문의 ' + kind + ' 바리케이드에도 재료로 쓸 수 있다') if locale == 'ko' else '. It can also supply window and door barricades'
+        if contexts == {'splint_crafting'}:
+            purposes = [('craft', lex.pair(('부목', 'splints'), locale))]
+        elif contexts == {'spear_crafting', 'trap_crafting', 'fishing_gear_crafting'} and compact:
+            purposes = [('craft', lex.pair(pair, locale)) for enabled, pair in (
+                (bool(activities & {'spear_crafting', 'trap_crafting'}), ('사냥 장비', 'hunting equipment')),
+                ('fishing_gear_crafting' in activities, ('낚시 장비', 'fishing equipment'))) if enabled]
+        elif label is None:
+            purposes = [('craft', word) for word in labels]
+        elif locale == 'ko' and phrase.endswith(' 만드는'):
+            noun = phrase.removesuffix(' 만드는')
+            noun = noun[:-1] if noun.endswith(('을', '를')) else noun
+            purposes = [('craft', noun)]
+        elif locale == 'en' and phrase.startswith('making '):
+            purposes = [('craft', phrase.removeprefix('making '))]
+        else:
+            action = ('금속 부품 용접' if phrase == '금속 부품을 용접하는' else phrase.removesuffix('에 쓰는')) if locale == 'ko' else phrase
+            purposes = [('action', action)]
+            if compact and 'woodworking' in contexts:
+                actions = []
+                if woodworking:
+                    actions.append(lex.pair(('목공', 'woodworking'), locale))
+                if 'welded_parts' in activities:
+                    actions.append(lex.pair(('금속 부품 용접', 'metal-part welding'), locale))
+                if building:
+                    actions.append(lex.pair(('건축', 'construction') if building & {'construction', 'carpentry_menu_construction'} else ('용접 건축', 'welded construction'), locale))
+                purposes = [('action', action) for action in actions]
+        emit_material(members, purposes, '. '.join(clauses))
+
 
     for activity, role, wording in (
-        ('repair', 'repair_material', ('호환되는 손상 물품의 수리 재료로 사용할 수 있다', 'It can be used as material for repairing compatible damaged items')),
+        ('repair', 'repair_material', ('다른 물품을 수리하는 재료로 쓸 수 있다', 'It can be used to repair items that accept this material')),
         ('blowtorch_refilling', 'fuel', ('토치에 프로판을 보충할 수 있다', 'It can supply propane for refilling blowtorches')),
     ):
         members = [u for u in units if not used & set(u['fact_refs']) and activity in purpose_tokens(u)
@@ -688,14 +1158,59 @@ def frames(plan, locale, links, compact):
         members += [u for u in units if any(f['payload'].get('activity') == activity for f in u['facts'])
                     and all(f['fact_kind'] == 'use_context' for f in u['facts'])
                     and any(u['branch_refs'] == other['branch_refs'] for other in members)]
-        emit(members, lex.pair(wording, locale))
+        if activity == 'repair' and members:
+            targets = plan.get('source_traits', {}).get('repair_targets', [])
+            labels = []
+            for target in targets:
+                fields = target.get('declared_traits', {})
+                label = (lex.pair(('호환 차량 부품', 'compatible vehicle parts'), locale) if fields.get('DisplayCategory') == 'VehicleMaintenance' else
+                         lex.pair(('총기', 'firearms'), locale) if fields.get('Ranged', '').lower() == 'true' else
+                         lex.pair(('무기', 'weapons'), locale) if fields.get('Type') == 'Weapon' else
+                         lex.pair(('도구', 'tools'), locale) if fields.get('DisplayCategory') == 'Tool' else target['names'][locale])
+                if label not in labels:
+                    labels.append(label)
+            if labels:
+                wording = (object_name(parallel_names(labels)) + ' 수리하는 재료로 쓸 수 있다',
+                           'It can be used as repair material for ' + parallel_names(labels))
+        if activity == 'repair' and members and labels:
+            text = lex.pair(wording, locale)
+            names = list(dict.fromkeys(t['names'][locale] for t in targets))
+            # A firearm family (including its sawn-off form) is one coherent
+            # target; mixed tools/weapons/parts need distinct named choices.
+            homogeneous = all(t.get('declared_traits', {}).get('Ranged', '').lower() == 'true' for t in targets) or len(names) == 1
+            inline = (object_name(parallel_names(names)) + ' 수리할 때 재료로 쓸 수 있다' if locale == 'ko'
+                      else 'It can be used as repair material for ' + parallel_names(['the ' + name for name in names]))
+            text = detail_text(text, '호환되는 다음 물품을 수리할 때 재료로 쓸 수 있다' if locale == 'ko' else
+                               'It can be used as repair material for compatible items from the following list', names,
+                               compact=compact, relationship='homogeneous_targets' if homogeneous else 'compatibility_choices', inline=inline)
+            before = len(output)
+            emit_material(members, [('action', label + ' 수리' if locale == 'ko' else 'repairing ' + label) for label in labels], text)
+            if not compact and not homogeneous and len(output) > before:
+                output[-1]['target_groups'] = target_groups(targets, locale, text.split('\n', 1)[0])
+        else:
+            emit(members, lex.pair(wording, locale))
 
     notes = select({'view_written_note_pages', 'record_written_notes'})
     if {f['payload'].get('function') for u in notes for f in u['facts']} == {'view_written_note_pages', 'record_written_notes'}:
         emit(notes, '메모를 읽고 적는 데 쓸 수 있다' if locale == 'ko' else 'It can be used for reading and writing notes')
 
+    exercises = select({'exercise_barbell_curl', 'exercise_dumbbell_press', 'exercise_biceps_curl'})
+    if compact and len(exercises) > 1:
+        emit(exercises, lex.pair(('중량 운동에 쓸 수 있다', 'It can be used for weight training'), locale))
+
     attachment = select({'attach_weapon_part'})
     detachment = select({'remove_weapon_part'})
+    attachment_purposes = select({fn for fn in functions if fn and fn.startswith('attachment_purpose_')})
+    if attachment and attachment_purposes:
+        # Native consumption refines the authored aiming-speed wording. Both
+        # evidence paths remain linked; they are not two independent benefits.
+        native_aiming = any(u['facts'][0]['payload']['function'] == 'attachment_purpose_movement_aim' for u in attachment_purposes)
+        shown_purposes = [u for u in attachment_purposes if not (native_aiming and
+                          u['facts'][0]['payload']['function'] == 'attachment_purpose_aiming')]
+        emit(attachment_purposes + (attachment + detachment if compact else []),
+             '. '.join(lex.core(u['facts'][0], locale) for u in shown_purposes))
+        if compact:
+            attachment, detachment = [], []
     if attachment and detachment:
         emit(attachment + detachment,
              '드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다' if locale == 'ko' else
@@ -707,12 +1222,21 @@ def frames(plan, locale, links, compact):
         emit(detachment, '드라이버로 장착된 부품을 떼어 회수할 수 있다' if locale == 'ko' else
              'The installed part can be detached and recovered with a screwdriver')
     magazine = select({'insert_matching_magazine'})
-    emit(magazine, '호환 총기에 끼워 사용할 수 있다' if locale == 'ko' else
-         'It can be inserted into a compatible firearm')
+    if magazine:
+        filling = select({'fill_magazine'})
+        emit(magazine + filling, ('호환 탄약을 담아 맞는 총기에 장전할 수 있다' if filling else '호환 총기에 끼워 사용할 수 있다') if locale == 'ko' else
+             ('It can be filled with compatible ammunition and loaded into a matching firearm' if filling else 'It can be inserted into a compatible firearm'))
 
     # The condition explicitly names wearing and the affected firearm scope.
     # Share this frame on both surfaces before generic clothing or effects can
     # claim its members. Unknown operations/scopes retain the scoped fallback.
+    slots = select({'provide_belt_slots', 'provide_right_holster_slot', 'provide_paired_holster_slots'})
+    if len(slots) == 1:
+        slot_fn = slots[0]['facts'][0]['payload']['function']
+        wearing = select({'wear_on_body', 'wear_configured_clothing'})
+        locations = [u for u in units if not used & set(u['fact_refs']) and all(f['payload'].get('state') == 'worn_location' for f in u['facts'])]
+        emit(slots + wearing + locations, lex.pair(families.OVERVIEWS[slot_fn][1], locale))
+
     for unit in units:
         text = lex.reload_effect(unit, plan, locale, compact)
         if text is None:
@@ -721,22 +1245,39 @@ def frames(plan, locale, links, compact):
         locations = [u for u in units if any(f['payload'].get('state') == 'worn_location'
                                            for f in u['facts'])]
         if not compact and wear and len(locations) == 1:
-            text = lex.wearing(locations[0]['facts'][0]['payload']['value'], locale) + '. ' + text
+            location = lex.wearing(locations[0]['facts'][0]['payload']['value'], locale)
+            if location not in {'착용할 수 있다', '몸에 착용할 수 있다', 'It can be worn'}:
+                text = location + '. ' + text
         emit(wear + locations + [unit], text, ordered=True,
              reason='confirmed reload-speed multiplication with worn and ammunition scope; action duration is not inferred')
 
     # Recipe result groups refine the same forging purpose. Keep roles apart
     # and merge only when no distinguishing public condition remains.
-    forging = {'metal_forging', 'shovel_smithing', 'smithing_parts'}
+    forging = FORGING_ACTIVITIES
+    if compact:
+        forge_materials = [u for u in units if not used & set(u['fact_refs']) and not u['qualifier_refs']
+                           and purpose_tokens(u) - {None} <= forging and purpose_tokens(u) & forging
+                           and {f['payload'].get('role') for f in u['facts'] if f['fact_kind'] == 'context_role'} == {'material'}]
+        emit_material(forge_materials, [('action', lex.pair(('금속 단조', 'metal forging'), locale))],
+                 lex.pair(('금속을 단조할 때 재료로 쓸 수 있다', 'It can supply material for metal forging'), locale))
     for role in ('tool', 'material'):
-        members = [u for u in units if not u['qualifier_refs']
+        members = [u for u in units if not used & set(u['fact_refs']) and not u['qualifier_refs']
                    and (purpose_tokens(u) - {None}) <= forging
                    and purpose_tokens(u) & forging
                    and {f['payload'].get('role') for f in u['facts'] if f['fact_kind'] == 'context_role'} == {role}]
         activities = set().union(*(purpose_tokens(u) for u in members)) if members else set()
         if 'metal_forging' in activities and len(activities & forging) > 1:
-            text = (('금속을 단조하는 데 사용할 수 있다' if role == 'tool' else '금속 단조의 재료로 사용할 수 있다') if locale == 'ko'
+            text = (('금속을 단조하는 데 사용할 수 있다' if role == 'tool' else '금속을 단조할 때 재료로 쓸 수 있다') if locale == 'ko'
                     else ('It can be used for metal forging' if role == 'tool' else 'It can be used as material for metal forging'))
+            if compact and role == 'tool':
+                wood = [u for u in units if not used & set(u['fact_refs'])
+                        and purpose_tokens(u) - {None} <= {'woodworking', 'construction', 'carpentry_menu_construction'}
+                        and purpose_tokens(u) & {'woodworking', 'construction', 'carpentry_menu_construction'}
+                        and {f['payload'].get('role') for f in u['facts'] if f['fact_kind'] == 'context_role'} == {'tool'}]
+                if wood:
+                    members += wood
+                    text = lex.pair(('금속을 단조하거나 목재를 가공할 수 있다',
+                                     'It can be used to forge metal or work wood'), locale)
             emit(members, text)
 
     for u in units:
@@ -757,7 +1298,7 @@ def frames(plan, locale, links, compact):
             results = {r['item_id']: r for relation in u['recipe_targets'] for r in relation['results']}
             if len(results) == 1:
                 target = next(iter(results.values()))['names'][locale]
-                emit([u], target + ' 제작 재료로 사용할 수 있다' if locale == 'ko' else 'It can be used as material for making ' + target)
+                emit([u], object_name(target) + ' 만들 때 재료로 쓸 수 있다' if locale == 'ko' else 'It can be used as material for making ' + target)
 
     fabric_result = plan.get('source_traits', {}).get('fabric_result')
     fabric_dirty = plan.get('source_traits', {}).get('fabric_dirty_result')
@@ -773,26 +1314,27 @@ def frames(plan, locale, links, compact):
     fabric_uses = [u for u in units if any(f['payload'].get('activity') == 'fabric_recovery' for f in u['facts'])]
     rope_uses = [u for u in units if any(f['payload'].get('activity') == 'sheet_rope_making' for f in u['facts'])]
     if compact and not wearables and fabric_uses and rope_uses and fabric_result:
-        text = ('찢어서 ' + object_name(compact_recovery) + ' 얻을 수 있다. 시트 로프 제작에 쓸 수도 있다') if locale == 'ko' else (
+        text = ('찢어서 ' + object_name(compact_recovery) + ' 얻을 수 있다. 시트 로프를 만드는 데도 쓸 수 있다') if locale == 'ko' else (
             'It can be ripped for ' + compact_recovery + ' or used to make sheet rope')
         emit(fabric_uses + rope_uses, text)
     if compact and wearables and fabric_uses and plan.get('source_traits', {}).get('FabricType') in {'Cotton', 'Denim', 'Leather'}:
         places = [u for u in units if any(f['payload'].get('state') == 'worn_location' for f in u['facts'])]
         needs_scissors = plan['source_traits']['FabricType'] in {'Denim', 'Leather'}
-        material = ('가위로 찢어서 ' if needs_scissors else '찢어서 ') + object_name(compact_recovery) + ' 획득'
+        material = ('가위로 잘라 ' if needs_scissors else '찢어서 ') + object_name(compact_recovery) + ' 얻을 수 있다'
         english = compact_recovery + ' recovered by ripping' + (' with scissors' if needs_scissors else '')
         if rope_uses:
-            material += '할 수 있다. 시트 로프 제작 재료로 사용'
+            material += '. 시트 로프를 만들 때 재료로 쓸 수 있다'
             english += ', or used to make sheet rope'
         fuel, tinder = select(FUEL), select(TINDER)
-        text = '착용할 수 있고, ' + material + '할 수 있다' if locale == 'ko' else 'It can be worn or used as material for ' + english
+        text = '착용할 수 있다. ' + material if locale == 'ko' else 'It can be worn or used as material for ' + english
         forms = select({'switch_declared_clothing_form'})
         if fuel or tinder:
             supplies = '나 '.join(word for members, word in ((fuel, '연료'), (tinder, '불쏘시개')) if members)
             supplies_en = en.join([word for members, word in ((fuel, 'fuel'), (tinder, 'tinder')) if members])
-            text = ('착용하거나 찢어서 ' + object_name(compact_recovery) + ' 얻을 수 있다. ' + ('착용 모양을 바꿀 수도 있다. ' if forms else '') + ('시트 로프 제작에 쓸 수도 있다. ' if rope_uses else '') + supplies + '로도 쓸 수 있다') if locale == 'ko' else ('It can be worn in alternate forms or ripped to obtain ' if forms else 'It can be worn or ripped to obtain ') + compact_recovery + (', used to make sheet rope' if rope_uses else '') + ', or used as ' + supplies_en
-            if needs_scissors:
-                text += '. 찢을 때 가위를 쓴다' if locale == 'ko' else '. Fabric recovery requires scissors'
+            text = ('착용할 수 있다. ' + (form_text + '. ' if forms and form_text else '') + material + '. ' + supplies + '로도 쓸 수 있다') if locale == 'ko' else ('It can be worn in alternate forms. ' if forms else 'It can be worn. ') + ('It can be cut with scissors to obtain ' if needs_scissors else 'It can be ripped to obtain ') + compact_recovery + ('. It can also be used to make sheet rope' if rope_uses else '') + '. It can be used as ' + supplies_en
+        if forms and options and options <= {'UpHoodie', 'DownHoodie'} and rope_uses and not needs_scissors and (fuel or tinder):
+            text = ('후드를 조절해 착용할 수 있다. ' + object_name(compact_recovery) + ' 얻거나 시트 로프를 만드는 데 쓸 수 있다. ' + supplies + '로도 쓸 수 있다') if locale == 'ko' else (
+                'It can be worn with the hood up or down. It can provide ' + compact_recovery + ' or be used to make sheet rope. It can also be used as ' + supplies_en)
         emit(wearables + places + fabric_uses + rope_uses + fuel + tinder + (forms if fuel or tinder else []), text)
 
     # A confirmed food-preparation purpose contains dough preparation only
@@ -807,8 +1349,8 @@ def frames(plan, locale, links, compact):
                  and purpose_tokens(u) & {'dough_preparation', 'cookie_preparation', 'batter_preparation'}
                  and {f['payload'].get('role') for f in u['facts'] if f['fact_kind'] == 'context_role'} == {role}]
         if food and dough:
-            emit(food + dough, '음식 준비에 사용할 수 있다' if locale == 'ko'
-                 else 'It can be used for food preparation',
+            emit(food + dough, '반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다' if locale == 'ko'
+                 else 'It can be used as a cooking tool, including for preparing dough',
                  reason='same-role food preparation includes dough preparation; distinct roles and public conditions remain separate')
 
     cooking = [u for u in units if not used & set(u['fact_refs']) and
@@ -821,13 +1363,13 @@ def frames(plan, locale, links, compact):
         dough = bool(activities & {'batter_preparation', 'cookie_preparation', 'dough_preparation'})
         dough_en = 'dough or batter' if 'batter_preparation' in activities and activities & {'cookie_preparation', 'dough_preparation'} else 'batter' if 'batter_preparation' in activities else 'dough'
         food = bool(activities & {'food_preparation', 'food_ingredient_addition', 'grain_preparation'})
-        purpose = ('음식 준비' if food else '반죽 준비') if locale == 'ko' else (
+        purpose = ('요리' if food else '반죽 만들기') if locale == 'ko' else (
             'food preparation' if food else dough_en + ' preparation')
         members = list(cooking)
         text = ('재료를 담아 요리할 수 있다' if food else '반죽을 담아 요리를 만드는 데 쓸 수 있다') if locale == 'ko' else ('It can hold ingredients for cooking' if food else 'It can hold ' + dough_en + ' for preparing food')
         if bowls:
             members += bowls + [u for u in units if 'food_portioning' in purpose_tokens(u) and any(f['payload'].get('role') in {'material', 'container'} for f in u['facts'])]
-            text = (purpose + '나 조리한 음식을 나누어 담는 데 사용할 수 있다') if locale == 'ko' else ('It can be used for ' + purpose + ' and for holding portions of prepared meals')
+            text = ('요리할 때 재료를 담거나 조리한 음식을 나누어 담는 데 쓸 수 있다' if food else '반죽이나 조리한 음식을 나누어 담는 데 쓸 수 있다') if locale == 'ko' else ('It can be used for ' + purpose + ' and for holding portions of prepared meals')
         emit(members, text)
 
     if not compact and cooking and is_container:
@@ -908,7 +1450,7 @@ def frames(plan, locale, links, compact):
             if relation['result_use'] == 'prepare_opened_food_ingredient':
                 text = method + action + ' 꺼낸 ' + object_name(result_name) + ' 요리 재료로 쓸 수 있다'
             elif relation['result_use'] == 'sow_extracted_seeds':
-                text = '봉지를 열어 꺼낸 ' + object_name(result_name) + ' 파종하는 데 쓸 수 있다'
+                text = '봉지에 든 ' + object_name(result_name) + ' 밭에 심을 수 있다'
             if possible:
                 text += '. ' + names(possible) + '도 나올 수 있다'
         else:
@@ -918,12 +1460,9 @@ def frames(plan, locale, links, compact):
             if relation['result_use'] == 'prepare_opened_food_ingredient':
                 text += ' for use as a cooking ingredient'
             elif relation['result_use'] == 'sow_extracted_seeds':
-                text += ' for sowing'
+                text = 'It can be opened to obtain ' + result_name + ' for sowing in a planting bed'
             if possible:
                 text += '. ' + names(possible) + ' may also be recovered'
-        if not compact and relation['result_use'] == 'sow_extracted_seeds':
-            text += ('. 한 봉지에는 씨앗 ' + certain[0]['count'] + '개가 들어 있다' if locale == 'ko'
-                     else '. Each packet contains ' + certain[0]['count'] + ' seeds')
         if fn in {'unpack_canned_food', 'unpack_jarred_food', 'unpack_eggs'}:
             edible = select({'eat_food', 'consume_edible_food'})
             consumption = relation.get('result_consumption')
@@ -936,10 +1475,10 @@ def frames(plan, locale, links, compact):
                 # consumed. Reuse it in both uses rather than hiding it behind
                 # "contents" or inferring a food name from the sealed item.
                 opening = (method + action + ' ' + object_name(result_name) +
-                           (' 마실 수 있다' if drinking else ' 먹을 수 있다') if locale == 'ko' else
-                           'It can be opened' + method + (' to drink the ' if drinking else ' to eat the ') + result_name)
+                           (' 마실 수 있다' if drinking else ' 섭취할 수 있다' if any(r.get('food_type') == 'Juice' for r in certain) else ' 먹을 수 있다') if locale == 'ko' else
+                           'It can be opened' + method + ' to obtain ' + result_name + (' for drinking' if drinking else ' for consumption' if any(r.get('food_type') == 'Juice' for r in certain) else ' for eating'))
                 cooking = (('꺼낸 ' + object_name(result_name) + ' 요리 재료로도 쓸 수 있다') if locale == 'ko'
-                           else ('The extracted ' + result_name + ' can also be used as a cooking ingredient'))
+                           else ('Its contents can also be used as a cooking ingredient'))
                 if compact:
                     text = opening + ('. ' + cooking if relation['result_use'] == 'prepare_opened_food_ingredient' else '')
                     members += edible
@@ -1006,16 +1545,17 @@ def frames(plan, locale, links, compact):
                    ('tune_radio', ('라디오 방송 청취', 'listening to radio broadcasts')),
                    ('select_tv_channel', ('TV 방송 시청', 'watching television broadcasts'))]
         labels = [lex.pair(pair, locale) for fn, pair in actions if fn in media_functions]
-        text = ('전원이 공급되면 ' + '·'.join(labels) + '에 쓸 수 있다') if locale == 'ko' else ('With power, it can be used for ' + en.join(labels))
-        if locale == 'ko' and media_functions & {'tune_radio', 'select_tv_channel'}:
+        text = ('' + '·'.join(labels) + '에 쓸 수 있다') if locale == 'ko' else ('It can be used for ' + en.join(labels))
+        if locale == 'ko':
             verbs = []
             if 'control_device_media' in media_functions:
-                verbs.append('기록 매체를 재생')
+                media_type = plan.get('source_traits', {}).get('AcceptMediaType')
+                verbs.append('CD에 담긴 소리를 재생' if media_type == '0' else 'VHS 테이프에 담긴 영상을 재생' if media_type == '1' else '기록된 내용을 재생')
             if 'tune_radio' in media_functions:
                 verbs.append('라디오 방송을 청취')
             if 'select_tv_channel' in media_functions:
                 verbs.append('TV 방송을 시청')
-            text = '전원이 공급되면 ' + '하거나 '.join(verbs) + '할 수 있다'
+            text = '' + '하거나 '.join(verbs) + '할 수 있다'
         outcomes = [u for u in units if not used & set(u['fact_refs']) and all(
             f['payload'].get('property') == 'delivered_media_code_outcome' for f in u['facts'])]
         if outcomes:
@@ -1027,16 +1567,43 @@ def frames(plan, locale, links, compact):
     if recordings:
         outcomes = [u for u in units if not used & set(u['fact_refs']) and all(
             f['payload'].get('property') == 'delivered_media_code_outcome' for f in u['facts'])]
-        text = ('호환 재생 기기에 넣어 기록된 내용을 재생할 수 있다. 전원이 필요하다' if locale == 'ko'
-                else 'Its recorded content can be played on a compatible device with power')
+        category = plan.get('source_traits', {}).get('MediaCategory')
+        if category == 'CDs':
+            text = ('CD 플레이어로 녹음된 소리를 들을 수 있다' if locale == 'ko' else 'Its recorded audio can be heard with a CD player')
+        elif category in {'Home-VHS', 'Retail-VHS'}:
+            text = ('VHS 재생 기능이 있는 TV로 녹화된 영상을 볼 수 있다' if locale == 'ko' else 'Its recorded video can be watched on a TV that supports VHS playback')
+        else:
+            text = ('호환 기기로 녹음·녹화된 내용을 감상할 수 있다' if locale == 'ko' else 'Its recording can be enjoyed with a compatible player')
         if outcomes:
             text += ('. 내용에 따라 능력치·경험치·제작법 학습 효과를 얻을 수 있다' if locale == 'ko'
                      else '. Depending on the content, it can affect stats, XP or recipe knowledge')
-        emit(recordings + outcomes, text)
+        content = select({fn for fn in functions if fn and fn.startswith('recorded_content_')})
+        content_fns = {f['payload']['function'].removeprefix('recorded_content_') for u in content for f in u['facts']}
+        positive = []
+        if 'boredom' in content_fns:
+            positive.append(('지루함을 달래', 'relieve boredom'))
+        if {'skills', 'recipes'} <= content_fns:
+            positive.append(('기술과 제작법을 배우', 'learn skills and recipes'))
+        elif 'skills' in content_fns:
+            positive.append(('기술을 익히', 'develop skills'))
+        elif 'recipes' in content_fns:
+            positive.append(('제작법을 배우', 'learn recipes'))
+        if positive:
+            text += ('. 내용에 따라 ' + '거나 '.join(v[0] for v in positive) + '는 데도 쓸 수 있다') if locale == 'ko' else '. Depending on the recording, it can also help you ' + ' or '.join(v[1] for v in positive)
+            if compact and category in {'Home-VHS', 'Retail-VHS'} and not outcomes:
+                endings = {'지루함을 달래': '지루함을 달랠', '기술과 제작법을 배우': '기술과 제작법을 배울',
+                           '기술을 익히': '기술을 익힐', '제작법을 배우': '제작법을 배울'}
+                ability = '거나 '.join([v[0] for v in positive[:-1]] + [endings[positive[-1][0]]])
+                text = ('녹화 영상을 감상하고, 내용에 따라 ' + ability + ' 수 있다') if locale == 'ko' else ('Its video can be enjoyed and, depending on the recording, help you ' + ' or '.join(v[1] for v in positive))
+        if not compact and {'stress', 'panic'} <= content_fns:
+            text += lex.pair(('. 일부 내용은 스트레스나 공포를 느끼게 할 수 있다', '. Some recordings can also cause stress or panic'), locale)
+        elif not compact and 'stress' in content_fns:
+            text += lex.pair(('. 일부 내용은 스트레스를 느끼게 할 수 있다', '. Some recordings can also cause stress'), locale)
+        emit(recordings + outcomes + content, text)
 
     alarms = select({'set_alarm', 'stop_alarm'})
     if {f['payload'].get('function') for u in alarms for f in u['facts']} == {'set_alarm', 'stop_alarm'}:
-        emit(alarms, '알람 시각과 켜짐 여부를 설정하고 울리는 알람을 끌 수 있다' if locale == 'ko'
+        emit(alarms, '원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다' if locale == 'ko'
              else 'Its alarm time and on/off state can be set, and a ringing alarm can be stopped')
 
     dismantled = select({'dismantle_electronics'})
@@ -1044,7 +1611,7 @@ def frames(plan, locale, links, compact):
         and any(f['payload'].get('activity') in {'electronic_salvage', 'radio_salvage'} for f in u['facts'])
         and any(f['payload'].get('role') == 'transformation_target' for f in u['facts'])]
     if dismantled and salvage_targets:
-        text = '드라이버로 분해해 전자 부품을 회수하는 데 쓸 수 있다' if locale == 'ko' else 'It can be dismantled with a screwdriver to recover electronic parts'
+        text = '드라이버로 분해해 전자 부품을 얻을 수 있다' if locale == 'ko' else 'It can be dismantled with a screwdriver to recover electronic parts'
         emit(dismantled + salvage_targets, text)
 
     openers = select({'unpack_canned_food'})
@@ -1077,9 +1644,9 @@ def frames(plan, locale, links, compact):
         text = '상처에 감을 수 있다' if locale == 'ko' else 'It can be wrapped around wounds'
         if preparation:
             text += '. 소독해서 쓸 수도 있다' if locale == 'ko' else '. It can also be disinfected before use'
-        if infection:
-            text += ('. 감염된 상태로 쓰면 상처를 감염시킬 수 있다' if locale == 'ko'
-                     else '. If infected, it can infect the wound')
+        if infection and not compact:
+            text += ('. 상처에 감을 때 재료의 감염이 옮을 수 있다' if locale == 'ko'
+                     else '. Infection can pass from the material to the wound')
         emit(bandaging + preparation + infection, text)
 
     if compact:
@@ -1103,32 +1670,46 @@ def frames(plan, locale, links, compact):
         consequences = [u for u in units if not used & set(u['fact_refs'])
             and all(f['fact_kind'] == 'effect' and f['payload'].get('property') in {'burn_wash_requirement', 'additional_pain'} for f in u['facts'])
             and {plan['qualifiers'][q]['payload']['predicate'] for q in u['qualifier_refs']} == {lex.source.BURN_CLEANING}]
-        emit(burns + consequences, '세척이 필요한 화상을 씻는 데 쓸 수 있다' if locale == 'ko'
-             else 'It can be used to clean burns that need washing')
+        emit(burns + consequences, '화상을 씻는 데 쓸 수 있다' if locale == 'ko'
+             else 'It can be used to clean burns')
 
-    ropes = select({'supply_escape_rope', 'remove_installed_escape_rope', 'start_escape_rope_ascent'})
-    if {f['payload'].get('function') for u in ropes for f in u['facts']} == {
-            'supply_escape_rope', 'remove_installed_escape_rope', 'start_escape_rope_ascent'}:
-        text = ('설치해 위층으로 올라가는 데 사용할 수 있다' if locale == 'ko'
-                else 'It can be installed for climbing to an upper floor')
-        if not compact:
-            text += ('. 설치한 로프를 제거할 수 있다' if locale == 'ko'
-                     else '. Once installed, it can be removed')
-        emit(ropes, text)
+    ropes = select({'supply_escape_rope', 'start_escape_rope_ascent'})
+    if {f['payload'].get('function') for u in ropes for f in u['facts']} == {'supply_escape_rope', 'start_escape_rope_ascent'}:
+        emit(ropes, '설치해 위층으로 올라가는 데 사용할 수 있다' if locale == 'ko'
+             else 'It can be installed for climbing to an upper floor')
 
+    placed = select({fn for fn in functions if fn and fn.startswith('placed_purpose_')})
+    if placed:
+        salvage = [u for u in placed if u['facts'][0]['payload']['function'].startswith('placed_purpose_salvage_')]
+        facilities = [u for u in placed if u not in salvage]
+        placement = select({'place_moveable_furniture'})
+        moving = select({'remove_placed_furniture'})
+        if compact:
+            prominent = [u for u in facilities if u['facts'][0]['payload']['function'] != 'placed_purpose_surface']
+            shown = prominent or facilities
+            text = '. '.join(lex.core(u['facts'][0], locale) for u in shown) if shown else lex.pair(
+                ('분해해 재료를 회수할 수 있다', 'It can be dismantled to recover materials'), locale)
+            emit(placed + placement + moving, text)
+        else:
+            # Each independent purpose has its own use unit. Placement is a
+            # prerequisite already stated by the first concrete purpose.
+            ordered = facilities + salvage
+            for index, unit in enumerate(ordered):
+                emit([unit] + (placement if index == 0 else []), lex.core(unit['facts'][0], locale))
+            emit(moving, lex.pair(('집어 들어 다른 위치로 옮길 수 있다',
+                                   'It can be picked up and moved to another location'), locale))
     furniture = select({'place_moveable_furniture', 'remove_placed_furniture'})
-    if {f['payload'].get('function') for u in furniture for f in u['facts']} == {'place_moveable_furniture', 'remove_placed_furniture'}:
-        text = ('배치하거나 회수해 옮길 수 있다. 회수 중 파손될 수 있다' if locale == 'ko'
-                else 'It can be placed or picked up to move it. Pickup can break it')
-        emit(furniture, text)
+    if furniture:
+        emit(furniture, lex.pair(('가구로 놓아 사용할 수 있다', 'It can be placed for use as furniture') if compact else
+                                ('가구로 놓아 사용하거나 다른 위치로 옮길 수 있다', 'It can be placed for use as furniture or moved to another location'), locale))
 
     maps = select({'view_item_map', 'reveal_item_map_area', 'annotate_item_map', 'erase_item_map_annotations'})
     map_functions = {f['payload'].get('function') for u in maps for f in u['facts']}
     if {'view_item_map', 'annotate_item_map', 'erase_item_map_annotations'} <= map_functions:
         revealed = 'reveal_item_map_area' in map_functions
-        text = (('지역 지도를 보고 해당 영역을 알려진 지역으로 표시할 수 있다' if revealed else '내용을 볼 수 있다') +
+        text = (('지도를 읽어 그 지역을 세계 지도에서 확인할 수 있다' if revealed else '지도에 그려진 지역을 살펴볼 수 있다') +
                 '. 필기구로 글·기호를 남기고 지우개로 지울 수 있다') if locale == 'ko' else (
-                ('It can be used to view a local map and mark its area as known' if revealed else 'It can be viewed') +
+                ('Reading it reveals the depicted area on the world map' if revealed else 'It can be used to examine the area shown on the map') +
                 '. Notes or symbols can be added with a writing implement and removed with an eraser')
         if not compact:
             text += ('. 기존 주석을 수정하거나 옮기려면 필기구와 지우개가 모두 필요하다' if locale == 'ko'
@@ -1140,10 +1721,10 @@ def frames(plan, locale, links, compact):
             emit(maps, text)
         else:
             viewing = [u for u in maps if purpose_tokens(u) & {'view_item_map', 'reveal_item_map_area'}]
-            view_text = (('지역 지도를 보고 해당 영역을 알려진 지역으로 표시할 수 있다'
-                          if revealed else '내용을 볼 수 있다') if locale == 'ko' else
-                         ('It can be used to view a local map and mark its area as known'
-                          if revealed else 'It can be viewed'))
+            view_text = (('지도를 읽어 그 지역을 세계 지도에서 확인할 수 있다'
+                          if revealed else '지도에 그려진 지역을 살펴볼 수 있다') if locale == 'ko' else
+                         ('Reading it reveals the depicted area on the world map'
+                          if revealed else 'It can be used to examine the area shown on the map'))
             emit(viewing, view_text)
             emit([u for u in maps if u not in viewing],
                  '필기구로 글·기호를 남기고 지우개로 지울 수 있다' if locale == 'ko'
@@ -1151,30 +1732,29 @@ def frames(plan, locale, links, compact):
 
     nets = select({'place_fishing_net', 'check_fishing_net', 'remove_fishing_net'})
     if {f['payload'].get('function') for u in nets for f in u['facts']} == {'place_fishing_net', 'check_fishing_net', 'remove_fishing_net'}:
-        text = ('물에 설치해 미끼 물고기를 잡을 수 있다. 어망이 파손될 수 있다' if locale == 'ko'
-                else 'It can be placed in water to catch bait fish. The net can break')
+        text = ('물에 설치해 미끼 물고기를 잡을 수 있다' if locale == 'ko'
+                else 'It can be placed in water to catch bait fish')
         if not compact:
-            text += ('. 설치한 어망을 회수할 수 있다' if locale == 'ko'
-                     else '. The placed net can be retrieved')
+            pass  # Retrieval is self-management; catching bait fish is the purpose.
         emit(nets, text)
 
     protection = select({'provide_equipped_rain_protection', 'reduce_foraging_rain_effect'})
     if len(protection) == 2:
-        text = ('어느 손이든 들고 있으면 비를 가릴 수 있으며, 비가 야외 채집에 주는 불이익을 줄인다' if locale == 'ko'
-                else 'Held in either hand, it can provide rain protection and reduces the rain contribution to outdoor foraging penalties')
+        text = ('비를 가릴 수 있으며, 비가 야외 채집에 주는 불이익을 줄인다' if locale == 'ko'
+                else 'It can provide rain protection and reduces the rain contribution to outdoor foraging penalties')
         emit(protection, text)
 
     writing = select({'write_note_pages', 'annotate_map'})
     if len(writing) == 2:
         if not compact:
             emit([u for u in writing if 'write_note_pages' in purpose_tokens(u)],
-                 '편집 가능한 메모를 작성할 수 있다' if locale == 'ko' else 'It can be used to write editable notes')
+                 '메모를 적을 수 있다' if locale == 'ko' else 'It can be used to write notes')
             emit([u for u in writing if 'annotate_map' in purpose_tokens(u)],
                  '지도에 글이나 기호를 남길 수 있다' if locale == 'ko'
                  else 'It can be used to add map text or symbols')
         else:
-            emit(writing, '편집 가능한 메모를 쓰거나 지도에 글이나 기호를 남길 수 있다' if locale == 'ko'
-                 else 'It can be used to write editable notes and add map text or symbols')
+            emit(writing, '메모를 적거나 지도에 글이나 기호를 남길 수 있다' if locale == 'ko'
+                 else 'It can be used to write notes and add map text or symbols')
 
     if compact:
         welding_functions = {
@@ -1194,7 +1774,7 @@ def frames(plan, locale, links, compact):
                     continue
                 activities = {f['payload'].get('activity') for f in u['facts']} | {(u.get('context') or {}).get('activity')}
                 matches = activities & welding_contexts.keys()
-                if matches:
+                if matches and not any(f['payload'].get('role') == 'material' for f in u['facts']):
                     operations.append(u)
             functions = {f['payload'].get('function') for u in operations for f in u['facts']}
             activities = {f['payload'].get('activity') for u in operations for f in u['facts']}
@@ -1212,7 +1792,14 @@ def frames(plan, locale, links, compact):
                 words.append(lex.pair(welding_functions['dismantle_burnt_vehicle'], locale))
             welding_order = ('construction', 'metal_welding_construction', 'welded_parts', 'build_metal_barricade', 'remove_metal_barricade', 'dismantle_burnt_vehicle')
             operations.sort(key=lambda u: min((welding_order.index(t) for t in purpose_tokens(u) if t in welding_order), default=len(welding_order)))
-            emit(operations, ', '.join(words) + '에 사용할 수 있다' if locale == 'ko' else 'It can be used for ' + en.join(words), ordered=True)
+            if locale == 'ko':
+                actions = {'금속 용접·건축': '금속을 용접해 건축하는', '금속 부품 용접': '금속 부품을 용접하는', '건축': '건축하는',
+                           '금속 바리케이드 설치와 철거': '금속 바리케이드를 설치하거나 철거하는', '금속 바리케이드 설치': '금속 바리케이드를 설치하는',
+                           '금속 바리케이드 철거': '금속 바리케이드를 철거하는', '불타거나 파손된 차량 분해': '불타거나 파손된 차량을 분해하는'}
+                wording = '. '.join(actions[word] + ' 데 쓸 수 있다' for word in words)
+            else:
+                wording = 'It can be used for ' + en.join(words)
+            emit(operations, wording, ordered=True)
 
 
     for fn, activity, wording in (
@@ -1233,7 +1820,7 @@ def frames(plan, locale, links, compact):
 
     storage = select({'store_and_retrieve_items', 'carry_stored_items'})
     if len(storage) == 2:
-        emit(storage, '물건을 보관하고 담은 채로 운반할 수 있다' if locale == 'ko' else
+        emit(storage, '물건을 담아 보관하거나 운반할 수 있다' if locale == 'ko' else
              'It can be used to store and carry items')
 
     attachments = [u for u in units if not set(u['fact_refs']) & used
@@ -1276,8 +1863,12 @@ def frames(plan, locale, links, compact):
             members = [u for u in members if
                        {plan['qualifiers'][q]['payload']['predicate']
                         for q in u['qualifier_refs']} == {lex.source.FABRIC_ACTION}]
-        if not compact:
+        if not compact or activity == 'fabric_recovery':
             emit(members, lex.pair(wording, locale))
+
+    grooming = select({'groom_hair', 'groom_beard'})
+    if len(grooming) == 2:
+        emit(grooming, lex.pair(('머리와 수염을 손질할 수 있다', 'It can be used to groom hair and beards'), locale))
 
     # Tool participation and tool actions share the same subject. Group their
     # purposes, not their inventory/skill checks; never absorb an extra scope.
@@ -1292,7 +1883,7 @@ def frames(plan, locale, links, compact):
             'service_vehicle_parts': ('차량 부품 장착과 탈거', 'installing or removing vehicle parts'),
             'groom_beard': ('수염 손질·면도', 'trimming or shaving a beard'),
             'groom_hair': ('머리 손질', 'hair grooming'),
-            'cut_bushes_and_vines': ('덤불·덩굴 제거', 'removing bushes and vines'),
+            'cut_bushes_and_vines': ('덤불과 덩굴 제거', 'removing bushes and vines'),
         }
         actions = select({'build_wooden_barricade', 'remove_barricade', 'melee_attack'} | additional_actions.keys())
         if tools and actions:
@@ -1328,26 +1919,69 @@ def frames(plan, locale, links, compact):
             melee_label = '근접 공격' if locale == 'ko' else 'melee attacks'
             if melee_label in action_labels:
                 action_labels.remove(melee_label)
-            def absorb(action, prefix):
-                label = lex.pair(additional_actions[action], locale)
-                target = next((n for n,t in enumerate(labels) if t.startswith(prefix)), None)
-                if label in action_labels and target is not None:
-                    if locale == 'ko':
-                        labels[target] += ', ' + label
-                    elif action == 'convert_lamp_to_battery':
-                        operations = 'assembly and dismantling' if {'electronic_salvage', 'radio_salvage'} & set(activities) else 'assembly'
-                        labels[target] += ', lamp conversion to battery power'
-                    else:
-                        labels[target] += ', structure disassembly'
-                    action_labels.remove(label)
-            absorb('convert_lamp_to_battery', '전자기기' if locale == 'ko' else 'making')
-            absorb('dismantle_built_object', '목공' if locale == 'ko' else 'woodworking')
             purposes = labels + action_labels
             watermelon = 'watermelon_breaking' in activities and lex.pair(('수박 쪼개기', 'breaking a watermelon'), locale) in purposes
             if watermelon:
                 purposes.remove(lex.pair(('수박 쪼개기', 'breaking a watermelon'), locale))
-            text = (', '.join(purposes) + '에 쓸 수 있다' if locale == 'ko' else
-                    'It can be used for ' + '; '.join(purposes)) if purposes else ''
+            # Compact groups admitted making activities by their purpose. The
+            # individual recipe outputs remain in Expanded, not an item list.
+            crafting = {'fishing_gear_crafting', 'spear_crafting', 'bomb_crafting', 'explosive_assembly', 'pumpkin_carving', 'trap_crafting', 'trap_preparation', 'woodworking', 'construction', 'carpentry_menu_construction'}
+            grouped_tools = [u for u in tools if purpose_tokens(u) & crafting]
+            ungrouped_tools = [u for u in tools if u not in grouped_tools and not purpose_tokens(u) & {'watermelon_breaking', 'shotgun_modification'}]
+            short_labels = tool_purposes(ungrouped_tools, locale) if ungrouped_tools else []
+            craft_activities = set(activities) & crafting
+            if craft_activities:
+                wood = bool(craft_activities & {'woodworking', 'construction', 'carpentry_menu_construction'})
+                gear = bool(craft_activities - {'woodworking', 'construction', 'carpentry_menu_construction'})
+                short_labels.append(lex.pair(('목공과 장비 제작' if wood and gear else '목공' if wood else '장비 제작',
+                                               'woodworking and equipment making' if wood and gear else 'woodworking' if wood else 'equipment making'), locale))
+            dismantle_label = lex.pair(additional_actions['dismantle_built_object'], locale)
+            if craft_activities and 'dismantle_built_object' in functions:
+                short_labels[-1] += ' 및 건축물 해체' if locale == 'ko' else ', as well as structure disassembly'
+                action_labels = [v for v in action_labels if v != dismantle_label]
+            food = bool(set(activities) & {'animal_butchery', 'fish_preparation', 'food_portioning', 'frog_preparation'})
+            woodworking = bool(craft_activities & {'woodworking', 'construction', 'carpentry_menu_construction'})
+            making = bool(craft_activities - {'woodworking', 'construction', 'carpentry_menu_construction'})
+            verbs = []
+            if food: verbs.append(('음식을 손질', 'prepare food'))
+            if woodworking: verbs.append(('목재를 가공', 'work wood'))
+            if making: verbs.append(('물품을 제작', 'make items'))
+            if verbs:
+                if locale == 'ko':
+                    if food and woodworking:
+                        text = '음식을 손질하고 목재를 가공할 수 있다'
+                    elif food:
+                        text = '음식을 손질할 수 있다'
+                    elif woodworking:
+                        text = '목재를 가공할 수 있다'
+                    else:
+                        text = ''
+                    if making:
+                        text = text.removesuffix('있다') + '있으며, 물품을 만드는 데도 쓸 수 있다' if text else '물품을 만드는 데 쓸 수 있다'
+                else:
+                    text = 'It can be used to ' + en.join([v[1] for v in verbs])
+            else:
+                text = (ko.alternatives(short_labels) + '에 쓸 수 있다' if locale == 'ko' else 'It can be used for ' + en.join(short_labels)) if short_labels else ''
+            reshaping = []
+            if 'dismantle_built_object' in functions:
+                target_names = [t[locale] for t in plan.get('source_traits', {}).get('dismantling_targets', [])]
+                target = parallel_names(target_names) + ' 같은 설치물' if locale == 'ko' and target_names else 'constructed objects such as ' + en.join(target_names) if target_names else ('건축물' if locale == 'ko' else 'structures')
+                reshaping.append((object_name(target) + ' 해체' if locale == 'ko' else '', 'dismantle ' + target))
+                action_labels = [label for label in action_labels if label != dismantle_label]
+            if 'shotgun_modification' in activities:
+                reshaping.append(('산탄총의 총신을 줄', 'shorten shotgun barrels'))
+            if reshaping:
+                if locale == 'ko':
+                    phrase = reshaping[0][0] + '하거나 산탄총의 총신을 줄일 수 있다' if len(reshaping) == 2 else reshaping[0][0] + '할 수 있다' if 'dismantle_built_object' in functions else '산탄총의 총신을 줄일 수 있다'
+                    if woodworking and not food and not making:
+                        text = '목재를 가공하거나 ' + phrase
+                    else:
+                        text += ('. ' if text else '') + phrase
+                else:
+                    phrase = 'It can be used to ' + en.join([v[1] for v in reshaping])
+                    text = 'It can be used to work wood or ' + en.join([v[1] for v in reshaping]) if woodworking and not food and not making else text + ('. ' if text else '') + phrase
+            for label in action_labels:
+                text += ('. ' if text else '') + ({'건축물 분해': '건축물을 분해할 수 있다', '덤불과 덩굴 제거': '덤불과 덩굴을 제거할 수 있다', '차량 부품과 호환 무기 부착물의 탈부착': '차량 부품과 호환 무기 부착물을 장착하거나 제거할 수 있다'}.get(label, label + '에 쓸 수 있다') if locale == 'ko' else 'It can be used for ' + label)
             if watermelon:
                 text += ('. ' if text else '') + lex.pair(('수박을 쪼개는 데 쓸 수 있다', 'It can be used to break a watermelon'), locale)
             extra = []
@@ -1460,29 +2094,32 @@ def frames(plan, locale, links, compact):
         if 'wash_equipment' in functions: targets.append(('의류·장비', 'clothing and equipment'))
         emit(washing, ('몸과 의류, 장비를 물로 씻을 때 세척제로 사용할 수 있다' if len(targets) == 2 else targets[0][0] + '를 물로 씻을 때 세척제로 사용할 수 있다')
              if locale == 'ko' else 'It can be used as a cleaning supply for washing ' + en.join([t[1] for t in targets]) + ' with water')
-    if compact and select(FUEL) and select(TINDER):
-        emit(select(FUEL) + select(TINDER), '연료나 불쏘시개로 쓸 수 있다' if locale == 'ko' else 'It can be used as fuel or tinder')
-    if not compact and select(FUEL) and select(TINDER):
-        fuel, tinder = select(FUEL), select(TINDER)
-        fuel_targets = list(dict.fromkeys(lex.pair(FUEL[f['payload']['function']], locale) for u in fuel for f in u['facts']))
-        tinder_targets = list(dict.fromkeys(lex.pair(TINDER[f['payload']['function']], locale) for u in tinder for f in u['facts']))
-        shared = [target for target in fuel_targets if target in tinder_targets]
-        if shared:
-            groups = [(shared, ('연료나 불쏘시개', 'fuel or tinder')),
-                      ([t for t in fuel_targets if t not in shared], ('연료', 'fuel')),
-                      ([t for t in tinder_targets if t not in shared], ('불쏘시개', 'tinder'))]
-            clauses = [('·'.join(targets) + '의 ' + role[0] if locale == 'ko' else role[1] + ' for ' + ', '.join(targets))
-                       for targets, role in groups if targets]
-            emit(fuel + tinder, (', '.join(clauses) + '로 쓸 수 있다') if locale == 'ko' else
-                 'It can be used as ' + '; '.join(clauses))
-    for functions, role in ((FUEL, ('연료', 'fuel')), (TINDER, ('불쏘시개', 'tinder'))):
-        members = select(functions)
-        if not members: continue
-        targets = [lex.pair(functions[f['payload']['function']], locale) for u in members for f in u['facts']]
-        text = role[0] + '로 소모할 수 있다' if locale == 'ko' else 'It can be consumed as ' + role[1]
-        if not compact:
-            text = '·'.join(dict.fromkeys(targets)) + '의 ' + role[0] + '로 소모할 수 있다' if locale == 'ko' else text + ' for ' + en.join(list(dict.fromkeys(targets)))
-        emit(members, text)
+    # Supply roles are purposes; a different fireplace menu is not a new use.
+    # Give grounded examples, not an exhaustive facility/eligibility table.
+    fuel, tinder = select(FUEL), select(TINDER)
+    fuel_fns = {f['payload']['function'] for u in fuel for f in u['facts']}
+    tinder_fns = {f['payload']['function'] for u in tinder for f in u['facts']}
+    shared_fire = ('supply_campfire_fuel' in fuel_fns and 'provide_campfire_tinder' in tinder_fns) or (
+        'supply_hearth_fuel' in fuel_fns and 'provide_hearth_tinder' in tinder_fns)
+    if fuel and tinder and shared_fire:
+        example = ('모닥불', 'campfires') if 'supply_campfire_fuel' in fuel_fns and 'provide_campfire_tinder' in tinder_fns else ('벽난로', 'fireplaces')
+        text = lex.pair((example[0] + ' 등의 연료나 불쏘시개로 쓸 수 있다',
+                         'It can be used as fuel or tinder, for example in ' + example[1]), locale)
+        if 'supply_furnace_fuel' in fuel_fns:
+            text += lex.pair(('. 화로에는 연료로 쓸 수 있다', '. It can also fuel furnaces'), locale)
+        emit(fuel + tinder, text)
+    else:
+        if fuel:
+            if 'supply_campfire_fuel' in fuel_fns:
+                target = ('모닥불이나 화로 등' if 'supply_furnace_fuel' in fuel_fns else '모닥불 등') if len(fuel_fns) > 1 else '모닥불'
+                target_en = 'campfires and furnaces, for example' if 'supply_furnace_fuel' in fuel_fns else 'campfires, for example' if len(fuel_fns) > 1 else 'campfires'
+            else:
+                target, target_en = ('화로', 'furnaces') if fuel_fns == {'supply_furnace_fuel'} else ('벽난로 등', 'fireplaces, for example')
+            emit(fuel, target + '의 연료로 쓸 수 있다' if locale == 'ko' else 'It can be used as fuel for ' + target_en)
+        if tinder:
+            only_drum = tinder_fns == {'provide_industrial_tinder'}
+            target, target_en = ('금속 드럼', 'metal drums') if only_drum else ('모닥불 등', 'campfires, for example') if 'provide_campfire_tinder' in tinder_fns else ('벽난로 등', 'fireplaces, for example')
+            emit(tinder, target + '의 불쏘시개로 쓸 수 있다' if locale == 'ko' else 'It can be used as tinder for ' + target_en)
     wearing = select({'wear_on_body', 'wear_configured_clothing'})
     locations = [u for u in units if not set(u['fact_refs']) & used and any(f['payload'].get('state') == 'worn_location' for f in u['facts'])]
     if wearing:
@@ -1495,37 +2132,38 @@ def frames(plan, locale, links, compact):
     if fabric and any(f['payload'].get('role') == 'material' for u in fabric for f in u['facts']):
         fabric_type = plan.get('source_traits', {}).get('FabricType')
         needs_scissors = fabric_type in {'Denim', 'Leather'}
-        recovered = compact_recovery if compact else recovered_name
-        if fabric_dirty and not compact:
-            recovered += (' 또는 ' if locale == 'ko' else ' or ') + fabric_dirty['names'][locale]
-        text = (('가위로 ' if needs_scissors else '') + '찢어서 ' + object_name(recovered) + ' 얻을 수 있다') if locale == 'ko' else (
-            'It can be ripped' + (' with scissors' if needs_scissors else '') + ' to obtain ' + recovered)
+        # The recovered material is the use; dirt/quality variants are outcomes
+        # of that same recovery, not additional L3 purposes.
+        recovered = compact_recovery
+        text = (('가위로 잘라 ' if needs_scissors else '찢어서 ') + object_name(recovered) + ' 얻을 수 있다') if locale == 'ko' else (
+            ('It can be cut with scissors' if needs_scissors else 'It can be ripped') + ' to obtain ' + recovered)
         emit(fabric, text)
     rope_materials = [u for u in rope_uses if not used & set(u['fact_refs'])]
     if rope_materials:
-        emit(rope_materials, '시트 로프 제작 재료로 쓸 수 있다' if locale == 'ko'
+        emit(rope_materials, '시트 로프를 만들 때 재료로 쓸 수 있다' if locale == 'ko'
              else 'It can be used' + ' as material for making sheet rope')
     friction = select({'light_campfire_by_friction', 'kindle_heat_sources'})
     if len(friction) == 2:
-        text = ('나무 마찰로 불 피우기를 시도할 수 있다' if locale == 'ko' else
+        text = ('나무를 비벼 불을 피우는 데 쓸 수 있다' if locale == 'ko' else
                 'It can be used to attempt lighting fires by wood friction') if compact else (
-                '나무 마찰로 모닥불, 비프로판 바비큐, 벽난로, 통나무 드럼의 점화를 시도할 수 있다' if locale == 'ko' else
-                'It can be used to attempt wood-friction ignition of campfires, non-propane barbecues, fireplaces, and drums containing logs')
-        if not compact:
-            text += '. 시도 중 지구력이 줄고 막대가 부러질 수 있다' if locale == 'ko' else '. Attempts spend endurance and may break the stick'
+                '나무를 비벼 모닥불 등에 불을 피우는 데 쓸 수 있다' if locale == 'ko' else
+                'It can be used to light fires by wood friction, for example in campfires')
         emit(friction, text)
     plumbing = select({'plumb_external_water'})
     if plumbing:
-        emit(plumbing, '외부 수원을 받을 수 있는 실내 설비의 배관을 연결할 수 있다' if locale == 'ko' else
+        emit(plumbing, '실내 설비가 외부 수원을 쓰도록 배관을 연결하는 데 쓸 수 있다' if locale == 'ko' else
              'It can be used to plumb indoor fixtures that accept an external water source')
 
     # Named ignition branches retain method/target compatibility without the
     # movement, inventory, repeated validity and per-action use-count prose.
     from .description_composition_families import IGNITION, IGNITION_TARGETS
-    ignition = select(set(IGNITION) | {'request_corpse_burning'})
+    corpses = select({'request_corpse_burning'})
+    emit(corpses, lex.pair(('시신을 태우는 데 쓸 수 있다', 'It can be used to burn corpses'), locale))
+    ignition = select(set(IGNITION))
     candle_tools = [u for u in units if any(f['payload'].get('activity') == 'candle_lighting' for f in u['facts'])
                     and any(f['payload'].get('role') == 'tool' for f in u['facts'])]
-    if compact and ignition:
+    is_igniter = any(f['payload'].get('function') == 'light_campfire' for member in ignition for f in member['facts'])
+    if compact and ignition and is_igniter:
         emit(ignition + candle_tools, ('불을 붙이는 데 사용할 수 있다' if candle_tools else '불을 붙이는 데 쓸 수 있다') if locale == 'ko'
              else ('It can be used to light fires' if candle_tools else 'It can be used for lighting fires'))
     elif ignition:
@@ -1559,7 +2197,9 @@ def frames(plan, locale, links, compact):
         if is_igniter:
             emit(ignition + candle_tools, '불을 붙이는 데 사용할 수 있다' if locale == 'ko' else 'It can be used to light fires')
         else:
-            emit(ignition, '. '.join(clauses))
+            example = '모닥불 등' if 'campfire' in target_methods else '벽난로 등' if 'fireplace' in target_methods else '시신' if set(target_methods) == {'corpse'} else '화로 등'
+            example_en = 'campfires, for example' if 'campfire' in target_methods else 'fireplaces, for example' if 'fireplace' in target_methods else 'corpses' if set(target_methods) == {'corpse'} else 'furnaces, for example'
+            emit(ignition, example + '에 불을 붙이는 연료로 쓸 수 있다' if locale == 'ko' else 'It can supply petrol for lighting ' + example_en)
         if candle_tools and not is_igniter:
             emit(candle_tools, '초에 불을 붙이는 데 사용할 수 있다' if locale == 'ko' else 'It can be used to light candles')
     # A result subtype or a second native entry point does not create a new
@@ -1579,7 +2219,7 @@ def frames(plan, locale, links, compact):
     included_dough = [u for u in units if not used & set(u['fact_refs']) and not u['qualifier_refs']
         and purpose_tokens(u) - {None} <= dough and purpose_tokens(u) & dough
         and {f['payload'].get('role') for f in u['facts'] if f['fact_kind'] == 'context_role'} == {'ingredient'}]
-    if cooking_ingredients and included_dough:
+    if cooking_ingredients:
         emit(cooking_ingredients + included_dough, '요리 재료로 쓸 수 있다' if locale == 'ko'
              else 'It can be used as a cooking ingredient',
              reason='same-item ingredient role: cooking includes dough preparation; all admitted references retained')
@@ -1602,15 +2242,18 @@ def frames(plan, locale, links, compact):
         matching = [u for u in units if not used & set(u['fact_refs'])
                     and 'bandaging_material_preparation' in purpose_tokens(u)
                     and any(r.get('activity') == 'bandaging_material_preparation' for r in u['recipe_targets'])]
-        emit(washing + matching, '물로 씻어 깨끗한 붕대 재료로 바꿀 수 있다' if locale == 'ko'
-             else 'It can be washed with water into clean bandaging material')
+        emit(washing + matching, '물로 씻어 다시 쓸 수 있다' if locale == 'ko'
+             else 'It can be washed with water for reuse')
     log_members = [u for u in units if not used & set(u['fact_refs']) and 'log_binding' in purpose_tokens(u)]
     unbundle = select({'unbundle_logs'})
     if log_members or unbundle:
-        emit(log_members + unbundle, ('묶음을 풀어 통나무와 묶기 재료를 회수할 수 있다' if unbundle else '모아서 묶을 수 있다' if select({'supply_drum_logs'}) else '통나무를 묶는 데 쓸 수 있다')
+        emit(log_members + unbundle, ('묶음을 풀면 통나무와 묶을 때 쓴 재료를 돌려받을 수 있다' if unbundle else '모아서 묶을 수 있다' if select({'supply_drum_logs'}) else '통나무를 묶는 데 쓸 수 있다')
              if locale == 'ko' else ('It can be unbundled to recover logs and binding materials' if unbundle
                                       else 'It can be bundled with other logs' if select({'supply_drum_logs'}) else 'It can be used to bind logs'))
     light = select({'control_portable_light'})
+    if compact:
+        charcoal = select({'supply_drum_logs'})
+        emit_material(charcoal, [('craft', lex.pair(('숯', 'charcoal'), locale))], lex.pair(('숯을 만드는 재료로 쓸 수 있다', 'It can supply material for making charcoal'), locale))
     own_lighting = select({'light_candle'})
     if light and own_lighting:
         targets = [u for u in units if not used & set(u['fact_refs'])
@@ -1620,6 +2263,72 @@ def frames(plan, locale, links, compact):
              else 'It can be lit with a fire-starting item for use as a portable light')
     elif light:
         emit(light, '휴대 조명으로 쓸 수 있다' if locale == 'ko' else 'It can be used as a portable light')
+    if len(material_frames) > 1:
+        original_frames = material_frames
+        if compact:
+            # A general work field can represent material use in the overview.
+            # Concrete recipe outputs stay in Expanded; they are not asserted
+            # to be subtypes of construction or woodworking. Unknown purposes
+            # do not acquire a lower display depth merely by being numerous.
+            work_fields = {'woodworking', 'furniture_crafting', 'construction',
+                           'carpentry_menu_construction', 'metal_welding_construction', 'welded_parts',
+                           'metal_forging', 'shovel_smithing', 'smithing_parts'}
+            product_fields = {'spear_crafting', 'trap_crafting', 'fishing_gear_crafting',
+                              'campfire_kit_preparation', 'mattress_preparation', 'tent_kit_making',
+                              'camping_kit_preparation', 'tool_crafting', 'stone_tool_crafting',
+                              'metal_forging', 'hat_crafting', 'splint_crafting', 'supply_drum_logs'}
+            def frame_tokens(frame):
+                return set().union(*(purpose_tokens(u) for u in frame[1])) - {None}
+            general_work = any(frame_tokens(frame) & work_fields and
+                               all(kind == 'action' for kind, _ in frame[2]) for frame in material_frames)
+            if general_work:
+                material_frames = [frame for frame in material_frames if not (
+                    frame[2] and all(kind == 'craft' for kind, _ in frame[2]) and
+                    frame_tokens(frame) and frame_tokens(frame) <= product_fields)]
+        purposes = [p for _, _, ps in material_frames for p in ps]
+        crafting = list(dict.fromkeys(name for kind, name in purposes if kind == 'craft'))
+        actions = list(dict.fromkeys(name for kind, name in purposes if kind == 'action'))
+        if compact:
+            # Related production and modification share their device domain.
+            # A device-only material keeps its more informative product names.
+            modification = lex.pair(('장치 개조', 'modifying devices'), locale)
+            if modification in actions:
+                device_frames = [frame for frame in material_frames if frame[2] and
+                                 all(kind == 'craft' for kind, _ in frame[2]) and
+                                 frame_tokens(frame) and frame_tokens(frame) <= {
+                                     'electronic_assembly', 'radio_crafting', 'explosive_assembly'}]
+                device_names = {name for frame in device_frames for _, name in frame[2]}
+                if device_names:
+                    crafting = [name for name in crafting if name not in device_names]
+                    actions = [lex.pair(('장치 제작·개조', 'making and modifying devices'), locale)
+                               if name == modification else name for name in actions]
+            # Outdoor activities share a concrete purpose. General tools stay
+            # outside this category, so its modifier cannot narrow their use.
+            outdoor = {'spear_crafting', 'trap_crafting', 'fishing_gear_crafting',
+                       'campfire_kit_preparation', 'mattress_preparation', 'tent_kit_making',
+                       'camping_kit_preparation'}
+            outdoor_frames = [frame for frame in material_frames if frame[2] and
+                              all(kind == 'craft' for kind, _ in frame[2]) and
+                              frame_tokens(frame) and frame_tokens(frame) <= outdoor]
+            outdoor_names = {name for frame in outdoor_frames for _, name in frame[2]}
+            if len(outdoor_names) > 1:
+                # Place any unmodified tool category before the qualified
+                # outdoor category; the latter must not qualify both nouns.
+                crafting = [name for name in crafting if name not in outdoor_names]
+                crafting.append(lex.pair(('야외 활동 장비', 'outdoor equipment'), locale))
+        clauses = []
+        if actions:
+            clauses.append(parallel_names(actions) + '에 재료로 쓸 수 있다' if locale == 'ko' else 'It can supply material for ' + parallel_names(actions))
+        if crafting:
+            clauses.append(object_name(parallel_names(crafting)) + (' 만들 때도 쓸 수 있다' if compact and actions else ' 만드는 재료로 쓸 수 있다') if locale == 'ko' else ('It can also be used to make ' if compact and actions else 'It can supply material for making ') + parallel_names(crafting))
+        members = []
+        for _, group, _ in material_frames:
+            members.extend(u for u in group if u not in members)
+        originals = [segment for segment, _, _ in original_frames]
+        combined = {'text': '. '.join(clauses) + '.', **links([dict(u, qualifier_refs=[]) for u in members], plan),
+                    'expression': 'public_use', 'placement_reason': ('representative work fields and related purpose domains; concrete recipe fields remain in Expanded' if compact else 'parallel material purposes share their role; no sequence or causal relation is implied'), 'qualifier_dispositions': []}
+        combined['use_order'] = list(dict.fromkeys(r for _, group, _ in original_frames for u in group for r in u['fact_refs']))
+        output = [combined if segment is originals[0] else segment for segment in output if segment is originals[0] or segment not in originals]
     return output, used
 
 
@@ -1689,6 +2398,14 @@ def prepare(plan):
             unit['fact_refs'] = [r for r in unit['fact_refs'] if r not in refs]
         category, reason = disposition(unit)
         supplied_functions = {f['payload'].get('function') for f in unit['facts']}
+        furnishing = (plan.get('source_traits', {}).get('DisplayCategory') == 'Furniture'
+                      and plan.get('source_traits', {}).get('Type') == 'Moveable'
+                      and bool(plan.get('source_traits', {}).get('WorldObjectSprite'))
+                      and 'pickup_floor_glass' not in functions)
+        if supplied_functions & {'place_moveable_furniture', 'remove_placed_furniture'} and not furnishing:
+            category, reason = 'self-management', 'placement or removal alone establishes no independent supplied purpose'
+        if 'remove_installed_escape_rope' in supplied_functions:
+            category, reason = 'self-management', 'removing the rope does not add a supplied climbing use'
         bowl_substep = (upper_food and 'portion_into_bowls' in functions and
                        ('food_portioning' in purpose_tokens(unit) or supplied_functions == {'portion_into_bowls'}))
         if set(unit['fact_refs']) <= lower_food_refs or bowl_substep:
@@ -1737,8 +2454,10 @@ def prepare(plan):
                     raise ValueError('unclassified public qualifier: ' + q['payload']['predicate'])
                 retained.append(qref)
                 public['dispositions'].append({'fact_refs': q['fact_refs'],
-                    'applies_to_fact_refs': unit['fact_refs'], 'disposition': 'supporting detail',
-                    'reason': 'explicitly adopted use condition; frame or scoped wording owns public realization'})
+                    'applies_to_fact_refs': unit['fact_refs'],
+                    'disposition': 'supporting detail' if lex.public_qualifier(q) else 'internal',
+                    'reason': 'explicit consumption consequence' if lex.public_qualifier(q) else
+                              'scoped evidence for use selection; eligibility, arithmetic and procedure are not public utility'})
         unit['qualifier_refs'] = retained
         unit['subject_names'] = plan.get('source_traits', {}).get('display_names', {})
         unit['public_disposition'] = category
@@ -1782,7 +2501,7 @@ def arrange(segments, plan):
     units = plan['units']
     def tokens(segment):
         return set().union(*(purpose_tokens(u) for u in units
-                           if set(u['fact_refs']) & set(segment['fact_refs']))) - {None}
+                           if set(u['fact_refs']) & set(segment.get('use_order', segment['fact_refs'])))) - {None}
     arranged = adjacent(segments, tokens)
     forms = [s for s in arranged if tokens(s) == {'switch_declared_clothing_form'}]
     if forms:
@@ -1849,6 +2568,8 @@ def finish_units(segments, plan, locale):
     transformed.update(ref for unit in plan['units'] if 'spear_reclaim' in purpose_tokens(unit)
                        and any(f['payload'].get('role') == 'transformation_target' for f in unit['facts'])
                        for ref in unit['fact_refs'])
+    transformed.update(f['fact_ref'] for unit in plan['units'] for f in unit['facts']
+                       if f['payload'].get('function', '').startswith('placed_purpose_salvage_'))
     groups = []
     for segment in output:
         if segment.get('continues_use') and groups:
@@ -1858,6 +2579,3 @@ def finish_units(segments, plan, locale):
     groups.sort(key=lambda group: any(set(segment['fact_refs']) & transformed for segment in group))
     output = [segment for group in groups for segment in group]
     return output
-
-
-

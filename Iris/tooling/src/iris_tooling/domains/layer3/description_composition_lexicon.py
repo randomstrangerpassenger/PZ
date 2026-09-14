@@ -11,23 +11,30 @@ FUNCTIONS = {**base.FUNCTIONS, **{k: v[1:] for k, v in source.FUNCTIONS.items()}
              "view_written_note_pages": ("저장된 메모를 열람할 수 있다", "Stored notes can be viewed"),
              "switch_declared_clothing_form": ("선택 가능한 다른 착용 형태로 바꿀 수 있다", "It can be changed into an available alternate wearable form")}
 FUNCTIONS.update({
+    'provide_vehicle_headlight': ('호환 차량의 전조등에 달아 빛을 낼 수 있다', 'It can provide light in a compatible vehicle headlight'),
     'install_vehicle_storage_part': ('호환 차량에 장착할 수 있다', 'It can be installed in a compatible vehicle'),
     'melee_attack': ('무기로 쓸 수 있다', 'It can be used as a weapon'),
-    'request_physics_attack': ('투척 공격에 사용할 수 있다', 'It can be used for throwing attacks'),
+    'request_physics_attack': ('던져서 사용할 수 있다', 'It can be thrown'),
     'unpick_garment_patch': ('의류의 패치를 제거할 수 있다', 'It can be used to remove a garment patch'),
     'use_pain_relief_medicine': ('통증 완화를 위해 복용할 수 있다', 'It can be taken for pain relief'),
     'use_unhappiness_medicine': ('시간을 두고 불행을 줄이는 데 복용할 수 있다', 'It can be taken to reduce unhappiness over time'),
     'use_panic_relief_medicine': ('공포를 줄이는 데 복용할 수 있다', 'It can be taken to reduce panic'),
     'use_sleep_aid_medicine': ('불안이나 통증으로 잠들기 어려울 때 복용할 수 있다', 'It can help with sleep when anxiety or pain makes falling asleep difficult'),
     'use_fatigue_relief_medicine': ('피로를 줄이는 데 복용할 수 있다', 'It can be taken to reduce fatigue'),
-    'use_wound_infection_medicine': ('상처 감염에 대응하기 위해 복용할 수 있다. 좀비화는 막지 못한다', 'It can be taken to fight wound infections. It cannot prevent zombification'),
+    'use_wound_infection_medicine': ('상처 감염을 치료하는 데 복용할 수 있다. 좀비화는 막지 못한다', 'It can be taken to fight wound infections. It cannot prevent zombification'),
     'apply_lip_makeup': ('입술 화장을 할 수 있다', 'It can be used to apply lip makeup'),
     'apply_eye_makeup': ('눈 화장을 할 수 있다', 'It can be used to apply eye makeup'),
     'apply_makeup': ('화장을 할 수 있다', 'It can be used to apply makeup'),
     'remove_registered_makeup': ('화장을 지울 수 있다', 'It can be used to remove makeup'),
-    'install_vehicle_suspension': ('호환 차량의 서스펜션을 장착할 수 있다', 'The compatible vehicle suspension can be installed'),
+    'install_vehicle_suspension': ('맞는 차량에 서스펜션으로 장착할 수 있다', 'It can be installed as suspension in a compatible vehicle'),
     'remove_vehicle_suspension': ('호환 차량의 서스펜션을 탈거할 수 있다', 'The compatible vehicle suspension can be removed'),
 })
+
+# Installation describes the component being fitted, not a servicing tool.
+for _part, _ko_name, _en_name in (('brake', '브레이크', 'a brake'), ('muffler', '머플러', 'a muffler')):
+    FUNCTIONS['install_vehicle_' + _part] = (
+        '맞는 차량에 ' + _ko_name + '로 장착할 수 있다',
+        'It can be installed as ' + _en_name + ' in a compatible vehicle')
 
 
 def wearing(location, locale):
@@ -60,7 +67,8 @@ EFFECTS = {**source.EFFECTS, **vocabulary.EFFECT_VIEWS,
     ("reload_speed_setting", "multiply_1_15"): ("장전 속도를 15% 높인다", "It increases reload speed by 15%"),
     ("forge_temperature", "increase"): ("화로의 열을 높인다", "It raises furnace heat"),
     ("fishing_rod_form", "replace_on_line_break"): ("낚싯줄이 끊어지면 원래 낚싯대와 미끼가 사라진다", "A broken line removes the original rod and lure")}
-CONTEXTS = vocabulary.CONTEXTS
+CONTEXTS = {**vocabulary.CONTEXTS,
+            'food_preparation': ('요리', 'food preparation and cooking')}
 ROLES = vocabulary.ROLES
 
 # Short independently authored capability phrases. The predicates in detail
@@ -69,8 +77,8 @@ COMPACT_FUNCTIONS = {
     'drink_food_contents': ('마실 수 있다', 'It can be drunk'),
     'take_food_medicine': ('약으로 복용할 수 있다', 'It can be taken as medicine'),
     "melee_attack": ("무기로 쓸 수 있다", "It can be used as a weapon"),
-    "request_physics_attack": ("투척 공격에 쓸 수 있다", "It can be used for throwing attacks"),
-    "apply_splint": ("머리와 몸통을 제외한 골절 부위를 고정하는 데 쓸 수 있다", "It can be used to splint fractures outside the head and torso"),
+    "request_physics_attack": ("던져서 사용할 수 있다", "It can be thrown"),
+    "apply_splint": ("골절 부위를 고정하는 데 쓸 수 있다", "It can be used to splint fractures outside the head and torso"),
     "record_written_notes": ("필기구가 있고 타인의 소유 잠금 없이 편집 잠금이 풀려 있으면 메모를 쓸 수 있다", "Notes can be written with a writing implement, no other-user ownership lock and editing unlocked"),
     "view_written_note_pages": ("필기구 없이 메모를 읽을 수 있다", "Notes can be read without a writing implement"),
     "wear_on_body": ("몸에 착용할 수 있다", "It can be worn"),
@@ -117,8 +125,20 @@ COMPACT_CONDITION_GROUPS.update({READING_ELIGIBILITY: 'reading_eligibility', sou
 
 
 def qualifier_clauses(qualifiers, locale):
-    """Render use-relevant scope once; full predicates stay in the input record."""
-    return list(dict.fromkeys(use_qualifier(q, locale) for q in qualifiers))
+    """A predicate's existence never licenses an execution guide in L3."""
+    return list(dict.fromkeys(use_qualifier(q, locale) for q in qualifiers if public_qualifier(q)))
+
+
+def public_qualifier(q):
+    """Only independently useful consumption consequences reach fallback prose.
+
+    Target compatibility and required participants are stated by the use
+    frames, from their scoped evidence. Full eligibility/calculation predicates
+    remain available to those frames, but are not automatic extra sentences.
+    """
+    return q['payload']['predicate'] in {
+        source.BANDAGE_INFECTION, source.POISONOUS_WILD_FOOD,
+    }
 
 
 QUALIFIER_OVERRIDES = {
@@ -268,7 +288,7 @@ for _names, _ko, _en in (
     ("FABRIC_ACTION", "데님·가죽을 찢을 때는 가위가 필요하다", "Ripping denim or leather requires scissors"),
     ("FOOD_TRAP_BAIT", "미끼는 추가 재료가 없는 날음식이어야 한다", "Bait must be uncooked food without added ingredients"),
     ("SPEAR_FISHING", "파손되지 않은 창으로 물가에서 미끼 없이 낚시하며 포획은 보장되지 않는다", "Use an unbroken spear at water without bait; catches are not guaranteed"),
-    ("SPLINTING", "머리와 몸통을 제외한 부위의 골절에 완성 부목 또는 찢어진 천과 지지대를 사용한다", "For fractures outside the head and torso, use a finished splint or ripped sheets and a support"),
+    ("SPLINTING", "골절 부위에 완성 부목 또는 찢어진 천과 지지대를 사용한다", "For fractures outside the head and torso, use a finished splint or ripped sheets and a support"),
     ("POISONOUS_WILD_FOOD", "독성이 있는 야생 식품을 먹었을 때 적용된다", "This applies when poisonous wild food is eaten"),
     ("SMOKER_EFFECT", "흡연가 특성이 있을 때 적용된다", "This applies with the Smoker trait"),
     ("NONSMOKER_EFFECT", "흡연가 특성이 없을 때 적용된다", "This applies without the Smoker trait"),
@@ -374,7 +394,7 @@ RELOAD_SCOPES = {}
 for _strap, _predicate in source.STRAP_SPEED.items():
     _shells = _strap.endswith('_Shells')
     RELOAD_SCOPES[_predicate] = (
-        '산탄 사용 총기' if _shells else '산탄 이외의 탄종을 사용하는 총기',
+        '산탄을 쓰는 총기' if _shells else '산탄 이외의 탄종을 사용하는 총기',
         'firearms using shotgun shells' if _shells else 'firearms using ammunition other than shotgun shells')
     USE_QUALIFIERS[_predicate] = (
         '착용 중 ' + RELOAD_SCOPES[_predicate][0] + '에 적용된다',
@@ -391,7 +411,7 @@ def reload_effect(unit, plan, locale, compact):
         return None
     scope = pair(RELOAD_SCOPES[next(iter(predicates))], locale)
     if locale == 'ko':
-        return '착용 시 ' + scope + '의 장전 속도 +15%' if compact else '착용 중 ' + scope + '의 장전 속도를 15% 높인다'
+        return '착용하면 ' + scope + '의 장전 속도를 15% 높인다'
     return ('+15% reload speed for ' + scope + ' while worn' if compact else
             'While worn, it increases reload speed by 15% for ' + scope)
 for _names, _ko, _en in (
@@ -495,9 +515,9 @@ for _names, _ko, _en in (
     ('POULTICE_USE', '붕대가 없고 다른 찜질제가 적용되지 않은 치료 가능 부위에 소모해 해당 찜질제 수치를 설정한다. 수치는 응급처치 기술과 확률에 따라 달라진다', 'It is consumed on an eligible unbandaged part without another poultice to set its corresponding poultice factor, depending on First Aid skill and chance'),
     ('LOG_BINDING', '통나무 2·3·4개를 밧줄류 두 개로 묶는다. 풀면 해당 통나무와 저장된 묶기 재료를 반환하며 이전 재료 기록이 없으면 밧줄 두 개를 반환한다', 'Two, three or four logs are bundled with two rope-tagged supplies. Unstacking returns the corresponding logs and recorded binding types, or two ropes if no binding record exists'),
     ('WELDING_CONSTRUCTION', '배운 금속 건축물의 용접 기술·재료와 토치·용접 마스크가 필요하다. 용접봉 필요량은 작업의 토치 사용량에 따라 달라진다', 'The learned metal construction requires its welding skill, materials, torch and welding mask; welding-rod requirements depend on torch uses'),
-    ('STITCHING', '붕대를 감지 않았고 유리가 없는 깊은 상처를 봉합할 수 있다', 'It can stitch a deep wound that is unbandaged and free of glass'),
-    ('GLASS_REMOVAL', '붕대가 없는 부위에 박힌 유리를 제거할 수 있다', 'It can be used to remove embedded glass from an unbandaged body part'),
-    ('BULLET_REMOVAL', '붕대가 없는 부위에 박힌 총알을 제거할 수 있다', 'It can be used to remove an embedded bullet from an unbandaged body part'),
+    ('STITCHING', '깊은 상처를 봉합할 수 있다', 'It can stitch a deep wound'),
+    ('GLASS_REMOVAL', '상처에 박힌 유리를 제거할 수 있다', 'It can be used to remove glass embedded in a wound'),
+    ('BULLET_REMOVAL', '몸에 박힌 총알을 제거할 수 있다', 'It can be used to remove an embedded bullet'),
     ('WEIGHT_EXERCISE', '해당 웨이트 운동에 쓰며 지구력 조건을 충족해야 한다', 'It serves in its corresponding weight exercise, subject to endurance requirements'),
     ('POULTICE_PREPARATION', '해당 식물 다섯 개와 보존하는 절구·공이로 찜질제를 만든다. 야생마늘 제작법은 일반 제작 목록에서 숨겨져 있다', 'The recipe uses five of its named plant with a kept mortar and pestle to prepare poultice. Wild-garlic recipes are hidden from the ordinary crafting list'),
     ('TENT_KIT_PREPARATION', '방수포와 나무 막대 2개, 텐트 말뚝 4개 또는 말뚝 4개로 텐트 키트를 만든다', 'A tarp, two wooden sticks and either four tent pegs or four stakes supply a tent kit'),
@@ -511,7 +531,7 @@ for _names, _ko, _en in (
     ('TENT_PLACEMENT', '텐트는 인접한 빈 두 칸을 사용한다', 'A tent needs two adjacent clear squares'),
     ('MATTRESS_PREPARATION', '보존하는 바늘과 실 5, 시트 5개, 베개 5개를 매트리스 제작에 쓴다', 'A kept needle, five thread units, five sheets and five pillows supply mattress crafting'),
     ('PLUMBING', '사용 가능한 파이프렌치로 외부 물 공급이 허용된 실내 설비를 연결한다. 연결 자체로 정수 효과는 확인되지 않는다', 'A usable pipe wrench connects eligible indoor fixtures to external water; the connection does not establish purification'),
-    ('SPLINTING', '머리와 몸통을 제외한 부위의 골절에 완성 부목 또는 찢어진 천과 판자·나뭇가지·나무 막대 중 하나를 소모한다', 'For fractures outside the head and torso, consume a finished splint or ripped sheets with a plank, tree branch or wooden stick'),
+    ('SPLINTING', '골절 부위에 완성 부목 또는 찢어진 천과 판자·나뭇가지·나무 막대 중 하나를 소모한다', 'For fractures outside the head and torso, consume a finished splint or ripped sheets with a plank, tree branch or wooden stick'),
 ):
     for _name in _names.split():
         USE_QUALIFIERS[getattr(source, _name)] = (_ko, _en)
@@ -533,7 +553,7 @@ USE_QUALIFIERS.update({
 for _activity, _wording in {
     'spear_crafting': ('판자 또는 나뭇가지와 허용된 절삭 도구로 창을 만든다. 결과 상태는 목공 기술과 확률에 따라 달라지며 보존 도구도 마모되거나 사라질 수 있다', 'A plank or tree branch and an accepted cutting tool supply a crafted spear. Its condition depends on carpentry skill and chance; kept tools can wear or be lost'),
     'spear_upgrade': ('제작한 창·해당 부착물·덕트 테이프를 사용한다. 결과 상태는 창과 부착 무기의 상태에 따라 달라진다', 'Use a crafted spear, its corresponding attachment and duct tape; result condition depends on the spear and participating weapon condition'),
-    'spear_reclaim': ('파괴된 창에서도 부착물과 제작한 창을 회수할 수 있다', 'The attachment and a crafted spear can be recovered even from a destroyed spear'),
+    'spear_reclaim': ('창에서 부착물을 떼어 회수할 수 있다', 'The attachment can be recovered from the spear'),
 }.items():
     USE_QUALIFIERS[source.SPEAR_CONDITIONS[_activity]] = _wording
 USE_QUALIFIERS.update({
@@ -739,7 +759,7 @@ USE_QUALIFIERS[source.FROG_PREPARATION] = ('개구리를 손질해 개구리 고
 USE_QUALIFIERS[source.SPEAR_CONDITIONS['spear_crafting']] = ('완성된 창의 상태는 목공 기술과 확률에 따라 달라지며, 사용한 도구는 마모되거나 사라질 수 있다', 'The crafted spear condition depends on carpentry skill and chance; the tool can wear or be lost')
 USE_QUALIFIERS[source.SPEAR_CONDITIONS['spear_upgrade']] = ('부착 후 상태는 창과 부착 무기의 상태에 따라 달라진다', 'The resulting condition depends on the spear and attached weapon condition')
 
-USE_QUALIFIERS[source.ENGINE_SALVAGE] = ("상태가 10을 넘는 엔진에서 회수할 수 있으며 회수하면 엔진 상태는 0이 된다", "Parts can be salvaged from an engine with condition above 10; salvaging reduces the engine condition to zero")
+USE_QUALIFIERS[source.ENGINE_SALVAGE] = ("부품을 회수하면 엔진을 사용할 수 없게 된다", "Salvaging the parts leaves the engine unusable")
 USE_QUALIFIERS[source.THUMPABLE_SCRAP] = ('분해 가능한 건축물에 파손되지 않은 톱과 드라이버로 사용한다. 보호 구역 규칙을 따른다', 'Use an unbroken saw and screwdriver on an eligible structure, subject to safehouse rules')
 USE_QUALIFIERS[source.BURNT_VEHICLE_USE] = ('불타거나 파손된 차량에 용접 마스크와 연료가 있는 토치를 사용한다', 'Use a welding mask and a fueled torch on a burnt or smashed vehicle')
 

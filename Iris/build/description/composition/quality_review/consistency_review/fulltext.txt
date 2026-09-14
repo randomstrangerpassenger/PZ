@@ -1,0 +1,532 @@
+Base.223BulletsMold
+KO C .223 탄약을 단조할 때 틀로 쓸 수 있다.
+KO E .223 탄약을 단조할 때 틀로 쓸 수 있다.
+EN C It can be used as a mold for forging .223 Ammo.
+EN E It can be used as a mold for forging .223 Ammo.
+
+Base.308BulletsMold
+KO C .308 탄약을 단조할 때 틀로 쓸 수 있다.
+KO E .308 탄약을 단조할 때 틀로 쓸 수 있다.
+EN C It can be used as a mold for forging .308 Ammo.
+EN E It can be used as a mold for forging .308 Ammo.
+
+Base.9mmBulletsMold
+KO C 9mm 탄약을 단조할 때 틀로 쓸 수 있다.
+KO E 9mm 탄약을 단조할 때 틀로 쓸 수 있다.
+EN C It can be used as a mold for forging 9mm Rounds.
+EN E It can be used as a mold for forging 9mm Rounds.
+
+Base.AmmoStraps
+KO C 호환 총기의 장전 시간을 줄이는 부착물로 쓸 수 있다.
+KO E 호환 총기의 장전 시간을 줄이는 부착물로 쓸 수 있다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can serve as an attachment to reduce reload time on a compatible firearm.
+EN E It can serve as an attachment to reduce reload time on a compatible firearm.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.BallPeenHammer, Base.HammerStone
+KO C 금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다.
+KO E 금속을 단조하는 데 사용할 수 있다.
+목공과 건축 작업에 쓸 수 있다.
+문과 창문에 판자 바리케이드를 설치할 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C It can be used for metal forging, woodworking and construction. It can also be used as a weapon.
+EN E It can be used for metal forging.
+It can be used for woodworking and construction.
+It can be used to install plank barricades on doors and windows.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+Base.Bayonnet, Base.GunLight, Base.RedDot
+KO C 호환 총기에 장착해 이동으로 인한 명중률 감소를 줄일 수 있다.
+KO E 호환 총기에 장착해 이동으로 인한 명중률 감소를 줄일 수 있다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C On a compatible firearm, it can reduce the movement-related hit-chance penalty.
+EN E On a compatible firearm, it can reduce the movement-related hit-chance penalty.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.ChokeTubeFull
+KO C 호환 산탄총의 산탄 퍼짐을 좁히고 피해를 높이는 부착물로 쓸 수 있다.
+KO E 호환 산탄총의 산탄 퍼짐을 좁히고 피해를 높이는 부착물로 쓸 수 있다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can narrow pellet spread and increase damage on a compatible shotgun.
+EN E It can narrow pellet spread and increase damage on a compatible shotgun.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.ChokeTubeImproved
+KO C 호환 산탄총의 산탄 퍼짐을 넓히는 부착물로 쓸 수 있다. 피해는 줄어든다.
+KO E 호환 산탄총의 산탄 퍼짐을 넓히는 부착물로 쓸 수 있다. 피해는 줄어든다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can widen pellet spread on a compatible shotgun, at the cost of damage.
+EN E It can widen pellet spread on a compatible shotgun, at the cost of damage.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.FiberglassStock
+KO C 호환 총기의 휴대 무게 부담을 줄이고 정확도를 높이는 부착물로 쓸 수 있다.
+KO E 호환 총기의 휴대 무게 부담을 줄이고 정확도를 높이는 부착물로 쓸 수 있다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can reduce carrying burden and improve accuracy on a compatible firearm.
+EN E It can reduce carrying burden and improve accuracy on a compatible firearm.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.GridlePan
+KO C 재료를 더해 요리를 만들 수 있다. 무기로 쓸 수 있다.
+KO E 재료를 더해 요리를 만들 수 있다.
+무기로 쓸 수 있다.
+EN C Ingredients can be added to prepare food. It can be used as a weapon.
+EN E Ingredients can be added to prepare food.
+It can be used as a weapon.
+
+Base.GunPowder
+KO C 금속 단조에 재료로 쓸 수 있다. 폭발 장치 제작에도 쓸 수 있다.
+KO E 폭발 장치를 만들 때 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+EN C It can supply material for metal forging or for making explosive devices.
+EN E It can be used as material for making explosive devices.
+It can be used as a material for metal forging.
+
+Base.Hammer
+KO C 금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다.
+KO E 금속을 단조하는 데 사용할 수 있다.
+목공과 건축 작업에 쓸 수 있다.
+문과 창문의 판자 바리케이드를 설치하거나 철거할 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C It can be used for metal forging, woodworking and construction. It can also be used as a weapon.
+EN E It can be used for metal forging.
+It can be used for woodworking and construction.
+It can be used to install or remove plank barricades on doors and windows.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+Base.Handle
+KO C 금속을 단조할 때 재료로 쓸 수 있다.
+KO E 금속을 단조할 때 재료로 쓸 수 있다.
+EN C It can supply material for metal forging.
+EN E It can be used as material for metal forging.
+
+Base.IronIngot
+KO C 금속 부품 용접 및 금속 단조에 재료로 쓸 수 있다.
+KO E 금속 부품을 용접하는 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+EN C It can supply material for metal-part welding and metal forging.
+EN E It can be used as material for metal-part welding.
+It can be used as material for metal forging.
+
+Base.IronSight
+KO C 호환 총기의 최대 사거리를 늘리는 부착물로 쓸 수 있다.
+KO E 호환 총기의 최대 사거리를 늘리는 부착물로 쓸 수 있다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can serve as an attachment to extend the maximum range of a compatible firearm.
+EN E It can serve as an attachment to extend the maximum range of a compatible firearm.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.Laser
+KO C 호환 총기의 정확도를 높이는 부착물로 쓸 수 있다.
+KO E 호환 총기의 정확도를 높이는 부착물로 쓸 수 있다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can serve as an attachment to improve accuracy on a compatible firearm.
+EN E It can serve as an attachment to improve accuracy on a compatible firearm.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.Mattress
+KO C 건축 재료로 쓸 수 있다. 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 건축 재료로 쓸 수 있다.
+놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C It can be used as material for construction. When set down, it provides a place to sleep or rest.
+EN E It can be used as material for construction.
+When set down, it provides a place to sleep or rest.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+
+Base.MetalBar
+KO C 용접 건축 및 금속 단조에 재료로 쓸 수 있다. 무기로 쓸 수 있다.
+KO E 용접 건축 재료로 쓸 수 있다. 문과 창문의 금속 바리케이드에도 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C It can supply material for welded construction and metal forging. It can be used as a weapon.
+EN E It can be used as material for welded construction. It can also supply window and door barricades.
+It can be used as a material for metal forging.
+It can be used as a weapon.
+
+Base.Mov_AirConditioner, Base.Mov_MetalStool, Base.Mov_ScaleMedical, Base.Mov_Urinal
+KO C 분해해 재료를 회수할 수 있다.
+KO E 집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C It can be dismantled to recover materials.
+EN E It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_AntiqueStove
+KO C 설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다.
+KO E 설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and fueled, it can provide heat or cook food.
+EN E Once installed and fueled, it can provide heat or cook food.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_ArcadeMachine1, Base.Mov_ArcadeMachine2, Base.Mov_Microphone, Base.Mov_TVCamera, Base.Mov_TowelDispenser, Base.Mov_WallClock
+KO C 분해해 재료를 회수할 수 있다.
+KO E 집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다.
+EN C It can be dismantled to recover materials.
+EN E It can be picked up and moved to another location.
+Once placed, it can be dismantled with a screwdriver to recover materials.
+
+Base.Mov_BeachChair, Base.Mov_OfficeChair, Base.Mov_PlasticChair
+KO C 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C When set down, it provides a place to sleep or rest.
+EN E When set down, it provides a place to sleep or rest.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+
+Base.Mov_BinRound
+KO C 수납용으로 놓아 사용할 수 있다.
+KO E 수납용으로 놓아 사용할 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C It can serve as storage once set down.
+EN E It can serve as storage once set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_BlueComfyChair, Base.Mov_BlueRattanChair, Base.Mov_BrownComfyChair, Base.Mov_DarkBlueChair, Base.Mov_DarkWoodenChair, Base.Mov_FancyBlackChair, Base.Mov_FancyWhiteChair, Base.Mov_GreenChair, Base.Mov_GreenComfyChair, Base.Mov_GreyComfyChair, Base.Mov_OrangeFuton, Base.Mov_OrangeModernChair, Base.Mov_PurpleRattanChair, Base.Mov_PurpleWoodenChair, Base.Mov_RedChair, Base.Mov_RedWoodenChair, Base.Mov_WhiteComfyChair, Base.Mov_WhiteSimpleChair, Base.Mov_WhiteWoodenChair, Base.Mov_WoodenChair, Base.Mov_WoodenStool, Base.Mov_YellowModernChair
+KO C 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C When set down, it provides a place to sleep or rest.
+EN E When set down, it provides a place to sleep or rest.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_BluePlasticChair, Base.Mov_FoldingChair, Base.Mov_GreyChair
+KO C 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C When set down, it provides a place to sleep or rest.
+EN E When set down, it provides a place to sleep or rest.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_BrownLowTable, Base.Mov_FancyLowTable, Base.Mov_FancyTable, Base.Mov_LightRoundTable, Base.Mov_LongTable, Base.Mov_OakRoundTable, Base.Mov_PlasticLowTable, Base.Mov_RoundTable
+KO C 물건을 올려두는 용도로 놓아 쓸 수 있다.
+KO E 물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C Its surface can hold items when it is set down.
+EN E Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_CabinetMedical
+KO C 설치해 화장할 때 필요한 거울로 쓸 수 있다. 수납용으로 놓아 사용할 수 있다.
+KO E 설치해 화장할 때 필요한 거울로 쓸 수 있다.
+수납용으로 놓아 사용할 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed, it can serve as the mirror needed for applying makeup. It can serve as storage once set down.
+EN E Once installed, it can serve as the mirror needed for applying makeup.
+It can serve as storage once set down.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_CabinetTool, Base.Mov_Mailbox, Base.Mov_ShoppingBaskets
+KO C 수납용으로 놓아 사용할 수 있다.
+KO E 수납용으로 놓아 사용할 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C It can serve as storage once set down.
+EN E It can serve as storage once set down.
+It can be picked up and moved to another location.
+
+Base.Mov_CardboardBox
+KO C 수납용으로 놓아 사용할 수 있다.
+KO E 수납용으로 놓아 사용할 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C It can serve as storage once set down.
+EN E It can serve as storage once set down.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+
+Base.Mov_ChromeSink, Base.Mov_IndustrialSink
+KO C 설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.
+KO E 물건을 올려두는 용도로 놓아 쓸 수 있다.
+설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and connected to a water supply, it can provide water for filling containers or washing.
+EN E Its surface can hold items when it is set down.
+Once installed and connected to a water supply, it can provide water for filling containers or washing.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_CoffeeMaker, Base.Mov_Espresso
+KO C 설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.
+KO E 설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다.
+EN C Once installed and powered, it can heat or cook food.
+EN E Once installed and powered, it can heat or cook food.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a screwdriver to recover materials.
+
+Base.Mov_DesktopComputer, Base.Mov_PopcornMachine, Base.Mov_Projector, Base.Mov_SodaMachine
+KO C 물건을 올려두는 용도로 놓아 쓸 수 있다.
+KO E 물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다.
+EN C Its surface can hold items when it is set down.
+EN E Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a screwdriver to recover materials.
+
+Base.Mov_Doghouse, Base.Mov_PalletEmpty, Base.Mov_RoadBarrier
+KO C 분해해 재료를 회수할 수 있다.
+KO E 집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C It can be dismantled to recover materials.
+EN E It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_FancyDarkTable
+KO C 물건을 올려두는 용도로 놓아 쓸 수 있다.
+KO E 물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치로 분해해 재료를 회수할 수 있다.
+EN C Its surface can hold items when it is set down.
+EN E Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer to recover materials.
+
+Base.Mov_FancyToilet, Base.Mov_WhiteSink
+KO C 설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.
+KO E 설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and connected to a water supply, it can provide water for filling containers or washing.
+EN E Once installed and connected to a water supply, it can provide water for filling containers or washing.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_FridgeMini
+KO C 설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다.
+KO E 설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and powered, it can keep food and other contents cold.
+EN E Once installed and powered, it can keep food and other contents cold.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_GraveArched, Base.Mov_GraveRound, Base.Mov_GraveSquare, Base.Mov_GraveWorn
+KO C 분해해 재료를 회수할 수 있다.
+KO E 집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치로 분해해 재료를 회수할 수 있다.
+EN C It can be dismantled to recover materials.
+EN E It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer to recover materials.
+
+Base.Mov_GreenOven, Base.Mov_GreyOven, Base.Mov_Microwave, Base.Mov_Microwave2, Base.Mov_ModernOven, Base.Mov_RedOven, Base.Mov_Toaster
+KO C 설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.
+KO E 설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and powered, it can heat or cook food.
+EN E Once installed and powered, it can heat or cook food.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_HotdogMachine
+KO C 물건을 올려두는 용도로 놓아 쓸 수 있다.
+KO E 물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Its surface can hold items when it is set down.
+EN E Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_Lamp1, Base.Mov_Lamp2, Base.Mov_Lamp3, Base.Mov_Lamp4, Base.Mov_Lamp5, Base.Mov_Lamp6
+KO C 설치하고 전원을 공급해 조명으로 쓸 수 있다.
+KO E 설치하고 전원을 공급해 조명으로 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 드라이버로 분해해 재료를 회수할 수 있다.
+EN C Once installed and powered, it can provide light.
+EN E Once installed and powered, it can provide light.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a screwdriver to recover materials.
+
+Base.Mov_LightConstruction
+KO C 설치하고 전원을 공급해 조명으로 쓸 수 있다.
+KO E 설치하고 전원을 공급해 조명으로 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C Once installed and powered, it can provide light.
+EN E Once installed and powered, it can provide light.
+It can be picked up and moved to another location.
+
+Base.Mov_MannequinFemale, Base.Mov_MannequinMale
+KO C 배치해 의류를 입혀둘 수 있다.
+KO E 배치해 의류를 입혀둘 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치로 분해해 재료를 회수할 수 있다.
+EN C It can be placed and dressed in clothing.
+EN E It can be placed and dressed in clothing.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer to recover materials.
+
+Base.Mov_MetalLocker
+KO C 수납용으로 놓아 사용할 수 있다.
+KO E 수납용으로 놓아 사용할 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C It can serve as storage once set down.
+EN E It can serve as storage once set down.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_MirrorLarge, Base.Mov_MirrorSmall, Base.Mov_MirrorTall, Base.Mov_MirrorWood
+KO C 설치해 화장할 때 필요한 거울로 쓸 수 있다.
+KO E 설치해 화장할 때 필요한 거울로 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C Once installed, it can serve as the mirror needed for applying makeup.
+EN E Once installed, it can serve as the mirror needed for applying makeup.
+It can be picked up and moved to another location.
+
+Base.Mov_MobileCounter, Base.Mov_NapkinDispenser, Base.Mov_PinballMachine
+KO C 물건을 올려두는 용도로 놓아 쓸 수 있다.
+KO E 물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C Its surface can hold items when it is set down.
+EN E Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+
+Base.Mov_PileOCrepeChair
+KO C 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C When set down, it provides a place to sleep or rest.
+EN E When set down, it provides a place to sleep or rest.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_RedBBQ
+KO C 설치하고 맞는 연료를 넣어 음식을 조리할 수 있다.
+KO E 설치하고 맞는 연료를 넣어 음식을 조리할 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 용접용 마스크와 프로판 토치를 써서 분해해 재료를 회수할 수 있다.
+EN C Once installed and supplied with suitable fuel, it can cook food.
+EN E Once installed and supplied with suitable fuel, it can cook food.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a welding mask and propane torch to recover materials.
+
+Base.Mov_SmallTable
+KO C 수납용으로 놓아 사용할 수 있다.
+KO E 수납용으로 놓아 사용할 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다.
+EN C It can serve as storage once set down.
+EN E It can serve as storage once set down.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+Once placed, it can be dismantled with a hammer and saw to recover materials.
+
+Base.Mov_WaterDispenser
+KO C 배치해 담긴 물을 받거나 마시는 데 쓸 수 있다.
+KO E 배치해 담긴 물을 받거나 마시는 데 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C Once placed, it can dispense its stored water for filling containers or drinking.
+EN E Once placed, it can dispense its stored water for filling containers or drinking.
+It can be picked up and moved to another location.
+
+Base.Pan
+KO C 재료를 담아 요리할 수 있다. 무기로 쓸 수 있다.
+KO E 재료를 더해 요리를 만들 수 있다.
+무기로 쓸 수 있다.
+EN C It can hold ingredients for cooking. It can be used as a weapon.
+EN E Ingredients can be added to prepare food.
+It can be used as a weapon.
+
+Base.Plank
+KO C 골절을 고정하는 부목 재료로 쓸 수 있다. 건축과 장비 제작에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+KO E 골절을 고정하는 부목 재료로 쓸 수 있다.
+목공과 건축 재료로 쓸 수 있다.
+사냥 장비, 야영 장비 및 도구를 만드는 재료로 쓸 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+EN C It can supply splinting material for fractures. It can supply material for construction and equipment making. It can be used as a weapon. It can be used as fuel for campfires, for example.
+EN E It can supply splinting material for fractures.
+It can be used as material for woodworking and construction.
+It can supply material for making hunting equipment, camping equipment, and tools.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+It can be used as fuel for campfires, for example.
+
+Base.RecoilPad
+KO C 호환 총기의 반동과 다음 발사까지의 지연을 줄이는 부착물로 쓸 수 있다.
+KO E 호환 총기의 반동과 다음 발사까지의 지연을 줄이는 부착물로 쓸 수 있다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can reduce recoil and delay before the next shot on a compatible firearm.
+EN E It can reduce recoil and delay before the next shot on a compatible firearm.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.ShotgunShellsMold
+KO C 산탄총 탄약을 단조할 때 틀로 쓸 수 있다.
+KO E 산탄총 탄약을 단조할 때 틀로 쓸 수 있다.
+EN C It can be used as a mold for forging Shotgun Shells.
+EN E It can be used as a mold for forging Shotgun Shells.
+
+Base.Sling
+KO C 호환 총기를 휴대할 때 무게 부담을 줄이는 부착물로 쓸 수 있다.
+KO E 호환 총기를 휴대할 때 무게 부담을 줄이는 부착물로 쓸 수 있다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can reduce the carrying burden of a compatible firearm.
+EN E It can reduce the carrying burden of a compatible firearm.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+
+Base.Tongs
+KO C 금속을 단조하는 데 사용할 수 있다.
+KO E 금속을 단조하는 데 사용할 수 있다.
+EN C It can be used for metal forging.
+EN E It can be used for metal forging.
+
+Base.x2Scope, Base.x4Scope, Base.x8Scope
+KO C 호환 총기의 최대 사거리를 늘리는 부착물로 쓸 수 있다. 근거리 정확도는 낮아진다.
+KO E 호환 총기의 최대 사거리를 늘리는 부착물로 쓸 수 있다. 근거리 정확도는 낮아진다.
+드라이버로 호환 총기에 장착하거나 떼어 회수할 수 있다.
+EN C It can extend the maximum range of a compatible firearm, at the cost of short-range accuracy.
+EN E It can extend the maximum range of a compatible firearm, at the cost of short-range accuracy.
+With a screwdriver, it can be attached to a compatible firearm or detached and recovered.
+

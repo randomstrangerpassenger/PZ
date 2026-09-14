@@ -1,0 +1,156 @@
+[
+  {
+    "item": "Base.ElectronicsScrap",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "장치 개조 및 발전기 수리에 재료로 쓸 수 있다. 전자 기기, 소음 발생 장치 및 폭발 장치를 만들 때도 쓸 수 있다.",
+    "after": "장치 제작, 개조 및 발전기 수리에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.ElectronicsScrap",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for modifying devices and repairing generators. It can also be used to make electronic devices, noise-making devices, and explosive devices.",
+    "after": "It can supply material for making and modifying devices and repairing generators."
+  },
+  {
+    "item": "Base.Log",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "목공 및 건축에 재료로 쓸 수 있다. 야영 장비 및 숯을 만들 때도 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "목공 및 건축에 재료로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Log",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for woodworking and construction. It can also be used to make camping equipment and charcoal. It can be used as fuel for campfires, for example.",
+    "after": "It can supply material for woodworking and construction. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.Nails",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "목공, 건축 및 무기 수리에 재료로 쓸 수 있다. 사냥과 낚시에 쓰는 장비를 만들 때도 쓸 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다.",
+    "after": "목공, 건축 및 무기 수리에 재료로 쓸 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다."
+  },
+  {
+    "item": "Base.Nails",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for woodworking, construction, and repairing weapons. It can also be used to make hunting equipment and fishing equipment. It can be used to anchor an escape rope at an upper-floor window or similar attachment.",
+    "after": "It can supply material for woodworking, construction, and repairing weapons. It can be used to anchor an escape rope at an upper-floor window or similar attachment."
+  },
+  {
+    "item": "Base.Plank",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공 및 건축에 재료로 쓸 수 있다. 사냥과 야영에 쓰는 장비 및 도구를 만들 때도 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "부목 제작, 목공 및 건축에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Plank",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for woodworking and construction. It can also be used to make hunting equipment, camping equipment, and tools. It can be used as a weapon. It can be used as fuel for campfires, for example.",
+    "after": "It can supply material for making splints, woodworking, and construction. It can be used as a weapon. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.RippedSheets",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치, 연막 장치, 야영 장비 및 도구를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.RippedSheets",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for first aid or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for construction. It can also be used to make incendiary devices, smoke devices, camping equipment, and tools. It can be used as fuel or tinder, for example in campfires.",
+    "after": "It can be used for first aid or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.RippedSheetsDirty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치, 연막 장치, 야영 장비, 도구 및 부목을 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.RippedSheetsDirty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for construction. It can also be used to make incendiary devices, smoke devices, camping equipment, tools, and splints. It can be used as fuel or tinder, for example in campfires.",
+    "after": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.Stone",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축에 재료로 쓸 수 있다. 도구를 만들 때도 쓸 수 있다.",
+    "after": "건축에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Stone",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for construction. It can also be used to make tools.",
+    "after": "It can supply material for construction."
+  },
+  {
+    "item": "Base.TreeBranch",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공에 재료로 쓸 수 있다. 사냥 장비 및 도구를 만들 때도 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "부목 제작 및 목공에 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.TreeBranch",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for woodworking. It can also be used to make hunting equipment and tools. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.",
+    "after": "It can supply material for making splints and woodworking. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.Twine",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축에 재료로 쓸 수 있다. 폭발 장치, 사냥과 낚시에 쓰는 장비 및 도구를 만들 때도 쓸 수 있다.",
+    "after": "건축에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다."
+  },
+  {
+    "item": "Base.Twine",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for construction. It can also be used to make explosive devices, hunting equipment, fishing equipment, and tools.",
+    "after": "It can supply material for construction. It can also be used to make explosive devices."
+  },
+  {
+    "item": "Base.Wire",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "용접 건축에 재료로 쓸 수 있다. 사냥과 낚시에 쓰는 장비를 만들 때도 쓸 수 있다.",
+    "after": "용접 건축에 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Wire",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for welded construction. It can also be used to make hunting equipment and fishing equipment.",
+    "after": "It can supply material for welded construction."
+  },
+  {
+    "item": "Base.WoodenStick",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 사냥, 낚시와 야영에 쓰는 장비를 만드는 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "부목 제작에 재료로 쓸 수 있다. 야외 활동 장비를 만들 때도 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.WoodenStick",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for making hunting equipment, fishing equipment, and camping equipment. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.",
+    "after": "It can supply material for making splints. It can also be used to make outdoor equipment. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example."
+  }
+]

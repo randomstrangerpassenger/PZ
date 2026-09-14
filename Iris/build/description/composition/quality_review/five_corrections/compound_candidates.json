@@ -1,0 +1,3162 @@
+[
+  {
+    "item_id": "Base.223Bullets",
+    "changed": false,
+    "compact": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.308Bullets",
+    "changed": false,
+    "compact": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.556Bullets",
+    "changed": false,
+    "compact": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Acorn",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Allsorts",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.AmericanLadyCaterpillar",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apple",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apron_Black",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apron_IceCream",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apron_Jay",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apron_PileOCrepe",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apron_PizzaWhirled",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apron_Spiffos",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apron_White",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Apron_WhiteTEXTURE",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Avocado",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Axe",
+    "changed": false,
+    "compact": "음식을 손질할 수 있다. 덤불과 덩굴을 제거할 수 있다. 무기로도 쓸 수 있다. 나무를 베는 데 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.AxeStone",
+    "changed": false,
+    "compact": "음식을 손질할 수 있다. 덤불과 덩굴을 제거할 수 있다. 무기로도 쓸 수 있다. 나무를 베는 데 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Baguette",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 요리 재료로도 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BaguetteSandwich",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BallPeenHammer",
+    "changed": false,
+    "compact": "금속을 단조하거나 목재를 가공할 수 있다. 문과 창문의 판자 바리케이드 설치에 쓸 수 있다. 수박을 쪼개는 데 쓸 수 있다. 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BaloneySlice",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Banana",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BandedWoolyBearCaterpillar",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BaseballBat",
+    "changed": true,
+    "compact": "목공 재료로 쓸 수 있다. 타격 도구나 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Bass",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 도구로 손질해 생선살을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.BeanBowl",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BeautyBerry",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BeefJerky",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BeerEmpty",
+    "changed": false,
+    "compact": "화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.BeerWaterFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.BellPepper",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.BerryBlack",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BerryBlue",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BerryGeneric1",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BerryGeneric2",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BerryGeneric3",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BerryGeneric4",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BerryGeneric5",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BerryPoisonIvy",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Biscuit",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Blackbeans",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BlowTorch",
+    "changed": true,
+    "compact": "금속 제작, 건축과 금속 바리케이드나 불탄 차량 등의 해체에 용접 도구로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BluePen",
+    "changed": false,
+    "compact": "메모를 적거나 지도에 글이나 기호를 남길 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Boilersuit",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Boilersuit_BlueRed",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Boilersuit_Flying",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Boilersuit_Prisoner",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Boilersuit_PrisonerKhaki",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Boilersuit_Yellow",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BoobTube",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BoobTubeSmall",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Book",
+    "changed": false,
+    "compact": "기분 전환을 위한 읽을거리로 쓸 수 있다. 야영 장비를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Bowl",
+    "changed": false,
+    "compact": "요리할 때 재료를 담거나 조리한 음식을 나누어 담는 데 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다."
+  },
+  {
+    "item_id": "Base.Bread",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BreadDough",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BreadKnife",
+    "changed": false,
+    "compact": "호박을 장식용으로 깎는 데 쓸 수 있다. 음식을 손질하고 목재를 가공할 수 있다. 제작한 창에 부착하거나 무기로 쓸 수도 있다."
+  },
+  {
+    "item_id": "Base.BreadSlices",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 요리 재료로도 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Broccoli",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Broom",
+    "changed": false,
+    "compact": "바닥 혈흔을 지울 수 있다. 재를 치울 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BucketWaterFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 석고를 섞는 용기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Bullets38",
+    "changed": false,
+    "compact": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Bullets44",
+    "changed": false,
+    "compact": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Bullets45",
+    "changed": false,
+    "compact": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Bullets9mm",
+    "changed": false,
+    "compact": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.BurgerRecipe",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.BurritoRecipe",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Butter",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ButterKnife",
+    "changed": false,
+    "compact": "호박을 장식용으로 깎는 데 쓸 수 있다. 음식을 손질하고 목재를 가공할 수 있다. 제작한 창에 부착하거나 무기로 쓸 수도 있다."
+  },
+  {
+    "item_id": "Base.CakePrep",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CakeRaw",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CandleLit",
+    "changed": false,
+    "compact": "시신을 태우는 데 쓸 수 있다. 불을 붙이는 데 사용할 수 있다. 휴대 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CandyCorn",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CandyFruitSlices",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedBologneseOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedCarrotsOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedChiliOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedCornOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedCornedBeefOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedFruitBeverageOpen",
+    "changed": false,
+    "compact": "섭취할 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedFruitCocktailOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedMilkOpen",
+    "changed": false,
+    "compact": "작물 치료용 분무액을 만드는 재료로 쓸 수 있다. 마실 수 있다. 요리 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedMushroomSoupOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedPeachesOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedPeasOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedPineappleOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedPotatoOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedSardinesOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CannedTomatoOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CarKey",
+    "changed": false,
+    "compact": "맞는 문을 잠그거나 잠금을 풀 수 있다. 구조물의 자물쇠를 제거하거나 차량 시동을 걸 수도 있다."
+  },
+  {
+    "item_id": "Base.Carrots",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Catfish",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 도구로 손질해 생선살을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Centipede",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Centipede2",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Cereal",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Cheese",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Chicken",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ChickenFried",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ChickenNuggets",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Chocolate",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ChocolateChips",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ChocolateCoveredCoffeeBeans",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Cockroach",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CocoaPowder",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Coffee2",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Cone",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 재료를 담아 요리할 수 있다."
+  },
+  {
+    "item_id": "Base.ConeIcecream",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ConeIcecreamToppings",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Corn",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.CornFrozen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Cornbread",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Crackers",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Crappie",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 도구로 손질해 생선살을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Crayfish",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Cricket",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Daikon",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dandelions",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DeadBird",
+    "changed": false,
+    "compact": "손질해 고기를 얻을 수 있다. 먹을 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DeadMouse",
+    "changed": false,
+    "compact": "손질해 고기를 얻을 수 있다. 먹을 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DeadRabbit",
+    "changed": false,
+    "compact": "손질해 고기를 얻을 수 있다. 먹을 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DeadRat",
+    "changed": false,
+    "compact": "손질해 고기를 얻을 수 있다. 먹을 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DeadSquirrel",
+    "changed": false,
+    "compact": "손질해 고기를 얻을 수 있다. 먹을 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DenimStrips",
+    "changed": false,
+    "compact": "상처 처치나 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DenimStripsDirty",
+    "changed": false,
+    "compact": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dirtbag",
+    "changed": false,
+    "compact": "흙이나 자갈, 모래를 담을 수 있다. 담긴 재료를 바닥에 깔 수 있다. 바닥이나 몸에 붙은 불을 끌 수 있다."
+  },
+  {
+    "item_id": "Base.DoubleBarrelShotgun",
+    "changed": false,
+    "compact": "총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다. 총신을 짧게 개조할 수 있다."
+  },
+  {
+    "item_id": "Base.DressKnees_Straps",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_Knees",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_Long",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_Normal",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_SatinNegligee",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_Short",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_SmallBlackStrapless",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_SmallBlackStraps",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_SmallStrapless",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_SmallStraps",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_Straps",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dress_long_Straps",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DriedBlackBeans",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DriedChickpeas",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DriedKidneyBeans",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DriedLentils",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DriedSplitPeas",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DriedWhiteBeans",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DuctTape",
+    "changed": false,
+    "compact": "창 부착물 고정, 장치 개조, 무기 수리 및 호환 차량 부품 수리에 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.DumbBell",
+    "changed": false,
+    "compact": "중량 운동에 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Dungarees",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 데님 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Earring_LoopSmall_Gold_Both",
+    "changed": false,
+    "compact": "귀에 착용할 수 있다. 귀 위쪽으로 옮겨 달 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Earring_LoopSmall_Gold_Top",
+    "changed": false,
+    "compact": "귀 윗부분에 착용할 수 있다. 귓불로 옮겨 달 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Earring_LoopSmall_Silver_Both",
+    "changed": false,
+    "compact": "귀에 착용할 수 있다. 귀 위쪽으로 옮겨 달 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Earring_LoopSmall_Silver_Top",
+    "changed": false,
+    "compact": "귀 윗부분에 착용할 수 있다. 귓불로 옮겨 달 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Edamame",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Egg",
+    "changed": false,
+    "compact": "달걀곽에 모아 포장할 수 있다. 먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.EggBoiled",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.EggOmelette",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.EggPoached",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.EggScrambled",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Eggplant",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.ElectronicsScrap",
+    "changed": true,
+    "compact": "전자기기와 장치의 제작, 개조, 발전기 수리에 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.EmptySandbag",
+    "changed": false,
+    "compact": "물건을 담아 보관하거나 운반할 수 있다. 퇴비통의 퇴비를 담을 수 있다. 흙이나 자갈, 모래를 담을 수 있다."
+  },
+  {
+    "item_id": "Base.FishFillet",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.FishFried",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.FishRoe",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.FlintKnife",
+    "changed": true,
+    "compact": "음식, 목재 손질과 장비 제작에 쓸 수 있다. 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Fork",
+    "changed": false,
+    "compact": "반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다. 제작한 창에 부착해 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.FriedOnionRings",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.FriedOnionRingsCraft",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.FrogMeat",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.FruitSalad",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.FullKettle",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.GardenSaw",
+    "changed": true,
+    "compact": "음식, 목재 손질과 장비 제작, 건축물 해체에 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.GingerPickled",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.GingerRoot",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.GlassTumblerWater",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.GlassWineWater",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.Gloves_LeatherGloves",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Gloves_LeatherGlovesBlack",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Gloves_LongWomenGloves",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Gloves_WhiteTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Grapefruit",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Grapes",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Grasshopper",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Gravelbag",
+    "changed": false,
+    "compact": "건축 재료로 쓸 수 있다. 흙이나 자갈, 모래를 담을 수 있다. 담긴 재료를 바닥에 깔 수 있다. 바닥이나 몸에 붙은 불을 끌 수 있다."
+  },
+  {
+    "item_id": "Base.GriddlePanFriedVegetables",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Guacamole",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.GummyBears",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.GummyWorms",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.HamSlice",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hammer",
+    "changed": true,
+    "compact": "금속 단조, 목공과 건축에 쓰는 타격 도구이며 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.HammerStone",
+    "changed": true,
+    "compact": "금속 단조, 목공과 건축에 쓰는 타격 도구이며 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.HandAxe",
+    "changed": false,
+    "compact": "음식을 손질할 수 있다. 덤불과 덩굴을 제거할 수 있다. 무기로도 쓸 수 있다. 나무를 베는 데 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.HandFork",
+    "changed": false,
+    "compact": "제작한 창에 부착해 쓸 수 있다. 무기로 쓸 수 있다. 밭을 만들거나 정리할 수 있다."
+  },
+  {
+    "item_id": "Base.HardCandies",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCap",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 뒤로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapArmy",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 뒤로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapArmy_Reverse",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 앞으로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapBlue",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 뒤로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapBlue_Reverse",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 앞으로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapGreen",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 뒤로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapGreen_Reverse",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 앞으로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapKY",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 뒤로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapKY_Red",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 뒤로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapKY_Reverse",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 앞으로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapRed",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 뒤로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCapRed_Reverse",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 앞으로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hat_BaseballCap_Reverse",
+    "changed": false,
+    "compact": "머리에 착용할 수 있다. 앞으로 돌려 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.HollyBerry",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Honey",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.HoodieDOWN_WhiteTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 후드를 쓸 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.HoodieUP_WhiteTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 후드를 벗을 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.HospitalGown",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hotdog",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Hotsauce",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.HuntingKnife",
+    "changed": true,
+    "compact": "음식, 목재 손질과 장비 제작에 쓸 수 있다. 덤불과 덩굴을 제거할 수도 있다. 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Icecream",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Icing",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.JacketLong_Doctor",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.JacketLong_Random",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.JacketLong_Santa",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.JacketLong_SantaGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_ArmyCamoDesert",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_ArmyCamoGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_Black",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_Chef",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_CoatArmy",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_LeatherBarrelDogs",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_LeatherIronRodent",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_LeatherWildRacoons",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_NavyBlue",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_Padded",
+    "changed": false,
+    "compact": "착용할 수 있다. 후드를 벗을 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_PaddedDOWN",
+    "changed": false,
+    "compact": "착용할 수 있다. 후드를 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_Police",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_Ranger",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_Varsity",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jacket_WhiteTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.JamFruit",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.JamMarmalade",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.JellyBeans",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jujubes",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jumper_DiamondPatternTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jumper_PoloNeck",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jumper_RoundNeck",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jumper_TankTopDiamondTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jumper_TankTopTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Jumper_VNeck",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ketchup",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Key1",
+    "changed": false,
+    "compact": "맞는 문을 잠그거나 잠금을 풀 수 있다. 구조물의 자물쇠를 제거하거나 차량 시동을 걸 수도 있다."
+  },
+  {
+    "item_id": "Base.Key2",
+    "changed": false,
+    "compact": "맞는 문을 잠그거나 잠금을 풀 수 있다. 구조물의 자물쇠를 제거하거나 차량 시동을 걸 수도 있다."
+  },
+  {
+    "item_id": "Base.Key3",
+    "changed": false,
+    "compact": "맞는 문을 잠그거나 잠금을 풀 수 있다. 구조물의 자물쇠를 제거하거나 차량 시동을 걸 수도 있다."
+  },
+  {
+    "item_id": "Base.Key4",
+    "changed": false,
+    "compact": "맞는 문을 잠그거나 잠금을 풀 수 있다. 구조물의 자물쇠를 제거하거나 차량 시동을 걸 수도 있다."
+  },
+  {
+    "item_id": "Base.Key5",
+    "changed": false,
+    "compact": "맞는 문을 잠그거나 잠금을 풀 수 있다. 구조물의 자물쇠를 제거하거나 차량 시동을 걸 수도 있다."
+  },
+  {
+    "item_id": "Base.KeyPadlock",
+    "changed": false,
+    "compact": "맞는 문을 잠그거나 잠금을 풀 수 있다. 구조물의 자물쇠를 제거하거나 차량 시동을 걸 수도 있다."
+  },
+  {
+    "item_id": "Base.KitchenKnife",
+    "changed": true,
+    "compact": "음식, 목재 손질과 장비 제작에 쓸 수 있다. 덤불과 덩굴을 제거할 수도 있다. 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Lard",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.LeatherStrips",
+    "changed": false,
+    "compact": "상처 처치나 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다."
+  },
+  {
+    "item_id": "Base.Leek",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Lemon",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Lettuce",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.LightBulb",
+    "changed": false,
+    "compact": "호환 차량의 전조등에 달아 빛을 낼 수 있다. 호환 조명에 넣는 교체용 전구다. 전자 기기를 만드는 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Lighter",
+    "changed": false,
+    "compact": "시신을 태우는 데 쓸 수 있다. 불을 붙이는 데 사용할 수 있다. 휴대 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Lime",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Lobster",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Log",
+    "changed": true,
+    "compact": "건축, 야영 준비와 숯 제작에 재료로 쓸 수 있다. 모아서 묶을 수 있다. 수박을 쪼개는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.LongCoat_Bathrobe",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.LongJohns",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.LongJohns_Bottoms",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Machete",
+    "changed": true,
+    "compact": "음식, 목재 손질과 장비 제작에 쓸 수 있다. 덤불과 덩굴을 제거할 수도 있다. 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Magazine",
+    "changed": false,
+    "compact": "기분 전환을 위한 읽을거리로 쓸 수 있다. 야영 장비를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mango",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MapleSyrup",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Margarine",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Marinara",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Marshmallows",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MeatCleaver",
+    "changed": true,
+    "compact": "음식, 목재 손질과 장비 제작에 쓸 수 있다. 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MeatDumpling",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MeatPatty",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MetalBar",
+    "changed": false,
+    "compact": "용접 건축 및 금속 단조에 재료로 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MetalPipe",
+    "changed": false,
+    "compact": "금속 부품 용접 및 용접 건축에 재료로 쓸 수 있다. 폭발 장치 제작에도 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Milk",
+    "changed": false,
+    "compact": "작물 치료용 분무액을 만드는 재료로 쓸 수 있다. 마실 수 있다. 요리 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Millipede",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Millipede2",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MincedMeat",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MixedVegetables",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MonarchCaterpillar",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MushroomGeneric1",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MushroomGeneric2",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MushroomGeneric3",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MushroomGeneric4",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MushroomGeneric5",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MushroomGeneric6",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MushroomGeneric7",
+    "changed": false,
+    "compact": "먹을 수 있으며, 독성이 있는 경우 먹으면 식중독을 일으킬 수 있다. 요리 재료로 쓸 수 있다. 덫의 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mustard",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.MuttonChop",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Nails",
+    "changed": false,
+    "compact": "목공, 건축 및 무기 수리에 재료로 쓸 수 있다. 사냥 장비 및 낚시 장비 제작에도 쓸 수 있다. 모아서 상자로 포장할 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다."
+  },
+  {
+    "item_id": "Base.Needle",
+    "changed": false,
+    "compact": "의류를 수선하거나 덧댄 천을 떼는 데 쓸 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다. 매트리스를 만드는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Newspaper",
+    "changed": false,
+    "compact": "기분 전환을 위한 읽을거리로 쓸 수 있다. 연막 장치, 야영 장비 및 모자를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Oatmeal",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.OatsRaw",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.OilOlive",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.OilVegetable",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.OmeletteRecipe",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 요리 재료로도 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.OnionRings",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.OpenBeans",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Orange",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Oysters",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.OystersFried",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PanFriedVegetables",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PanFriedVegetables2",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pancakes",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PancakesRecipe",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Panfish",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 도구로 손질해 생선살을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Pasta",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Peach",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PeanutButter",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Peanuts",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pear",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Peas",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pen",
+    "changed": false,
+    "compact": "메모를 적거나 지도에 글이나 기호를 남길 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pencil",
+    "changed": false,
+    "compact": "메모를 적거나 지도에 글이나 기호를 남길 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pepper",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pepperoni",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Perch",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 도구로 손질해 생선살을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.PetrolBleachBottle",
+    "changed": true,
+    "compact": "연료를 담아 차량, 발전기에 공급하거나 불을 붙이는 연료로 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PetrolCan",
+    "changed": true,
+    "compact": "연료를 담아 차량, 발전기에 공급하거나 불을 붙이는 연료로 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PetrolPopBottle",
+    "changed": true,
+    "compact": "연료를 담아 차량, 발전기에 공급하거나 불을 붙이는 연료로 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pickles",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PiePrep",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PieWholeRaw",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PieWholeRawSweet",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pike",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 도구로 손질해 생선살을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Pineapple",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PizzaRecipe",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Plank",
+    "changed": true,
+    "compact": "골절을 고정하는 부목 재료로 쓸 수 있다. 건축과 장비 제작에 재료로 쓸 수 있다. 타격 도구나 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PlasticCupWater",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.PonchoGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 후드를 벗을 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PonchoGreenDOWN",
+    "changed": false,
+    "compact": "착용할 수 있다. 후드를 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PonchoYellow",
+    "changed": false,
+    "compact": "착용할 수 있다. 후드를 벗을 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PonchoYellowDOWN",
+    "changed": false,
+    "compact": "착용할 수 있다. 후드를 쓸 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PorkChop",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.PotOfStew",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Processedcheese",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Pumpkin",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Rabbitmeat",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ramen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.RedPen",
+    "changed": false,
+    "compact": "메모를 적거나 지도에 글이나 기호를 남길 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.RefriedBeans",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Rice",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.RiceVinegar",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_MiddleFinger_Gold",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_MiddleFinger_GoldDiamond",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_MiddleFinger_GoldRuby",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_MiddleFinger_Silver",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_MiddleFinger_SilverDiamond",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_RingFinger_Gold",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_RingFinger_GoldDiamond",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_RingFinger_GoldRuby",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_RingFinger_Silver",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Left_RingFinger_SilverDiamond",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_MiddleFinger_Gold",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_MiddleFinger_GoldDiamond",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_MiddleFinger_GoldRuby",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_MiddleFinger_Silver",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_MiddleFinger_SilverDiamond",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_RingFinger_Gold",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_RingFinger_GoldDiamond",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_RingFinger_GoldRuby",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_RingFinger_Silver",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Ring_Right_RingFinger_SilverDiamond",
+    "changed": false,
+    "compact": "양손의 중지나 약지에 골라 낄 수 있다. 금속 드럼의 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.RippedSheets",
+    "changed": true,
+    "compact": "응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축과 장비 제작에 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.RippedSheetsDirty",
+    "changed": true,
+    "compact": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축과 장비 제작에 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.RockCandy",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Rope",
+    "changed": false,
+    "compact": "건축 재료로 쓸 수 있다. 설치해 위층으로 올라가는 데 사용할 수 있다. 통나무를 묶는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Rosehips",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Salmon",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Salt",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Sandbag",
+    "changed": false,
+    "compact": "건축 재료로 쓸 수 있다. 흙이나 자갈, 모래를 담을 수 있다. 담긴 재료를 바닥에 깔 수 있다. 바닥이나 몸에 붙은 불을 끌 수 있다."
+  },
+  {
+    "item_id": "Base.Sandwich",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Sausage",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Saw",
+    "changed": true,
+    "compact": "음식, 목재 손질과 장비 제작, 개조, 건축물 해체에 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SawflyLarva",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Scarf_StripeBlackWhite",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Scarf_StripeBlueWhite",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Scarf_StripeRedWhite",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Scarf_White",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Scissors",
+    "changed": false,
+    "compact": "데님이나 가죽 의류를 잘라 조각을 회수할 수 있다. 머리와 수염을 손질할 수 있다. 제작한 창에 부착해 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Screwdriver",
+    "changed": true,
+    "compact": "전자기기 제작, 분해, 개조와 목공, 정비 작업에 쓸 수 있다. 무기로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SharpedStone",
+    "changed": false,
+    "compact": "사냥 장비를 만드는 데 쓸 수 있다. 도구를 만드는 재료로 쓸 수 있다. 목재를 가공하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Sheet",
+    "changed": false,
+    "compact": "야영 장비를 만드는 재료로 쓸 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만드는 데도 쓸 수 있다. 창문이나 문에 커튼으로 달아 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SheetMetal",
+    "changed": false,
+    "compact": "금속 부품 용접, 건축 및 호환 차량 부품 수리에 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SheetRope",
+    "changed": false,
+    "compact": "건축 재료로 쓸 수 있다. 설치해 위층으로 올라가는 데 사용할 수 있다. 통나무를 묶는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Baseball_KY",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Baseball_Rangers",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Baseball_Z",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Bowling_Blue",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Bowling_Brown",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Bowling_Green",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Bowling_LimeGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Bowling_Pink",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Bowling_White",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_CamoDesert",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_CamoGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_CamoUrban",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_CropTopNoArmTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_CropTopTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Denim",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 데님 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_FormalTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_FormalWhite",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_FormalWhite_ShortSleeve",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_FormalWhite_ShortSleeveTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_HawaiianRed",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_HawaiianTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Jockey01",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Jockey02",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Jockey03",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Jockey04",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Jockey05",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Jockey06",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Lumberjack",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_OfficerWhite",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_PoliceBlue",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_PoliceGrey",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Priest",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_PrisonGuard",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Ranger",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Scrubs",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shirt_Workman",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shorts_CamoGreenLong",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shorts_CamoUrbanLong",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shorts_LongDenim",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 데님 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shorts_LongSport",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shorts_LongSport_Red",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shorts_ShortDenim",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 데님 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shorts_ShortFormal",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shorts_ShortSport",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shotgun",
+    "changed": false,
+    "compact": "총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다. 총신을 짧게 개조할 수 있다."
+  },
+  {
+    "item_id": "Base.ShotgunShells",
+    "changed": false,
+    "compact": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Shovel",
+    "changed": true,
+    "compact": "땅을 파고 정리하거나 흙, 자갈 등을 포대에 담는 데 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shovel2",
+    "changed": true,
+    "compact": "땅을 파고 정리하거나 흙, 자갈 등을 포대에 담는 데 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Shrimp",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ShrimpDumpling",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ShrimpFried",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.ShrimpFriedCraft",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SilkMothCaterpillar",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Skirt_Knees",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Skirt_Long",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Skirt_Mini",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Skirt_Normal",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Skirt_Short",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Sledgehammer",
+    "changed": true,
+    "compact": "타격 도구나 무기로 쓸 수 있다. 구조물을 철거하는 데 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Sledgehammer2",
+    "changed": true,
+    "compact": "타격 도구나 무기로 쓸 수 있다. 구조물을 철거하는 데 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Slug",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Slug2",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SmallSheetMetal",
+    "changed": false,
+    "compact": "금속 부품 용접, 용접 건축 및 호환 차량 부품 수리에 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Smallanimalmeat",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Smallbirdmeat",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Snail",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SnowShovel",
+    "changed": true,
+    "compact": "땅을 파고 정리하거나 흙, 자갈 등을 포대에 담는 데 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Socks_Ankle",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Socks_Long",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Soysauce",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SpearBreadKnife",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearButterKnife",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearCrafted",
+    "changed": false,
+    "compact": "부착물을 달아 쓸 수 있다. 무기로 쓸 수 있다. 물가에서 미끼 없이 창낚시에 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SpearFork",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearHandFork",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearHuntingKnife",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearIcePick",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearKnife",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearLetterOpener",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearMachete",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearScalpel",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearScissors",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearScrewdriver",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.SpearSpoon",
+    "changed": false,
+    "compact": "물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Spoon",
+    "changed": false,
+    "compact": "반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다. 제작한 창에 부착해 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Squid",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SquidCalamari",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Steak",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Sugar",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.SugarBrown",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.SugarPacket",
+    "changed": false,
+    "compact": "먹을 수 있다. 요리 재료로 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Suit_Jacket",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Suit_JacketTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SunflowerSeeds",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.SwallowtailCaterpillar",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.TacoRecipe",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.TacoShell",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Teabag2",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Thread",
+    "changed": false,
+    "compact": "야영 장비를 만드는 재료로 쓸 수 있다. 의류의 구멍을 덧대거나 패딩을 추가할 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Toast",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tofu",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.TofuFried",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.TomatoPaste",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tortilla",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.TreeBranch",
+    "changed": true,
+    "compact": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공과 장비 제작에 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.TrousersMesh_DenimLight",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 데님 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.TrousersMesh_Leather",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_ArmyService",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_Black",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_CamoDesert",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_CamoGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_CamoUrban",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_Chef",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_DefaultTEXTURE",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_DefaultTEXTURE_HUE",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_DefaultTEXTURE_TINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_Denim",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 데님 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_JeanBaggy",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 데님 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_LeatherBlack",
+    "changed": false,
+    "compact": "착용할 수 있다. 가위로 잘라 가죽 조각을 얻을 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_NavyBlue",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_Police",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_PoliceGrey",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_PrisonGuard",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_Ranger",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_Santa",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_SantaGReen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_Scrubs",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_Suit",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_SuitTEXTURE",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_SuitWhite",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_WhiteTEXTURE",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trousers_WhiteTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Trout",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 도구로 손질해 생선살을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_ArmyGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_BusinessSpiffo",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_CamoDesert",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_CamoGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_CamoUrban",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_DefaultDECAL",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_DefaultDECAL_TINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_DefaultTEXTURE",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_DefaultTEXTURE_TINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Fossoil",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Gas2Go",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_IndieStoneDECAL",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_McCoys",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_PileOCrepe",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_PizzaWhirled",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_PoliceBlue",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_PoliceGrey",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_PoloStripedTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_PoloTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_FiremanBlue",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_FiremanRed",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_FiremanRed02",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_FiremanWhite",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_PoliceBlue",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_PoliceWhite",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_RangerBrown",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_RangerGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_VeterenGreen",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Profession_VeterenRed",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Ranger",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Rock",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Scrubs",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_SpiffoDECAL",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_Sport",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_SportDECAL",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_ThunderGas",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_ValleyStation",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_WhiteLongSleeve",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_WhiteLongSleeveTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Tshirt_WhiteTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.TunaTinOpen",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Vest_DefaultTEXTURE",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Vest_DefaultTEXTURE_TINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Vest_Waistcoat",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Vest_WaistcoatTINT",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Vest_Waistcoat_GigaMart",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Waffles",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WafflesRecipe",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Wasabi",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WaterBleachBottle",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WaterBottleEmpty",
+    "changed": false,
+    "compact": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다."
+  },
+  {
+    "item_id": "Base.WaterBottleFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WaterBottlePetrol",
+    "changed": true,
+    "compact": "연료를 담아 차량, 발전기에 공급하거나 불을 붙이는 연료로 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WaterBowl",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WaterMug",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 재료를 더해 요리를 만들 수도 있다."
+  },
+  {
+    "item_id": "Base.WaterMugRed",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 재료를 더해 요리를 만들 수도 있다."
+  },
+  {
+    "item_id": "Base.WaterMugSpiffo",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 재료를 더해 요리를 만들 수도 있다."
+  },
+  {
+    "item_id": "Base.WaterMugWhite",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 재료를 더해 요리를 만들 수도 있다."
+  },
+  {
+    "item_id": "Base.WaterPaintbucket",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WaterPopBottle",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WaterPot",
+    "changed": true,
+    "compact": "조리와 붕대 소독에 쓸 수 있다. 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WaterPotPasta",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WaterPotRice",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 요리 재료로도 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WaterSaucepan",
+    "changed": true,
+    "compact": "조리와 붕대 소독에 쓸 수 있다. 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WaterSaucepanPasta",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WaterSaucepanRice",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 요리 재료로도 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WaterTeacup",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 재료를 더해 요리를 만들 수도 있다."
+  },
+  {
+    "item_id": "Base.WatermelonSliced",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WatermelonSmashed",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WeddingDress",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WeddingJacket",
+    "changed": false,
+    "compact": "착용할 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만들 때 재료로 쓸 수 있다. 연료나 불쏘시개로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WhiskeyEmpty",
+    "changed": false,
+    "compact": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.WhiskeyFull",
+    "changed": false,
+    "compact": "천, 솜, 상처를 소독하는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 마실 수 있다. 요리 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WhiskeyPetrol",
+    "changed": true,
+    "compact": "연료를 담아 차량, 발전기에 공급하거나 불을 붙이는 연료로 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WhiskeyWaterFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WildEggs",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WildGarlic2",
+    "changed": false,
+    "compact": "약초 찜질제를 만드는 데 쓸 수 있다. 먹을 수 있다. 요리 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WineEmpty",
+    "changed": false,
+    "compact": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.WineEmpty2",
+    "changed": false,
+    "compact": "주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.WinePetrol",
+    "changed": true,
+    "compact": "연료를 담아 차량, 발전기에 공급하거나 불을 붙이는 연료로 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WineWaterFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "Base.WinterBerry",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WoodAxe",
+    "changed": false,
+    "compact": "음식을 손질할 수 있다. 덤불과 덩굴을 제거할 수 있다. 무기로도 쓸 수 있다. 나무를 베는 데 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.WoodenStick",
+    "changed": true,
+    "compact": "골절을 고정하는 부목 재료로 쓸 수 있다. 사냥 장비, 낚시 장비 및 야영 장비를 만드는 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Worm",
+    "changed": false,
+    "compact": "먹을 수 있다. 덫의 미끼로도 쓸 수 있다. 낚싯대에 달아 미끼로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Wrench",
+    "changed": false,
+    "compact": "엔진에서 부품을 회수할 수 있다. 손상된 차량 엔진을 수리하는 데 사용할 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.WristWatch_Left_DigitalBlack",
+    "changed": false,
+    "compact": "왼쪽이나 오른쪽 손목에 골라 찰 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다. 드라이버로 분해해 전자 부품을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.WristWatch_Left_DigitalDress",
+    "changed": false,
+    "compact": "왼쪽이나 오른쪽 손목에 골라 찰 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다. 드라이버로 분해해 전자 부품을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.WristWatch_Left_DigitalRed",
+    "changed": false,
+    "compact": "왼쪽이나 오른쪽 손목에 골라 찰 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다. 드라이버로 분해해 전자 부품을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.WristWatch_Right_DigitalBlack",
+    "changed": false,
+    "compact": "왼쪽이나 오른쪽 손목에 골라 찰 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다. 드라이버로 분해해 전자 부품을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.WristWatch_Right_DigitalDress",
+    "changed": false,
+    "compact": "왼쪽이나 오른쪽 손목에 골라 찰 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다. 드라이버로 분해해 전자 부품을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.WristWatch_Right_DigitalRed",
+    "changed": false,
+    "compact": "왼쪽이나 오른쪽 손목에 골라 찰 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다. 드라이버로 분해해 전자 부품을 얻을 수 있다."
+  },
+  {
+    "item_id": "Base.Yoghurt",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Zucchini",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "farming.Bacon",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "farming.Cabbage",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "farming.GardeningSprayFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "farming.HandShovel",
+    "changed": true,
+    "compact": "땅을 파고 정리하거나 흙, 자갈 등을 포대에 담는 데 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item_id": "farming.MayonnaiseFull",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "farming.MayonnaiseHalf",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "farming.MayonnaiseWaterFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "farming.Potato",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "farming.RedRadish",
+    "changed": false,
+    "compact": "먹을 수 있다. 요리 재료로 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "farming.RemouladeWaterFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  },
+  {
+    "item_id": "farming.Salad",
+    "changed": false,
+    "compact": "먹거나 다른 재료를 더해 요리할 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "farming.Strewberrie",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item_id": "farming.Tomato",
+    "changed": false,
+    "compact": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다."
+  },
+  {
+    "item_id": "farming.WateredCanFull",
+    "changed": true,
+    "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다."
+  }
+]

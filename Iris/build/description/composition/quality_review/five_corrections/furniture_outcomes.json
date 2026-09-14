@@ -1,0 +1,1145 @@
+[
+  {
+    "item_id": "Base.Mattress",
+    "sprite": "carpentry_02_76",
+    "functions": [
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "건축 재료로 쓸 수 있다. 배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_AirConditioner",
+    "sprite": "industry_01_4",
+    "functions": [
+      "placed_purpose_salvage_welding"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_AntiqueStove",
+    "sprite": "appliances_cooking_01_16",
+    "functions": [
+      "placed_purpose_hearth",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 연료를 넣어 난방이나 조리에 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_ArcadeMachine1",
+    "sprite": "recreational_01_16",
+    "functions": [
+      "placed_purpose_salvage_screwdriver"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_ArcadeMachine2",
+    "sprite": "recreational_01_20",
+    "functions": [
+      "placed_purpose_salvage_screwdriver"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_BeachChair",
+    "sprite": "furniture_seating_outdoor_01_25",
+    "functions": [
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_BinRound",
+    "sprite": "trashcontainers_01_20",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_storage"
+    ],
+    "compact": "배치해 물건을 보관하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Birdbath",
+    "sprite": "vegetation_ornamental_01_50",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_BlueComfyChair",
+    "sprite": "furniture_seating_indoor_03_25",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_BluePlasticChair",
+    "sprite": "furniture_seating_indoor_02_13",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_BlueRattanChair",
+    "sprite": "furniture_seating_indoor_02_41",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_BrownComfyChair",
+    "sprite": "furniture_seating_indoor_02_44",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_BrownLowTable",
+    "sprite": "furniture_tables_low_01_13",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_CabinetMedical",
+    "sprite": "fixtures_bathroom_01_28",
+    "functions": [
+      "placed_purpose_mirror",
+      "placed_purpose_salvage_wood",
+      "placed_purpose_storage",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다. 배치해 물건을 보관하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_CabinetTool",
+    "sprite": "location_business_machinery_01_32",
+    "functions": [
+      "placed_purpose_storage"
+    ],
+    "compact": "배치해 물건을 보관하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_CardboardBox",
+    "sprite": "trashcontainers_01_24",
+    "functions": [
+      "placed_purpose_storage",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 물건을 보관하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_ChromeSink",
+    "sprite": "fixtures_sinks_01_9",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface",
+      "placed_purpose_water_piped"
+    ],
+    "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_CoffeeMaker",
+    "sprite": "appliances_cooking_01_56",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_ConcreteMixer",
+    "sprite": "construction_01_6",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_CorkBoard",
+    "sprite": "location_business_office_generic_01_7",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_DarkBlueChair",
+    "sprite": "furniture_seating_indoor_03_49",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_DarkWoodenChair",
+    "sprite": "furniture_seating_indoor_02_0",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_DegreeDoctor",
+    "sprite": "location_community_medical_01_14",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_DegreeSurgeon",
+    "sprite": "location_community_medical_01_31",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_DesktopComputer",
+    "sprite": "appliances_com_01_72",
+    "functions": [
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Doghouse",
+    "sprite": "location_farm_accesories_01_9",
+    "functions": [
+      "placed_purpose_salvage_wood"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Espresso",
+    "sprite": "appliances_cooking_01_61",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FancyBlackChair",
+    "sprite": "furniture_seating_indoor_03_41",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FancyDarkTable",
+    "sprite": "furniture_tables_high_01_16",
+    "functions": [
+      "placed_purpose_salvage_hammer",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FancyLowTable",
+    "sprite": "furniture_tables_low_01_3",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FancyTable",
+    "sprite": "furniture_tables_high_01_15",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FancyToilet",
+    "sprite": "fixtures_bathroom_01_0",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_water_piped"
+    ],
+    "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FancyWhiteChair",
+    "sprite": "furniture_seating_indoor_01_37",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FitnessContraption",
+    "sprite": "recreational_sports_01_41",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FlagAdmin",
+    "sprite": "walls_decoration_01_18",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FlagUSA",
+    "sprite": "walls_decoration_01_16",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FlagUSALarge",
+    "sprite": "location_military_knox_01_8",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FoldingChair",
+    "sprite": "furniture_seating_indoor_01_60",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_FridgeMini",
+    "sprite": "appliances_refrigeration_01_25",
+    "functions": [
+      "placed_purpose_cold_storage",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급하면 음식 등을 차갑게 보관할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GardenGnome",
+    "sprite": "vegetation_ornamental_01_48",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GraveArched",
+    "sprite": "location_community_cemetary_01_2",
+    "functions": [
+      "placed_purpose_salvage_hammer"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GraveRound",
+    "sprite": "location_community_cemetary_01_0",
+    "functions": [
+      "placed_purpose_salvage_hammer"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GraveSquare",
+    "sprite": "location_community_cemetary_01_4",
+    "functions": [
+      "placed_purpose_salvage_hammer"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GraveWorn",
+    "sprite": "location_community_cemetary_01_8",
+    "functions": [
+      "placed_purpose_salvage_hammer"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GreenChair",
+    "sprite": "furniture_seating_indoor_01_57",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GreenComfyChair",
+    "sprite": "furniture_seating_indoor_01_9",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GreenOven",
+    "sprite": "appliances_cooking_01_1",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GreyChair",
+    "sprite": "furniture_seating_indoor_01_54",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GreyComfyChair",
+    "sprite": "furniture_seating_indoor_03_4",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_GreyOven",
+    "sprite": "appliances_cooking_01_5",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_HotdogMachine",
+    "sprite": "location_shop_fossoil_01_10",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_HuntingTrophy",
+    "sprite": "camping_01_18",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_IndustrialSink",
+    "sprite": "fixtures_sinks_01_16",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface",
+      "placed_purpose_water_piped"
+    ],
+    "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Lamp1",
+    "sprite": "lighting_indoor_01_8",
+    "functions": [
+      "placed_purpose_light",
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Lamp2",
+    "sprite": "lighting_indoor_01_9",
+    "functions": [
+      "placed_purpose_light",
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Lamp3",
+    "sprite": "lighting_indoor_01_10",
+    "functions": [
+      "placed_purpose_light",
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Lamp4",
+    "sprite": "lighting_indoor_01_11",
+    "functions": [
+      "placed_purpose_light",
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Lamp5",
+    "sprite": "lighting_indoor_01_12",
+    "functions": [
+      "placed_purpose_light",
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Lamp6",
+    "sprite": "lighting_indoor_01_13",
+    "functions": [
+      "placed_purpose_light",
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_LightConstruction",
+    "sprite": "lighting_outdoor_01_49",
+    "functions": [
+      "placed_purpose_light"
+    ],
+    "compact": "설치하고 전원을 공급해 조명으로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_LightRoundTable",
+    "sprite": "furniture_tables_high_01_7",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_LongTable",
+    "sprite": "furniture_tables_high_01_4",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Mailbox",
+    "sprite": "street_decoration_01_21",
+    "functions": [
+      "placed_purpose_storage"
+    ],
+    "compact": "배치해 물건을 보관하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MannequinFemale",
+    "sprite": "location_shop_mall_01_66",
+    "functions": [
+      "placed_purpose_mannequin",
+      "placed_purpose_salvage_hammer",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 의류를 입혀둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MannequinMale",
+    "sprite": "location_shop_mall_01_69",
+    "functions": [
+      "placed_purpose_mannequin",
+      "placed_purpose_salvage_hammer",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 의류를 입혀둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MapUSA",
+    "sprite": "location_community_school_01_22",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MetalLocker",
+    "sprite": "furniture_storage_02_8",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_storage",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 물건을 보관하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MetalStool",
+    "sprite": "location_community_medical_01_10",
+    "functions": [
+      "placed_purpose_salvage_welding"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Microphone",
+    "sprite": "appliances_com_01_70",
+    "functions": [
+      "placed_purpose_salvage_screwdriver"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Microwave",
+    "sprite": "appliances_cooking_01_24",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Microwave2",
+    "sprite": "appliances_cooking_01_28",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MirrorLarge",
+    "sprite": "walls_decoration_01_5",
+    "functions": [
+      "placed_purpose_mirror"
+    ],
+    "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MirrorSmall",
+    "sprite": "walls_decoration_01_10",
+    "functions": [
+      "placed_purpose_mirror"
+    ],
+    "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MirrorTall",
+    "sprite": "walls_decoration_01_9",
+    "functions": [
+      "placed_purpose_mirror"
+    ],
+    "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MirrorWood",
+    "sprite": "walls_decoration_01_7",
+    "functions": [
+      "placed_purpose_mirror"
+    ],
+    "compact": "설치해 화장할 때 필요한 거울로 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MobileBloodbag",
+    "sprite": "location_community_medical_01_25",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_MobileCounter",
+    "sprite": "location_community_medical_01_49",
+    "functions": [
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_ModernOven",
+    "sprite": "appliances_cooking_01_13",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_NapkinDispenser",
+    "sprite": "location_shop_accessories_01_10",
+    "functions": [
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_OakRoundTable",
+    "sprite": "furniture_tables_high_01_6",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_OfficeChair",
+    "sprite": "furniture_seating_indoor_01_50",
+    "functions": [
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_OrangeFuton",
+    "sprite": "furniture_seating_indoor_01_46",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_OrangeModernChair",
+    "sprite": "furniture_seating_indoor_01_12",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PaintingBetty",
+    "sprite": "walls_decoration_01_48",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PaintingElisa",
+    "sprite": "walls_decoration_01_46",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PaintingGreen",
+    "sprite": "walls_decoration_01_35",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PaintingLibrary",
+    "sprite": "walls_decoration_01_57",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PalletEmpty",
+    "sprite": "construction_01_5",
+    "functions": [
+      "placed_purpose_salvage_wood"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PileOCrepeChair",
+    "sprite": "location_restaurant_pileocrepe_01_41",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PinballMachine",
+    "sprite": "recreational_01_25",
+    "functions": [
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PinkFlamingo",
+    "sprite": "vegetation_ornamental_01_25",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PlasticChair",
+    "sprite": "furniture_seating_outdoor_01_17",
+    "functions": [
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PlasticLowTable",
+    "sprite": "furniture_tables_low_01_20",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PopcornMachine",
+    "sprite": "location_entertainment_theatre_01_17",
+    "functions": [
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterDroids",
+    "sprite": "walls_decoration_01_33",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterElement",
+    "sprite": "location_entertainment_theatre_01_84",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterMedical",
+    "sprite": "location_community_medical_01_11",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterOmega",
+    "sprite": "walls_decoration_01_50",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterPaws",
+    "sprite": "location_entertainment_theatre_01_83",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterPieBlue",
+    "sprite": "location_restaurant_pie_01_57",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterPieGreen",
+    "sprite": "location_restaurant_pie_01_58",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterPiePink",
+    "sprite": "location_restaurant_pie_01_59",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PosterPieRed",
+    "sprite": "location_restaurant_pie_01_56",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Projector",
+    "sprite": "appliances_com_01_85",
+    "functions": [
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PurpleRattanChair",
+    "sprite": "furniture_seating_indoor_01_33",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_PurpleWoodenChair",
+    "sprite": "furniture_seating_indoor_03_45",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_RedBBQ",
+    "sprite": "appliances_cooking_01_35",
+    "functions": [
+      "placed_purpose_barbecue",
+      "placed_purpose_salvage_welding"
+    ],
+    "compact": "설치하고 맞는 연료를 넣어 음식을 조리할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_RedChair",
+    "sprite": "furniture_seating_indoor_01_41",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_RedOven",
+    "sprite": "appliances_cooking_01_9",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_RedWoodenChair",
+    "sprite": "furniture_seating_indoor_02_9",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_RoadBarrier",
+    "sprite": "construction_01_8",
+    "functions": [
+      "placed_purpose_salvage_wood"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_RoadCone",
+    "sprite": "street_decoration_01_26",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_RoadCone2",
+    "sprite": "street_decoration_01_27",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_RoundTable",
+    "sprite": "furniture_tables_high_01_14",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_SatelliteDish",
+    "sprite": "appliances_com_01_20",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_ScaleMedical",
+    "sprite": "location_community_medical_01_9",
+    "functions": [
+      "placed_purpose_salvage_welding"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_ShoppingBaskets",
+    "sprite": "location_shop_greenes_01_37",
+    "functions": [
+      "placed_purpose_storage"
+    ],
+    "compact": "배치해 물건을 보관하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_SignArmy",
+    "sprite": "location_military_generic_01_18",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_SignCitrus",
+    "sprite": "location_shop_accessories_01_27",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_SignRestricted",
+    "sprite": "location_military_generic_01_19",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_SignWarning",
+    "sprite": "location_military_generic_01_21",
+    "functions": [],
+    "compact": "가구로 놓아 사용할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_SmallTable",
+    "sprite": "furniture_storage_01_52",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_storage",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 물건을 보관하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_SodaMachine",
+    "sprite": "location_shop_accessories_01_8",
+    "functions": [
+      "placed_purpose_salvage_screwdriver",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치한 뒤 물건을 올려둘 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_TVCamera",
+    "sprite": "appliances_com_01_44",
+    "functions": [
+      "placed_purpose_salvage_screwdriver"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Toaster",
+    "sprite": "appliances_cooking_01_32",
+    "functions": [
+      "placed_purpose_cooking",
+      "placed_purpose_salvage_welding",
+      "placed_purpose_surface"
+    ],
+    "compact": "설치하고 전원을 공급해 음식을 데우거나 조리하는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_TowelDispenser",
+    "sprite": "fixtures_bathroom_01_16",
+    "functions": [
+      "placed_purpose_salvage_screwdriver"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_Urinal",
+    "sprite": "fixtures_bathroom_01_8",
+    "functions": [
+      "placed_purpose_salvage_welding"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_WallClock",
+    "sprite": "location_community_school_01_32",
+    "functions": [
+      "placed_purpose_salvage_screwdriver"
+    ],
+    "compact": "분해해 재료를 회수할 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_WaterDispenser",
+    "sprite": "location_business_office_generic_01_49",
+    "functions": [
+      "placed_purpose_water_storage"
+    ],
+    "compact": "배치해 담긴 물을 받거나 마시는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_WhiteComfyChair",
+    "sprite": "furniture_seating_indoor_02_20",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_WhiteSimpleChair",
+    "sprite": "furniture_seating_indoor_03_57",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_WhiteSink",
+    "sprite": "fixtures_sinks_01_12",
+    "functions": [
+      "placed_purpose_salvage_welding",
+      "placed_purpose_water_piped"
+    ],
+    "compact": "설치하고 급수를 연결해 물을 받거나 씻는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_WhiteWoodenChair",
+    "sprite": "furniture_seating_indoor_02_56",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_WoodenChair",
+    "sprite": "furniture_seating_indoor_02_5",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_WoodenStool",
+    "sprite": "location_restaurant_bar_01_26",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  },
+  {
+    "item_id": "Base.Mov_YellowModernChair",
+    "sprite": "furniture_seating_indoor_03_28",
+    "functions": [
+      "placed_purpose_salvage_wood",
+      "placed_purpose_sleep",
+      "placed_purpose_surface"
+    ],
+    "compact": "배치해 잠을 자거나 쉬는 데 쓸 수 있다."
+  }
+]

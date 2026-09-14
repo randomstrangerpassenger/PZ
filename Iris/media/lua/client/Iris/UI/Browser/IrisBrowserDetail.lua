@@ -19,6 +19,8 @@ local TextLayout = require("Iris/UI/Detail/IrisTextLayout")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local InteractionState = require("Iris/UI/Browser/IrisBrowserInteractionState")
 
+local TargetGroupView = require("Iris/UI/Detail/IrisTargetGroupView")
+
 local IrisBrowserDetail = {}
 
 local function collectJavaDetailChildren(detailPanel)
@@ -257,6 +259,10 @@ function IrisBrowserDetail.install(IrisBrowser, context)
 
         local model = DetailViewModel.fromItem(item)
         self.currentDetailModel = model
+        if self.targetGroupRevision ~= model.revision then
+            self.targetGroupRevision = model.revision
+            self.targetGroupState = {}
+        end
         self.currentDetailSemanticSnapshot = DetailPresentation.semanticSnapshot(model)
         self.detailBuiltLocale = model.locale
         local yOffset = 10
@@ -287,13 +293,17 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         end
 
         if IrisWikiSections and IrisWikiSections.renderLayer3Section then
-            local units = IrisWikiSections.getLayer3Units(model)
-            for index, text in ipairs(units) do
+            local units = IrisWikiSections.getLayer3Records(model)
+            for index, unit in ipairs(units) do
                 yOffset = yOffset + 7
                 addMultilineLabels(self.detailPanel, "•", 10, yOffset, 18,
                     0.92, 0.92, 0.92, UIFont.Medium)
-                yOffset = addMultilineLabels(self.detailPanel, text, 25, yOffset, 18,
-                    0.92, 0.92, 0.92, UIFont.Medium)
+                yOffset = TargetGroupView.render(self.detailPanel, unit, 25, yOffset, UIFont.Medium,
+                    model.locale, self.targetGroupState, tostring(index), function()
+                        self:showDetail(fullType, true)
+                    end, function(text, x, y)
+                        return addMultilineLabels(self.detailPanel, text, x, y, 18, 0.92, 0.92, 0.92, UIFont.Medium)
+                    end)
             end
         end
 
@@ -330,6 +340,7 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         local locale = TranslationResolver.getLangKey("EN")
         if self.detailBuiltFullType ~= fullType or self.detailBuiltLocale ~= locale then
             self.detailScrollY = 0
+            self.targetGroupState = {}
         end
         local IrisBrowserData = BrowserBase.getBrowserData(context)
         local buildState = IrisBrowserData and IrisBrowserData.getBuildState and

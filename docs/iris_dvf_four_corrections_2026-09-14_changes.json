@@ -1,0 +1,1500 @@
+[
+  {
+    "item": "Base.223Bullets",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.",
+    "after": "호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item": "Base.223Bullets",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be collected and packed into a box. It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.",
+    "after": "It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder."
+  },
+  {
+    "item": "Base.308Bullets",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.",
+    "after": "호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item": "Base.308Bullets",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be collected and packed into a box. It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.",
+    "after": "It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder."
+  },
+  {
+    "item": "Base.556Bullets",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.",
+    "after": "호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item": "Base.556Bullets",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be collected and packed into a box. It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.",
+    "after": "It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder."
+  },
+  {
+    "item": "Base.BleachEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다.",
+    "after": "연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다."
+  },
+  {
+    "item": "Base.BookBlacksmith1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookBlacksmith1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookBlacksmith2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookBlacksmith2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookBlacksmith3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookBlacksmith3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookBlacksmith4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookBlacksmith4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookBlacksmith5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookBlacksmith5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCarpentry1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCarpentry1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCarpentry2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCarpentry2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCarpentry3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCarpentry3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCarpentry4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCarpentry4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCarpentry5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCarpentry5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the carpentry XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCooking1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCooking1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the cooking XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the cooking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCooking2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCooking2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the cooking XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the cooking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCooking3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCooking3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the cooking XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the cooking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCooking4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCooking4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the cooking XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the cooking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookCooking5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookCooking5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the cooking XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the cooking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookElectrician1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookElectrician1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the electrical XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the electrical XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookElectrician2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookElectrician2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the electrical XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the electrical XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookElectrician3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookElectrician3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the electrical XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the electrical XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookElectrician4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookElectrician4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the electrical XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the electrical XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookElectrician5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookElectrician5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the electrical XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the electrical XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFarming1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFarming1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the farming XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the farming XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFarming2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFarming2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the farming XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the farming XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFarming3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFarming3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the farming XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the farming XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFarming4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFarming4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the farming XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the farming XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFarming5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFarming5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the farming XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the farming XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFirstAid1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFirstAid1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the first aid XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the first aid XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFirstAid2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFirstAid2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the first aid XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the first aid XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFirstAid3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFirstAid3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the first aid XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the first aid XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFirstAid4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFirstAid4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the first aid XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the first aid XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFirstAid5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFirstAid5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the first aid XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the first aid XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFishing1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFishing1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the fishing XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the fishing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFishing2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFishing2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the fishing XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the fishing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFishing3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFishing3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the fishing XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the fishing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFishing4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFishing4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the fishing XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the fishing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookFishing5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookFishing5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the fishing XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the fishing XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookForaging1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookForaging1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the foraging XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the foraging XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookForaging2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookForaging2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the foraging XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the foraging XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookForaging3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookForaging3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the foraging XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the foraging XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookForaging4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookForaging4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the foraging XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the foraging XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookForaging5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookForaging5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the foraging XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the foraging XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMechanic1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMechanic1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMechanic2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMechanic2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMechanic3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMechanic3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMechanic4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMechanic4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMechanic5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMechanic5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the mechanics XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMetalWelding1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMetalWelding1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMetalWelding2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMetalWelding2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMetalWelding3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMetalWelding3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMetalWelding4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMetalWelding4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookMetalWelding5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookMetalWelding5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the metalworking XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTailoring1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTailoring1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTailoring2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTailoring2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTailoring3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTailoring3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTailoring4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTailoring4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTailoring5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTailoring5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the tailoring XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTrapping1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다. 완독 시 최대 3배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTrapping1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the trapping XP multiplier. Full reading reaches up to 3×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the trapping XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTrapping2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다. 완독 시 최대 5배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTrapping2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the trapping XP multiplier. Full reading reaches up to 5×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the trapping XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTrapping3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다. 완독 시 최대 8배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTrapping3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the trapping XP multiplier. Full reading reaches up to 8×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the trapping XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTrapping4",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다. 완독 시 최대 12배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTrapping4",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the trapping XP multiplier. Full reading reaches up to 12×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the trapping XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.BookTrapping5",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다. 완독 시 최대 16배다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.BookTrapping5",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "Reading it at the appropriate skill levels can raise the trapping XP multiplier. Full reading reaches up to 16×.\nIt can be used as fuel or tinder, for example in campfires.",
+    "after": "Reading it at the appropriate skill levels can raise the trapping XP multiplier.\nIt can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.Bullets38",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.",
+    "after": "호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item": "Base.Bullets38",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be collected and packed into a box. It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.",
+    "after": "It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder."
+  },
+  {
+    "item": "Base.Bullets44",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.",
+    "after": "호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item": "Base.Bullets44",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be collected and packed into a box. It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.",
+    "after": "It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder."
+  },
+  {
+    "item": "Base.Bullets45",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.",
+    "after": "호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item": "Base.Bullets45",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be collected and packed into a box. It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.",
+    "after": "It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder."
+  },
+  {
+    "item": "Base.Bullets9mm",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.",
+    "after": "호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item": "Base.Bullets9mm",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be collected and packed into a box. It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.",
+    "after": "It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder."
+  },
+  {
+    "item": "Base.Egg",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "달걀곽에 모아 포장할 수 있다. 먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다.",
+    "after": "먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다."
+  },
+  {
+    "item": "Base.Egg",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be packed with other eggs into a carton. It can be eaten or used as a cooking ingredient. It can also be used as trap bait.",
+    "after": "It can be eaten or used as a cooking ingredient. It can also be used as trap bait."
+  },
+  {
+    "item": "Base.ElectronicsScrap",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "장치 개조, 조명의 건전지용 개조 및 발전기 수리, 장비 제작에 재료로 쓸 수 있다.",
+    "after": "장치 개조 및 발전기 수리에 재료로 쓸 수 있다. 전자 기기, 소음 발생 장치 및 폭발 장치를 만들 때도 쓸 수 있다."
+  },
+  {
+    "item": "Base.ElectronicsScrap",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for modifying devices, converting lamps to battery power, and repairing generators or for making equipment.",
+    "after": "It can supply material for modifying devices and repairing generators. It can also be used to make electronic devices, noise-making devices, and explosive devices."
+  },
+  {
+    "item": "Base.Generator",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "야외 주유기에 전원을 공급할 수 있다.",
+    "after": "가동해 주변 전기 설비에 전원을 공급할 수 있다."
+  },
+  {
+    "item": "Base.Generator",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "야외 주유기에 전원을 공급할 수 있다.",
+    "after": "가동해 주변 전기 설비에 전원을 공급할 수 있다. 야외 발전기 사용이 허용된 설정에서는 야외 주유기에도 전원을 공급할 수 있다."
+  },
+  {
+    "item": "Base.Generator",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply power to exterior fuel pumps.",
+    "after": "It can be operated to power nearby electrical equipment."
+  },
+  {
+    "item": "Base.Generator",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can supply power to exterior fuel pumps.",
+    "after": "It can be operated to power nearby electrical equipment. It can also power exterior fuel pumps when outdoor generator use is enabled."
+  },
+  {
+    "item": "Base.Glue",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "무기 수리 및 호환 차량 부품 수리, 전자 기기 제작에 재료로 쓸 수 있다.",
+    "after": "무기 수리 및 호환 차량 부품 수리에 재료로 쓸 수 있다. 전자 기기를 만들 때도 쓸 수 있다."
+  },
+  {
+    "item": "Base.Glue",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for repairing weapons and repairing compatible vehicle parts or for making electronic devices.",
+    "after": "It can supply material for repairing weapons and repairing compatible vehicle parts. It can also be used to make electronic devices."
+  },
+  {
+    "item": "Base.GunPowder",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "금속 단조, 폭발 장치 제작에 재료로 쓸 수 있다.",
+    "after": "금속 단조에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다."
+  },
+  {
+    "item": "Base.GunPowder",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for metal forging or for making explosive devices.",
+    "after": "It can supply material for metal forging. It can also be used to make explosive devices."
+  },
+  {
+    "item": "Base.Log",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "목공 및 건축, 야영 장비 및 숯 제작에 재료로 쓸 수 있다. 모아서 묶을 수 있다. 수박을 쪼개는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "목공 및 건축에 재료로 쓸 수 있다. 야영 장비 및 숯을 만들 때도 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Log",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for woodworking and construction or for making camping equipment and charcoal. It can be bundled with other logs. It can be used for breaking a watermelon. It can be used as fuel for campfires, for example.",
+    "after": "It can supply material for woodworking and construction. It can also be used to make camping equipment and charcoal. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.MetalPipe",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "금속 부품 용접 및 용접 건축, 폭발 장치 제작에 재료로 쓸 수 있다. 무기로 쓸 수 있다.",
+    "after": "금속 부품 용접 및 용접 건축에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다. 무기로 쓸 수 있다."
+  },
+  {
+    "item": "Base.MetalPipe",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for metal-part welding and construction or for making explosive devices. It can be used as a weapon.",
+    "after": "It can supply material for metal-part welding and welded construction. It can also be used to make explosive devices. It can be used as a weapon."
+  },
+  {
+    "item": "Base.Nails",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "목공, 건축 및 무기 수리, 사냥 장비 및 낚시 장비 제작에 재료로 쓸 수 있다. 모아서 상자로 포장할 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다.",
+    "after": "목공, 건축 및 무기 수리에 재료로 쓸 수 있다. 사냥과 낚시에 쓰는 장비를 만들 때도 쓸 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다."
+  },
+  {
+    "item": "Base.Nails",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for woodworking and construction and repairing weapons or for making hunting equipment and fishing equipment. It can be collected and packed into a box. It can be used to anchor an escape rope at an upper-floor window or similar attachment.",
+    "after": "It can supply material for woodworking, construction, and repairing weapons. It can also be used to make hunting equipment and fishing equipment. It can be used to anchor an escape rope at an upper-floor window or similar attachment."
+  },
+  {
+    "item": "Base.Needle",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "의류를 수선하거나 덧댄 천을 떼는 데 쓸 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다. 매트리스를 만드는 데 쓸 수 있다.",
+    "after": "의류를 수선하거나 덧댄 천을 떼는 데 쓸 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.Needle",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used to mend clothing or remove patches. It can be used to stitch a deep wound. It can be used for mattress crafting.",
+    "after": "It can be used to mend clothing or remove patches. It can be used to stitch a deep wound."
+  },
+  {
+    "item": "Base.NoiseTrap",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다. 투척 공격에 쓸 수 있다.",
+    "after": "원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.NoiseTrap",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다.\n투척 공격에 사용할 수 있다.",
+    "after": "원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다.\n소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+  },
+  {
+    "item": "Base.NoiseTrap",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be modified for remote activation, motion sensing, and time delay. It can be used for throwing attacks.",
+    "after": "It can be modified for remote activation, motion sensing, and time delay. It can produce noise to attract zombies."
+  },
+  {
+    "item": "Base.NoiseTrap",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be modified for remote activation, motion sensing, and time delay.\nIt can be used for throwing attacks.",
+    "after": "It can be modified for remote activation, motion sensing, and time delay.\nIt can produce noise to attract zombies. It can also be thrown."
+  },
+  {
+    "item": "Base.NoiseTrapRemote",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 투척 공격에 쓸 수 있다.",
+    "after": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.NoiseTrapRemote",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n투척 공격에 사용할 수 있다.",
+    "after": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+  },
+  {
+    "item": "Base.NoiseTrapRemote",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be activated remotely after linking it to a compatible controller. It can be used for throwing attacks.",
+    "after": "It can be activated remotely after linking it to a compatible controller. It can produce noise to attract zombies."
+  },
+  {
+    "item": "Base.NoiseTrapRemote",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be activated remotely after linking it to a compatible controller.\nIt can be used for throwing attacks.",
+    "after": "It can be activated remotely after linking it to a compatible controller.\nIt can produce noise to attract zombies. It can also be thrown."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV1",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "투척 공격에 쓸 수 있다.",
+    "after": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV1",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "투척 공격에 사용할 수 있다.",
+    "after": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV1",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for throwing attacks.",
+    "after": "It can produce noise to attract zombies."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV1",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for throwing attacks.",
+    "after": "It can produce noise to attract zombies. It can also be thrown."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV2",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "투척 공격에 쓸 수 있다.",
+    "after": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV2",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "투척 공격에 사용할 수 있다.",
+    "after": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV2",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for throwing attacks.",
+    "after": "It can produce noise to attract zombies."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV2",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for throwing attacks.",
+    "after": "It can produce noise to attract zombies. It can also be thrown."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV3",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "투척 공격에 쓸 수 있다.",
+    "after": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV3",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "투척 공격에 사용할 수 있다.",
+    "after": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV3",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for throwing attacks.",
+    "after": "It can produce noise to attract zombies."
+  },
+  {
+    "item": "Base.NoiseTrapSensorV3",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for throwing attacks.",
+    "after": "It can produce noise to attract zombies. It can also be thrown."
+  },
+  {
+    "item": "Base.NoiseTrapTriggered",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "투척 공격에 쓸 수 있다.",
+    "after": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.NoiseTrapTriggered",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "투척 공격에 사용할 수 있다.",
+    "after": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+  },
+  {
+    "item": "Base.NoiseTrapTriggered",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for throwing attacks.",
+    "after": "It can produce noise to attract zombies."
+  },
+  {
+    "item": "Base.NoiseTrapTriggered",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can be used for throwing attacks.",
+    "after": "It can produce noise to attract zombies. It can also be thrown."
+  },
+  {
+    "item": "Base.Paperclip",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "낚시 장비를 만드는 재료로 쓸 수 있다. 모아서 상자로 포장할 수 있다.",
+    "after": "낚시 장비를 만드는 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Paperclip",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used as material for making fishing equipment. It can be collected and packed into a box.",
+    "after": "It can be used as material for making fishing equipment."
+  },
+  {
+    "item": "Base.Plank",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공 및 건축, 사냥 장비, 야영 장비 및 도구 제작에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공 및 건축에 재료로 쓸 수 있다. 사냥과 야영에 쓰는 장비 및 도구를 만들 때도 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.Plank",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for woodworking and construction or for making hunting equipment, camping equipment, and tools. It can be used as a weapon. It can be used as fuel for campfires, for example.",
+    "after": "It can supply splinting material for fractures. It can supply material for woodworking and construction. It can also be used to make hunting equipment, camping equipment, and tools. It can be used as a weapon. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.PopBottleEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다.",
+    "after": "연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다."
+  },
+  {
+    "item": "Base.RippedSheets",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축, 장비 제작에 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치, 연막 장치, 야영 장비 및 도구를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.RippedSheets",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used for first aid or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for construction or for making equipment. It can be used as fuel or tinder, for example in campfires.",
+    "after": "It can be used for first aid or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for construction. It can also be used to make incendiary devices, smoke devices, camping equipment, and tools. It can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.RippedSheetsDirty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축, 장비 및 부목 제작에 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+    "after": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치, 연막 장치, 야영 장비, 도구 및 부목을 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+  },
+  {
+    "item": "Base.RippedSheetsDirty",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for construction or for making equipment and splints. It can be used as fuel or tinder, for example in campfires.",
+    "after": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for construction. It can also be used to make incendiary devices, smoke devices, camping equipment, tools, and splints. It can be used as fuel or tinder, for example in campfires."
+  },
+  {
+    "item": "Base.Rope",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축 재료로 쓸 수 있다. 설치해 위층으로 올라가는 데 사용할 수 있다. 통나무를 묶는 데 쓸 수 있다.",
+    "after": "건축 재료로 쓸 수 있다. 설치해 위층으로 올라가는 데 사용할 수 있다."
+  },
+  {
+    "item": "Base.Rope",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used as material for construction. It can be installed for climbing to an upper floor. It can be used to bind logs.",
+    "after": "It can be used as material for construction. It can be installed for climbing to an upper floor."
+  },
+  {
+    "item": "Base.SharpedStone",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "사냥 장비를 만드는 데 쓸 수 있다. 도구를 만드는 재료로 쓸 수 있다. 목재를 가공하는 데 쓸 수 있다.",
+    "after": "도구를 만드는 재료로 쓸 수 있다. 목재를 가공하는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.SharpedStone",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used to make hunting equipment. It can be used as material for making tools. It can be used for woodworking.",
+    "after": "It can be used as material for making tools. It can be used for woodworking."
+  },
+  {
+    "item": "Base.SheetMetal",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for metal-part welding and construction and repairing compatible vehicle parts.",
+    "after": "It can supply material for metal-part welding, construction, and repairing compatible vehicle parts."
+  },
+  {
+    "item": "Base.SheetRope",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축 재료로 쓸 수 있다. 설치해 위층으로 올라가는 데 사용할 수 있다. 통나무를 묶는 데 쓸 수 있다.",
+    "after": "건축 재료로 쓸 수 있다. 설치해 위층으로 올라가는 데 사용할 수 있다."
+  },
+  {
+    "item": "Base.SheetRope",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be used as material for construction. It can be installed for climbing to an upper floor. It can be used to bind logs.",
+    "after": "It can be used as material for construction. It can be installed for climbing to an upper floor."
+  },
+  {
+    "item": "Base.ShotgunShells",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "모아서 상자로 포장할 수 있다. 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.",
+    "after": "호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다."
+  },
+  {
+    "item": "Base.ShotgunShells",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can be collected and packed into a box. It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.",
+    "after": "It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder."
+  },
+  {
+    "item": "Base.SmallSheetMetal",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for metal-part welding and construction and repairing compatible vehicle parts.",
+    "after": "It can supply material for metal-part welding, welded construction, and repairing compatible vehicle parts."
+  },
+  {
+    "item": "Base.Splint",
+    "locale": "ko",
+    "surface": "expanded",
+    "before": "머리와 몸통을 제외한 골절 부위를 고정하는 데 쓸 수 있다.",
+    "after": "골절 부위를 고정하는 데 쓸 수 있다."
+  },
+  {
+    "item": "Base.Splint",
+    "locale": "en",
+    "surface": "expanded",
+    "before": "It can help splint fractures outside the head and torso.",
+    "after": "It can be used to splint fractures."
+  },
+  {
+    "item": "Base.Stone",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축, 도구 제작에 재료로 쓸 수 있다.",
+    "after": "건축에 재료로 쓸 수 있다. 도구를 만들 때도 쓸 수 있다."
+  },
+  {
+    "item": "Base.Stone",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for construction or for making tools.",
+    "after": "It can supply material for construction. It can also be used to make tools."
+  },
+  {
+    "item": "Base.TreeBranch",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공, 사냥 장비 및 도구 제작에 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "골절을 고정하는 부목 재료로 쓸 수 있다. 목공에 재료로 쓸 수 있다. 사냥 장비 및 도구를 만들 때도 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.TreeBranch",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for woodworking or for making hunting equipment and tools. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.",
+    "after": "It can supply splinting material for fractures. It can supply material for woodworking. It can also be used to make hunting equipment and tools. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example."
+  },
+  {
+    "item": "Base.Twine",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "건축, 장비 제작에 재료로 쓸 수 있다.",
+    "after": "건축에 재료로 쓸 수 있다. 폭발 장치, 사냥과 낚시에 쓰는 장비 및 도구를 만들 때도 쓸 수 있다."
+  },
+  {
+    "item": "Base.Twine",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for construction or for making equipment.",
+    "after": "It can supply material for construction. It can also be used to make explosive devices, hunting equipment, fishing equipment, and tools."
+  },
+  {
+    "item": "Base.WaterBottleEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다.",
+    "after": "연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.WhiskeyEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.WineEmpty",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.WineEmpty2",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "연료를 담거나 공급할 수 있다. 물을 담거나 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.",
+    "after": "연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다."
+  },
+  {
+    "item": "Base.Wire",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "용접 건축, 사냥 장비 및 낚시 장비 제작에 재료로 쓸 수 있다.",
+    "after": "용접 건축에 재료로 쓸 수 있다. 사냥과 낚시에 쓰는 장비를 만들 때도 쓸 수 있다."
+  },
+  {
+    "item": "Base.Wire",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply material for welded construction or for making hunting equipment and fishing equipment.",
+    "after": "It can supply material for welded construction. It can also be used to make hunting equipment and fishing equipment."
+  },
+  {
+    "item": "Base.WoodenStick",
+    "locale": "ko",
+    "surface": "compact",
+    "before": "골절을 고정하는 부목 재료로 쓸 수 있다. 장비를 만드는 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+    "after": "골절을 고정하는 부목 재료로 쓸 수 있다. 사냥, 낚시와 야영에 쓰는 장비를 만드는 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다."
+  },
+  {
+    "item": "Base.WoodenStick",
+    "locale": "en",
+    "surface": "compact",
+    "before": "It can supply splinting material for fractures. It can supply material for making equipment. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.",
+    "after": "It can supply splinting material for fractures. It can supply material for making hunting equipment, fishing equipment, and camping equipment. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example."
+  }
+]

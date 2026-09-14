@@ -82,6 +82,18 @@ function IrisWikiSections.getLayer3Units(item)
     return units
 end
 
+function IrisWikiSections.getLayer3Records(item)
+    local model = DetailViewModel.ensure(item)
+    if not model or not model.layer3.available then return {} end
+    local units = {}
+    if model.layer3.units then
+        for i = 1, model.layer3.unitCount do units[i] = model.layer3.units[i] end
+    elseif model.layer3.display then
+        units[1] = {text=model.layer3.display}
+    end
+    return units
+end
+
 -- Only skills whose reading bonus is admitted for this presentation. The
 -- legacy Blacksmith declaration alone does not settle its active B41 behavior.
 local SKILL_LABELS = {

@@ -6,6 +6,7 @@
 ]]
 
 local IrisWikiPanel = {}
+local TargetGroupView = require("Iris/UI/Detail/IrisTargetGroupView")
 
 -- 의존성
 local IrisWikiSections = require "Iris/UI/Wiki/IrisWikiSections"
@@ -108,7 +109,16 @@ function IrisWikiPanel.createPanel(item)
     
     -- 제목과 닫기 버튼은 고정하고, 본문만 패널 내부에서 스크롤한다.
     local content = createScrollableContent(panel, panelW, panelH, 40)
-    local yOffset = 5
+    panel.targetGroupState = {}
+    panel.contentPanel = content
+    local function rebuildContent()
+        local previousScroll = content.getYScroll and content:getYScroll() or 0
+        local children = {}
+        for _, child in pairs(content:getChildren()) do
+            if child ~= content.vscroll and child ~= content.hscroll then children[#children + 1] = child end
+        end
+        for _, child in ipairs(children) do content:removeChild(child) end
+        local yOffset = 5
     
     -- A) 태그 목록
     local tagsSection = IrisWikiSections.renderTagsSection(model)
@@ -118,11 +128,14 @@ function IrisWikiPanel.createPanel(item)
     end
 
     -- B.25) 3계층 본문
-    for _, unit in ipairs(IrisWikiSections.getLayer3Units(model)) do
+    for index, unit in ipairs(IrisWikiSections.getLayer3Records(model)) do
         addWrappedLabels(content, "•", 10, yOffset, 18,
             0.9, 0.9, 0.9, UIFont.Small, 22)
-        yOffset = addWrappedLabels(content, unit, 25, yOffset, 18,
-            0.9, 0.9, 0.9, UIFont.Small, 22) + 7
+        yOffset = TargetGroupView.render(content, unit, 25, yOffset, UIFont.Small,
+            model.locale, panel.targetGroupState, tostring(index), function() panel.rebuildTargetContent() end,
+            function(text, x, y)
+                return addWrappedLabels(content, text, x, y, 18, 0.9, 0.9, 0.9, UIFont.Small, 22)
+            end, 22) + 7
     end
     
     local literatureSection = IrisWikiSections.renderLiteratureSection(model)
@@ -151,7 +164,14 @@ function IrisWikiPanel.createPanel(item)
         yOffset = addWrappedLabels(content, fieldsSection, 10, yOffset, 18,
             1, 1, 1, UIFont.Small, 22)
     end
-    content:setScrollHeight(math.max(content.height, yOffset + 10))
+    content.irisContentHeight = yOffset + 10
+    content:setScrollHeight(math.max(content.height, content.irisContentHeight))
+        if content.setYScroll then
+            content:setYScroll(math.max(-math.max(0, yOffset + 10 - content.height), math.min(0, previousScroll)))
+        end
+    end
+    panel.rebuildTargetContent = rebuildContent
+    rebuildContent()
     
     -- 닫기 함수
     panel.close = function(self)

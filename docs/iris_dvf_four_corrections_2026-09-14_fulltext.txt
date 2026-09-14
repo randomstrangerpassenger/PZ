@@ -1,0 +1,2170 @@
+[0] Base.223Bullets, Base.308Bullets, Base.556Bullets, Base.Bullets38, Base.Bullets44, Base.Bullets45, Base.Bullets9mm, Base.ShotgunShells
+KO C: 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.
+KO E: 모아서 상자로 포장할 수 있다.
+호환 총기나 탄창에 장전할 수 있다.
+분해해 화약을 얻을 수 있다.
+EN C: It can be loaded into compatible firearms or magazines. It can be dismantled to obtain Gunpowder.
+EN E: It can be collected and packed into a box.
+It can be loaded into compatible firearms or magazines.
+It can be dismantled to obtain Gunpowder.
+
+[1] Base.AlarmClock2
+KO C: 수제 폭탄 타이머를 만드는 재료로 쓸 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다.
+KO E: 수제 폭탄 타이머를 만드는 재료로 쓸 수 있다.
+원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다.
+EN C: It can be used as material for making Crafted Timer. Its alarm time and on/off state can be set, and a ringing alarm can be stopped.
+EN E: It can be used as material for making Crafted Timer.
+Its alarm time and on/off state can be set, and a ringing alarm can be stopped.
+
+[2] Base.Aluminum
+KO C: 전자 기기, 폭발 장치 및 모자를 만드는 재료로 쓸 수 있다.
+KO E: 전자 기기, 폭발 장치 및 모자를 만드는 재료로 쓸 수 있다.
+EN C: It can supply material for making electronic devices, explosive devices, and hats.
+EN E: It can supply material for making electronic devices, explosive devices, and hats.
+
+[3] Base.Amplifier
+KO C: 전자 기기 및 소음 발생 장치를 만드는 재료로 쓸 수 있다.
+KO E: 전자 기기 및 소음 발생 장치를 만드는 재료로 쓸 수 있다.
+EN C: It can supply material for making electronic devices and noise-making devices.
+EN E: It can supply material for making electronic devices and noise-making devices.
+
+[4] Base.AssaultRifle
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: M16 자동소총을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the M16 Assault Rifle.
+It can be loaded with ammunition for shooting.
+
+[5] Base.AssaultRifle2
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: M14 단발 자동소총을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the M14 Single Shot Assault Rifle.
+It can be loaded with ammunition for shooting.
+
+[6] Base.Axe, Base.HandAxe, Base.WoodAxe
+KO C: 음식을 손질할 수 있다. 덤불과 덩굴을 제거할 수 있다. 무기로도 쓸 수 있다. 나무를 베는 데 사용할 수 있다.
+KO E: 음식을 나누는 데 쓸 수 있다.
+덤불이나 벽 덩굴을 제거할 수 있다.
+무기로 쓸 수 있다.
+나무를 베는 데 사용할 수 있다.
+EN C: It can be used to prepare food. It can be used for removing bushes and vines. It can also be used as a weapon. It can be used to chop trees.
+EN E: It can be used for food portioning.
+It can be used to remove bushes and wall vines.
+It can be used as a weapon.
+It can be used to chop trees.
+
+[7] Base.BadmintonRacket, Base.Banjo, Base.CanoePadel, Base.CanoePadelX2, Base.ClubHammer, Base.Golfclub, Base.GuitarAcoustic, Base.GuitarElectricBassBlack, Base.GuitarElectricBassBlue, Base.GuitarElectricBassRed, Base.GuitarElectricBlack, Base.GuitarElectricBlue, Base.GuitarElectricRed, Base.HandScythe, Base.HockeyStick, Base.IceHockeyStick, Base.LaCrosseStick, Base.LeafRake, Base.Rake, Base.Saxophone, Base.TennisRacket, Base.Trumpet, Base.Violin, Base.WoodenMallet
+KO C: 무기로 쓸 수 있다.
+KO E: 무기로 쓸 수 있다.
+EN C: It can be used as a weapon.
+EN E: It can be used as a weapon.
+
+[8] Base.BallPeenHammer, Base.HammerStone
+KO C: 금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다.
+KO E: 금속을 단조하는 데 사용할 수 있다.
+목공과 건축 작업에 쓸 수 있다.
+문과 창문에 판자 바리케이드를 설치할 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used for metal forging, woodworking and construction. It can also be used as a weapon.
+EN E: It can be used for metal forging.
+It can be used for woodworking and construction.
+It can be used to install plank barricades on doors and windows.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+[9] Base.Bandage
+KO C: 화상 세척에 쓸 수 있다. 상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.
+KO E: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.
+EN C: It can be used for cleaning burns. It can be wrapped around wounds. It can also be disinfected before use. If infected, it can infect the wound.
+EN E: It can be used to clean burns.
+It can be wrapped around wounds. It can also be disinfected before use. If infected, it can infect the wound.
+
+[10] Base.BandageDirty, Base.LeatherStripsDirty
+KO C: 상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다.
+KO E: 상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.
+물로 씻어 다시 쓸 수 있다.
+EN C: It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse.
+EN E: It can be wrapped around wounds. If infected, it can infect the wound.
+It can be washed with water for reuse.
+
+[11] Base.BarbedWire, Base.Drawer
+KO C: 건축 재료로 쓸 수 있다.
+KO E: 건축 재료로 쓸 수 있다.
+EN C: It can be used as material for construction.
+EN E: It can be used as material for construction.
+
+[12] Base.BaseballBat
+KO C: 목공 재료로 쓸 수 있다. 무기로 쓸 수 있다.
+KO E: 목공 재료로 쓸 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used as material for woodworking. It can be used as a weapon.
+EN E: It can be used as material for woodworking.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+[13] Base.BaseballBatNails
+KO C: 무기로 쓸 수 있다.
+KO E: 수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used as a weapon.
+EN E: It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+[14] Base.BeerEmpty
+KO C: 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.
+KO E: 화염 장치를 만들 때 재료로 쓸 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+깨뜨려 깨진 병을 얻을 수 있다.
+EN C: It can be used as material for making incendiary devices. It can hold water for storage or carrying. It can be broken to obtain Smashed Bottle.
+EN E: It can be used as material for making incendiary devices.
+It can hold water for storage or carrying.
+It can be broken to obtain Smashed Bottle.
+
+[15] Base.BeerWaterFull, Base.FullKettle, Base.GlassTumblerWater, Base.GlassWineWater, Base.PlasticCupWater, Base.WaterBleachBottle, Base.WaterBottleFull, Base.WaterBowl, Base.WaterPaintbucket, Base.WaterPopBottle, Base.WhiskeyWaterFull, Base.WineWaterFull, farming.GardeningSprayFull, farming.MayonnaiseWaterFull, farming.RemouladeWaterFull, farming.WateredCanFull
+KO C: 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다.
+KO E: 물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.
+작물에 물을 줄 수 있다.
+물로 차량의 혈흔을 씻을 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.
+EN C: It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning.
+EN E: It can store and carry water and transfer it to other containers or water storage fixtures.
+It can water seeded crops.
+Its water can wash vehicle bloodstains.
+It can extinguish fires on the ground or on characters.
+Its water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.
+
+[16] Base.BigGasTank1, Base.BigGasTank2, Base.BigGasTank3, Base.NormalGasTank1, Base.NormalGasTank2, Base.NormalGasTank3, Base.SmallGasTank1, Base.SmallGasTank2, Base.SmallGasTank3
+KO C: 차량에 장착해 연료를 보관하고 엔진에 공급할 수 있다.
+KO E: 차량에 장착해 연료를 보관하고 엔진에 공급할 수 있다.
+EN C: It can be installed in a compatible vehicle to store fuel and supply the engine.
+EN E: It can be installed in a compatible vehicle to store fuel and supply the engine.
+
+[17] Base.BigTrunk1, Base.BigTrunk2, Base.BigTrunk3, Base.GloveBox1, Base.GloveBox2, Base.GloveBox3, Base.NormalTrunk1, Base.NormalTrunk2, Base.NormalTrunk3, Base.SmallTrunk1, Base.SmallTrunk2, Base.SmallTrunk3, Base.TrailerTrunk1, Base.TrailerTrunk2, Base.TrailerTrunk3, Base.VanSeatsTrunk2
+KO C: 차량에 장착해 물품을 보관할 수 있다.
+KO E: 차량에 장착해 물품을 보관할 수 있다.
+EN C: Once installed on a vehicle, it can store items.
+EN E: Once installed on a vehicle, it can store items.
+
+[18] Base.BleachEmpty, Base.PopBottleEmpty
+KO C: 연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다.
+KO E: 주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다.
+물을 담아 보관하거나 운반할 수 있다.
+EN C: It can receive and supply fuel. It can receive, store, and carry water.
+EN E: It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle.
+It can hold water for storage or carrying.
+
+[19] Base.BlowTorch
+KO C: 금속 제작, 건축과 금속 바리케이드나 불탄 차량 등의 해체에 용접 도구로 쓸 수 있다.
+KO E: 금속 부품을 만들거나 금속 구조물을 세울 때 용접 도구로 쓸 수 있다.
+문과 창문에 금속 바리케이드를 설치하는 데 사용할 수 있다.
+금속 바리케이드를 철거하는 데 사용할 수 있다.
+불타거나 파손된 차량을 분해해 재료를 회수할 수 있다.
+EN C: It can serve as a welding tool for metalwork and construction, or dismantling metal barricades and burnt vehicles, for example.
+EN E: It can be used as a tool for metal-part welding and welded construction.
+It can be used to install metal barricades on doors and windows.
+It can be used to remove metal barricades.
+It can be used to dismantle burnt or smashed vehicles and recover materials.
+
+[20] Base.Book, Base.Magazine
+KO C: 기분 전환을 위한 읽을거리로 쓸 수 있다. 야영 장비를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 기분 전환을 위한 읽을거리로 쓸 수 있다.
+야영 장비를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read for a change of mood. It can be used as material for making camping equipment. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read for a change of mood.
+It can be used as material for making camping equipment.
+It can be used as fuel or tinder, for example in campfires.
+
+[21] Base.BookBlacksmith1, Base.BookBlacksmith2, Base.BookBlacksmith3, Base.BookBlacksmith4, Base.BookBlacksmith5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 대장장이 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the blacksmithing XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[22] Base.BookCarpentry1, Base.BookCarpentry2, Base.BookCarpentry3, Base.BookCarpentry4, Base.BookCarpentry5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 목공 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the carpentry XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the carpentry XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[23] Base.BookCooking1, Base.BookCooking2, Base.BookCooking3, Base.BookCooking4, Base.BookCooking5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 요리 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the cooking XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the cooking XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[24] Base.BookElectrician1, Base.BookElectrician2, Base.BookElectrician3, Base.BookElectrician4, Base.BookElectrician5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 전기공학 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the electrical XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the electrical XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[25] Base.BookFarming1, Base.BookFarming2, Base.BookFarming3, Base.BookFarming4, Base.BookFarming5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 농사 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the farming XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the farming XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[26] Base.BookFirstAid1, Base.BookFirstAid2, Base.BookFirstAid3, Base.BookFirstAid4, Base.BookFirstAid5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 응급처치 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the first aid XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the first aid XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[27] Base.BookFishing1, Base.BookFishing2, Base.BookFishing3, Base.BookFishing4, Base.BookFishing5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 낚시 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the fishing XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the fishing XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[28] Base.BookForaging1, Base.BookForaging2, Base.BookForaging3, Base.BookForaging4, Base.BookForaging5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 채집 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the foraging XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the foraging XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[29] Base.BookMechanic1, Base.BookMechanic2, Base.BookMechanic3, Base.BookMechanic4, Base.BookMechanic5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 차량 정비 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the mechanics XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the mechanics XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[30] Base.BookMetalWelding1, Base.BookMetalWelding2, Base.BookMetalWelding3, Base.BookMetalWelding4, Base.BookMetalWelding5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 금속 용접 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the metalworking XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the metalworking XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[31] Base.BookTailoring1, Base.BookTailoring2, Base.BookTailoring3, Base.BookTailoring4, Base.BookTailoring5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 재봉 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the tailoring XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the tailoring XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[32] Base.BookTrapping1, Base.BookTrapping2, Base.BookTrapping3, Base.BookTrapping4, Base.BookTrapping5
+KO C: 자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 자신의 기술 수준에 맞을 때 읽으면 덫 사냥 경험치 배율을 높일 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: Reading it at the appropriate skill levels can raise the trapping XP multiplier. It can be used as fuel or tinder, for example in campfires.
+EN E: Reading it at the appropriate skill levels can raise the trapping XP multiplier.
+It can be used as fuel or tinder, for example in campfires.
+
+[33] Base.Bowl
+KO C: 요리할 때 재료를 담거나 조리한 음식을 나누어 담는 데 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다.
+KO E: 재료를 더해 요리를 만들 수 있다.
+조리한 냄비 음식을 나누어 담을 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+EN C: It can be used for food preparation and for holding portions of prepared meals. It can hold water for storage or carrying.
+EN E: Ingredients can be added to prepare food.
+It can be used to divide prepared pot meals into portions.
+It can hold water for storage or carrying.
+
+[34] Base.BreadKnife, Base.ButterKnife
+KO C: 호박을 장식용으로 깎는 데 쓸 수 있다. 음식을 손질하고 목재를 가공할 수 있다. 제작한 창에 부착하거나 무기로 쓸 수도 있다.
+KO E: 호박을 장식용으로 깎는 데 쓸 수 있다.
+음식을 나누는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used to carve decorative pumpkins. It can be used to prepare food and work wood. It can also be attached to a crafted spear or be used as a weapon.
+EN E: It can be used to carve decorative pumpkins.
+It can be used for food portioning.
+It can be used for woodworking.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+[35] Base.Broom
+KO C: 바닥 혈흔을 지울 수 있다. 재를 치울 수 있다. 무기로 쓸 수 있다.
+KO E: 바닥 혈흔을 지울 수 있다.
+바닥의 재를 치울 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used to clean floor bloodstains. It can be used for ash cleanup. It can be used as a weapon.
+EN E: It can be used to clean floor bloodstains.
+It can be used for clearing ash from burnt floors.
+It can be used as a weapon.
+
+[36] Base.BucketEmpty
+KO C: 물을 담아 보관하거나 운반할 수 있다. 석고를 섞는 용기로 쓸 수 있다.
+KO E: 물을 담아 보관하거나 운반할 수 있다.
+석고를 섞는 용기로 쓸 수 있다.
+EN C: It can hold water for storage or carrying. It can be used as a container for plaster mixing.
+EN E: It can hold water for storage or carrying.
+It can be used as a container for plaster mixing.
+
+[37] Base.BucketWaterFull
+KO C: 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 석고를 섞는 용기로 쓸 수 있다.
+KO E: 물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.
+작물에 물을 줄 수 있다.
+물로 차량의 혈흔을 씻을 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.
+석고를 섞는 용기로 쓸 수 있다.
+EN C: It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning. It can be used as a container for plaster mixing.
+EN E: It can store and carry water and transfer it to other containers or water storage fixtures.
+It can water seeded crops.
+Its water can wash vehicle bloodstains.
+It can extinguish fires on the ground or on characters.
+Its water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.
+It can be used as a container for plaster mixing.
+
+[38] Base.Coldpack
+KO C: 연막 장치를 만들 때 재료로 쓸 수 있다.
+KO E: 연막 장치를 만들 때 재료로 쓸 수 있다.
+EN C: It can be used as material for making smoke devices.
+EN E: It can be used as material for making smoke devices.
+
+[39] Base.ComicBook, Base.HottieZ, Base.MagazineCrossword1, Base.MagazineCrossword2, Base.MagazineCrossword3, Base.MagazineWordsearch1, Base.MagazineWordsearch2, Base.MagazineWordsearch3, Base.TVMagazine
+KO C: 기분 전환을 위한 읽을거리로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 기분 전환을 위한 읽을거리로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read for a change of mood. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read for a change of mood.
+It can be used as fuel or tinder, for example in campfires.
+
+[40] Base.CookingMag1
+KO C: 읽어서 요리법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 요리법을 배울 수 있다.
+- 케이크 반죽 만들기
+- 파이 반죽 만들기
+- 초코칩 쿠키 도우 만들기
+- 초콜릿 쿠키 도우 만들기
+- 오트밀 쿠키 도우 만들기
+- 설탕 쿠키 도우 만들기
+- 쇼트브레드 쿠키 도우 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn cooking recipes. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn cooking recipes.
+- Make Cake Batter
+- Make Pie Dough
+- Make Chocolate Chip Cookie Dough
+- Make Chocolate Cookie Dough
+- Make Oatmeal Cookie Dough
+- Make Sugar Cookie Dough
+- Make Shortbread Cookie Dough
+It can be used as fuel or tinder, for example in campfires.
+
+[41] Base.CookingMag2
+KO C: 읽어서 요리법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 요리법을 배울 수 있다.
+- 빵 반죽 만들기
+- 비스킷 만들기
+- 피자 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn cooking recipes. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn cooking recipes.
+- Make Bread Dough
+- Make Biscuits
+- Make Pizza
+It can be used as fuel or tinder, for example in campfires.
+
+[42] Base.CottonBalls
+KO C: 소독솜을 만드는 데 쓸 수 있다.
+KO E: 소독솜을 만드는 데 쓸 수 있다.
+EN C: It can be used to make disinfected cotton balls.
+EN E: It can be used to make disinfected cotton balls.
+
+[43] Base.DenimStrips
+KO C: 상처 처치나 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+KO E: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.
+화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+EN C: It can be used for wound care or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for making incendiary devices, tools, and splints.
+EN E: It can be used to clean burns.
+It can be wrapped around wounds. If infected, it can infect the wound.
+It can supply material for making incendiary devices, tools, and splints.
+It can be used to patch garment holes or add padding.
+
+[44] Base.DenimStripsDirty
+KO C: 상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+KO E: 상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.
+물로 씻어 다시 쓸 수 있다.
+화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+EN C: It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for making incendiary devices, tools, and splints.
+EN E: It can be wrapped around wounds. If infected, it can infect the wound.
+It can be washed with water for reuse.
+It can supply material for making incendiary devices, tools, and splints.
+
+[45] Base.Disinfectant
+KO C: 천, 솜, 상처를 소독하는 데 쓸 수 있다.
+KO E: 천, 솜, 상처를 소독하는 데 쓸 수 있다.
+EN C: It can be used to disinfect cloth, cotton or wounds.
+EN E: It can be used to disinfect cloth, cotton or wounds.
+
+[46] Base.Doorknob
+KO C: 목공과 건축 재료로 쓸 수 있다.
+KO E: 목공과 건축 재료로 쓸 수 있다.
+EN C: It can be used as material for woodworking and construction.
+EN E: It can be used as material for woodworking and construction.
+
+[47] Base.DoubleBarrelShotgun
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다. 총신을 짧게 개조할 수 있다.
+KO E: 더블 배럴 산탄총을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+총신을 짧게 개조할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting. Its shotgun barrel can be shortened.
+EN E: It can be used as repair material for the Double Barrel Shotgun.
+It can be loaded with ammunition for shooting.
+Its shotgun barrel can be shortened.
+
+[48] Base.DuctTape
+KO C: 창 부착물 고정, 장치 개조, 무기 수리 및 호환 차량 부품 수리에 재료로 쓸 수 있다.
+KO E: 창에 부착물을 다는 재료로 쓸 수 있다.
+장치에 움직임 감지, 시간 지연, 원격 작동 기능을 더하는 재료로 쓸 수 있다.
+호환되는 다음 물품을 수리할 때 재료로 쓸 수 있다.
+- 도끼
+- 배드민턴 라켓
+- 둥근머리 망치
+- 밴조
+- 야구 방망이
+- 못 박은 야구 방망이
+- 빗자루
+- 카누용 노
+- 카누용 이중 노
+- 클럽 해머
+- 쇠스랑
+- 괭이
+- 글로브 박스
+- 골프클럽
+- 번철 팬
+- 어쿠스틱 기타
+- 전기 베이스 (검은색)
+- 전기 베이스 (파란색)
+- 전기 베이스 (빨간색)
+- 전기 기타 (검은색)
+- 전기 기타 (파란색)
+- 전기 기타 (빨간색)
+- 망치
+- 손도끼
+- 손갈퀴
+- 손낫
+- 하키 스틱
+- 사냥용 칼
+- 아이스하키 스틱
+- 부엌칼
+- 라크로스 스틱
+- 갈퀴
+- 마체테
+- 중형 좌석
+- 프라이팬
+- 곡괭이
+- 밀대
+- 색소폰
+- 삽
+- 대형 망치
+- 눈 삽
+- 창 (빵칼)
+- 창 (버터칼)
+- 제작한 창
+- 창 (손갈퀴)
+- 창 (사냥용 칼)
+- 창 (얼음 송곳)
+- 창 (부엌칼)
+- 창 (편지 칼)
+- 창 (마체테)
+- 창 (메스)
+- 창 (가위)
+- 창 (드라이버)
+- 창 (숟가락)
+- 테니스 라켓
+- 트럼펫
+- 바이올린
+- 벌목 도끼
+- 나무 망치
+EN C: It can supply material for attaching items to spears, modifying devices, repairing weapons, and repairing compatible vehicle parts.
+EN E: It can be used as material for attaching items to spears.
+It can be used as material for adding motion sensing, time delay, and remote activation to devices.
+It can be used as repair material for compatible items from the following list.
+- Axe
+- Badminton Racket
+- Ball Peen Hammer
+- Banjo
+- Baseball Bat
+- Spiked Baseball Bat
+- Broom
+- Canoe Paddle
+- Canoe Paddle Double
+- Club Hammer
+- Garden Fork
+- Garden Hoe
+- Glove Box
+- Golfclub
+- Griddle Pan
+- Acoustic Guitar
+- Black Electric Bass
+- Blue Electric Bass
+- Red Electric Bass
+- Black Electric Guitar
+- Blue Electric Guitar
+- Red Electric Guitar
+- Hammer
+- Hand Axe
+- Hand Fork
+- Hand Scythe
+- Hockey Stick
+- Hunting Knife
+- Ice Hockey Stick
+- Kitchen Knife
+- LaCrosse Stick
+- Leaf Rake
+- Machete
+- Standard Seat
+- Frying Pan
+- PickAxe
+- Rake
+- Rolling Pin
+- Saxophone
+- Shovel
+- Sledgehammer
+- Snow Shovel
+- Spear With Bread Knife
+- Spear With Butter Knife
+- Crafted Spear
+- Spear With Hand Fork
+- Spear With Hunting Knife
+- Spear With Ice Pick
+- Spear With Knife
+- Spear With Letter Opener
+- Spear With Machete
+- Spear With Scalpel
+- Spear With Scissors
+- Spear With Screwdriver
+- Spear With Spoon
+- Tennis Racket
+- Trumpet
+- Violin
+- Wood Axe
+- Wooden Mallet
+
+[49] Base.Egg
+KO C: 먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다.
+KO E: 달걀곽에 모아 포장할 수 있다.
+먹을 수 있다.
+요리 재료로 쓸 수 있다.
+덫의 미끼로 쓸 수 있다.
+EN C: It can be eaten or used as a cooking ingredient. It can also be used as trap bait.
+EN E: It can be packed with other eggs into a carton.
+It can be eaten.
+It can be used as a cooking ingredient.
+It can be used as trap bait.
+
+[50] Base.ElectronicsMag1
+KO C: 읽어서 전자 장치 관련 제작법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 전자 장치 관련 제작법을 배울 수 있다.
+- 원격제어 조정기 (V1) 만들기
+- 원격제어 조정기 (V2) 만들기
+- 원격제어 조정기 (V3) 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn electronic-device recipes. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn electronic-device recipes.
+- Make Remote Controller V1
+- Make Remote Controller V2
+- Make Remote Controller V3
+It can be used as fuel or tinder, for example in campfires.
+
+[51] Base.ElectronicsMag2
+KO C: 읽어서 전자 장치 제작 및 개조 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 전자 장치 제작 및 개조 방법을 배울 수 있다.
+- 수제작 타이머 만들기
+- 타이머로 추가하기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to make and modify electronic equipment. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to make and modify electronic equipment.
+- Make Timer
+- Add Timer
+It can be used as fuel or tinder, for example in campfires.
+
+[52] Base.ElectronicsMag3
+KO C: 읽어서 전자 장치 개조 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 전자 장치 개조 방법을 배울 수 있다.
+- 센서 (V1)로 추가 개조하기
+- 센서 (V2)로 추가 개조하기
+- 센서 (V3)로 추가 개조하기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to modify electronic equipment. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to modify electronic equipment.
+- Add Motion Sensor V1
+- Add Motion Sensor V2
+- Add Motion Sensor V3
+It can be used as fuel or tinder, for example in campfires.
+
+[53] Base.ElectronicsMag4
+KO C: 읽어서 발전기를 연결하고 사용하는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 발전기를 연결하고 사용하는 방법을 배울 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to connect and use generators. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to connect and use generators.
+It can be used as fuel or tinder, for example in campfires.
+
+[54] Base.ElectronicsMag5
+KO C: 읽어서 전자 장치 제작 및 개조 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 전자 장치 제작 및 개조 방법을 배울 수 있다.
+- 수제작 원격 폭탄 격발기 만들기
+- 격발기 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to make and modify electronic equipment. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to make and modify electronic equipment.
+- Make Remote Trigger
+- Add Crafted Trigger
+It can be used as fuel or tinder, for example in campfires.
+
+[55] Base.ElectronicsScrap
+KO C: 장치 개조 및 발전기 수리에 재료로 쓸 수 있다. 전자 기기, 소음 발생 장치 및 폭발 장치를 만들 때도 쓸 수 있다.
+KO E: 장치에 움직임 감지, 시간 지연, 원격 작동 기능을 더하는 재료로 쓸 수 있다.
+전자 기기, 소음 발생 장치 및 폭발 장치를 만드는 재료로 쓸 수 있다.
+조명을 건전지용으로 개조하는 재료로 쓸 수 있다.
+손상된 발전기를 수리하는 재료로 쓸 수 있다.
+EN C: It can supply material for modifying devices and repairing generators. It can also be used to make electronic devices, noise-making devices, and explosive devices.
+EN E: It can be used as material for adding motion sensing, time delay, and remote activation to devices.
+It can supply material for making electronic devices, noise-making devices, and explosive devices.
+It can supply material for converting lamps to battery power.
+It can supply repair material for damaged generators.
+
+[56] Base.EmptyPetrolCan
+KO C: 주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다.
+KO E: 주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다.
+EN C: It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle.
+EN E: It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle.
+
+[57] Base.EngineDoor1, Base.EngineDoor2, Base.EngineDoor3
+KO C: 호환 차량의 후드 교체 부품으로 쓸 수 있다.
+KO E: 호환 차량의 후드 자리에 장착할 수 있다. 장착 후 여닫거나 잠그고 잠금을 풀 수 있다.
+EN C: It can replace the hood in a compatible vehicle.
+EN E: It can be installed as the hood in a compatible vehicle. Once installed, it can be opened, closed, locked or unlocked.
+
+[58] Base.EngineerMagazine1
+KO C: 읽어서 전자 장치 관련 제작법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 전자 장치 관련 제작법을 배울 수 있다.
+- 소음 발생기 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn an electronic-device recipe. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn an electronic-device recipe.
+- Make Noise Maker
+It can be used as fuel or tinder, for example in campfires.
+
+[59] Base.EngineerMagazine2
+KO C: 읽어서 장치 제작법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 장치 제작법을 배울 수 있다.
+- 연막 폭탄 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn a device crafting recipe. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn a device crafting recipe.
+- Make Smoke Bomb
+It can be used as fuel or tinder, for example in campfires.
+
+[60] Base.FarmingMag1
+KO C: 읽어서 작물 치료제를 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 작물 치료제를 만드는 방법을 배울 수 있다.
+- 곰팡이 제거제 만들기
+- 살충제 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to make crop treatments. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to make crop treatments.
+- Make Mildew Cure
+- Make Flies Cure
+It can be used as fuel or tinder, for example in campfires.
+
+[61] Base.FishingLine
+KO C: 낚시 장비를 만드는 재료로 쓸 수 있다.
+KO E: 낚시 장비를 만드는 재료로 쓸 수 있다.
+EN C: It can be used as material for making fishing equipment.
+EN E: It can be used as material for making fishing equipment.
+
+[62] Base.FishingMag1
+KO C: 읽어서 낚시 장비 제작 및 수리 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 낚시 장비 제작 및 수리 방법을 배울 수 있다.
+- 낚싯대 만들기
+- 낚싯대 수리하기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to make and repair fishing equipment. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to make and repair fishing equipment.
+- Make Fishing Rod
+- Fix Fishing Rod
+It can be used as fuel or tinder, for example in campfires.
+
+[63] Base.FishingMag2
+KO C: 읽어서 낚시 장비 제작 및 재료 회수 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 낚시 장비 제작 및 재료 회수 방법을 배울 수 있다.
+- 어망 만들기
+- 철사 회수하기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to make fishing equipment and recover materials. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to make fishing equipment and recover materials.
+- Make Fishing Net
+- Get Wire Back
+It can be used as fuel or tinder, for example in campfires.
+
+[64] Base.FishingRodBreak
+KO C: 무기로 쓸 수 있다. 낚시 장비를 만들 때 재료로 쓸 수 있다.
+KO E: 무기로 쓸 수 있다.
+낚시 장비를 만들 때 재료로 쓸 수 있다.
+EN C: It can be used as a weapon. It can be used as a material for fishing-gear crafting.
+EN E: It can be used as a weapon.
+It can be used as a material for fishing-gear crafting.
+
+[65] Base.FlintKnife
+KO C: 음식, 목재 손질과 장비 제작에 쓸 수 있다. 무기로도 쓸 수 있다.
+KO E: 사냥과 낚시 장비를 만들거나 호박을 장식용으로 깎는 데 쓸 수 있다.
+음식을 손질하는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used for food and wood preparation or equipment making. It can also serve as a weapon.
+EN E: It can be used to make hunting and fishing equipment and carve decorative pumpkins.
+It can be used for food preparation.
+It can be used for woodworking.
+It can be used as a weapon.
+
+[66] Base.FrontCarDoor1, Base.FrontCarDoor2, Base.FrontCarDoor3
+KO C: 호환 차량의 앞문 교체 부품으로 쓸 수 있다.
+KO E: 호환 차량의 앞문 자리에 장착할 수 있다. 장착 후 여닫거나 잠그고 잠금을 풀 수 있다.
+EN C: It can replace the front door in a compatible vehicle.
+EN E: It can be installed as the front door in a compatible vehicle. Once installed, it can be opened, closed, locked or unlocked.
+
+[67] Base.Garbagebag
+KO C: 건축 재료로 쓸 수 있다. 물건을 담아 보관하거나 운반할 수 있다.
+KO E: 건축 재료로 쓸 수 있다.
+물건을 담아 보관하거나 운반할 수 있다.
+EN C: It can be used as material for construction. It can be used to store and carry items.
+EN E: It can be used as material for construction.
+It can be used to store and carry items.
+
+[68] Base.GardenFork, Base.GardenHoe, Base.PickAxe
+KO C: 밭을 만들거나 정리할 수 있다. 무기로 쓸 수 있다.
+KO E: 땅에 고랑을 파거나 밭의 작물과 고랑을 정리할 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used for preparing and clearing planting beds. It can be used as a weapon.
+EN E: It can dig furrows in soil or clear plants and furrows.
+It can be used as a weapon.
+
+[69] Base.GardenSaw
+KO C: 음식, 목재 손질과 장비 제작, 건축물 해체에 쓸 수 있다.
+KO E: 사냥 장비나 폭발 장치를 만드는 데 쓸 수 있다.
+음식을 나누는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.
+EN C: It can be used for food and wood preparation or equipment making, or dismantling structures.
+EN E: It can be used to make hunting equipment and explosive devices.
+It can be used for food portioning.
+It can be used for woodworking.
+A saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.
+
+[70] Base.Generator
+KO C: 가동해 주변 전기 설비에 전원을 공급할 수 있다.
+KO E: 가동해 주변 전기 설비에 전원을 공급할 수 있다. 야외 발전기 사용이 허용된 설정에서는 야외 주유기에도 전원을 공급할 수 있다.
+EN C: It can be operated to power nearby electrical equipment.
+EN E: It can be operated to power nearby electrical equipment. It can also power exterior fuel pumps when outdoor generator use is enabled.
+
+[71] Base.GlassTumbler, Base.GlassWine, Base.PlasticCup
+KO C: 물을 담아 보관하거나 운반할 수 있다. 재료를 더해 요리를 만들 수도 있다.
+KO E: 물을 담아 보관하거나 운반할 수 있다.
+재료를 더해 요리를 만들 수 있다.
+EN C: It can hold water for storage or carrying. Ingredients can also be added to prepare food.
+EN E: It can hold water for storage or carrying.
+Ingredients can be added to prepare food.
+
+[72] Base.Glue
+KO C: 무기 수리 및 호환 차량 부품 수리에 재료로 쓸 수 있다. 전자 기기를 만들 때도 쓸 수 있다.
+KO E: 전자 기기를 만드는 재료로 쓸 수 있다.
+호환되는 다음 물품을 수리할 때 재료로 쓸 수 있다.
+- 도끼
+- 야구 방망이
+- 못 박은 야구 방망이
+- 빗자루
+- 카누용 노
+- 카누용 이중 노
+- 클럽 해머
+- 쇠스랑
+- 괭이
+- 글로브 박스
+- 번철 팬
+- 망치
+- 손도끼
+- 손갈퀴
+- 손낫
+- 하키 스틱
+- 사냥용 칼
+- 아이스하키 스틱
+- 부엌칼
+- 라크로스 스틱
+- 갈퀴
+- 중형 좌석
+- 프라이팬
+- 곡괭이
+- 밀대
+- 삽
+- 대형 망치
+- 눈 삽
+- 창 (빵칼)
+- 창 (버터칼)
+- 제작한 창
+- 창 (손갈퀴)
+- 창 (사냥용 칼)
+- 창 (얼음 송곳)
+- 창 (부엌칼)
+- 창 (편지 칼)
+- 창 (마체테)
+- 창 (메스)
+- 창 (가위)
+- 창 (드라이버)
+- 창 (숟가락)
+- 벌목 도끼
+- 나무 망치
+EN C: It can supply material for repairing weapons and repairing compatible vehicle parts. It can also be used to make electronic devices.
+EN E: It can be used as material for making electronic devices.
+It can be used as repair material for compatible items from the following list.
+- Axe
+- Baseball Bat
+- Spiked Baseball Bat
+- Broom
+- Canoe Paddle
+- Canoe Paddle Double
+- Club Hammer
+- Garden Fork
+- Garden Hoe
+- Glove Box
+- Griddle Pan
+- Hammer
+- Hand Axe
+- Hand Fork
+- Hand Scythe
+- Hockey Stick
+- Hunting Knife
+- Ice Hockey Stick
+- Kitchen Knife
+- LaCrosse Stick
+- Leaf Rake
+- Standard Seat
+- Frying Pan
+- PickAxe
+- Rake
+- Rolling Pin
+- Shovel
+- Sledgehammer
+- Snow Shovel
+- Spear With Bread Knife
+- Spear With Butter Knife
+- Crafted Spear
+- Spear With Hand Fork
+- Spear With Hunting Knife
+- Spear With Ice Pick
+- Spear With Knife
+- Spear With Letter Opener
+- Spear With Machete
+- Spear With Scalpel
+- Spear With Scissors
+- Spear With Screwdriver
+- Spear With Spoon
+- Wood Axe
+- Wooden Mallet
+
+[73] Base.Gravelbag, Base.Sandbag
+KO C: 건축 재료로 쓸 수 있다. 흙이나 자갈, 모래를 담을 수 있다. 담긴 재료를 바닥에 깔 수 있다. 바닥이나 몸에 붙은 불을 끌 수 있다.
+KO E: 건축 재료로 쓸 수 있다.
+흙이나 자갈, 모래를 담을 수 있다.
+담긴 재료를 바닥에 깔 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+EN C: It can be used as material for construction. It can hold dirt, gravel or sand. Its ground material can be spread on the floor. It can extinguish fires on the ground or on characters.
+EN E: It can be used as material for construction.
+It can hold dirt, gravel or sand.
+Its ground material can be spread on the floor.
+It can extinguish fires on the ground or on characters.
+
+[74] Base.GridlePan
+KO C: 재료를 더해 요리를 만들 수 있다. 무기로 쓸 수 있다.
+KO E: 재료를 더해 요리를 만들 수 있다.
+무기로 쓸 수 있다.
+EN C: Ingredients can be added to prepare food. It can be used as a weapon.
+EN E: Ingredients can be added to prepare food.
+It can be used as a weapon.
+
+[75] Base.GunPowder
+KO C: 금속 단조에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다.
+KO E: 폭발 장치를 만들 때 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+EN C: It can supply material for metal forging. It can also be used to make explosive devices.
+EN E: It can be used as material for making explosive devices.
+It can be used as a material for metal forging.
+
+[76] Base.Hairspray, Base.Sparklers
+KO C: 폭발 장치를 만들 때 재료로 쓸 수 있다.
+KO E: 폭발 장치를 만들 때 재료로 쓸 수 있다.
+EN C: It can be used as material for making explosive devices.
+EN E: It can be used as material for making explosive devices.
+
+[77] Base.Hammer
+KO C: 금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다.
+KO E: 금속을 단조하는 데 사용할 수 있다.
+목공과 건축 작업에 쓸 수 있다.
+문과 창문의 판자 바리케이드를 설치하거나 철거할 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used for metal forging, woodworking and construction. It can also be used as a weapon.
+EN E: It can be used for metal forging.
+It can be used for woodworking and construction.
+It can be used to install or remove plank barricades on doors and windows.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+[78] Base.HandFork
+KO C: 제작한 창에 부착해 쓸 수 있다. 무기로 쓸 수 있다. 밭을 만들거나 정리할 수 있다.
+KO E: 제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+땅에 고랑을 파거나 밭의 작물과 고랑을 정리할 수 있다.
+EN C: It can be attached to a crafted spear. It can be used as a weapon. It can be used for preparing and clearing planting beds.
+EN E: It can be attached to a crafted spear.
+It can be used as a weapon.
+It can dig furrows in soil or clear plants and furrows.
+
+[79] Base.HerbalistMag
+KO C: 읽어서 야생 열매와 버섯의 독성을 식별하는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 야생 열매와 버섯의 독성을 식별하는 방법을 배울 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to identify poisonous wild berries and mushrooms. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to identify poisonous wild berries and mushrooms.
+It can be used as fuel or tinder, for example in campfires.
+
+[80] Base.Hinge, Base.ScrapMetal, Base.WeldingRods
+KO C: 용접 건축 재료로 쓸 수 있다.
+KO E: 용접 건축 재료로 쓸 수 있다.
+EN C: It can be used as material for welded construction.
+EN E: It can be used as material for welded construction.
+
+[81] Base.HuntingKnife, Base.KitchenKnife, Base.Machete
+KO C: 음식, 목재 손질과 장비 제작에 쓸 수 있다. 덤불과 덩굴을 제거할 수도 있다. 무기로도 쓸 수 있다.
+KO E: 사냥과 낚시 장비를 만들거나 호박을 장식용으로 깎는 데 쓸 수 있다.
+음식을 손질하는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+덤불이나 벽 덩굴을 제거할 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used for food and wood preparation or equipment making. It can also clear bushes and vines. It can also serve as a weapon.
+EN E: It can be used to make hunting and fishing equipment and carve decorative pumpkins.
+It can be used for food preparation.
+It can be used for woodworking.
+It can be used to remove bushes and wall vines.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+[82] Base.HuntingMag1
+KO C: 읽어서 덫을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 덫을 만드는 방법을 배울 수 있다.
+- 올가미 덫 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to make traps. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to make traps.
+- Make Snare Trap
+It can be used as fuel or tinder, for example in campfires.
+
+[83] Base.HuntingMag2
+KO C: 읽어서 덫을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 덫을 만드는 방법을 배울 수 있다.
+- 나무 상자 덫 만들기
+- 막대 덫 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to make traps. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to make traps.
+- Make Wooden Box Trap
+- Make Stick Trap
+It can be used as fuel or tinder, for example in campfires.
+
+[84] Base.HuntingMag3
+KO C: 읽어서 덫을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 덫을 만드는 방법을 배울 수 있다.
+- 덫상자 만들기
+- 철장 덫 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to make traps. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to make traps.
+- Make Trap Box
+- Make Cage Trap
+It can be used as fuel or tinder, for example in campfires.
+
+[85] Base.HuntingRifle
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: 사냥용 소총을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the MSR788 Rifle.
+It can be loaded with ammunition for shooting.
+
+[86] Base.IronIngot
+KO C: 금속 부품 용접 및 금속 단조에 재료로 쓸 수 있다.
+KO E: 금속 부품을 용접하는 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+EN C: It can supply material for metal-part welding and metal forging.
+EN E: It can be used as material for metal-part welding.
+It can be used as material for metal forging.
+
+[87] Base.Kettle, Base.MugRed, Base.MugSpiffo, Base.MugWhite, Base.Mugl, Base.PaintbucketEmpty, Base.Pot, Base.Teacup, farming.MayonnaiseEmpty, farming.RemouladeEmpty, farming.WateredCan
+KO C: 물을 담아 보관하거나 운반할 수 있다.
+KO E: 물을 담아 보관하거나 운반할 수 있다.
+EN C: It can hold water for storage or carrying.
+EN E: It can hold water for storage or carrying.
+
+[88] Base.LightBulb
+KO C: 호환 차량의 전조등에 달아 빛을 낼 수 있다. 호환 조명에 넣는 교체용 전구다. 전자 기기를 만드는 재료로 쓸 수 있다.
+KO E: 호환 차량의 전조등에 달아 빛을 낼 수 있다.
+호환 조명에 넣는 교체용 전구다.
+전자 기기를 만드는 재료로 쓸 수 있다.
+EN C: It can provide light in a compatible vehicle headlight. It can serve as a replacement bulb for compatible lamps. It can be used as material for making electronic devices.
+EN E: It can provide light in a compatible vehicle headlight.
+It can serve as a replacement bulb for compatible lamps.
+It can be used as material for making electronic devices.
+
+[89] Base.LightBulbGreen
+KO C: 호환 조명에 넣는 교체용 전구다. 전자 기기를 만드는 재료로 쓸 수 있다.
+KO E: 호환 조명에 넣는 교체용 전구다.
+전자 기기를 만드는 재료로 쓸 수 있다.
+EN C: It can serve as a replacement bulb for compatible lamps. It can be used as material for making electronic devices.
+EN E: It can serve as a replacement bulb for compatible lamps.
+It can be used as material for making electronic devices.
+
+[90] Base.Log
+KO C: 목공 및 건축에 재료로 쓸 수 있다. 야영 장비 및 숯을 만들 때도 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+KO E: 목공과 건축 재료로 쓸 수 있다.
+야영 장비를 만드는 재료로 쓸 수 있다.
+금속 드럼에서 숯을 만드는 재료로 쓸 수 있다.
+모아서 묶을 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+EN C: It can supply material for woodworking and construction. It can also be used to make camping equipment and charcoal. It can be used as fuel for campfires, for example.
+EN E: It can be used as material for woodworking and construction.
+It can be used as material for making camping equipment.
+It can be made into charcoal in a metal drum.
+It can be bundled with other logs.
+It can be used for breaking a watermelon.
+It can be used as fuel for campfires, for example.
+
+[91] Base.LogStacks2, Base.LogStacks3, Base.LogStacks4
+KO C: 묶음을 풀면 통나무와 묶을 때 쓴 재료를 돌려받을 수 있다.
+KO E: 묶음을 풀면 통나무와 묶을 때 쓴 재료를 돌려받을 수 있다.
+EN C: It can be unbundled to recover logs and binding materials.
+EN E: It can be unbundled to recover logs and binding materials.
+
+[92] Base.Mattress
+KO C: 건축 재료로 쓸 수 있다. 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+KO E: 건축 재료로 쓸 수 있다.
+놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+집어 들어 다른 위치로 옮길 수 있다.
+EN C: It can be used as material for construction. When set down, it provides a place to sleep or rest.
+EN E: It can be used as material for construction.
+When set down, it provides a place to sleep or rest.
+Its surface can hold items when it is set down.
+It can be picked up and moved to another location.
+
+[93] Base.MeatCleaver
+KO C: 음식, 목재 손질과 장비 제작에 쓸 수 있다. 무기로도 쓸 수 있다.
+KO E: 사냥과 낚시 장비를 만드는 데 쓸 수 있다.
+음식을 손질하는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used for food and wood preparation or equipment making. It can also serve as a weapon.
+EN E: It can be used to make hunting and fishing equipment.
+It can be used for food preparation.
+It can be used for woodworking.
+It can be used as a weapon.
+
+[94] Base.MechanicMag1, Base.MechanicMag2, Base.MechanicMag3
+KO C: 읽어서 차량 정비 지식을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 차량 정비 지식을 배울 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn vehicle maintenance. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn vehicle maintenance.
+It can be used as fuel or tinder, for example in campfires.
+
+[95] Base.MetalBar
+KO C: 용접 건축 및 금속 단조에 재료로 쓸 수 있다. 무기로 쓸 수 있다.
+KO E: 용접 건축 재료로 쓸 수 있다. 문과 창문의 금속 바리케이드에도 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can supply material for welded construction and metal forging. It can be used as a weapon.
+EN E: It can be used as material for welded construction. It can also supply window and door barricades.
+It can be used as a material for metal forging.
+It can be used as a weapon.
+
+[96] Base.MetalPipe
+KO C: 금속 부품 용접 및 용접 건축에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다. 무기로 쓸 수 있다.
+KO E: 금속 부품 용접과 건축 재료로 쓸 수 있다.
+폭발 장치를 만들 때 재료로 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can supply material for metal-part welding and welded construction. It can also be used to make explosive devices. It can be used as a weapon.
+EN E: It can be used as material for metal-part welding and construction.
+It can be used as material for making explosive devices.
+It can be used as a weapon.
+
+[97] Base.MetalworkMag1
+KO C: 읽어서 금속 구조물을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 금속 구조물을 만드는 방법을 배울 수 있다.
+- 금속 벽 만들기
+- 금속 지붕 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to build metal structures. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to build metal structures.
+- Make Metal Walls
+- Make Metal Roof
+It can be used as fuel or tinder, for example in campfires.
+
+[98] Base.MetalworkMag2
+KO C: 읽어서 금속 구조물을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 금속 구조물을 만드는 방법을 배울 수 있다.
+- 금속 보관함 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to build metal structures. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to build metal structures.
+- Make Metal Containers
+It can be used as fuel or tinder, for example in campfires.
+
+[99] Base.MetalworkMag3
+KO C: 읽어서 금속 구조물을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 금속 구조물을 만드는 방법을 배울 수 있다.
+- 금속 울타리 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to build metal structures. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to build metal structures.
+- Make Metal Fences
+It can be used as fuel or tinder, for example in campfires.
+
+[100] Base.MetalworkMag4
+KO C: 읽어서 금속 가공 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 금속 가공 방법을 배울 수 있다.
+- 금속판 만들기
+- 작은 금속판 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn metalworking techniques. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn metalworking techniques.
+- Make Metal Sheet
+- Make Small Metal Sheet
+It can be used as fuel or tinder, for example in campfires.
+
+[101] Base.Nails
+KO C: 목공, 건축 및 무기 수리에 재료로 쓸 수 있다. 사냥과 낚시에 쓰는 장비를 만들 때도 쓸 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다.
+KO E: 목공과 건축 재료로 쓸 수 있다. 문과 창문의 판자 바리케이드에도 재료로 쓸 수 있다.
+사냥과 낚시 장비를 만드는 재료로 쓸 수 있다.
+못 박은 야구 방망이를 수리할 때 재료로 쓸 수 있다.
+모아서 상자로 포장할 수 있다.
+위층 창문 등에 탈출용 로프를 고정할 수 있다.
+EN C: It can supply material for woodworking, construction, and repairing weapons. It can also be used to make hunting equipment and fishing equipment. It can be used to anchor an escape rope at an upper-floor window or similar attachment.
+EN E: It can be used as material for woodworking and construction. It can also supply window and door barricades.
+It can be used as material for making hunting and fishing equipment.
+It can be used as repair material for the Spiked Baseball Bat.
+It can be collected and packed into a box.
+It can be used to anchor an escape rope at an upper-floor window or similar attachment.
+
+[102] Base.Needle
+KO C: 의류를 수선하거나 덧댄 천을 떼는 데 쓸 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다.
+KO E: 의류의 구멍을 덧대거나 패딩을 붙이고, 덧댄 천을 떼어낼 수 있다. 떼어낸 천은 회수할 수도 있다.
+깊은 상처를 봉합하는 데 쓸 수 있다.
+매트리스를 만드는 데 쓸 수 있다.
+EN C: It can be used to mend clothing or remove patches. It can be used to stitch a deep wound.
+EN E: It can mend garment holes, add padding and remove patches, with a chance to recover the removed fabric.
+It can be used to stitch a deep wound.
+It can be used for mattress crafting.
+
+[103] Base.Newspaper
+KO C: 기분 전환을 위한 읽을거리로 쓸 수 있다. 연막 장치, 야영 장비 및 모자를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 기분 전환을 위한 읽을거리로 쓸 수 있다.
+연막 장치, 야영 장비 및 모자를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read for a change of mood. It can supply material for making smoke devices, camping equipment, and hats. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read for a change of mood.
+It can supply material for making smoke devices, camping equipment, and hats.
+It can be used as fuel or tinder, for example in campfires.
+
+[104] Base.NoiseTrap
+KO C: 원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.
+KO E: 원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다.
+소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다.
+EN C: It can be modified for remote activation, motion sensing, and time delay. It can produce noise to attract zombies.
+EN E: It can be modified for remote activation, motion sensing, and time delay.
+It can produce noise to attract zombies. It can also be thrown.
+
+[105] Base.NoiseTrapRemote
+KO C: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.
+KO E: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다.
+소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다.
+EN C: It can be activated remotely after linking it to a compatible controller. It can produce noise to attract zombies.
+EN E: It can be activated remotely after linking it to a compatible controller.
+It can produce noise to attract zombies. It can also be thrown.
+
+[106] Base.NoiseTrapSensorV1, Base.NoiseTrapSensorV2, Base.NoiseTrapSensorV3, Base.NoiseTrapTriggered
+KO C: 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.
+KO E: 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다.
+EN C: It can produce noise to attract zombies.
+EN E: It can produce noise to attract zombies. It can also be thrown.
+
+[107] Base.NormalCarSeat1, Base.NormalCarSeat2, Base.NormalCarSeat3
+KO C: 호환 차량에 장착해 앉거나 물품을 보관할 수 있다.
+KO E: 호환 차량에 장착해 앉거나 물품을 보관할 수 있다.
+EN C: It can be installed in a compatible vehicle for seating or item storage.
+EN E: It can be installed in a compatible vehicle for seating or item storage.
+
+[108] Base.Pan
+KO C: 재료를 담아 요리할 수 있다. 무기로 쓸 수 있다.
+KO E: 재료를 더해 요리를 만들 수 있다.
+무기로 쓸 수 있다.
+EN C: It can hold ingredients for cooking. It can be used as a weapon.
+EN E: Ingredients can be added to prepare food.
+It can be used as a weapon.
+
+[109] Base.Paperclip
+KO C: 낚시 장비를 만드는 재료로 쓸 수 있다.
+KO E: 낚시 장비를 만드는 재료로 쓸 수 있다.
+모아서 상자로 포장할 수 있다.
+EN C: It can be used as material for making fishing equipment.
+EN E: It can be used as material for making fishing equipment.
+It can be collected and packed into a box.
+
+[110] Base.Pasta, Base.Rice
+KO C: 먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다.
+KO E: 먹을 수 있다.
+덫의 미끼로 쓸 수 있다.
+요리 재료로 쓸 수 있다.
+EN C: It can be eaten or used as a cooking ingredient. It can also be used as trap bait.
+EN E: It can be eaten.
+It can be used as trap bait.
+It can be used as a cooking ingredient.
+
+[111] Base.PetrolBleachBottle, Base.PetrolCan, Base.PetrolPopBottle, Base.WaterBottlePetrol, Base.WhiskeyPetrol, Base.WinePetrol
+KO C: 연료를 담아 차량, 발전기에 공급하거나 불을 붙이는 연료로 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다.
+KO E: 주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다.
+시신을 태우는 데 쓸 수 있다.
+모닥불 등에 불을 붙이는 연료로 쓸 수 있다.
+발전기에 휘발유를 보충할 수 있다.
+화염 장치를 만들 때 재료로 쓸 수 있다.
+EN C: It can carry fuel for vehicles and generators or supply fuel for lighting fires. It can be used as material for making incendiary devices.
+EN E: It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle.
+It can be used to burn corpses.
+It can supply petrol for lighting campfires, for example.
+It can add petrol to a generator.
+It can be used as material for making incendiary devices.
+
+[112] Base.Pillow
+KO C: 야영 장비를 만드는 재료로 쓸 수 있다.
+KO E: 매트리스를 만드는 재료로 쓸 수 있다.
+EN C: It can be used as material for making camping equipment.
+EN E: It can be used as material for making Mattress.
+
+[113] Base.Pistol
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: M9 권총을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the M9 Pistol.
+It can be loaded with ammunition for shooting.
+
+[114] Base.Pistol2
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: M1911 권총을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the M1911 Pistol.
+It can be loaded with ammunition for shooting.
+
+[115] Base.Pistol3
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: D-E 권총을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the D-E Pistol.
+It can be loaded with ammunition for shooting.
+
+[116] Base.Plank
+KO C: 골절을 고정하는 부목 재료로 쓸 수 있다. 목공 및 건축에 재료로 쓸 수 있다. 사냥과 야영에 쓰는 장비 및 도구를 만들 때도 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+KO E: 골절을 고정하는 부목 재료로 쓸 수 있다.
+목공과 건축 재료로 쓸 수 있다.
+사냥 장비, 야영 장비 및 도구를 만드는 재료로 쓸 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+EN C: It can supply splinting material for fractures. It can supply material for woodworking and construction. It can also be used to make hunting equipment, camping equipment, and tools. It can be used as a weapon. It can be used as fuel for campfires, for example.
+EN E: It can supply splinting material for fractures.
+It can be used as material for woodworking and construction.
+It can supply material for making hunting equipment, camping equipment, and tools.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+It can be used as fuel for campfires, for example.
+
+[117] Base.RearCarDoor1, Base.RearCarDoor2, Base.RearCarDoor3
+KO C: 호환 차량의 뒷문 교체 부품으로 쓸 수 있다.
+KO E: 호환 차량의 뒷문 자리에 장착할 수 있다. 장착 후 여닫거나 잠그고 잠금을 풀 수 있다.
+EN C: It can replace the rear door in a compatible vehicle.
+EN E: It can be installed as the rear door in a compatible vehicle. Once installed, it can be opened, closed, locked or unlocked.
+
+[118] Base.RearCarDoorDouble1, Base.RearCarDoorDouble2, Base.RearCarDoorDouble3
+KO C: 호환 차량의 양문형 뒷문 교체 부품으로 쓸 수 있다.
+KO E: 호환 차량의 양문형 뒷문 자리에 장착할 수 있다. 장착 후 여닫거나 잠그고 잠금을 풀 수 있다.
+EN C: It can replace the double rear door in a compatible vehicle.
+EN E: It can be installed as the double rear door in a compatible vehicle. Once installed, it can be opened, closed, locked or unlocked.
+
+[119] Base.Receiver, Radio.RadioReceiver
+KO C: 수제 원격 폭탄 격발기를 만드는 재료로 쓸 수 있다.
+KO E: 수제 원격 폭탄 격발기를 만드는 재료로 쓸 수 있다.
+EN C: It can be used as material for making Crafted Trigger.
+EN E: It can be used as material for making Crafted Trigger.
+
+[120] Base.Remote
+KO C: 원격 조종기를 만드는 재료로 쓸 수 있다. 드라이버로 분해해 수신기, 전기 회로 부속을 얻을 수 있다. 건전지도 나올 수 있다.
+KO E: 원격 조종기를 만드는 재료로 쓸 수 있다.
+드라이버로 분해해 수신기, 전기 회로 부속을 얻을 수 있다. 건전지도 나올 수 있다.
+EN C: It can be used as material for making remote controllers. It can be dismantled with a Screwdriver to obtain Receiver and Electronics Scrap. Battery may also be recovered.
+EN E: It can be used as material for making remote controllers.
+It can be dismantled with a Screwdriver to obtain Receiver and Electronics Scrap. Battery may also be recovered.
+
+[121] Base.Revolver
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: M625 리볼버를 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the M625 Revolver.
+It can be loaded with ammunition for shooting.
+
+[122] Base.Revolver_Long
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: 매그넘을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the Magnum.
+It can be loaded with ammunition for shooting.
+
+[123] Base.Revolver_Short
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: M36 리볼버를 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the M36 Revolver.
+It can be loaded with ammunition for shooting.
+
+[124] Base.RippedSheets
+KO C: 응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치, 연막 장치, 야영 장비 및 도구를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.
+골절을 고정하는 부목 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+건축 재료로 쓸 수 있다.
+화염 장치, 연막 장치, 야영 장비 및 도구를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be used for first aid or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for construction. It can also be used to make incendiary devices, smoke devices, camping equipment, and tools. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be used to clean burns.
+It can be wrapped around wounds. It can also be disinfected before use. If infected, it can infect the wound.
+It can supply splinting material for fractures.
+It can be used to patch garment holes or add padding.
+It can be used as material for construction.
+It can supply material for making incendiary devices, smoke devices, camping equipment, and tools.
+It can be used as fuel or tinder, for example in campfires.
+
+[125] Base.RippedSheetsDirty
+KO C: 상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치, 연막 장치, 야영 장비, 도구 및 부목을 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.
+물로 씻어 다시 쓸 수 있다.
+화염 장치, 연막 장치, 야영 장비, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+건축 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for construction. It can also be used to make incendiary devices, smoke devices, camping equipment, tools, and splints. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be wrapped around wounds. If infected, it can infect the wound.
+It can be washed with water for reuse.
+It can supply material for making incendiary devices, smoke devices, camping equipment, tools, and splints.
+It can be used as material for construction.
+It can be used as fuel or tinder, for example in campfires.
+
+[126] Base.RollingPin
+KO C: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다. 무기로 쓸 수 있다.
+KO E: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used as a cooking tool, including for preparing dough. It can be used as a weapon.
+EN E: It can be used as a cooking tool, including for preparing dough.
+It can be used as a weapon.
+
+[127] Base.Rope, Base.SheetRope
+KO C: 건축 재료로 쓸 수 있다. 설치해 위층으로 올라가는 데 사용할 수 있다.
+KO E: 건축 재료로 쓸 수 있다.
+설치해 위층으로 올라가는 데 사용할 수 있다.
+통나무를 묶는 데 쓸 수 있다.
+EN C: It can be used as material for construction. It can be installed for climbing to an upper floor.
+EN E: It can be used as material for construction.
+It can be installed for climbing to an upper floor.
+It can be used to bind logs.
+
+[128] Base.Saucepan
+KO C: 물을 담아 보관하거나 운반할 수 있다. 무기로 쓸 수 있다.
+KO E: 물을 담아 보관하거나 운반할 수 있다.
+무기로 쓸 수 있다.
+EN C: It can hold water for storage or carrying. It can be used as a weapon.
+EN E: It can hold water for storage or carrying.
+It can be used as a weapon.
+
+[129] Base.Saw
+KO C: 음식, 목재 손질과 장비 제작, 개조, 건축물 해체에 쓸 수 있다.
+KO E: 사냥 장비나 폭발 장치를 만드는 데 쓸 수 있다.
+음식을 나누는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.
+산탄총의 총신을 줄이는 도구로 쓸 수 있다.
+EN C: It can be used for food and wood preparation or equipment making and modification, or dismantling structures.
+EN E: It can be used to make hunting equipment and explosive devices.
+It can be used for food portioning.
+It can be used for woodworking.
+A saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.
+It can be used to shorten shotgun barrels.
+
+[130] Base.Scotchtape
+KO C: 무기를 수리하는 재료로 쓸 수 있다.
+KO E: 호환되는 다음 물품을 수리할 때 재료로 쓸 수 있다.
+- 도끼
+- 배드민턴 라켓
+- 둥근머리 망치
+- 밴조
+- 야구 방망이
+- 못 박은 야구 방망이
+- 빗자루
+- 카누용 노
+- 카누용 이중 노
+- 클럽 해머
+- 쇠스랑
+- 괭이
+- 골프클럽
+- 번철 팬
+- 어쿠스틱 기타
+- 전기 베이스 (검은색)
+- 전기 베이스 (파란색)
+- 전기 베이스 (빨간색)
+- 전기 기타 (검은색)
+- 전기 기타 (파란색)
+- 전기 기타 (빨간색)
+- 망치
+- 손도끼
+- 손갈퀴
+- 손낫
+- 하키 스틱
+- 사냥용 칼
+- 아이스하키 스틱
+- 부엌칼
+- 마체테
+- 프라이팬
+- 곡괭이
+- 밀대
+- 색소폰
+- 삽
+- 대형 망치
+- 눈 삽
+- 창 (빵칼)
+- 창 (버터칼)
+- 제작한 창
+- 창 (손갈퀴)
+- 창 (사냥용 칼)
+- 창 (얼음 송곳)
+- 창 (부엌칼)
+- 창 (편지 칼)
+- 창 (마체테)
+- 창 (메스)
+- 창 (가위)
+- 창 (드라이버)
+- 창 (숟가락)
+- 테니스 라켓
+- 트럼펫
+- 바이올린
+- 벌목 도끼
+- 나무 망치
+EN C: It can be used as repair material for weapons.
+EN E: It can be used as repair material for compatible items from the following list.
+- Axe
+- Badminton Racket
+- Ball Peen Hammer
+- Banjo
+- Baseball Bat
+- Spiked Baseball Bat
+- Broom
+- Canoe Paddle
+- Canoe Paddle Double
+- Club Hammer
+- Garden Fork
+- Garden Hoe
+- Golfclub
+- Griddle Pan
+- Acoustic Guitar
+- Black Electric Bass
+- Blue Electric Bass
+- Red Electric Bass
+- Black Electric Guitar
+- Blue Electric Guitar
+- Red Electric Guitar
+- Hammer
+- Hand Axe
+- Hand Fork
+- Hand Scythe
+- Hockey Stick
+- Hunting Knife
+- Ice Hockey Stick
+- Kitchen Knife
+- Machete
+- Frying Pan
+- PickAxe
+- Rolling Pin
+- Saxophone
+- Shovel
+- Sledgehammer
+- Snow Shovel
+- Spear With Bread Knife
+- Spear With Butter Knife
+- Crafted Spear
+- Spear With Hand Fork
+- Spear With Hunting Knife
+- Spear With Ice Pick
+- Spear With Knife
+- Spear With Letter Opener
+- Spear With Machete
+- Spear With Scalpel
+- Spear With Scissors
+- Spear With Screwdriver
+- Spear With Spoon
+- Tennis Racket
+- Trumpet
+- Violin
+- Wood Axe
+- Wooden Mallet
+
+[131] Base.Screwdriver
+KO C: 전자기기 제작, 분해, 개조와 목공, 정비 작업에 쓸 수 있다. 무기로도 쓸 수 있다.
+KO E: 전자 부품과 무전기를 만들 수 있다. 라디오와 TV를 포함한 전자기기를 분해해 부품을 회수할 수 있다. 조명을 건전지용으로 개조할 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.
+차량 부품을 장착하거나 탈거하는 데 사용할 수 있다.
+호환 무기의 부착물을 장착하거나 제거할 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used for electronics work, woodworking and mechanical maintenance. It can also serve as a weapon.
+EN E: It can be used to make electronic components and radios. It can be used to dismantle electronic devices, including radios and TVs, to recover parts. It can convert lamps to battery power.
+It can be used for woodworking.
+A saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.
+It can be used to install or remove vehicle parts.
+It can be used to install or remove compatible weapon parts.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+[132] Base.Screws
+KO C: 모아서 상자로 포장할 수 있다.
+KO E: 모아서 상자로 포장할 수 있다.
+EN C: It can be collected and packed into a box.
+EN E: It can be collected and packed into a box.
+
+[133] Base.SharpedStone
+KO C: 도구를 만드는 재료로 쓸 수 있다. 목재를 가공하는 데 쓸 수 있다.
+KO E: 사냥 장비를 만드는 데 쓸 수 있다.
+도구를 만드는 재료로 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+EN C: It can be used as material for making tools. It can be used for woodworking.
+EN E: It can be used to make hunting equipment.
+It can be used as material for making tools.
+It can be used for woodworking.
+
+[134] Base.Sheet
+KO C: 야영 장비를 만드는 재료로 쓸 수 있다. 찢어서 천 조각을 얻을 수 있다. 시트 로프를 만드는 데도 쓸 수 있다. 창문이나 문에 커튼으로 달아 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 매트리스를 만드는 재료로 쓸 수 있다.
+찢어서 천 조각을 얻을 수 있다.
+시트 로프를 만들 때 재료로 쓸 수 있다.
+창문이나 문에 커튼으로 달아 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be used as material for making camping equipment. It can be ripped for cloth scraps or used to make sheet rope. It can be used as a curtain on a window or door. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be used as material for making Mattress.
+It can be ripped to obtain cloth scraps.
+It can be used as material for making sheet rope.
+It can be used as a curtain on a window or door.
+It can be used as fuel or tinder, for example in campfires.
+
+[135] Base.SheetMetal
+KO C: 금속 부품 용접, 건축 및 호환 차량 부품 수리에 재료로 쓸 수 있다.
+KO E: 용접 건축 재료로 쓸 수 있다. 문과 창문의 금속 바리케이드에도 재료로 쓸 수 있다.
+금속 부품을 용접할 때 재료로 쓸 수 있다.
+호환되는 다음 물품을 수리할 때 재료로 쓸 수 있다.
+- 대형 연료탱크
+- 대형 트렁크
+- 차량 후드
+- 차량 앞문
+- 중형 연료탱크
+- 중형 트렁크
+- 차량 뒷문
+- 차량 이중 뒷문
+- 소형 연료탱크
+- 소형 트렁크
+- 트레일러 트렁크
+- 차량 트렁크 후드
+EN C: It can supply material for metal-part welding, construction, and repairing compatible vehicle parts.
+EN E: It can be used as material for welded construction. It can also supply window and door barricades.
+It can be used as a material for metal-part welding.
+It can be used as repair material for compatible items from the following list.
+- Big Gas Tank
+- Big Trunk
+- Hood
+- Front Door
+- Standard Gas Tank
+- Standard Trunk
+- Rear Door
+- Double Rear Door
+- Small Gas Tank
+- Small Trunk
+- Trailer Trunk
+- Trunk Lid
+
+[136] Base.Shotgun
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다. 총신을 짧게 개조할 수 있다.
+KO E: JS-2000 산탄총 및 JS-2000 산탄총 (총열 자름)을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+총신을 짧게 개조할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting. Its shotgun barrel can be shortened.
+EN E: It can be used as repair material for the JS-2000 Shotgun and the Sawn Off JS-2000 Shotgun.
+It can be loaded with ammunition for shooting.
+Its shotgun barrel can be shortened.
+
+[137] Base.ShotgunSawnoff
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: JS-2000 산탄총 및 JS-2000 산탄총 (총열 자름)을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the JS-2000 Shotgun and the Sawn Off JS-2000 Shotgun.
+It can be loaded with ammunition for shooting.
+
+[138] Base.Shovel, Base.Shovel2, Base.SnowShovel
+KO C: 땅을 파고 정리하거나 흙, 자갈 등을 포대에 담는 데 쓸 수 있다. 무기로 쓸 수 있다.
+KO E: 바닥의 재를 치울 수 있다.
+흙이나 모래, 자갈을 포대에 담을 수 있다.
+땅에 고랑을 파거나 밭의 작물과 고랑을 정리할 수 있다.
+땅에 무덤을 파거나 기존 무덤을 메울 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used to dig and clear ground or collect materials such as soil and gravel into bags. It can be used as a weapon.
+EN E: It can be used for clearing ash from burnt floors.
+It can be used for collecting dirt, sand or gravel into a bag.
+It can dig furrows in soil or clear plants and furrows.
+It can dig graves in the ground or fill existing graves.
+It can be used as a weapon.
+
+[139] Base.Sledgehammer, Base.Sledgehammer2
+KO C: 무기로 쓸 수 있다. 구조물을 철거하는 데 사용할 수 있다.
+KO E: 수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+구조물을 철거하는 데 사용할 수 있다.
+EN C: It can be used as a weapon. It can be used to demolish structures.
+EN E: It can be used for breaking a watermelon.
+It can be used as a weapon.
+It can be used to demolish structures.
+
+[140] Base.SmallSheetMetal
+KO C: 금속 부품 용접, 용접 건축 및 호환 차량 부품 수리에 재료로 쓸 수 있다.
+KO E: 용접 건축 재료로 쓸 수 있다.
+금속 부품을 용접할 때 재료로 쓸 수 있다.
+호환되는 다음 물품을 수리할 때 재료로 쓸 수 있다.
+- 대형 연료탱크
+- 대형 트렁크
+- 차량 후드
+- 차량 앞문
+- 중형 연료탱크
+- 중형 트렁크
+- 차량 뒷문
+- 차량 이중 뒷문
+- 소형 연료탱크
+- 소형 트렁크
+- 트레일러 트렁크
+- 차량 트렁크 후드
+EN C: It can supply material for metal-part welding, welded construction, and repairing compatible vehicle parts.
+EN E: It can be used as material for welded construction.
+It can be used as a material for metal-part welding.
+It can be used as repair material for compatible items from the following list.
+- Big Gas Tank
+- Big Trunk
+- Hood
+- Front Door
+- Standard Gas Tank
+- Standard Trunk
+- Rear Door
+- Double Rear Door
+- Small Gas Tank
+- Small Trunk
+- Trailer Trunk
+- Trunk Lid
+
+[141] Base.SmithingMag1
+KO C: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다.
+- 포크 만들기
+- 숟가락 만들기
+- 조리용 냄비 만들기
+- 오븐 쟁반 만들기
+- 손잡이 냄비 만들기
+- 빵 판 만들기
+- 빵 굽는 팬 만들기
+- 프라이팬 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to forge metal items. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to forge metal items.
+- Make Fork
+- Make Spoon
+- Make Cooking Pot
+- Make Roasting Pan
+- Make Saucepan
+- Make Baking Tray
+- Make Baking Pan
+- Make Pan
+It can be used as fuel or tinder, for example in campfires.
+
+[142] Base.SmithingMag2
+KO C: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다.
+- 편지 개봉칼 만들기
+- 못 만들기
+- 종이 집게 만들기
+- 가위 만들기
+- 문 손잡이 만들기
+- 경첩 만들기
+- 버터칼 만들기
+- 둥근 망치 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to forge metal items. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to forge metal items.
+- Make Letter Opener
+- Make Nails
+- Make Paperclips
+- Make Scissors
+- Make Door Knob
+- Make Hinge
+- Make Butter Knife
+- Make Ball Peen Hammer
+It can be used as fuel or tinder, for example in campfires.
+
+[143] Base.SmithingMag3
+KO C: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다.
+- 집게 만들기
+- 망치 만들기
+- 금속판 만들기
+- 봉합용 바늘 집게 만들기
+- 핀셋 만들기
+- 봉합용 바늘 만들기
+- 드럼통 만들기
+- 부엌칼 만들기
+- 톱 만들기
+- 사냥용 칼 만들기
+- 삽 만들기
+- 모종삽 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to forge metal items. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to forge metal items.
+- Make Tongs
+- Make Hammer
+- Make Sheet Metal
+- Make Suture Needle Holder
+- Make Tweezers
+- Make Suture Needle
+- Make Metal Drum
+- Make Kitchen Knife
+- Make Saw
+- Make Hunting Knife
+- Make Shovel
+- Make Hand Shovel
+It can be used as fuel or tinder, for example in campfires.
+
+[144] Base.SmithingMag4
+KO C: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다.
+- 9mm 탄 틀 만들기
+- .308 탄 틀 만들기
+- .223 탄 틀 만들기
+- 산탄 총탄 틀 만들기
+- 9mm 탄 만들기
+- 산탄 총탄 만들기
+- .308 탄 만들기
+- .223 탄 만들기
+- 쇠지렛대 만들기
+- 골프 클럽 만들기
+- 도끼 만들기
+- 대형 망치 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn how to forge metal items. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn how to forge metal items.
+- Make 9mm Bullets Mold
+- Make 308 Bullets Mold
+- Make 223 Bullets Mold
+- Make Shotgun Shells Mold
+- Make 9mm Bullets
+- Make Shotgun Shells
+- Make 308 Bullets
+- Make 223 Bullets
+- Make Crowbar
+- Make Golfclub
+- Make Axe
+- Make Sledgehammer
+It can be used as fuel or tinder, for example in campfires.
+
+[145] Base.SpearBreadKnife, Base.SpearButterKnife, Base.SpearHandFork, Base.SpearHuntingKnife, Base.SpearIcePick, Base.SpearKnife, Base.SpearLetterOpener, Base.SpearMachete, Base.SpearScalpel, Base.SpearScissors, Base.SpearScrewdriver, Base.SpearSpoon
+KO C: 물가에서 미끼 없이 창낚시에 쓸 수 있다. 무기로 쓸 수 있다. 창의 부착물을 회수할 수 있다.
+KO E: 물가에서 미끼 없이 창낚시에 쓸 수 있다.
+무기로 쓸 수 있다.
+창의 부착물을 회수할 수 있다.
+EN C: It can be used to spear fish from the water's edge without bait. It can be used as a weapon. Its spear attachment can be recovered.
+EN E: It can be used to spear fish from the water's edge without bait.
+It can be used as a weapon.
+Its spear attachment can be recovered.
+
+[146] Base.SpearCrafted
+KO C: 부착물을 달아 쓸 수 있다. 무기로 쓸 수 있다. 물가에서 미끼 없이 창낚시에 쓸 수 있다.
+KO E: 부착물을 달아 쓸 수 있다.
+무기로 쓸 수 있다.
+물가에서 미끼 없이 창낚시에 쓸 수 있다.
+EN C: It can be fitted with an attachment. It can be used as a weapon. It can be used to spear fish from the water's edge without bait.
+EN E: It can be fitted with an attachment.
+It can be used as a weapon.
+It can be used to spear fish from the water's edge without bait.
+
+[147] Base.Splint
+KO C: 골절 고정에 쓸 수 있다.
+KO E: 골절 부위를 고정하는 데 쓸 수 있다.
+EN C: It can be used for splinting fractures.
+EN E: It can be used to splint fractures.
+
+[148] Base.Stake
+KO C: 야영 장비를 만드는 재료로 쓸 수 있다. 무기로 쓸 수 있다.
+KO E: 야영 장비를 만드는 재료로 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used as material for making camping equipment. It can be used as a weapon.
+EN E: It can be used as material for making camping equipment.
+It can be used as a weapon.
+
+[149] Base.Stone
+KO C: 건축에 재료로 쓸 수 있다. 도구를 만들 때도 쓸 수 있다.
+KO E: 건축 재료로 쓸 수 있다.
+도구를 만드는 재료로 쓸 수 있다.
+EN C: It can supply material for construction. It can also be used to make tools.
+EN E: It can be used as material for construction.
+It can be used as material for making tools.
+
+[150] Base.Tarp, camping.TentPeg
+KO C: 야영 장비를 만드는 재료로 쓸 수 있다.
+KO E: 야영 장비를 만드는 재료로 쓸 수 있다.
+EN C: It can be used as material for making camping equipment.
+EN E: It can be used as material for making camping equipment.
+
+[151] Base.Thread
+KO C: 야영 장비를 만드는 재료로 쓸 수 있다. 의류의 구멍을 덧대거나 패딩을 추가할 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다.
+KO E: 매트리스를 만드는 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+깊은 상처를 봉합하는 데 쓸 수 있다.
+EN C: It can be used as material for making camping equipment. It can be used to patch garment holes or add padding. It can be used to stitch a deep wound.
+EN E: It can be used as material for making Mattress.
+It can be used to patch garment holes or add padding.
+It can be used to stitch a deep wound.
+
+[152] Base.Timer
+KO C: 수제 폭탄 타이머를 만드는 재료로 쓸 수 있다.
+KO E: 수제 폭탄 타이머를 만드는 재료로 쓸 수 있다.
+EN C: It can be used as material for making Crafted Timer.
+EN E: It can be used as material for making Crafted Timer.
+
+[153] Base.TreeBranch
+KO C: 골절을 고정하는 부목 재료로 쓸 수 있다. 목공에 재료로 쓸 수 있다. 사냥 장비 및 도구를 만들 때도 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+KO E: 골절을 고정하는 부목 재료로 쓸 수 있다.
+목공 재료로 쓸 수 있다.
+사냥 장비 및 도구를 만드는 재료로 쓸 수 있다.
+나무를 비벼 모닥불 등에 불을 피우는 데 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+EN C: It can supply splinting material for fractures. It can supply material for woodworking. It can also be used to make hunting equipment and tools. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.
+EN E: It can supply splinting material for fractures.
+It can be used as material for woodworking.
+It can supply material for making hunting equipment and tools.
+It can be used to light fires by wood friction, for example in campfires.
+It can be used as fuel for campfires, for example.
+
+[154] Base.TrunkDoor1, Base.TrunkDoor2, Base.TrunkDoor3
+KO C: 호환 차량의 트렁크 덮개 교체 부품으로 쓸 수 있다.
+KO E: 호환 차량의 트렁크 덮개 자리에 장착할 수 있다. 장착 후 여닫거나 잠그고 잠금을 풀 수 있다.
+EN C: It can replace the trunk lid in a compatible vehicle.
+EN E: It can be installed as the trunk lid in a compatible vehicle. Once installed, it can be opened, closed, locked or unlocked.
+
+[155] Base.Twigs
+KO C: 야영 장비를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 야영 장비를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be used as material for making camping equipment. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be used as material for making camping equipment.
+It can be used as fuel or tinder, for example in campfires.
+
+[156] Base.Twine
+KO C: 건축에 재료로 쓸 수 있다. 폭발 장치, 사냥과 낚시에 쓰는 장비 및 도구를 만들 때도 쓸 수 있다.
+KO E: 건축 재료로 쓸 수 있다.
+폭발 장치, 사냥과 낚시 장비 및 도구를 만드는 재료로 쓸 수 있다.
+EN C: It can supply material for construction. It can also be used to make explosive devices, hunting equipment, fishing equipment, and tools.
+EN E: It can be used as material for construction.
+It can supply material for making explosive devices, hunting and fishing equipment, and tools.
+
+[157] Base.VarmintRifle
+KO C: 총기를 수리하는 재료로 쓸 수 있다. 탄약을 장전해 사격할 수 있다.
+KO E: 수렵총을 수리할 때 재료로 쓸 수 있다.
+탄약을 장전해 사격할 수 있다.
+EN C: It can be used as repair material for firearms. It can be loaded with ammunition for shooting.
+EN E: It can be used as repair material for the MSR700 Rifle.
+It can be loaded with ammunition for shooting.
+
+[158] Base.WaterBottleEmpty
+KO C: 연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다.
+KO E: 주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다.
+화염 장치를 만들 때 재료로 쓸 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+EN C: It can receive and supply fuel. It can receive, store, and carry water. It can be used as material for making incendiary devices.
+EN E: It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle.
+It can be used as material for making incendiary devices.
+It can hold water for storage or carrying.
+
+[159] Base.WaterMug, Base.WaterMugRed, Base.WaterMugSpiffo, Base.WaterMugWhite, Base.WaterTeacup
+KO C: 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 재료를 더해 요리를 만들 수도 있다.
+KO E: 물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.
+작물에 물을 줄 수 있다.
+물로 차량의 혈흔을 씻을 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.
+재료를 더해 요리를 만들 수 있다.
+EN C: It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning. Ingredients can also be added to prepare food.
+EN E: It can store and carry water and transfer it to other containers or water storage fixtures.
+It can water seeded crops.
+Its water can wash vehicle bloodstains.
+It can extinguish fires on the ground or on characters.
+Its water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.
+Ingredients can be added to prepare food.
+
+[160] Base.WaterPot
+KO C: 조리와 붕대 소독에 쓸 수 있다. 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다.
+KO E: 붕대 소독에 쓸 수 있다.
+재료를 더해 요리를 만들 수 있다.
+물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.
+작물에 물을 줄 수 있다.
+물로 차량의 혈흔을 씻을 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.
+EN C: It can be used for cooking and disinfecting bandaging. It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning.
+EN E: It can be used to disinfect bandaging.
+Ingredients can be added to prepare food.
+It can store and carry water and transfer it to other containers or water storage fixtures.
+It can water seeded crops.
+Its water can wash vehicle bloodstains.
+It can extinguish fires on the ground or on characters.
+Its water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.
+
+[161] Base.WaterSaucepan
+KO C: 조리와 붕대 소독에 쓸 수 있다. 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다.
+KO E: 붕대 소독에 쓸 수 있다.
+재료를 담아 요리하는 데 사용할 수 있다.
+물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.
+작물에 물을 줄 수 있다.
+물로 차량의 혈흔을 씻을 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.
+EN C: It can be used for cooking and disinfecting bandaging. It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning.
+EN E: It can be used to disinfect bandaging.
+It can hold ingredients for cooking.
+It can store and carry water and transfer it to other containers or water storage fixtures.
+It can water seeded crops.
+Its water can wash vehicle bloodstains.
+It can extinguish fires on the ground or on characters.
+Its water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.
+
+[162] Base.Watermelon
+KO C: 덫의 미끼로 쓸 수 있다.
+KO E: 덫의 미끼로 쓸 수 있다.
+EN C: It can be used as trap bait.
+EN E: It can be used as trap bait.
+
+[163] Base.WeldingMask
+KO C: 용접 작업을 할 때 착용하는 장비다. 금속 드럼의 불쏘시개로 쓸 수 있다.
+KO E: 용접 작업을 할 때 착용하는 장비다.
+금속 드럼의 불쏘시개로 쓸 수 있다.
+EN C: It is equipment worn for welding work. It can be used as tinder for metal drums.
+EN E: It is equipment worn for welding work.
+It can be used as tinder for metal drums.
+
+[164] Base.WhiskeyEmpty, Base.WineEmpty, Base.WineEmpty2
+KO C: 연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.
+KO E: 주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다.
+화염 장치를 만들 때 재료로 쓸 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+깨뜨려 깨진 병을 얻을 수 있다.
+EN C: It can receive and supply fuel. It can receive, store, and carry water. It can be used as material for making incendiary devices. It can be broken to obtain Smashed Bottle.
+EN E: It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle.
+It can be used as material for making incendiary devices.
+It can hold water for storage or carrying.
+It can be broken to obtain Smashed Bottle.
+
+[165] Base.WhiskeyFull
+KO C: 천, 솜, 상처를 소독하는 데 쓸 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 마실 수 있다. 요리 재료로 쓸 수 있다.
+KO E: 천, 솜, 상처를 소독하는 데 쓸 수 있다.
+화염 장치를 만들 때 재료로 쓸 수 있다.
+마실 수 있다.
+요리 재료로 쓸 수 있다.
+EN C: It can be used to disinfect cloth, cotton or wounds. It can be used as material for making incendiary devices. It can be drunk. It can be used as a cooking ingredient.
+EN E: It can be used to disinfect cloth, cotton or wounds.
+It can be used as material for making incendiary devices.
+It can be drunk.
+It can be used as a cooking ingredient.
+
+[166] Base.Wire
+KO C: 용접 건축에 재료로 쓸 수 있다. 사냥과 낚시에 쓰는 장비를 만들 때도 쓸 수 있다.
+KO E: 용접 건축 재료로 쓸 수 있다.
+사냥과 낚시 장비를 만드는 재료로 쓸 수 있다.
+EN C: It can supply material for welded construction. It can also be used to make hunting equipment and fishing equipment.
+EN E: It can be used as material for welded construction.
+It can be used as material for making hunting and fishing equipment.
+
+[167] Base.WoodenStick
+KO C: 골절을 고정하는 부목 재료로 쓸 수 있다. 사냥, 낚시와 야영에 쓰는 장비를 만드는 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+KO E: 골절을 고정하는 부목 재료로 쓸 수 있다.
+사냥과 낚시 장비 및 야영 장비를 만드는 재료로 쓸 수 있다.
+나무를 비벼 모닥불 등에 불을 피우는 데 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+EN C: It can supply splinting material for fractures. It can supply material for making hunting equipment, fishing equipment, and camping equipment. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.
+EN E: It can supply splinting material for fractures.
+It can supply material for making hunting and fishing equipment and camping equipment.
+It can be used to light fires by wood friction, for example in campfires.
+It can be used as fuel for campfires, for example.
+
+[168] Base.Woodglue
+KO C: 무기를 수리하는 재료로 쓸 수 있다.
+KO E: 호환되는 다음 물품을 수리할 때 재료로 쓸 수 있다.
+- 도끼
+- 야구 방망이
+- 못 박은 야구 방망이
+- 빗자루
+- 카누용 노
+- 카누용 이중 노
+- 클럽 해머
+- 쇠스랑
+- 괭이
+- 망치
+- 손도끼
+- 손낫
+- 하키 스틱
+- 아이스하키 스틱
+- 곡괭이
+- 밀대
+- 삽
+- 대형 망치
+- 눈 삽
+- 창 (빵칼)
+- 창 (버터칼)
+- 제작한 창
+- 창 (손갈퀴)
+- 창 (사냥용 칼)
+- 창 (얼음 송곳)
+- 창 (부엌칼)
+- 창 (편지 칼)
+- 창 (마체테)
+- 창 (메스)
+- 창 (가위)
+- 창 (드라이버)
+- 창 (숟가락)
+- 벌목 도끼
+- 나무 망치
+EN C: It can be used as repair material for weapons.
+EN E: It can be used as repair material for compatible items from the following list.
+- Axe
+- Baseball Bat
+- Spiked Baseball Bat
+- Broom
+- Canoe Paddle
+- Canoe Paddle Double
+- Club Hammer
+- Garden Fork
+- Garden Hoe
+- Hammer
+- Hand Axe
+- Hand Scythe
+- Hockey Stick
+- Ice Hockey Stick
+- PickAxe
+- Rolling Pin
+- Shovel
+- Sledgehammer
+- Snow Shovel
+- Spear With Bread Knife
+- Spear With Butter Knife
+- Crafted Spear
+- Spear With Hand Fork
+- Spear With Hunting Knife
+- Spear With Ice Pick
+- Spear With Knife
+- Spear With Letter Opener
+- Spear With Machete
+- Spear With Scalpel
+- Spear With Scissors
+- Spear With Screwdriver
+- Spear With Spoon
+- Wood Axe
+- Wooden Mallet
+
+[169] Radio.ElectricWire, Radio.RadioTransmitter
+KO C: 전자 기기를 만드는 재료로 쓸 수 있다.
+KO E: 전자 기기를 만드는 재료로 쓸 수 있다.
+EN C: It can be used as material for making electronic devices.
+EN E: It can be used as material for making electronic devices.
+
+[170] Radio.RadioMag1
+KO C: 읽어서 전자 장치 관련 제작법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 전자 장치 관련 제작법을 배울 수 있다.
+- 수제작 라디오 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn an electronic-device recipe. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn an electronic-device recipe.
+- Craft Makeshift Radio
+It can be used as fuel or tinder, for example in campfires.
+
+[171] Radio.RadioMag2
+KO C: 읽어서 전자 장치 관련 제작법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 전자 장치 관련 제작법을 배울 수 있다.
+- 수제작 휴대용 무전기 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn an electronic-device recipe. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn an electronic-device recipe.
+- Craft Makeshift Walkie Talkie
+It can be used as fuel or tinder, for example in campfires.
+
+[172] Radio.RadioMag3
+KO C: 읽어서 전자 장치 관련 제작법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 읽어서 전자 장치 관련 제작법을 배울 수 있다.
+- 수제작 아마추어 무선통신기 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be read to learn an electronic-device recipe. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be read to learn an electronic-device recipe.
+- Craft Makeshift HAM Radio
+It can be used as fuel or tinder, for example in campfires.
+
+[173] farming.GardeningSprayEmpty
+KO C: 작물 치료용 분무액을 만드는 용기로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다.
+KO E: 작물 치료용 분무액을 만드는 용기로 쓸 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+EN C: It can hold the mixture when making crop-treatment spray. It can hold water for storage or carrying.
+EN E: It can hold the mixture when making crop-treatment spray.
+It can hold water for storage or carrying.
+

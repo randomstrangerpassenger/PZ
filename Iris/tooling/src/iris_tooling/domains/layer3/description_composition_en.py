@@ -21,6 +21,8 @@ def role(activities, roles, compact=False):
     # Preserve the common semantic traversal; suffix elision used to move
     # crafting/preparation peers across intervening independent purposes.
     nouns = join([lex.pair(lex.ROLES[r], "en") for r in roles])
+    if roles == ["tool"] and activities == ["shotgun barrel shortening"]:
+        return "It can be used to shorten shotgun barrels"
     if roles == ["tool"]:
         return "It can be used for " + join(activities)
     return "It can be used as " + nouns + " for " + join(activities)

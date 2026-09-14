@@ -18,6 +18,59 @@ if not currentOk or (type(current) == "table" and current.schema_version == "iri
     local productId = currentOk and current.product_id or nil
     local prefix = type(productId) == "string" and
         ("Iris/Data/IrisLayer3ProductGenerations/" .. productId .. "/") or nil
+    local function dense(values)
+        if type(values) ~= "table" then return false end
+        local count = 0
+        for key in pairs(values) do
+            if type(key) ~= "number" or key < 1 or key ~= math.floor(key) then return false end
+            count = count + 1
+        end
+        return count == #values
+    end
+    local function validTargetGroups(unit)
+        local detail = unit.target_groups
+        if detail == nil then return true end
+        if type(detail) ~= "table" or type(detail.introduction) ~= "string" or
+            not dense(detail.groups) or #detail.groups == 0 or detail.group_count ~= #detail.groups then return false end
+        local lines, names, ids, keys = {}, {}, {}, {}
+        for line in unit.text:gmatch("[^\n]+") do lines[#lines + 1] = line end
+        if lines[1] ~= detail.introduction then return false end
+        for i = 2, #lines do
+            if lines[i]:sub(1, 2) ~= "- " then return false end
+            local name = lines[i]:sub(3)
+            if names[name] then return false end
+            names[name] = true
+        end
+        local count, identityField = 0, nil
+        for _, group in ipairs(detail.groups) do
+            if type(group) ~= "table" or type(group.key) ~= "string" or group.key == "" or keys[group.key] or
+                type(group.label) ~= "string" or group.label == "" or not dense(group.entries) or
+                #group.entries == 0 or group.count ~= #group.entries then return false end
+            if group.scope ~= nil and group.scope ~= "mapped" and group.scope ~= "some" then return false end
+            if group.presentation ~= nil and group.presentation ~= "inline" and group.presentation ~= "disclosure" then return false end
+            keys[group.key] = true
+            for _, entry in ipairs(group.entries) do
+                if type(entry) ~= "table" or type(entry.label) ~= "string" or not names[entry.label] then return false end
+                local sourceIds, identityCount = nil, 0
+                for _, field in ipairs({"item_ids", "recipe_keys", "target_keys"}) do
+                    if entry[field] ~= nil then
+                        if identityField and identityField ~= field then return false end
+                        identityField = field
+                        sourceIds = entry[field]
+                        identityCount = identityCount + 1
+                    end
+                end
+                if identityCount ~= 1 or not dense(sourceIds) or #sourceIds == 0 then return false end
+                names[entry.label] = nil
+                count = count + 1
+                for _, id in ipairs(sourceIds) do
+                    if type(id) ~= "string" or id == "" or ids[id] then return false end
+                    ids[id] = true
+                end
+            end
+        end
+        return count == #lines - 1
+    end
     local function validId(value)
         return type(value) == "string" and #value == 68 and value:match("^l3p%-[0-9a-f]+$") ~= nil
     end
@@ -73,6 +126,7 @@ if not currentOk or (type(current) == "table" and current.schema_version == "iri
                     local texts = {}
                     for i = position, unit.last_segment do texts[#texts + 1] = value.blocks[i] end
                     if table.concat(texts, " ") ~= unit.text then return false end
+                    if not validTargetGroups(unit) then return false end
                     unitTexts[#unitTexts + 1] = unit.text
                     position = unit.last_segment + 1
                 end

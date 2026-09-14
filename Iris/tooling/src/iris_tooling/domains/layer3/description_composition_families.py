@@ -33,9 +33,9 @@ GROUND_TASKS = {
     "clear_burnt_floor_ashes": (lex.source.ASH_CLEARING, ("탄 바닥의 재 치우기", "clearing ash from burnt floors")),
     "collect_ground_into_bag": (lex.source.GROUND_FILL, ("포대에 흙·모래·자갈 담기", "collecting dirt, sand or gravel into a bag")),
     "dig_furrow": (lex.source.FURROW_DIGGING, ("빈 자연 지면에 고랑 파기", "digging furrows on empty natural ground")),
-    "dig_grave": (lex.source.GRAVE_DIGGING, ("적합한 자연 지면에 무덤 파기", "digging graves on suitable natural ground")),
+    "dig_grave": (lex.source.GRAVE_DIGGING, ("땅에 무덤 파기", "digging graves in the ground")),
     "fill_grave": (lex.source.GRAVE_FILLING, ("무덤 메우기", "filling graves")),
-    "remove_farm_plant": (lex.source.PLANT_REMOVAL, ("수확 없이 작물·고랑 제거", "removing plants or furrows without harvesting")),
+    "remove_farm_plant": (lex.source.PLANT_REMOVAL, ("작물과 고랑 정리", "clearing plants or furrows")),
 }
 FRAME_PREDICATES["ground_work"] = {p for p, _ in GROUND_TASKS.values()}
 FRAME_REQUIRED["ground_work"] = set()
@@ -78,15 +78,15 @@ FRAME_PREDICATES['note'].update({lex.source.CAMP_TINDER_USE, lex.source.HEARTH_T
     lex.source.INDUSTRIAL_TINDER, lex.source.CAMP_FUEL_USE, lex.source.HEARTH_FUEL})
 
 FUNCTION_FRAMES = {
-    "apply_splint": ("SPLINTING", ("머리와 몸통을 제외한 골절 부위를 고정하는 데 쓸 수 있다", "It can help splint fractures outside the head and torso")),
+    "apply_splint": ("SPLINTING", ("골절 부위를 고정하는 데 쓸 수 있다", "It can be used to splint fractures")),
     "control_portable_light": ("LIGHT_CONTROL", ("휴대 조명으로 쓸 수 있으며 발광 여부는 현재 상태에 달려 있다", "It can serve as a portable light when its current state permits emission")),
     "light_candle": ("CANDLE_LIGHT_RECIPE", ("발화 도구로 초에 불을 붙일 수 있다", "A fire-starting item can be used to light the candle")),
     "extinguish_candle": ("CANDLE_EXTINGUISH_RECIPE", ("켜진 초를 끄는 제작법에 사용할 수 있다", "It can be supplied to the lit-candle extinguishing recipe")),
     "extinguish_on_unequip": ("CANDLE_UNEQUIP", ("장착한 초를 손에서 빼거나 버리면 꺼진 초로 바뀐다", "Unequipping or dropping the equipped candle changes it to an unlit candle")),
     "build_wooden_barricade": ("WOOD_BARRICADE", ("판자를 받는 문과 창문에 망치·판자·못으로 바리케이드를 추가할 수 있다", "An accepted hammer, planks and nails can add barricades to eligible doors or windows")),
     "remove_barricade": ("WOOD_UNBARRICADE", ("나무 바리케이드 철거에 쓸 수 있다", "It can be used to remove wooden barricades")),
-    "fish_with_spear": ("SPEAR_FISHING", ("물가에서 미끼 없이 창낚시에 쓸 수 있다", "It can be used for spear fishing at water without bait")),
-    "water_seeded_crop": ("CROP_WATERING", ("파종한 작물에 물을 줄 수 있다", "It can water seeded crops")),
+    "fish_with_spear": ("SPEAR_FISHING", ("물가에서 미끼 없이 창낚시에 쓸 수 있다", "It can be used to spear fish from the water's edge without bait")),
+    "water_seeded_crop": ("CROP_WATERING", ("작물에 물을 줄 수 있다", "It can water seeded crops")),
     "wash_vehicle_blood": ("VEHICLE_WASHING", ("물로 차량의 혈흔을 씻을 수 있다", "Its water can wash vehicle bloodstains")),
     "extinguish_fire": ("EXTINGUISH_CONDITIONS", ("바닥이나 몸에 붙은 불을 끌 수 있다", "It can extinguish fires on the ground or on characters")),
     "apply_garment_patch": ("GARMENT_PATCHING", ("의류의 구멍을 덧대거나 패딩을 추가할 수 있다", "It can be used to patch garment holes or add padding")),
@@ -94,22 +94,22 @@ FUNCTION_FRAMES = {
     "apply_bandage": ("BANDAGE_APPLICATION", ("붕대를 댈 수 있는 부위의 붕대 재료로 사용할 수 있다", "It can be used as bandaging material for body parts that permit bandaging")),
     "wash_bandaging_material": ("BANDAGE_WASHING", ("물을 사용해 대응하는 깨끗한 붕대·직물 형태로 바꿀 수 있다", "Water can turn it into the corresponding clean bandage or fabric form")),
     "destroy_structure": ("STRUCTURE_DESTRUCTION", ("구조물을 철거하는 데 사용할 수 있다", "It can be used to demolish structures")),
-    "assist_stitching": ("SUTURE_ASSISTANCE", ("봉합이나 실밥 제거에 보조 도구로 사용할 수 있으며 기본 시간을 줄인다", "It can assist stitching or stitch removal and reduces their base time")),
-    "disinfect_wound": ("DISINFECTION", ("붕대가 없는 부위의 상처를 소독할 수 있다", "It can be used to disinfect an unbandaged wound")),
-    "fire_ammunition": ("FIRING", ("사격에 사용할 수 있다. 탄약이 준비되고 탄 걸림이 없어야 하며 낡은 총은 잔탄이 있을 때 걸릴 수 있다", "It can be used for shooting. Firing needs ready ammunition and no jam; a worn gun with rounds remaining can jam")),
+    "assist_stitching": ("SUTURE_ASSISTANCE", ("상처를 봉합하거나 실밥을 제거할 때 보조 도구로 쓸 수 있다", "It can be used to assist stitching wounds or removing stitches")),
+    "disinfect_wound": ("DISINFECTION", ("상처를 소독할 수 있다", "It can be used to disinfect wounds")),
+    "fire_ammunition": ("FIRING", ("탄약을 장전해 사격할 수 있다", "It can be loaded with ammunition for shooting")),
     "convert_lamp_to_battery": ("LAMP_CONVERSION", ("조명을 건전지로 작동하도록 개조할 수 있다", "It can be used to convert lamps to battery power")),
     "dismantle_built_object": ("THUMPABLE_SCRAP", ("분해 가능한 건축물을 해체하고 재료를 회수할 수 있다", "It can be used to dismantle eligible built objects and recover materials")),
     "manage_weapon_attachments": ("WEAPON_ATTACHMENT_TOOL", ("호환 무기의 부착물을 장착하거나 제거할 수 있다", "It can be used to install or remove compatible weapon parts")),
     "service_vehicle_parts": ("VEHICLE_TOOL_USE", ("차량 부품을 장착하거나 탈거하는 데 사용할 수 있다", "It can be used to install or remove vehicle parts")),
-    "load_matching_ammunition": ("LOADING", ("빈 공간이 있는 호환 총기나 탄창에 장전할 수 있다", "It can be loaded into compatible firearms or magazines with loading space")),
-    "fill_magazine": ("MAGAZINE_FILL", ("탄창의 빈 공간에 호환 탄약을 넣을 수 있다", "Matching rounds can be loaded into the magazine's free capacity")),
+    "load_matching_ammunition": ("LOADING", ("호환 총기나 탄창에 장전할 수 있다", "It can be loaded into compatible firearms or magazines")),
+    "fill_magazine": ("MAGAZINE_FILL", ("호환 탄약을 넣어 총기에 장전할 수 있다", "It can hold compatible ammunition for loading into a firearm")),
     "empty_magazine": ("MAGAZINE_EMPTY", ("탄창의 잔탄을 꺼낼 수 있다", "Remaining rounds can be removed from the magazine")),
     "take_pills": ("PILL_TAKING", ("소지한 알약을 복용할 수 있다", "The carried pills can be taken")),
     "set_alarm": ("ALARM_SETTING", ("알람을 켜거나 끄고 시각을 설정할 수 있다", "Its alarm state and time can be set")),
     "stop_alarm": ("ALARM_STOPPING", ("울리는 알람을 끌 수 있다", "Its ringing alarm can be stopped")),
-    "fill_petrol_container": ("PUMP_CONTAINER", ("전원이 공급되는 주유기에서 연료를 받을 수 있다", "It can receive fuel from a powered pump")),
-    "transfer_vehicle_fuel": ("VEHICLE_CONTAINER", ("엔진이 꺼진 차량과 호환 용기 사이의 연료 이동에 쓸 수 있다", "It can transfer fuel between a stopped-engine vehicle and a compatible container")),
-    "refuel_generator": ("GENERATOR_REFUEL", ("꺼진 발전기에 휘발유를 보충할 수 있다", "It can add petrol to an inactive generator")),
+    "fill_petrol_container": ("PUMP_CONTAINER", ("주유기에서 연료를 받을 수 있다", "It can receive fuel from a pump")),
+    "transfer_vehicle_fuel": ("VEHICLE_CONTAINER", ("차량과 호환 용기 사이에서 연료를 옮길 수 있다", "It can transfer fuel between a vehicle and a compatible container")),
+    "refuel_generator": ("GENERATOR_REFUEL", ("발전기에 휘발유를 보충할 수 있다", "It can add petrol to a generator")),
     "pitch_tent": ("CAMP_PLACEMENT", ("텐트를 설치할 수 있다", "It can be used to pitch a tent")),
 }
 for _function, (_condition, _pair) in FUNCTION_FRAMES.items():
@@ -134,17 +134,17 @@ FRAME_REQUIRED['sowing'] = {lex.source.SOWING}
 # their public expanded clauses. Unknown conditions still take the fallback.
 OVERVIEWS = {
     'apply_poultice': ({lex.source.POULTICE_USE},
-        ('다친 부위에 약초 찜질제로 바를 수 있다', 'It can be applied to an injured body part as an herbal poultice')),
+        ('다친 부위에 바르는 약초 찜질제로 쓸 수 있다', 'It can be applied to an injured body part as an herbal poultice')),
     'install_padlock': ({lex.source.PADLOCK_USE},
-        ('자물쇠를 달 수 있는 구조물을 잠글 수 있다. 문에는 쓸 수 없으며, 설치하면 열쇠를 얻는다', 'It can lock structures that accept padlocks, except doors. Installation provides matching keys')),
+        ('제작한 나무 상자 같은 보관함을 잠글 수 있다. 문에는 쓸 수 없다', 'It can lock storage containers such as crafted wooden crates, except doors')),
     'provide_belt_slots': ({lex.source.SLOT_USE},
         ('착용하면 허리 양쪽에 도구나 무전기를 걸어 휴대할 수 있다', 'When worn, it can carry compatible tools or walkie-talkies on either side of the waist')),
     'provide_right_holster_slot': ({lex.source.SLOT_USE},
-        ('착용하면 오른쪽에 홀스터에 맞는 총기를 넣어 휴대할 수 있다', 'When worn, it can carry a compatible firearm on the right side')),
+        ('허리 오른쪽에 착용해 홀스터에 맞는 총기를 넣어 휴대할 수 있다', 'When worn, it can carry a compatible firearm on the right side')),
     'provide_paired_holster_slots': ({lex.source.SLOT_USE},
         ('허리 양쪽 홀스터에 맞는 총기를 넣어 휴대할 수 있다', 'It can carry compatible firearms in holsters on both sides of the waist')),
     'paint_supported_surface': ({lex.source.PAINTING, lex.source.PAINT_ACTIONS},
-        ('도색 가능한 표면을 칠할 수 있다', 'It can be used to paint compatible surfaces')),
+        ('벽·문틀·창틀·기둥과 일부 문·의자·상자·탁자를 칠할 수 있다', 'It can be used to paint walls, door frames, window frames and pillars, as well as some doors, chairs, crates and tables')),
     'paint_wall_sign': ({lex.source.PAINTING, lex.source.PAINT_ACTIONS},
         ('벽에 표식을 그릴 수 있다', 'It can be used to paint signs on walls')),
     'use_vehicle_seat': ({lex.source.VEHICLE_SEATING},
@@ -166,7 +166,7 @@ OVERVIEWS = {
     'remove_fishing_net': ({lex.source.NET_REMOVAL},
         ('설치한 어망을 회수할 수 있으나 원래 물품 상태는 보존하지 않는다', 'The placed net can be retrieved without preserving its original item state')),
     'supply_drum_logs': ({lex.source.DRUM_LOGS},
-        ('빈 금속 드럼의 숯 제작 재료로 쓸 수 있다', 'It can be made into charcoal in an empty metal drum')),
+        ('금속 드럼에서 숯을 만드는 재료로 쓸 수 있다', 'It can be made into charcoal in a metal drum')),
     'groom_beard': ({lex.source.BEARD_GROOMING},
         ('수염을 다듬거나 면도할 수 있다', 'It can be used to trim or shave a beard')),
     'send_remote_trigger': ({lex.source.REMOTE_TRIGGER},
@@ -178,7 +178,7 @@ OVERVIEWS = {
     'light_campfire_by_friction': ({lex.source.CAMP_FRICTION},
         ('연료가 든 꺼진 모닥불에 나무 마찰로 점화를 시도한다. 지구력을 소모하며 막대가 부러질 수 있다', 'It attempts wood-friction ignition of an unlit, fueled campfire, spending endurance with a risk of breaking the stick')),
     'operate_vehicle_battery_charger': ({lex.source.CHARGER_CONTROLS},
-        ('전력을 공급해 차량 배터리를 충전하는 데 쓸 수 있다', 'It can be used to charge vehicle batteries when powered')),
+        ('전력을 공급해 차량 배터리를 충전하는 데 쓸 수 있다', 'When supplied with power, it can be used to charge vehicle batteries')),
     'place_vehicle_battery_charger': ({lex.source.CHARGER_PLACEMENT},
         ('한 칸에 하나씩 설치하며 배터리가 없을 때 회수하는 차량 배터리 충전기다', 'The charger can be placed one per square and retrieved without a battery')),
     'avoid_first_door_alarm_trigger': ({lex.source.KEY_ALARM},
@@ -186,15 +186,15 @@ OVERVIEWS = {
     'operate_door_lock': ({lex.source.DOOR_KEY_USE},
         ('열쇠가 맞는 문을 잠그거나 열 수 있다', 'It can lock or unlock a door with a matching lock')),
     'remove_matching_padlock': ({lex.source.PADLOCK_KEY_USE},
-        ('맞는 구조물 자물쇠를 제거할 수 있으며 이때 소모된다', 'It can remove a matching structure padlock and is consumed in the process')),
+        ('맞는 자물쇠를 구조물에서 제거할 수 있다', 'It can remove a matching padlock from a structure')),
     'request_matching_vehicle_start': ({lex.source.VEHICLE_KEY_USE},
         ('열쇠가 맞는 차량의 시동을 거는 데 쓸 수 있다', 'It can be used to start the matching vehicle')),
     'satisfy_vehicle_mechanics_key': ({lex.source.KEY_MECHANICS},
         ('맞는 차량의 정비 작업에서 열쇠 요구를 충족한다', 'It meets the key requirement of a matching vehicle mechanics operation')),
     'install_combination_padlock': ({lex.source.CODE_LOCK_USE},
-        ('자물쇠를 달 수 있는 구조물에 비밀번호 잠금을 설정할 수 있다. 문이나 이미 잠긴 구조물에는 쓸 수 없다', 'It can secure a structure that accepts padlocks with a chosen code, except doors and already locked structures')),
+        ('제작한 나무 상자 같은 보관함에 비밀번호 잠금을 설정할 수 있다. 문에는 쓸 수 없다', 'It can secure storage containers such as crafted wooden crates with a chosen code, except doors')),
     'remove_combination_padlock': ({lex.source.CODE_UNLOCK},
-        ('설치 후 맞는 번호로 제거할 수 있다', 'Once installed, it can be removed with its matching code')),
+        ('설정한 비밀번호로 구조물의 잠금을 해제할 수 있다', 'The structure can be unlocked with the configured code')),
     'transfer_compost': ({lex.source.COMPOST_TRANSFER},
         ('퇴비통과 포대 사이에서 퇴비를 옮길 수 있다', 'It can transfer compost between a bin and a bag')),
     'receive_compost': ({lex.source.COMPOST_TRANSFER},
@@ -208,7 +208,7 @@ OVERVIEWS = {
     'insert_recorded_media': ({lex.source.MEDIA_INSERT},
         ('다른 매체가 들어 있지 않은 호환 기기에서 전원을 켜고 재생할 수 있다', 'It can be played in a powered compatible player with no other media inserted')),
     'connect_radio_headphones': ({lex.source.HEADPHONE_CONNECTION},
-        ('다른 헤드폰이 연결되지 않은 호환 휴대 기기에 꽂아 쓸 수 있다. TV에는 연결할 수 없다', 'It can be plugged into a portable device with an available headphone connection, excluding TVs')),
+        ('호환되는 휴대 기기의 소리를 듣는 데 쓸 수 있다', 'It can be used to listen to audio from compatible portable devices')),
     'operate_installed_vehicle_door': ({lex.source.PANEL_DOOR},
         ('차량에 장착된 문·덮개를 여닫을 수 있다', 'It can open or close an installed vehicle door or cover')),
     'operate_installed_vehicle_lock': ({lex.source.PANEL_LOCK},
@@ -218,7 +218,7 @@ OVERVIEWS = {
     'repair_vehicle_engine': ({lex.source.ENGINE_REPAIR},
         ('손상된 차량 엔진을 수리하는 데 사용할 수 있다', 'It can be used to repair damaged vehicle engines')),
     'erase_map_annotations': ({lex.source.MAP_ERASURE},
-        ('지도의 글·기호 주석을 지울 수 있다', 'It can erase map text or symbols')),
+        ('지도에 적힌 글이나 기호를 지울 수 있다', 'It can erase map text or symbols')),
     'groom_hair': ({lex.source.HAIR_GROOMING},
         ('머리를 손질할 수 있다', 'It can be used to groom hair')),
     'serve_as_eating_utensil': ({lex.source.MEAL_UTENSIL},
@@ -248,7 +248,7 @@ OVERVIEWS = {
     'cut_bushes_and_vines': ({lex.source.PLANT_CUTTING},
         ('덤불이나 벽 덩굴을 제거할 수 있다', 'It can be used to remove bushes and wall vines')),
     'link_remote_device': ({lex.source.REMOTE_LINK},
-        ('함께 가지고 있는 호환 장치를 연결해 원격으로 작동시키도록 설정할 수 있다', 'It can pair a compatible controller and device carried together for remote activation')),
+        ('호환 장치를 연결해 원격으로 작동시킬 수 있다', 'It can link compatible devices for remote activation')),
     'reset_remote_id': ({lex.source.REMOTE_RESET},
         ('선택한 물품의 원격 연결만 해제한다', 'It resets only the selected item\'s remote link')),
     'place_trigger_device': ({lex.source.DEVICE_WORLD_PLACEMENT},
@@ -260,9 +260,9 @@ OVERVIEWS = {
     'set_device_timer': ({lex.source.DEVICE_TIMER_CONTROL, lex.source.DEVICE_DELAY},
         ('타이머의 지연 시간을 설정할 수 있다', 'Its timer delay can be set')),
     'fish_with_rod': ({lex.source.ROD_FISHING, lex.source.FISHING_EXECUTION, lex.source.FISHING_LURES, lex.source.FISHING_MATCHES},
-        ('물가에서 맞는 미끼와 함께 낚시할 수 있다', 'It can be used for rod fishing at water with matching bait')),
+        ('물가에서 맞는 미끼와 함께 낚시할 수 있다', "It can be used to fish from the water's edge with matching bait")),
     'bait_rod_fishing': ({lex.source.ROD_FISHING, lex.source.FISHING_EXECUTION, lex.source.FISHING_MATCHES, lex.source.FISHING_LURE_LOSS},
-        ('물가에서 낚싯대 낚시의 미끼로 사용할 수 있다', 'It can be used as bait for rod fishing at water')),
+        ('낚싯대에 달아 미끼로 쓸 수 있다', 'It can be used as bait on a fishing rod')),
     'control_installed_generator': ({lex.source.GENERATOR_CONTROL},
         ('지식·연료·상태 조건에 따라 설치한 발전기를 연결하고 가동할 수 있다', 'The installed generator can be connected and operated subject to knowledge, fuel and condition requirements')),
     'handle_generator': ({lex.source.GENERATOR_HANDLING},
@@ -355,6 +355,8 @@ def frames(plan, locale, links, *, expanded=False):
         dispositions = []
         for u in members:
             for qref in u["qualifier_refs"]:
+                if not lex.public_qualifier(plan['qualifiers'][qref]):
+                    continue
                 predicate = plan["qualifiers"][qref]["payload"]["predicate"]
                 role_detail = frame == "role_overview"
                 detail = frame in {"wearing", "ignition", "note", "makeup"} or predicate == lex.source.NOTE_LIMITS or role_detail
@@ -404,21 +406,21 @@ def frames(plan, locale, links, *, expanded=False):
             ko_start = '봉지를 개봉해 꺼낸 ' if fn == 'sow_extracted_seeds' else ''
             en_start = 'After opening the packet, sow ' if fn == 'sow_extracted_seeds' else 'Sow '
             emit(members,
-                 (ko_start + '씨앗을 아직 씨가 없는 경작 고랑에 심을 수 있다',
-                  ('The packet can be opened to obtain seeds for sowing in an unseeded plowed furrow' if fn == 'sow_extracted_seeds' else 'The seeds can be sown in an unseeded plowed furrow')),
+                 (ko_start + '씨앗을 밭에 심을 수 있다',
+                  ('The packet can be opened to obtain seeds for sowing in a planting bed' if fn == 'sow_extracted_seeds' else 'The seeds can be sown in a planting bed')),
                  'sowing', 'seed packet opening is distinct from consumption of the configured loose-seed count')
     for fn, prop, direction, frame, wording in (
         ('dry_the_body', 'body_wetness', 'decrease', 'drying',
          ('물기를 닦을 수 있다',
           'It can be used to dry yourself')),
         ('disinfect_wound', 'wound_alcohol_level', 'increase', 'disinfection',
-         ('붕대가 없는 부위의 상처를 소독할 수 있다',
-          'It can be used to disinfect an unbandaged wound')),
+         ('상처를 소독할 수 있다',
+          'It can be used to disinfect wounds')),
         ('treat_crop_mildew', 'crop_mildew_level', 'decrease', 'crop_treatment',
-         ('흰가루병이 있는 작물에 살포해 병의 정도를 줄일 수 있다',
+         ('작물에 뿌려 흰가루병을 줄일 수 있다',
           'It can be sprayed on crops to reduce mildew')),
         ('treat_crop_flies', 'crop_flies_level', 'decrease', 'crop_treatment',
-         ('해충이 있는 작물에 살포해 해충을 줄일 수 있다',
+         ('작물에 뿌려 해충을 줄일 수 있다',
           'It can be sprayed on crops to reduce flies')),
     ):
         action = function(fn)
@@ -448,8 +450,8 @@ def frames(plan, locale, links, *, expanded=False):
     curtains = function('install_sheet_curtain')
     if curtains:
         emit(curtains,
-             ('커튼이 없는 창문이나 문에 커튼으로 달아 쓸 수 있다',
-              'It can be used as a curtain on an eligible window or door without one'),
+             ('창문이나 문에 커튼으로 달아 쓸 수 있다',
+              'It can be used as a curtain on a window or door'),
              'curtain', 'carried material supplies a curtain; subsequent placed-object controls are internal')
     for name, (_, wording) in OVERVIEWS.items():
         for u in function(name):
@@ -468,8 +470,8 @@ def frames(plan, locale, links, *, expanded=False):
         if power_roles and any(u['facts'][0]['payload'].get('function') == 'supply_portable_device_charge' for u in batteries):
             batteries += power_roles
         emit(batteries,
-             ('남은 충전량으로 호환되는 조명과 휴대 기기 등을 작동시킬 수 있다',
-              'Its remaining charge can power compatible lights and portable or other battery-powered devices'),
+             ('호환되는 조명이나 휴대 기기에 전력을 공급할 수 있다',
+              'It can supply power to compatible lights and portable devices'),
              'battery_supply', 'battery supply targets remain distinct; empty-slot, recipe and charge-transfer details remain expanded')
     trapping = function('catch_trap_animal') + function('place_animal_trap') + function('manage_animal_trap')
     if len(trapping) == 3:
@@ -482,8 +484,8 @@ def frames(plan, locale, links, *, expanded=False):
         if len(animals) == 1:
             names = animals[0][1]
             emit(trapping,
-                 (names[0] + ' 포획을 위해 신선한 대응 미끼와 함께 설치할 수 있다. 미끼·포획물·덫을 회수할 수 있다',
-                  'It can be placed with matching fresh bait to catch ' + names[1] + '. Bait, catches and the trap can be retrieved'),
+                 (names[0] + '를 잡는 덫으로 쓸 수 있다' + ('. 잡을 동물에 맞는 신선한 미끼가 필요하다. 넣어 둔 미끼와 설치한 덫은 회수할 수 있다' if expanded else ''),
+                  'It can be used to trap ' + names[1] + ('. Matching fresh bait is needed. Unused bait and the placed trap can be retrieved' if expanded else '')),
                  'trap', 'trap placement, handling and conditional capture overview; exact targets, losses and controls remain expanded')
 
     read = function("read_literature")
@@ -494,17 +496,10 @@ def frames(plan, locale, links, *, expanded=False):
     if read and len(learning) == 1 and related(read, learning):
         skill = learning[0]["facts"][0]["payload"]["property"].removesuffix("_experience_multiplier")
         name = lex.base.SKILLS[skill]
-        ko_max = en_max = ""
-        if len(maximum) == 1:
-            value = maximum[0]["facts"][0]["payload"]["value"]
-            ko_max, en_max = f" 완독 시 최대 {value}배다.", f" Full reading reaches up to {value}×."
-        wording = (f"자신의 기술 수준에 맞을 때 읽으면 {name[0]} 경험치 배율을 높일 수 있다.{ko_max}",
-                   f"Reading it at the appropriate skill levels can raise the {name[1]} XP multiplier.{en_max}")
-        if not expanded:
-            wording = (f"자신의 기술 수준에 맞을 때 읽으면 {name[0]} 경험치 배율을 높일 수 있다.{ko_max}",
-                       f"Reading it at the appropriate skill levels can raise the {name[1]} XP multiplier.{en_max}")
+        wording = (f"자신의 기술 수준에 맞을 때 읽으면 {name[0]} 경험치 배율을 높일 수 있다.",
+                   f"Reading it at the appropriate skill levels can raise the {name[1]} XP multiplier.")
         emit(read + learning + maximum, wording,
-             "reading", "reading/learning frame: reader eligibility precedes learning; maximum requires full reading")
+             "reading", "reading purpose retains eligibility and effect; full-reading maximum remains evidence, not overview prose")
 
     ignition, target_methods = [], {}
     for name, (predicate, targets, methods) in IGNITION.items():
@@ -574,13 +569,13 @@ def frames(plan, locale, links, *, expanded=False):
         if drinking:
             members += drink + thirst
             purposes.append(("drink_stored_water", ("갈증 해소", "quenching thirst")))
-        task_names = {'water_seeded_crop': ('작물 급수', 'watering crops'),
+        task_names = {'water_seeded_crop': ('작물에 물을 줄 수 있다', 'watering crops'),
                       'pour_water_into_container': ('다른 용기로 물 옮기기', 'transferring water to other containers'),
                       'receive_poured_water': ('다른 용기에서 물 받기', 'receiving water from other containers'),
-                      'wash_vehicle_blood': ('차량 혈흔 세척', 'washing vehicle bloodstains'),
-                      'extinguish_fire': ('소화', 'extinguishing fires'),
-                      'drink_stored_water': ('음용', 'drinking'),
-                      'supply_world_water_storage': ('저장 시설 급수', 'refilling water storage')}
+                      'wash_vehicle_blood': ('차량에 묻은 피를 씻을 수 있다', 'washing vehicle bloodstains'),
+                      'extinguish_fire': ('불을 끌 수 있다', 'extinguishing fires'),
+                      'drink_stored_water': ('담긴 물을 마실 수 있다', 'drinking'),
+                      'supply_world_water_storage': ('물 저장 시설에 물을 채울 수 있다', 'refilling water storage')}
         tasks = [task_names[name] for name, p in purposes if name not in {
             "store_water", "carry_water", "pour_water_into_container", "receive_poured_water"}
             and not (name == 'supply_world_water_storage' and any(n == 'pour_water_into_container' for n, _ in purposes))]
@@ -593,19 +588,38 @@ def frames(plan, locale, links, *, expanded=False):
         carrying = any(name == "carry_water" for name, _ in purposes)
         receiving = any(name == 'receive_poured_water' for name, _ in purposes)
         pouring = any(name == 'pour_water_into_container' for name, _ in purposes)
-        ko_text = "물을 담아 보관" + ("하거나 운반" if carrying else "") + "할 수 있다"
-        en_text = "It can hold water for storage" + (" or carrying" if carrying else "")
-        if pouring:
-            storage = any(name == 'supply_world_water_storage' for name, _ in purposes)
-            ko_text = '물을 보관·운반하거나 용기' + ('·저장 시설' if storage else '') + '에 부을 수 있다' if carrying else ko_text + '. 다른 용기에 물을 부을 수 있다'
-            en_text = 'It can store, carry and pour water into containers' + (' or storage fixtures' if storage else '') if carrying else en_text + '. It can pour water into other containers'
-        if tasks:
-            ko_text += '. 담긴 물은 ' + "·".join(p[0] for p in tasks) + '에 쓸 수 있다'
-            en_text += "; its water serves for " + lex_join([p[1] for p in tasks])
+        # Receiving, holding, carrying and pouring are one water-handling
+        # purpose. Compact names that purpose, not every transfer direction.
+        ko_text = '물을 담아 보관하거나 옮길 수 있다' if carrying and pouring else '물을 담아 보관하거나 운반할 수 있다' if carrying else '물을 담아 보관할 수 있다'
+        en_text = 'It can hold and move water' if carrying and pouring else 'It can hold water for storage or carrying' if carrying else 'It can store water'
+        names = {name for name, _ in purposes}
+        direct = []
+        if 'drink_stored_water' in names:
+            direct.append(('마시', 'drink'))
+        if 'water_seeded_crop' in names:
+            direct.append(('작물에 주', 'water crops with it'))
+        cleaning = []
+        if 'wash_vehicle_blood' in names:
+            cleaning.append(('차량에 묻은 피를 씻', 'wash blood off vehicles'))
+        if 'extinguish_fire' in names:
+            cleaning.append(('불을 끄', 'extinguish fires'))
+        if direct:
+            ko_text += '. 담긴 물은 ' + ('마시거나 작물에 줄 수 있다' if len(direct) == 2 else '마실 수 있다' if direct[0][1] == 'drink' else '작물에 줄 수 있다')
+        if cleaning:
+            work = '거나 '.join(v[0] for v in cleaning) + '는 데도 쓸 수 있다'
+            ko_text = ko_text.removesuffix('다') + '고, ' + work if direct else ko_text + '. 담긴 물로 ' + work
+        if direct or cleaning:
+            en_text += '. Its water can be used for ' + lex_join([{'drink': 'drinking', 'water crops with it': 'watering crops', 'wash blood off vehicles': 'washing blood off vehicles', 'extinguish fires': 'extinguishing fires'}[v[1]] for v in direct + cleaning])
+        if direct and cleaning and not expanded:
+            # Drinking and work-water examples identify the purpose without
+            # listing every supported task or transfer direction in Compact.
+            if 'drink_stored_water' in names and 'water_seeded_crop' in names:
+                ko_text = '물을 담아 마시거나 농사·세척 등에 공급할 수 있다' if 'wash_vehicle_blood' in names else '물을 담아 식수나 농사용수 등으로 쓸 수 있다'
+                en_text = 'It can carry water for drinking, farming and tasks such as cleaning' if 'wash_vehicle_blood' in names else 'It can carry water for drinking, farming and other supported tasks'
         if drinking and poison and related(drink, poison) and all(any(
                 plan["qualifiers"][q]["payload"]["predicate"] == TAINT for q in u["qualifier_refs"]) for u in poison):
             members += poison
-            ko_text += ' (오염수 음용은 중독 위험)'
+            ko_text += '. 오염된 물을 마시면 중독될 수 있다'
             en_text += '; drinking tainted water risks poisoning'
         if cooking:
             ko_text += '. 재료를 더해 요리를 만들 수도 있다'
@@ -635,16 +649,16 @@ def frames(plan, locale, links, *, expanded=False):
     fertilize, growth, rot = function("apply_fertilizer"), effect("crop_growth_schedule"), effect("crop_state")
     if fertilize and related(fertilize, growth + rot) and growth and rot:
         emit(fertilize + growth + rot,
-             ("살아 있는 파종 작물에 시비해 다음 성장 시점을 앞당길 수 있다. 이미 네 번 이상 시비한 작물에 더 주면 부패한다",
-              "It can advance a living, seeded crop's next growth time. Fertilizing again after at least four applications rots the crop"),
+             ("작물의 성장을 촉진할 수 있다. 비료를 너무 많이 주면 작물이 썩을 수 있다",
+              "It can speed up crop growth. Too much fertilizer can rot the crop"),
              "fertilizer", "fertilizer frame: growth before over-fertilization and subsequent rot are conditional alternatives")
 
     smoke = function("smoke_cigarette")
     mood, sickness = effect("stress") + effect("unhappiness"), effect("food_sickness")
     if smoke and related(smoke, mood + sickness) and mood and sickness:
         emit(smoke + mood + sickness,
-             ("성냥이나 라이터로 흡연할 수 있다. 흡연가의 스트레스·불행 수치를 줄이며 비흡연가의 식중독 수치를 높인다",
-              "It can be smoked with a match or lighter. Smoking reduces a Smoker's stress and unhappiness but increases a non-Smoker's food sickness"),
+             ("성냥이나 라이터로 담배를 피울 수 있다. 흡연가는 기분을 달래는 데 쓸 수 있지만, 비흡연가가 피우면 탈이 날 수 있다",
+              "It can be smoked with a match or lighter. It can help a Smoker's mood, but smoking can make a non-Smoker feel ill"),
              "smoking", "smoking frame: shared prerequisites do not merge opposite trait-dependent effects")
 
     view, write = function("view_written_note_pages"), function("record_written_notes")
@@ -699,8 +713,8 @@ def frames(plan, locale, links, *, expanded=False):
     tank = function("store_vehicle_fuel") + function("transfer_vehicle_fuel") + function("supply_vehicle_engine_fuel")
     if len(tank) == 3:
         emit(tank,
-             ("차량에 장착해 연료를 보관한다. 엔진을 멈추면 맞는 용기로 연료를 넣거나 뺄 수 있고 작동 중에는 엔진에 공급한다. 탱크 상태가 70 미만이면 추가로 연료를 잃을 수 있다",
-              "Once installed, it stores fuel. With the engine stopped, a compatible container can add or siphon fuel; a running engine draws fuel from it. Below tank condition 70, additional fuel loss is possible"),
+             ("차량에 장착해 연료를 보관하고 엔진에 공급할 수 있다",
+              "Once installed in a vehicle, it stores fuel and supplies the engine"),
              "vehicle_fuel", "tank frame: installed storage, stopped-engine transfer and running-engine supply are distinct operations")
     ground, tasks = [], []
     for name, (predicate, phrase) in GROUND_TASKS.items():
@@ -716,14 +730,14 @@ def frames(plan, locale, links, *, expanded=False):
             'dig_furrow': ('고랑 파기', 'digging furrows'),
             'dig_grave': ('무덤 파기', 'digging graves'),
             'fill_grave': ('무덤 메우기', 'filling graves'),
-            'remove_farm_plant': ('수확 없이 작물·고랑 제거', 'removing plants or furrows without harvesting'),
+            'remove_farm_plant': ('작물과 고랑 정리', 'clearing plants or furrows'),
         }
         if expanded:
             by_name = {u['facts'][0]['payload']['function']: u for u in ground}
             grouped = set()
             for pair, wording in (
-                (('dig_grave', 'fill_grave'), ('적합한 자연 지면에 무덤을 파거나 기존 무덤을 메울 수 있다', 'It can dig graves on suitable natural ground or fill existing graves')),
-                (('dig_furrow', 'remove_farm_plant'), ('비어 있는 자연 지면에 고랑을 파거나 밭의 작물과 고랑을 정리할 수 있다. 작물 제거는 수확으로 처리되지 않는다', 'It can dig furrows on empty natural ground or clear plants and furrows. Removing plants does not harvest them')),
+                (('dig_grave', 'fill_grave'), ('땅에 무덤을 파거나 기존 무덤을 메울 수 있다', 'It can dig graves in the ground or fill existing graves')),
+                (('dig_furrow', 'remove_farm_plant'), ('땅에 고랑을 파거나 밭의 작물과 고랑을 정리할 수 있다', 'It can dig furrows in soil or clear plants and furrows')),
             ):
                 if all(name in by_name for name in pair):
                     emit([by_name[name] for name in pair], wording, 'ground_work', 'same ground-work purpose, with target and non-harvest limits retained')
@@ -732,7 +746,7 @@ def frames(plan, locale, links, *, expanded=False):
                 if u['facts'][0]['payload']['function'] in grouped:
                     continue
                 phrase = GROUND_TASKS[u['facts'][0]['payload']['function']][1]
-                verbs = {'dig_furrow': '비어 있는 자연 지면에 고랑을 팔 수 있다', 'remove_farm_plant': '작물을 수확하지 않고 제거하거나 고랑을 없앨 수 있다', 'dig_grave': '적합한 자연 지면에 무덤을 팔 수 있다', 'fill_grave': '무덤을 메울 수 있다', 'collect_ground_into_bag': '흙이나 모래, 자갈을 포대에 담을 수 있다', 'clear_burnt_floor_ashes': '바닥의 재를 치울 수 있다'}
+                verbs = {'dig_furrow': '땅에 고랑을 팔 수 있다', 'remove_farm_plant': '밭의 작물과 고랑을 정리할 수 있다', 'dig_grave': '땅에 무덤을 팔 수 있다', 'fill_grave': '무덤을 메울 수 있다', 'collect_ground_into_bag': '흙이나 모래, 자갈을 포대에 담을 수 있다', 'clear_burnt_floor_ashes': '바닥의 재를 치울 수 있다'}
                 emit([u], (verbs[u['facts'][0]['payload']['function']], 'It can be used for ' + phrase[1]),
                      'ground_work', 'independent ground operation with its actual target scope')
         else:
@@ -742,14 +756,22 @@ def frames(plan, locale, links, *, expanded=False):
                 tasks.append(('무덤 파기와 메우기', 'digging and filling graves'))
                 functions -= {'dig_grave', 'fill_grave'}
             if {'dig_furrow', 'remove_farm_plant'} <= functions:
-                tasks.append(('밭 만들기와 정리(수확 제외)', 'preparing and clearing planting beds without harvesting'))
+                tasks.append(('밭 만들기와 정리', 'preparing and clearing planting beds'))
                 functions -= {'dig_furrow', 'remove_farm_plant'}
             tasks += [short[u['facts'][0]['payload']['function']] for u in ground if u['facts'][0]['payload']['function'] in functions]
-            shaping = [task for task in tasks if task[0] in {'무덤 파기와 메우기', '밭 만들기와 정리(수확 제외)'}]
+            shaping = [task for task in tasks if task[0] in {'무덤 파기와 메우기', '밭 만들기와 정리'}]
             handling = [task for task in tasks if task not in shaping]
             groups = [group for group in (shaping, handling) if group]
+            ko_tasks = []
+            all_functions = {u['facts'][0]['payload']['function'] for u in ground}
+            if {'dig_grave', 'fill_grave'} <= all_functions:
+                ko_tasks.append('무덤을 파거나 메울 수 있다')
+            if {'dig_furrow', 'remove_farm_plant'} <= all_functions:
+                ko_tasks.append('밭을 만들거나 정리할 수 있다')
+            independent = {'dig_grave': '무덤을 팔 수 있다', 'fill_grave': '무덤을 메울 수 있다', 'dig_furrow': '고랑을 팔 수 있다', 'remove_farm_plant': '밭을 정리할 수 있다', 'collect_ground_into_bag': '흙이나 모래, 자갈을 포대에 담을 수 있다', 'clear_burnt_floor_ashes': '재를 치울 수 있다'}
+            ko_tasks += [word for fn, word in independent.items() if fn in functions]
             emit(ground,
-                 ('. '.join('·'.join(t[0] for t in group) + '에 쓸 수 있다' for group in groups),
+                 ('. '.join(ko_tasks),
                   '. '.join('It can be used for ' + lex_join([t[1] for t in group]) for group in groups)),
                  "ground_work", "ground-work frame: share tool readiness while keeping each operation's target constraints")
     for name, (_, pair) in FUNCTION_FRAMES.items():
@@ -832,7 +854,7 @@ def packaging_frames(plan, locale, links, compact=False):
         complete = predicate in {lex.source.JAR_BOX_OPENING, lex.source.FROG_PREPARATION,
                                 lex.source.EGG_CARTON_OPENING, lex.source.PRODUCE_SACK_OPENING,
                                 lex.source.WIRE_RECOVERY}
-        text = lex.pair(wording, locale) + '.' + ((' 이때 ' if locale == 'ko' else ' ') + condition + '.' if not compact and not complete else '')
+        text = lex.pair(wording, locale) + '.' + ((' 이때 ' if locale == 'ko' else ' ') + condition + '.' if not compact and not complete and lex.public_qualifier(plan['qualifiers'][action[0]['qualifier_refs'][0]]) else '')
         segment = {'text': text, **links(members, plan), 'expression': 'exact_scope'}
         if compact:
             segment.update(placement_reason='named packaging function and material role with identical scope; method requirements in expanded',
@@ -877,13 +899,18 @@ def condition_frames(plan, locale, links, compact):
         if len({tuple(u['qualifier_refs']) for u in candidates}) != 1:
             continue
         wording = '. '.join(lex.qualifier_clauses([plan['qualifiers'][q] for q in candidates[0]['qualifier_refs']], locale))
+        actions = [u['facts'][0] for u in candidates if u['facts'][0]['fact_kind'] == 'direct_function']
+        if actions:
+            wording = '. '.join(dict.fromkeys(lex.core(f, locale).removesuffix('.') for f in actions))
+        if not wording:
+            continue
         segment = {'text': wording + '.', **links(candidates, plan), 'expression': 'exact_scope'}
         if compact:
             segment.update(placement_reason='complete conditional action/effect wording in one exact scope',
                 qualifier_dispositions=[{'qualifier_ref': q, 'applies_to_fact_refs': u['fact_refs'],
                     'placement': 'compact_core', 'text': wording,
                     'reason': 'the full conditional statement expresses the admitted payload without repetition'}
-                    for u in candidates for q in u['qualifier_refs']])
+                    for u in candidates for q in u['qualifier_refs'] if lex.public_qualifier(plan['qualifiers'][q])])
         output.append(segment)
         used.update(r for u in candidates for r in u['fact_refs'])
     return output, used

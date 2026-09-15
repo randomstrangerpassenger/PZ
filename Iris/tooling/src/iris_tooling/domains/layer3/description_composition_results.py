@@ -329,7 +329,7 @@ def _compact_liquid_containers(segments, plan, locale):
 
 
 def _compact_supporting_details(segments, plan):
-    """Place packaging and individual recipe-tool examples below an overview.
+    """Place packaging details below an overview; keep independent tool purposes.
 
     Bundling participation is kept in Expanded for every participant;
     the generic material role does not identify which input is bundled.
@@ -343,8 +343,8 @@ def _compact_supporting_details(segments, plan):
             functions = {f['payload'].get('function') for f in unit['facts']} - {None}
             return (bool(functions) and functions <= {'pack_into_box'} or
                     set(contexts) == {'item_packaging'} or
-                    set(contexts) == {'log_binding'} and set(roles) <= {'material'} or
-                    bool(contexts) and set(contexts) <= planner.PRODUCT_CONTEXTS and set(roles) == {'tool'})
+                    set(contexts) == {'watermelon_breaking'} or
+                    set(contexts) == {'log_binding'} and set(roles) <= {'material'})
         if units and all(supporting(u) for u in units):
             details.append(segment)
     return [s for s in segments if s not in details] if len(details) < len(segments) else segments
@@ -442,6 +442,17 @@ def _compact_purposes(segments, plan, locale):
         return result
     # A fuel vessel's source and destination menus describe fuel supply. The
     # fire-starting supply role stays explicit; it is never called an igniter.
+    # Recovery and grooming are realized from their own relationships in uses.
+    # A material/tool role alone never licenses a shared subject or purpose.
+    if any(p.get('function') == 'apply_bandage' for s in segments for p in payloads(s)):
+        segments = [s for s in segments if not (payloads(s) and all(p.get('function') == 'wash_bandaging_material' for p in payloads(s)))]
+    vehicle_work = {'salvage_vehicle_engine', 'repair_vehicle_engine', 'service_vehicle_parts'}
+    selected = [s for s in segments if payloads(s) and all(p.get('function') in vehicle_work for p in payloads(s))]
+    if len(selected) > 1:
+        salvage = any(p.get('function') == 'salvage_vehicle_engine' for s in selected for p in payloads(s))
+        segments = summary(selected, ('차량 정비와 부품 회수에 쓸 수 있다' if salvage else '차량 정비에 쓸 수 있다',
+                           'It can be used for vehicle maintenance and parts recovery' if salvage else 'It can be used for vehicle maintenance'),
+                           'vehicle work overview; the admitted installation, repair and salvage targets stay in Expanded')
     fuel_functions = {'fill_petrol_container', 'transfer_vehicle_fuel', 'refuel_generator',
                       'request_corpse_burning', 'light_campfire_with_petrol',
                       'ignite_hearth_with_petrol', 'ignite_industrial_fire_with_petrol'}
@@ -456,62 +467,9 @@ def _compact_purposes(segments, plan, locale):
         if {p.get('function') for p in ps} - {None} == {'melee_attack'} and {p.get('activity') for p in ps} - {None} == {'watermelon_breaking'}:
             segments = summary([segment], ('무기로 쓸 수 있다', 'It can be used as a weapon'),
                                'weapon overview; the preparation task remains in Expanded')
-    # Electronic work, woodworking and mechanical attachment work form a
-    # concrete workshop-tool overview when all three are actually admitted.
-    electronic = {'radio_crafting', 'radio_salvage', 'electronic_assembly', 'electronic_salvage'}
-    maintenance = {'manage_weapon_attachments', 'service_vehicle_parts', 'dismantle_built_object', 'convert_lamp_to_battery', 'melee_attack'}
-    selected = [s for s in segments if payloads(s) and all(
-        p.get('activity') in electronic | {'woodworking', 'spear_upgrade'} or p.get('function') in maintenance or
-        p.get('role') in {'tool', 'attachment'} for p in payloads(s))]
-    ps = [p for s in selected for p in payloads(s)]
-    activities = {p.get('activity') for p in ps}
-    functions = {p.get('function') for p in ps}
-    if activities & electronic and 'woodworking' in activities and functions >= {'manage_weapon_attachments', 'service_vehicle_parts'}:
-        text = ('전자기기 제작·분해·개조와 목공·정비 작업에 쓸 수 있다',
-                'It can be used for electronics work, woodworking and mechanical maintenance')
-        if 'melee_attack' in functions:
-            text = (text[0] + '. 무기로도 쓸 수 있다', text[1] + '. It can also serve as a weapon')
-        segments = summary(selected, text, 'workshop tool fields; exact targets and individual attachment operations remain in Expanded')
-    # Remaining compound families share a purpose, not necessarily a verb.
-    # These closed sets were reviewed against every compound candidate.
-    families = [
-        ({'metal_welding_construction', 'welded_parts', 'construction'},
-         {'remove_metal_barricade', 'build_metal_barricade', 'dismantle_burnt_vehicle'}, {'material', 'tool'},
-         {'metal_welding_construction', 'welded_parts'}, {'dismantle_burnt_vehicle'},
-         ('금속 제작·건축과 금속 바리케이드나 불탄 차량 등의 해체에 용접 도구로 쓸 수 있다',
-          'It can serve as a welding tool for metalwork and construction, or dismantling metal barricades and burnt vehicles, for example')),
-        ({'shovel_smithing', 'metal_forging', 'woodworking', 'construction', 'watermelon_breaking'},
-         {'remove_barricade', 'build_wooden_barricade', 'melee_attack'}, {'tool'},
-         {'metal_forging', 'woodworking'}, {'build_wooden_barricade', 'melee_attack'},
-         ('금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다',
-          'It can be used for metal forging, woodworking and construction. It can also be used as a weapon')),
-        (set(), {'collect_ground_into_bag', 'dig_grave', 'fill_grave', 'dig_furrow', 'remove_farm_plant', 'clear_burnt_floor_ashes'}, set(),
-         set(), {'collect_ground_into_bag', 'dig_furrow', 'clear_burnt_floor_ashes'},
-         ('땅을 파고 정리하거나 흙·자갈 등을 포대에 담는 데 쓸 수 있다',
-          'It can be used to dig and clear ground or collect materials such as soil and gravel into bags')),
-    ]
-    for allowed_activities, allowed_functions, roles, required_activities, required_functions, text in families:
-        selected = [s for s in segments if payloads(s) and all(p.get('activity') in allowed_activities or
-                    p.get('function') in allowed_functions or p.get('role') in roles for p in payloads(s))]
-        ps = [p for s in selected for p in payloads(s)]
-        if selected and required_activities <= {p.get('activity') for p in ps} and required_functions <= {p.get('function') for p in ps}:
-            segments = summary(selected, text, 'shared purpose family; individual operations and targets remain in Expanded')
-    cutting = {'food_portioning', 'animal_butchery', 'fish_preparation', 'frog_preparation', 'woodworking',
-               'spear_crafting', 'trap_crafting', 'fishing_gear_crafting', 'explosive_assembly',
-               'pumpkin_carving', 'spear_upgrade', 'shotgun_modification'}
-    selected = [s for s in segments if payloads(s) and all(p.get('activity') in cutting or
-                p.get('function') in {'melee_attack', 'cut_bushes_and_vines', 'dismantle_built_object'} or
-                p.get('role') in {'tool', 'attachment'} for p in payloads(s))]
-    ps = [p for s in selected for p in payloads(s)]
-    activities = {p.get('activity') for p in ps}; functions = {p.get('function') for p in ps}
-    if activities & {'food_portioning', 'animal_butchery', 'fish_preparation', 'frog_preparation'} and 'woodworking' in activities and activities & {'spear_crafting', 'trap_crafting', 'fishing_gear_crafting', 'explosive_assembly'}:
-        ko_text, en_text = '음식·목재 손질과 장비 제작', 'food and wood preparation or equipment making'
-        if 'shotgun_modification' in activities: ko_text += '·개조'; en_text += ' and modification'
-        if 'dismantle_built_object' in functions: ko_text += ', 건축물 해체'; en_text += ', or dismantling structures'
-        ko_text += '에 쓸 수 있다'; en_text = 'It can be used for ' + en_text
-        if 'cut_bushes_and_vines' in functions: ko_text += '. 덤불과 덩굴을 제거할 수도 있다'; en_text += '. It can also clear bushes and vines'
-        if 'melee_attack' in functions: ko_text += '. 무기로도 쓸 수 있다'; en_text += '. It can also serve as a weapon'
-        segments = summary(selected, (ko_text, en_text), 'cutting and fabrication purposes; named targets and spear attachment remain in Expanded')
+    # Each purpose is composed by uses.frames from its own action and role.
+    # Do not replace a whole collection of tool facts when a feature signature
+    # happens to match: unrelated tool/attachment uses and conditions survive.
     return segments
 
 
@@ -742,7 +700,7 @@ def produce(root: Path):
     # Identify the actual vocabulary and grammar consumed; no copies or seals.
     names = ["description_composition_" + suffix + ".py" for suffix in
              ("model", "planner", "lexicon", "ko", "en", "families", "uses", "results")]
-    names += ["expression_rules.py", "recovery_expression.py", "recovery_sources.py", "acquisition_expression.py"]
+    names += ["expression_rules.py", "recovery_expression.py", "recovery_sources.py", "acquisition_expression.py", "purpose_evidence.py", "purpose_participant_relations.py"]
     producer = {"version": model.VERSION, "files": {
         CODE + name: hashlib.sha256((root / CODE / name).read_bytes()).hexdigest() for name in names}}
     return source, compose(source, identity, producer)

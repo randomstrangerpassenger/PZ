@@ -175,3 +175,6 @@ Iris/tooling/tests/test_tooltip_t2_projection.py -text
 Iris/tools/Layer3PackageProjection.psm1 -text
 docs/review/structure/items.json filter=lfs diff=lfs merge=lfs -text
 docs/review/uses/items.json filter=lfs diff=lfs merge=lfs -text
+
+# Preserve byte-bound DVF source evidence across checkouts.
+Iris/build/description/source_support/b41_dvf_*.json -text

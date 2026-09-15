@@ -1,0 +1,918 @@
+
+GROUP 2 | 8 IDs | Base.223Bullets, Base.308Bullets, Base.556Bullets, Base.Bullets38, Base.Bullets44, Base.Bullets45, Base.Bullets9mm, Base.ShotgunShells
+ko/compact: 호환 총기나 탄창에 장전할 수 있다. 분해해 화약을 얻을 수 있다.
+ko/expanded: 모아서 상자로 포장할 수 있다.
+호환 총기나 탄창에 장전할 수 있다.
+분해해 화약을 얻을 수 있다.
+en/compact: It can be loaded into compatible firearms or magazines. It can be dismantled to obtain gunpowder.
+en/expanded: It can be collected and packed into a box.
+It can be loaded into compatible firearms or magazines.
+It can be dismantled to obtain gunpowder.
+
+GROUP 3 | 1 IDs | Base.223BulletsMold
+ko/compact: .223 탄약을 단조할 때 틀로 쓸 수 있다.
+ko/expanded: .223 탄약을 단조할 때 틀로 쓸 수 있다.
+en/compact: It can be used as a mold for forging .223 Ammo.
+en/expanded: It can be used as a mold for forging .223 Ammo.
+
+GROUP 6 | 1 IDs | Base.308BulletsMold
+ko/compact: .308 탄약을 단조할 때 틀로 쓸 수 있다.
+ko/expanded: .308 탄약을 단조할 때 틀로 쓸 수 있다.
+en/compact: It can be used as a mold for forging .308 Ammo.
+en/expanded: It can be used as a mold for forging .308 Ammo.
+
+GROUP 9 | 1 IDs | Base.9mmBulletsMold
+ko/compact: 9mm 탄약을 단조할 때 틀로 쓸 수 있다.
+ko/expanded: 9mm 탄약을 단조할 때 틀로 쓸 수 있다.
+en/compact: It can be used as a mold for forging 9mm Rounds.
+en/expanded: It can be used as a mold for forging 9mm Rounds.
+
+GROUP 16 | 1 IDs | Base.AlarmClock2
+ko/compact: 소지해 시간을 확인할 수 있다. 수제 폭탄 타이머를 만드는 재료로 쓸 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다.
+ko/expanded: 소지해 시간을 확인할 수 있다.
+수제 폭탄 타이머를 만드는 재료로 쓸 수 있다.
+원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다.
+en/compact: It can be carried to check the time. It can be used as material for making a crafted timer. Its alarm can be set to ring at a chosen time or switched off.
+en/expanded: It can be carried to check the time.
+It can be used as material for making a crafted timer.
+Its alarm can be set to ring at a chosen time or switched off.
+
+GROUP 30 | 4 IDs | Base.Axe, Base.AxeStone, Base.HandAxe, Base.WoodAxe
+ko/compact: 음식 손질에 쓸 수 있다. 나무를 베는 데 사용할 수 있다. 덤불이나 벽 덩굴을 제거할 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 수박을 나누는 데 쓸 수 있다.
+나무를 베는 데 사용할 수 있다.
+덤불이나 벽 덩굴을 제거할 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to prepare food. It can be used to chop trees. It can be used to remove bushes and wall vines. It can be used as a weapon.
+en/expanded: It can be used for cutting up watermelon.
+It can be used to chop trees.
+It can be used to remove bushes and wall vines.
+It can be used as a weapon.
+
+GROUP 36 | 1 IDs | Base.Baguette
+ko/compact: 먹을 수 있다. 요리 재료로 쓸 수 있다. 재료를 더해 샌드위치를 만드는 바탕으로 쓸 수 있다.
+ko/expanded: 먹을 수 있다.
+요리 재료로 쓸 수 있다.
+재료를 더해 샌드위치를 만드는 바탕으로 쓸 수 있다.
+en/compact: It can be eaten. It can be used as a cooking ingredient. It can serve as a base for making sandwiches.
+en/expanded: It can be eaten.
+It can be used as a cooking ingredient.
+It can serve as a base for making sandwiches.
+
+GROUP 37 | 28 IDs | Base.BaguetteSandwich, Base.BreadDough, Base.BurgerRecipe, Base.BurritoRecipe, Base.CakeRaw, Base.ConeIcecream, Base.ConeIcecreamToppings, Base.FruitSalad, Base.GriddlePanFriedVegetables, Base.Oatmeal, Base.PanFriedVegetables, Base.PanFriedVegetables2, Base.Pancakes, Base.PancakesRecipe, Base.PastaPan, Base.PastaPot, Base.PieWholeRaw, Base.PieWholeRawSweet, Base.PizzaRecipe, Base.PotOfStew, Base.RicePan, Base.RicePot, Base.Sandwich, Base.TacoRecipe, Base.Toast, Base.Waffles, Base.WafflesRecipe, farming.Salad
+ko/compact: 먹을 수 있다. 재료를 더해 요리를 만들 수 있다.
+ko/expanded: 먹을 수 있다.
+재료를 더해 요리를 만들 수 있다.
+en/compact: It can be eaten. Ingredients can be added to prepare food.
+en/expanded: It can be eaten.
+Ingredients can be added to prepare food.
+
+GROUP 41 | 2 IDs | Base.BakingTray_Muffin, Base.BakingTray_Muffin_Recipe
+ko/compact: 재료를 더해 요리를 만들 수 있다.
+ko/expanded: 재료를 더해 요리를 만들 수 있다.
+en/compact: Ingredients can be added to prepare food.
+en/expanded: Ingredients can be added to prepare food.
+
+GROUP 42 | 2 IDs | Base.BallPeenHammer, Base.HammerStone
+ko/compact: 금속을 단조하거나 목재를 가공할 수 있다. 문과 창문에 판자 바리케이드를 설치할 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 금속을 단조하는 데 사용할 수 있다.
+목공과 건축 작업에 쓸 수 있다.
+문과 창문에 판자 바리케이드를 설치할 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to forge metal or work wood. It can be used to install plank barricades on doors and windows. It can be used as a weapon.
+en/expanded: It can be used for metal forging.
+It can be used for woodworking and construction.
+It can be used to install plank barricades on doors and windows.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+GROUP 47 | 1 IDs | Base.BarbedWire
+ko/compact: 건축 재료로 쓸 수 있다.
+ko/expanded: 철조망 울타리를 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for construction.
+en/expanded: It can be used as material for making barbed-wire fences.
+
+GROUP 54 | 2 IDs | Base.Beer, Base.Beer2
+ko/compact: 맥주를 마실 수 있다.
+ko/expanded: 맥주를 마실 수 있다.
+en/compact: It contains beer that can be drunk.
+en/expanded: It contains beer that can be drunk.
+
+GROUP 56 | 1 IDs | Base.BeerEmpty
+ko/compact: 화염 장치를 만들 때 재료로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.
+ko/expanded: 화염 장치를 만들 때 재료로 쓸 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+깨뜨려 깨진 병을 얻을 수 있다.
+en/compact: It can be used as material for making incendiary devices. It can hold water for storage or carrying. It can be broken to obtain a smashed bottle.
+en/expanded: It can be used as material for making incendiary devices.
+It can hold water for storage or carrying.
+It can be broken to obtain a smashed bottle.
+
+GROUP 63 | 2 IDs | Base.Beverage, Base.Beverage2
+ko/compact: 마실 수 있다. 재료를 더해 음료를 만들 수 있다.
+ko/expanded: 마실 수 있다.
+재료를 더해 음료를 만들 수 있다.
+en/compact: It can be drunk. Ingredients can be added to prepare drinks.
+en/expanded: It can be drunk.
+Ingredients can be added to prepare drinks.
+
+GROUP 69 | 1 IDs | Base.BlowTorch
+ko/compact: 금속 부품을 만들거나 금속 구조물을 세울 때 용접 도구로 쓸 수 있다. 금속 바리케이드를 설치하거나 철거하는 데 쓸 수 있다. 불타거나 파손된 차량을 분해하는 데 쓸 수 있다.
+ko/expanded: 금속 부품을 만들거나 금속 구조물을 세울 때 용접 도구로 쓸 수 있다.
+문과 창문에 금속 바리케이드를 설치하는 데 사용할 수 있다.
+금속 바리케이드를 철거하는 데 사용할 수 있다.
+불타거나 파손된 차량을 분해해 재료를 회수할 수 있다.
+en/compact: It can be used as a tool for metal-part welding and welded construction. It can be used for installing or removing metal barricades and dismantling burnt or smashed vehicles.
+en/expanded: It can be used as a tool for metal-part welding and welded construction.
+It can be used to install metal barricades on doors and windows.
+It can be used to remove metal barricades.
+It can be used to dismantle burnt or smashed vehicles and recover materials.
+
+GROUP 84 | 1 IDs | Base.Bowl
+ko/compact: 요리할 때 재료를 담거나 조리한 음식을 나누어 담는 데 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다.
+ko/expanded: 샐러드나 과일 샐러드 등을 만들 때 재료를 담는 데 쓸 수 있다. 반죽을 담아 요리를 만드는 데도 쓸 수 있다.
+조리한 냄비 음식을 나누어 담을 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+en/compact: It can be used for food preparation and for holding portions of prepared meals. It can hold water for storage or carrying.
+en/expanded: It can hold ingredients for making dishes such as salad and fruit salad. It can also hold dough or batter for preparing food.
+It can be used to divide prepared pot meals into portions.
+It can hold water for storage or carrying.
+
+GROUP 87 | 2 IDs | Base.BreadKnife, Base.ButterKnife
+ko/compact: 호박을 장식용으로 깎는 데 쓸 수 있다. 음식 손질 및 목재 가공에 쓸 수 있다. 제작한 창에 부착하거나 무기로 쓸 수 있다.
+ko/expanded: 호박을 장식용으로 깎는 데 쓸 수 있다.
+빵, 케이크, 파이를 나누는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to carve decorative pumpkins. It can be used to prepare food and work wood. It can be attached to a crafted spear or used as a weapon.
+en/expanded: It can be used to carve decorative pumpkins.
+It can be used for cutting up bread, cake, and pie.
+It can be used for woodworking.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+GROUP 88 | 1 IDs | Base.BreadSlices
+ko/compact: 먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 재료를 더해 버거나 샌드위치를 만드는 바탕으로 쓸 수 있다.
+ko/expanded: 먹을 수 있다.
+요리 재료로 쓸 수 있다.
+재료를 더해 버거나 샌드위치를 만드는 바탕으로 쓸 수 있다.
+덫의 미끼로 쓸 수 있다.
+en/compact: It can be eaten or used as a cooking ingredient. It can also be used as trap bait. It can serve as a base for making burgers and sandwiches.
+en/expanded: It can be eaten.
+It can be used as a cooking ingredient.
+It can serve as a base for making burgers and sandwiches.
+It can be used as trap bait.
+
+GROUP 99 | 1 IDs | Base.CakePrep
+ko/compact: 먹을 수 있다. 재료를 더해 케이크를 만드는 바탕으로 쓸 수 있다.
+ko/expanded: 먹을 수 있다.
+재료를 더해 케이크를 만드는 바탕으로 쓸 수 있다.
+en/compact: It can be eaten. It can serve as a base for making cakes.
+en/expanded: It can be eaten.
+It can serve as a base for making cakes.
+
+GROUP 138 | 2 IDs | Base.CleaningLiquid2, Base.Soap2
+ko/compact: 몸과 의류, 장비를 물로 씻을 때 세척제로 사용할 수 있다.
+ko/expanded: 몸과 의류, 장비를 물로 씻을 때 세척제로 사용할 수 있다.
+en/compact: It can be used as a cleaning supply for washing the body, clothing, and equipment with water.
+en/expanded: It can be used as a cleaning supply for washing the body, clothing, and equipment with water.
+
+GROUP 145 | 1 IDs | Base.ComfreyCataplasm
+ko/compact: 골절 부위에 발라 회복을 도울 수 있다.
+ko/expanded: 골절 부위에 발라 회복을 도울 수 있다.
+en/compact: It can be applied to help a fracture heal.
+en/expanded: It can be applied to help a fracture heal.
+
+GROUP 157 | 1 IDs | Base.DigitalWatch2
+ko/compact: 소지해 시간을 확인할 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다.
+ko/expanded: 소지해 시간을 확인할 수 있다.
+원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다.
+en/compact: It can be carried to check the time. Its alarm can be set to ring at a chosen time or switched off.
+en/expanded: It can be carried to check the time.
+Its alarm can be set to ring at a chosen time or switched off.
+
+GROUP 163 | 1 IDs | Base.Doorknob
+ko/compact: 목공과 건축 재료로 쓸 수 있다.
+ko/expanded: 문을 만드는 재료로 쓸 수 있다.
+서랍을 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for woodworking and construction.
+en/expanded: It can be used as material for making doors.
+It can be used as material for making a drawer.
+
+GROUP 166 | 1 IDs | Base.Drawer
+ko/compact: 건축 재료로 쓸 수 있다.
+ko/expanded: 서랍 달린 탁자를 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for construction.
+en/expanded: It can be used as material for making tables with drawers.
+
+GROUP 198 | 1 IDs | Base.FishingRodBreak
+ko/compact: 수리해 낚싯대로 다시 쓸 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 수리해 낚싯대로 다시 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be repaired for reuse as a fishing rod. It can be used as a weapon.
+en/expanded: It can be repaired for reuse as a fishing rod.
+It can be used as a weapon.
+
+GROUP 204 | 1 IDs | Base.FlintKnife
+ko/compact: 사냥과 낚시 장비를 만들거나 호박을 장식용으로 깎는 데 쓸 수 있다. 음식 손질 및 목재 가공에 쓸 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 사냥과 낚시 장비를 만들거나 호박을 장식용으로 깎는 데 쓸 수 있다.
+음식을 손질하는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to make hunting and fishing equipment and carve decorative pumpkins. It can be used to prepare food and work wood. It can be used as a weapon.
+en/expanded: It can be used to make hunting and fishing equipment and carve decorative pumpkins.
+It can be used for food preparation.
+It can be used for woodworking.
+It can be used as a weapon.
+
+GROUP 206 | 2 IDs | Base.Fork, Base.Spoon
+ko/compact: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다. 제작한 창에 부착하거나 무기로 쓸 수 있다.
+ko/expanded: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used as a cooking tool, including for preparing dough. It can be attached to a crafted spear or used as a weapon.
+en/expanded: It can be used as a cooking tool, including for preparing dough.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+GROUP 210 | 1 IDs | Base.Garbagebag
+ko/compact: 건축 재료로 쓸 수 있다. 물건을 담아 보관하거나 운반할 수 있다.
+ko/expanded: 빗물받이를 만드는 재료로 쓸 수 있다.
+물건을 담아 보관하거나 운반할 수 있다.
+en/compact: It can be used as material for construction. It can be used to store and carry items.
+en/expanded: It can be used as material for making rain collectors.
+It can be used to store and carry items.
+
+GROUP 212 | 1 IDs | Base.GardenSaw
+ko/compact: 사냥 장비나 폭발 장치를 만드는 데 쓸 수 있다. 음식 손질, 목재 가공 및 설치물 해체에 쓸 수 있다.
+ko/expanded: 사냥 장비나 폭발 장치를 만드는 데 쓸 수 있다.
+수박을 나누는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.
+en/compact: It can be used to make hunting equipment and explosive devices. It can be used to prepare food, work wood, and dismantle constructed objects.
+en/expanded: It can be used to make hunting equipment and explosive devices.
+It can be used for cutting up watermelon.
+It can be used for woodworking.
+A saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.
+
+GROUP 214 | 2 IDs | Base.GlassTumbler, Base.PlasticCup
+ko/compact: 맥주를 따라 담는 데 쓸 수 있다. 재료를 더해 음료를 만들 수 있다. 물을 담아 보관하거나 운반할 수 있다.
+ko/expanded: 맥주를 따라 담는 데 쓸 수 있다. 재료를 더해 음료를 만들 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+en/compact: It can be used to hold poured beer. Ingredients can be added to prepare drinks. It can hold water for storage or carrying.
+en/expanded: It can be used to hold poured beer. Ingredients can be added to prepare drinks.
+It can hold water for storage or carrying.
+
+GROUP 215 | 1 IDs | Base.GlassWine
+ko/compact: 와인을 따라 담는 데 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다.
+ko/expanded: 와인을 따라 담는 데 쓸 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+en/compact: It can be used to hold poured wine. It can hold water for storage or carrying.
+en/expanded: It can be used to hold poured wine.
+It can hold water for storage or carrying.
+
+GROUP 222 | 1 IDs | Base.Gravelbag
+ko/compact: 건축 재료로 쓸 수 있다. 흙이나 자갈, 모래를 담을 수 있다. 담긴 재료를 바닥에 깔 수 있다. 바닥이나 몸에 붙은 불을 끌 수 있다.
+ko/expanded: 자갈주머니 벽을 만드는 재료로 쓸 수 있다.
+흙이나 자갈, 모래를 담을 수 있다.
+담긴 재료를 바닥에 깔 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+en/compact: It can be used as material for construction. It can hold dirt, gravel or sand. Its ground material can be spread on the floor. It can extinguish fires on the ground or on characters.
+en/expanded: It can be used as material for making gravel-bag walls.
+It can hold dirt, gravel or sand.
+Its ground material can be spread on the floor.
+It can extinguish fires on the ground or on characters.
+
+GROUP 223 | 1 IDs | Base.GridlePan
+ko/compact: 재료를 담아 볶음 요리를 만드는 데 쓸 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 재료를 담아 볶음 요리를 만드는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can hold ingredients for making stir-fries. It can be used as a weapon.
+en/expanded: It can hold ingredients for making stir-fries.
+It can be used as a weapon.
+
+GROUP 225 | 1 IDs | Base.GunPowder
+ko/compact: 금속 단조에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다.
+ko/expanded: 폭발 장치를 만들 때 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+en/compact: It can be used as material for metal forging. It can also be used to make explosive devices.
+en/expanded: It can be used as material for making explosive devices.
+It can be used as a material for metal forging.
+
+GROUP 229 | 1 IDs | Base.Hammer
+ko/compact: 금속을 단조하거나 목재를 가공할 수 있다. 건축 작업에 쓸 수 있다. 문과 창문의 판자 바리케이드를 설치하거나 철거할 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 금속을 단조하는 데 사용할 수 있다.
+목공과 건축 작업에 쓸 수 있다.
+문과 창문의 판자 바리케이드를 설치하거나 철거할 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to forge metal or work wood. It can be used for construction. It can be used to install or remove plank barricades on doors and windows. It can be used as a weapon.
+en/expanded: It can be used for metal forging.
+It can be used for woodworking and construction.
+It can be used to install or remove plank barricades on doors and windows.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+GROUP 230 | 1 IDs | Base.HandFork
+ko/compact: 제작한 창에 부착하거나 무기로 쓸 수 있다. 밭을 만들거나 정리할 수 있다.
+ko/expanded: 제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+땅에 고랑을 파거나 밭의 작물과 고랑을 정리할 수 있다.
+en/compact: It can be attached to a crafted spear or used as a weapon. It can be used for preparing and clearing planting beds.
+en/expanded: It can be attached to a crafted spear.
+It can be used as a weapon.
+It can dig furrows in soil or clear plants and furrows.
+
+GROUP 232 | 1 IDs | Base.Handle
+ko/compact: 금속을 단조할 때 재료로 쓸 수 있다.
+ko/expanded: 금속을 단조할 때 재료로 쓸 수 있다.
+en/compact: It can supply material for metal forging.
+en/expanded: It can be used as material for metal forging.
+
+GROUP 240 | 1 IDs | Base.Hinge
+ko/compact: 용접 건축 재료로 쓸 수 있다.
+ko/expanded: 문을 만드는 재료로 쓸 수 있다.
+용접 건축 재료로 쓸 수 있다.
+en/compact: It can be used as material for welded construction.
+en/expanded: It can be used as material for making doors.
+It can be used as material for welded construction.
+
+GROUP 246 | 5 IDs | Base.HotDrink, Base.HotDrinkRed, Base.HotDrinkSpiffo, Base.HotDrinkTea, Base.HotDrinkWhite
+ko/compact: 마실 수 있다. 재료를 더해 따뜻한 음료를 만들 수 있다.
+ko/expanded: 마실 수 있다.
+재료를 더해 따뜻한 음료를 만들 수 있다.
+en/compact: It can be drunk. Ingredients can be added to prepare hot drinks.
+en/expanded: It can be drunk.
+Ingredients can be added to prepare hot drinks.
+
+GROUP 247 | 3 IDs | Base.HuntingKnife, Base.KitchenKnife, Base.Machete
+ko/compact: 사냥과 낚시 장비를 만들거나 호박을 장식용으로 깎는 데 쓸 수 있다. 음식 손질 및 목재 가공에 쓸 수 있다. 제작한 창에 부착하거나 무기로 쓸 수 있다. 덤불이나 벽 덩굴을 제거할 수 있다.
+ko/expanded: 사냥과 낚시 장비를 만들거나 호박을 장식용으로 깎는 데 쓸 수 있다.
+음식을 손질하는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+덤불이나 벽 덩굴을 제거할 수 있다.
+en/compact: It can be used to make hunting and fishing equipment and carve decorative pumpkins. It can be used to prepare food and work wood. It can be attached to a crafted spear or used as a weapon. It can be used to remove bushes and wall vines.
+en/expanded: It can be used to make hunting and fishing equipment and carve decorative pumpkins.
+It can be used for food preparation.
+It can be used for woodworking.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+It can be used to remove bushes and wall vines.
+
+GROUP 252 | 3 IDs | Base.IcePick, Base.LetterOpener, Base.Scalpel
+ko/compact: 제작한 창에 부착하거나 무기로 쓸 수 있다.
+ko/expanded: 제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be attached to a crafted spear or used as a weapon.
+en/expanded: It can be attached to a crafted spear.
+It can be used as a weapon.
+
+GROUP 253 | 1 IDs | Base.IronIngot
+ko/compact: 금속 부품 용접 및 금속 단조에 재료로 쓸 수 있다.
+ko/expanded: 금속 부품을 용접하는 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+en/compact: It can be used as material for metal-part welding and metal forging.
+en/expanded: It can be used as material for metal-part welding.
+It can be used as material for metal forging.
+
+GROUP 266 | 1 IDs | Base.Log
+ko/compact: 목공 및 건축에 재료로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+ko/expanded: 목공 재료로 쓸 수 있다.
+통나무 벽을 만드는 재료로 쓸 수 있다.
+모닥불 도구를 만드는 재료로 쓸 수 있다.
+금속 드럼에서 숯을 만드는 재료로 쓸 수 있다.
+모아서 묶을 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+en/compact: It can be used as material for woodworking and construction. It can be used as fuel for campfires, for example.
+en/expanded: It can be used as material for woodworking.
+It can be used as material for making log walls.
+It can be used as material for making campfire kits.
+It can be made into charcoal in a metal drum.
+It can be bundled with other logs.
+It can be used for breaking a watermelon.
+It can be used as fuel for campfires, for example.
+
+GROUP 275 | 1 IDs | Base.Mattress
+ko/compact: 건축 재료로 쓸 수 있다. 놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+ko/expanded: 침대를 만드는 재료로 쓸 수 있다.
+놓아서 잠을 자거나 쉬는 데 쓸 수 있다.
+물건을 올려두는 용도로 놓아 쓸 수 있다.
+en/compact: It can be used as material for construction. When set down, it provides a place to sleep or rest.
+en/expanded: It can be used as material for making beds.
+When set down, it provides a place to sleep or rest.
+Its surface can hold items when it is set down.
+
+GROUP 276 | 1 IDs | Base.MeatCleaver
+ko/compact: 사냥과 낚시 장비를 만드는 데 쓸 수 있다. 음식 손질 및 목재 가공에 쓸 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 사냥과 낚시 장비를 만드는 데 쓸 수 있다.
+음식을 손질하는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to make hunting and fishing equipment. It can be used to prepare food and work wood. It can be used as a weapon.
+en/expanded: It can be used to make hunting and fishing equipment.
+It can be used for food preparation.
+It can be used for woodworking.
+It can be used as a weapon.
+
+GROUP 278 | 1 IDs | Base.MetalBar
+ko/compact: 용접 건축 및 금속 단조에 재료로 쓸 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 용접 건축 재료로 쓸 수 있다. 문과 창문의 금속 바리케이드에도 재료로 쓸 수 있다.
+금속을 단조할 때 재료로 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used as material for welded construction and metal forging. It can be used as a weapon.
+en/expanded: It can be used as material for welded construction. It can also supply window and door barricades.
+It can be used as a material for metal forging.
+It can be used as a weapon.
+
+GROUP 327 | 1 IDs | Base.Nails
+ko/compact: 목공, 건축 및 무기 수리에 재료로 쓸 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다.
+ko/expanded: 목공과 건축 재료로 쓸 수 있다. 문과 창문의 판자 바리케이드에도 재료로 쓸 수 있다.
+사냥과 낚시 장비를 만드는 재료로 쓸 수 있다.
+못 박은 야구 방망이를 수리할 때 재료로 쓸 수 있다.
+모아서 상자로 포장할 수 있다.
+위층 창문 등에 탈출용 로프를 고정할 수 있다.
+en/compact: It can be used as material for woodworking, construction, and repairing weapons. It can be used to anchor an escape rope at an upper-floor window or similar attachment.
+en/expanded: It can be used as material for woodworking and construction. It can also supply window and door barricades.
+It can be used as material for making hunting and fishing equipment.
+It can be used as repair material for the Spiked Baseball Bat.
+It can be collected and packed into a box.
+It can be used to anchor an escape rope at an upper-floor window or similar attachment.
+
+GROUP 331 | 1 IDs | Base.Needle
+ko/compact: 의류를 수선하거나 덧댄 천을 떼는 데 쓸 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다. 매트리스를 만드는 데 쓸 수 있다.
+ko/expanded: 의류의 구멍을 덧대거나 패딩을 붙이고, 덧댄 천을 떼어낼 수 있다. 떼어낸 천은 회수할 수도 있다.
+깊은 상처를 봉합하는 데 쓸 수 있다.
+매트리스를 만드는 데 쓸 수 있다.
+en/compact: It can be used to mend clothing or remove patches. It can be used to stitch a deep wound. It can be used for mattress crafting.
+en/expanded: It can mend garment holes, add padding and remove patches, with a chance to recover the removed fabric.
+It can be used to stitch a deep wound.
+It can be used for mattress crafting.
+
+GROUP 339 | 1 IDs | Base.OmeletteRecipe
+ko/compact: 먹을 수 있다. 요리 재료로 쓸 수 있다. 재료를 더해 요리를 만들 수 있다.
+ko/expanded: 먹을 수 있다.
+요리 재료로 쓸 수 있다.
+재료를 더해 요리를 만들 수 있다.
+en/compact: It can be eaten. It can be used as a cooking ingredient. Ingredients can be added to prepare food.
+en/expanded: It can be eaten.
+It can be used as a cooking ingredient.
+Ingredients can be added to prepare food.
+
+GROUP 342 | 1 IDs | Base.Pan
+ko/compact: 재료를 담아 요리할 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 볶음 요리 등을 만들 때 재료를 담는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can hold ingredients for cooking. It can be used as a weapon.
+en/expanded: It can hold ingredients for making dishes such as stir-fries.
+It can be used as a weapon.
+
+GROUP 348 | 1 IDs | Base.PiePrep
+ko/compact: 먹을 수 있다. 재료를 더해 파이를 만드는 바탕으로 쓸 수 있다.
+ko/expanded: 먹을 수 있다.
+재료를 더해 파이를 만드는 바탕으로 쓸 수 있다.
+en/compact: It can be eaten. It can serve as a base for making pies.
+en/expanded: It can be eaten.
+It can serve as a base for making pies.
+
+GROUP 361 | 1 IDs | Base.Plank
+ko/compact: 부목 제작, 목공 및 건축에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+ko/expanded: 골절을 고정하는 부목 재료로 쓸 수 있다.
+목공과 건축 재료로 쓸 수 있다.
+사냥 장비, 모닥불 도구 및 톱을 만드는 재료로 쓸 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+en/compact: It can be used as material for making splints, woodworking, and construction. It can be used as a weapon. It can be used as fuel for campfires, for example.
+en/expanded: It can supply splinting material for fractures.
+It can be used as material for woodworking and construction.
+It can supply material for making hunting equipment, campfire kits, and a saw.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+It can be used as fuel for campfires, for example.
+
+GROUP 362 | 1 IDs | Base.PlantainCataplasm
+ko/compact: 긁힘, 베임이나 깊은 상처에 발라 회복을 도울 수 있다.
+ko/expanded: 긁힘, 베임이나 깊은 상처에 발라 회복을 도울 수 있다.
+en/compact: It can be applied to help scratches, cuts, and deep wounds heal.
+en/expanded: It can be applied to help scratches, cuts, and deep wounds heal.
+
+GROUP 365 | 1 IDs | Base.PotOfSoupRecipe
+ko/compact: 마실 수 있다. 재료를 더해 요리를 만들 수 있다.
+ko/expanded: 마실 수 있다.
+재료를 더해 요리를 만들 수 있다.
+en/compact: It can be drunk. Ingredients can be added to prepare food.
+en/expanded: It can be drunk.
+Ingredients can be added to prepare food.
+
+GROUP 383 | 1 IDs | Base.RippedSheets
+ko/compact: 응급처치와 의류 수선에 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+골절을 고정하는 부목 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+통나무 벽을 만드는 재료로 쓸 수 있다.
+화염 장치, 연막 장치, 모닥불 도구 및 돌 도구를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be used for first aid or clothing repairs. It can be used as material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be used to clean burns.
+It can be wrapped around wounds. It can also be disinfected before use. Infected material can cause wound infection.
+It can supply splinting material for fractures.
+It can be used to patch garment holes or add padding.
+It can be used as material for making log walls.
+It can supply material for making incendiary devices, smoke devices, campfire kits, and stone tools.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 384 | 1 IDs | Base.RippedSheetsDirty
+ko/compact: 상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+물로 씻어 다시 쓸 수 있다.
+화염 장치, 연막 장치, 모닥불 도구, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.
+통나무 벽을 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be wrapped around wounds. It can be washed with water for reuse. It can be used as material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be wrapped around wounds. Infected material can cause wound infection.
+It can be washed with water for reuse.
+It can supply material for making incendiary devices, smoke devices, campfire kits, stone tools, and splints.
+It can be used as material for making log walls.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 385 | 1 IDs | Base.RoastingPan
+ko/compact: 재료를 담아 구운 채소 요리를 만드는 데 쓸 수 있다.
+ko/expanded: 재료를 담아 구운 채소 요리를 만드는 데 쓸 수 있다.
+en/compact: It can hold ingredients for making roasted vegetable dishes.
+en/expanded: It can hold ingredients for making roasted vegetable dishes.
+
+GROUP 387 | 1 IDs | Base.Rope
+ko/compact: 건축 재료로 쓸 수 있다. 설치해 층 사이를 오르내리는 데 쓸 수 있다.
+ko/expanded: 기둥 조명이나 통나무 벽을 만드는 재료로 쓸 수 있다.
+설치해 층 사이를 오르내리는 데 쓸 수 있다.
+통나무를 묶는 데 쓸 수 있다.
+en/compact: It can be used as material for construction. It can be installed for climbing between floors.
+en/expanded: It can be used as material for making pillar lamps and log walls.
+It can be installed for climbing between floors.
+It can be used to bind logs.
+
+GROUP 407 | 1 IDs | Base.Sandbag
+ko/compact: 건축 재료로 쓸 수 있다. 흙이나 자갈, 모래를 담을 수 있다. 담긴 재료를 바닥에 깔 수 있다. 바닥이나 몸에 붙은 불을 끌 수 있다.
+ko/expanded: 모래주머니 벽을 만드는 재료로 쓸 수 있다.
+흙이나 자갈, 모래를 담을 수 있다.
+담긴 재료를 바닥에 깔 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+en/compact: It can be used as material for construction. It can hold dirt, gravel or sand. Its ground material can be spread on the floor. It can extinguish fires on the ground or on characters.
+en/expanded: It can be used as material for making sandbag walls.
+It can hold dirt, gravel or sand.
+Its ground material can be spread on the floor.
+It can extinguish fires on the ground or on characters.
+
+GROUP 409 | 1 IDs | Base.Saw
+ko/compact: 사냥 장비나 폭발 장치를 만드는 데 쓸 수 있다. 음식 손질, 목재 가공 및 설치물 해체에 쓸 수 있다. 산탄총의 총신을 줄이는 도구로 쓸 수 있다.
+ko/expanded: 사냥 장비나 폭발 장치를 만드는 데 쓸 수 있다.
+수박을 나누는 데 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.
+산탄총의 총신을 줄이는 도구로 쓸 수 있다.
+en/compact: It can be used to make hunting equipment and explosive devices. It can be used to prepare food, work wood, and dismantle constructed objects. It can be used to shorten shotgun barrels.
+en/expanded: It can be used to make hunting equipment and explosive devices.
+It can be used for cutting up watermelon.
+It can be used for woodworking.
+A saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.
+It can be used to shorten shotgun barrels.
+
+GROUP 411 | 1 IDs | Base.Scissors
+ko/compact: 데님이나 가죽 의류를 잘라 조각을 회수할 수 있다. 머리와 수염을 손질할 수 있다. 제작한 창에 부착하거나 무기로 쓸 수 있다.
+ko/expanded: 데님이나 가죽 의류를 잘라 조각을 회수할 수 있다.
+머리와 수염을 손질할 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to cut denim or leather clothing into strips. It can be used to groom hair and beards. It can be attached to a crafted spear or used as a weapon.
+en/expanded: It can be used to cut denim or leather clothing into strips.
+It can be used to groom hair and beards.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+GROUP 414 | 1 IDs | Base.Screwdriver
+ko/compact: 전자기기를 만들거나 분해하고, 조명을 건전지용으로 개조할 수 있다. 목재 가공 및 설치물 해체에 쓸 수 있다. 차량 부품과 호환 무기 부착물을 장착하거나 제거하는 데 쓸 수 있다. 제작한 창에 부착하거나 무기로 쓸 수 있다.
+ko/expanded: 전자 부품과 무전기를 만들 수 있다. 라디오와 TV를 포함한 전자기기를 분해해 부품을 회수할 수 있다. 조명을 건전지용으로 개조할 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.
+전기 부품, 좌석 및 차량 유리 장착과 탈거에 작업 도구로 쓸 수 있다. 연료 탱크 장착과 탈거에 필요한 보조 도구로 쓸 수 있다.
+호환 무기의 부착물을 장착하거나 제거할 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to make or dismantle electronic devices and convert lamps to battery power. It can be used to work wood and dismantle constructed objects. It can be used to install or remove vehicle parts and compatible weapon attachments. It can be attached to a crafted spear or used as a weapon.
+en/expanded: It can be used to make electronic components and radios. It can be used to dismantle electronic devices, including radios and TVs, to recover parts. It can convert lamps to battery power.
+It can be used for woodworking.
+A saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.
+It can be used to install and remove electrical parts, seats, and vehicle windows. It is a required supporting tool for installing and removing fuel tanks.
+It can be used to install or remove compatible weapon parts.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+GROUP 417 | 1 IDs | Base.SharpedStone
+ko/compact: 사냥 장비를 만드는 데 쓸 수 있다. 돌 도구를 만드는 재료로 쓸 수 있다. 목재 가공에 쓸 수 있다.
+ko/expanded: 사냥 장비를 만드는 데 쓸 수 있다.
+돌 도구를 만드는 재료로 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+en/compact: It can be used to make hunting equipment. It can be used as material for making stone tools. It can be used to work wood.
+en/expanded: It can be used to make hunting equipment.
+It can be used as material for making stone tools.
+It can be used for woodworking.
+
+GROUP 420 | 1 IDs | Base.SheetRope
+ko/compact: 건축 재료로 쓸 수 있다. 설치해 층 사이를 오르내리는 데 쓸 수 있다.
+ko/expanded: 나무 피켓을 만드는 재료로 쓸 수 있다.
+설치해 층 사이를 오르내리는 데 쓸 수 있다.
+통나무를 묶는 데 쓸 수 있다.
+en/compact: It can be used as material for construction. It can be installed for climbing between floors.
+en/expanded: It can be used as material for making wooden pickets.
+It can be installed for climbing between floors.
+It can be used to bind logs.
+
+GROUP 425 | 1 IDs | Base.ShotgunShellsMold
+ko/compact: 산탄총 탄약을 단조할 때 틀로 쓸 수 있다.
+ko/expanded: 산탄총 탄약을 단조할 때 틀로 쓸 수 있다.
+en/compact: It can be used as a mold for forging Shotgun Shells.
+en/expanded: It can be used as a mold for forging Shotgun Shells.
+
+GROUP 426 | 3 IDs | Base.Shovel, Base.Shovel2, Base.SnowShovel
+ko/compact: 무덤을 파거나 메울 수 있다. 밭을 만들거나 정리할 수 있다. 흙이나 모래, 자갈을 포대에 담을 수 있다. 재를 치울 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 바닥의 재를 치울 수 있다.
+흙이나 모래, 자갈을 포대에 담을 수 있다.
+땅에 고랑을 파거나 밭의 작물과 고랑을 정리할 수 있다.
+땅에 무덤을 파거나 기존 무덤을 메울 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used for digging and filling graves and preparing and clearing planting beds. It can be used for ash cleanup and bagging dirt, sand or gravel. It can be used as a weapon.
+en/expanded: It can be used for clearing ash from burnt floors.
+It can be used for collecting dirt, sand or gravel into a bag.
+It can dig furrows in soil or clear plants and furrows.
+It can dig graves in the ground or fill existing graves.
+It can be used as a weapon.
+
+GROUP 427 | 2 IDs | Base.Sledgehammer, Base.Sledgehammer2
+ko/compact: 구조물을 철거하는 데 사용할 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 구조물을 철거하는 데 사용할 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to demolish structures. It can be used as a weapon.
+en/expanded: It can be used to demolish structures.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+
+GROUP 430 | 1 IDs | Base.SmithingMag1
+ko/compact: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다.
+- 포크 만들기
+- 숟가락 만들기
+- 조리용 냄비 만들기
+- 오븐 쟁반 만들기
+- 손잡이 냄비 만들기
+- 빵 판 만들기
+- 빵 굽는 팬 만들기
+- 프라이팬 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be read to learn how to forge metal items. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be read to learn how to forge metal items.
+- Make Fork
+- Make Spoon
+- Make Cooking Pot
+- Make Roasting Pan
+- Make Saucepan
+- Make Baking Tray
+- Make Baking Pan
+- Make Pan
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 431 | 1 IDs | Base.SmithingMag2
+ko/compact: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다.
+- 편지 개봉칼 만들기
+- 못 만들기
+- 종이 집게 만들기
+- 가위 만들기
+- 문 손잡이 만들기
+- 경첩 만들기
+- 버터칼 만들기
+- 둥근 망치 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be read to learn how to forge metal items. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be read to learn how to forge metal items.
+- Make Letter Opener
+- Make Nails
+- Make Paperclips
+- Make Scissors
+- Make Door Knob
+- Make Hinge
+- Make Butter Knife
+- Make Ball Peen Hammer
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 432 | 1 IDs | Base.SmithingMag3
+ko/compact: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다.
+- 집게 만들기
+- 망치 만들기
+- 금속판 만들기
+- 봉합용 바늘 집게 만들기
+- 핀셋 만들기
+- 봉합용 바늘 만들기
+- 드럼통 만들기
+- 부엌칼 만들기
+- 톱 만들기
+- 사냥용 칼 만들기
+- 삽 만들기
+- 모종삽 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be read to learn how to forge metal items. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be read to learn how to forge metal items.
+- Make Tongs
+- Make Hammer
+- Make Sheet Metal
+- Make Suture Needle Holder
+- Make Tweezers
+- Make Suture Needle
+- Make Metal Drum
+- Make Kitchen Knife
+- Make Saw
+- Make Hunting Knife
+- Make Shovel
+- Make Hand Shovel
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 433 | 1 IDs | Base.SmithingMag4
+ko/compact: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 읽어서 금속을 단조해 물품을 만드는 방법을 배울 수 있다.
+- 9mm 탄 틀 만들기
+- .308 탄 틀 만들기
+- .223 탄 틀 만들기
+- 산탄 총탄 틀 만들기
+- 9mm 탄 만들기
+- 산탄 총탄 만들기
+- .308 탄 만들기
+- .223 탄 만들기
+- 쇠지렛대 만들기
+- 골프 클럽 만들기
+- 도끼 만들기
+- 대형 망치 만들기
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be read to learn how to forge metal items. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be read to learn how to forge metal items.
+- Make 9mm Bullets Mold
+- Make 308 Bullets Mold
+- Make 223 Bullets Mold
+- Make Shotgun Shells Mold
+- Make 9mm Bullets
+- Make Shotgun Shells
+- Make 308 Bullets
+- Make 223 Bullets
+- Make Crowbar
+- Make Golfclub
+- Make Axe
+- Make Sledgehammer
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 445 | 1 IDs | Base.Stone
+ko/compact: 건축에 재료로 쓸 수 있다.
+ko/expanded: 돌무더기를 만드는 재료로 쓸 수 있다.
+돌 망치를 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for construction.
+en/expanded: It can be used as material for making stone piles.
+It can be used as material for making a stone hammer.
+
+GROUP 448 | 1 IDs | Base.TacoShell
+ko/compact: 먹을 수 있다. 재료를 더해 타코를 만드는 바탕으로 쓸 수 있다.
+ko/expanded: 먹을 수 있다.
+재료를 더해 타코를 만드는 바탕으로 쓸 수 있다.
+en/compact: It can be eaten. It can serve as a base for making tacos.
+en/expanded: It can be eaten.
+It can serve as a base for making tacos.
+
+GROUP 457 | 1 IDs | Base.Tongs
+ko/compact: 금속을 단조하는 데 사용할 수 있다.
+ko/expanded: 금속을 단조하는 데 사용할 수 있다.
+en/compact: It can be used for metal forging.
+en/expanded: It can be used for metal forging.
+
+GROUP 458 | 1 IDs | Base.Tortilla
+ko/compact: 먹을 수 있다. 재료를 더해 부리토를 만드는 바탕으로 쓸 수 있다.
+ko/expanded: 먹을 수 있다.
+재료를 더해 부리토를 만드는 바탕으로 쓸 수 있다.
+en/compact: It can be eaten. It can serve as a base for making burritos.
+en/expanded: It can be eaten.
+It can serve as a base for making burritos.
+
+GROUP 468 | 1 IDs | Base.Twine
+ko/compact: 건축에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다.
+ko/expanded: 통나무 벽을 만드는 재료로 쓸 수 있다.
+폭발 장치, 사냥과 낚시 장비 및 돌 도구를 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for construction. It can also be used to make explosive devices.
+en/expanded: It can be used as material for making log walls.
+It can supply material for making explosive devices, hunting and fishing equipment, and stone tools.
+
+GROUP 474 | 5 IDs | Base.WaterMug, Base.WaterMugRed, Base.WaterMugSpiffo, Base.WaterMugWhite, Base.WaterTeacup
+ko/compact: 재료를 더해 따뜻한 음료를 만들 수 있다. 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다.
+ko/expanded: 재료를 더해 따뜻한 음료를 만들 수 있다.
+물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.
+작물에 물을 줄 수 있다.
+물로 차량의 혈흔을 씻을 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.
+en/compact: Ingredients can be added to prepare hot drinks. It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning.
+en/expanded: Ingredients can be added to prepare hot drinks.
+It can store and carry water and transfer it to other containers or water storage fixtures.
+It can water seeded crops.
+Its water can wash vehicle bloodstains.
+It can extinguish fires on the ground or on characters.
+Its water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.
+
+GROUP 475 | 1 IDs | Base.WaterPot
+ko/compact: 조리와 붕대 소독에 쓸 수 있다. 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다.
+ko/expanded: 붕대 소독에 쓸 수 있다.
+수프나 스튜 등을 만들 때 재료를 담는 데 쓸 수 있다.
+물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.
+작물에 물을 줄 수 있다.
+물로 차량의 혈흔을 씻을 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.
+en/compact: It can be used for cooking and disinfecting bandaging. It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning.
+en/expanded: It can be used to disinfect bandaging.
+It can hold ingredients for making dishes such as soup and stew.
+It can store and carry water and transfer it to other containers or water storage fixtures.
+It can water seeded crops.
+Its water can wash vehicle bloodstains.
+It can extinguish fires on the ground or on characters.
+Its water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.
+
+GROUP 476 | 2 IDs | Base.WaterPotPasta, Base.WaterSaucepanPasta
+ko/compact: 먹을 수 있다. 재료를 더해 파스타를 만드는 바탕으로 쓸 수 있다.
+ko/expanded: 먹을 수 있다.
+재료를 더해 파스타를 만드는 바탕으로 쓸 수 있다.
+en/compact: It can be eaten. It can serve as a base for making pasta.
+en/expanded: It can be eaten.
+It can serve as a base for making pasta.
+
+GROUP 477 | 2 IDs | Base.WaterPotRice, Base.WaterSaucepanRice
+ko/compact: 먹을 수 있다. 요리 재료로 쓸 수 있다. 재료를 더해 쌀 요리를 만드는 바탕으로 쓸 수 있다.
+ko/expanded: 먹을 수 있다.
+요리 재료로 쓸 수 있다.
+재료를 더해 쌀 요리를 만드는 바탕으로 쓸 수 있다.
+en/compact: It can be eaten. It can be used as a cooking ingredient. It can serve as a base for making rice dishes.
+en/expanded: It can be eaten.
+It can be used as a cooking ingredient.
+It can serve as a base for making rice dishes.
+
+GROUP 481 | 3 IDs | Base.WhiskeyEmpty, Base.WineEmpty, Base.WineEmpty2
+ko/compact: 연료를 담아 공급할 수 있다. 물을 담아 보관하거나 운반할 수 있다. 화염 장치를 만들 때 재료로 쓸 수 있다. 깨뜨려 깨진 병을 얻을 수 있다.
+ko/expanded: 주유기나 차량에서 연료를 담을 수 있다. 담긴 연료를 차량에 넣을 수도 있다.
+화염 장치를 만들 때 재료로 쓸 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+깨뜨려 깨진 병을 얻을 수 있다.
+en/compact: It can receive and supply fuel. It can receive, store, and carry water. It can be used as material for making incendiary devices. It can be broken to obtain a smashed bottle.
+en/expanded: It can collect fuel from a pump or vehicle. Its fuel can also be poured into a vehicle.
+It can be used as material for making incendiary devices.
+It can hold water for storage or carrying.
+It can be broken to obtain a smashed bottle.
+
+GROUP 484 | 1 IDs | Base.WildGarlicCataplasm
+ko/compact: 상처에 발라 상처 감염을 줄이는 데 쓸 수 있다.
+ko/expanded: 상처에 발라 상처 감염을 줄이는 데 쓸 수 있다.
+en/compact: It can be applied to reduce wound infection.
+en/expanded: It can be applied to reduce wound infection.
+
+GROUP 486 | 1 IDs | Base.WineInGlass
+ko/compact: 와인을 마실 수 있다.
+ko/expanded: 와인을 마실 수 있다.
+en/compact: It contains wine that can be drunk.
+en/expanded: It contains wine that can be drunk.
+
+GROUP 491 | 8 IDs | Base.WristWatch_Left_ClassicBlack, Base.WristWatch_Left_ClassicBrown, Base.WristWatch_Left_ClassicGold, Base.WristWatch_Left_ClassicMilitary, Base.WristWatch_Right_ClassicBlack, Base.WristWatch_Right_ClassicBrown, Base.WristWatch_Right_ClassicGold, Base.WristWatch_Right_ClassicMilitary
+ko/compact: 왼쪽이나 오른쪽 손목에 차거나 소지해 시간을 확인할 수 있다.
+ko/expanded: 왼쪽이나 오른쪽 손목에 차거나 소지해 시간을 확인할 수 있다.
+en/compact: It can be worn on either wrist or carried to check the time.
+en/expanded: It can be worn on either wrist or carried to check the time.
+
+GROUP 492 | 6 IDs | Base.WristWatch_Left_DigitalBlack, Base.WristWatch_Left_DigitalDress, Base.WristWatch_Left_DigitalRed, Base.WristWatch_Right_DigitalBlack, Base.WristWatch_Right_DigitalDress, Base.WristWatch_Right_DigitalRed
+ko/compact: 왼쪽이나 오른쪽 손목에 차거나 소지해 시간을 확인할 수 있다. 원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다. 드라이버로 분해해 전자 부품을 얻을 수 있다.
+ko/expanded: 왼쪽이나 오른쪽 손목에 차거나 소지해 시간을 확인할 수 있다.
+원하는 시각에 알람이 울리도록 맞추거나 알람을 끌 수 있다.
+드라이버로 분해해 전자 부품을 얻을 수 있다.
+en/compact: It can be worn on either wrist or carried to check the time. Its alarm can be set to ring at a chosen time or switched off. It can be dismantled with a screwdriver to recover electronic parts.
+en/expanded: It can be worn on either wrist or carried to check the time.
+Its alarm can be set to ring at a chosen time or switched off.
+It can be dismantled with a screwdriver to recover electronic parts.
+
+GROUP 516 | 1 IDs | farming.HandShovel
+ko/compact: 밭을 만들거나 정리할 수 있다. 흙이나 모래, 자갈을 포대에 담을 수 있다. 재를 치울 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 바닥의 재를 치울 수 있다.
+흙이나 모래, 자갈을 포대에 담을 수 있다.
+땅에 고랑을 파거나 밭의 작물과 고랑을 정리할 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used for preparing and clearing planting beds. It can be used for ash cleanup and bagging dirt, sand or gravel. It can be used as a weapon.
+en/expanded: It can be used for clearing ash from burnt floors.
+It can be used for collecting dirt, sand or gravel into a bag.
+It can dig furrows in soil or clear plants and furrows.
+It can be used as a weapon.

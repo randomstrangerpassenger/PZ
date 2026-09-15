@@ -1,0 +1,683 @@
+{
+  "status": "UNRESOLVED survival facility reachability; no impossible or verified-available claim",
+  "scope_ids": [
+    "Base.223BulletsMold",
+    "Base.308BulletsMold",
+    "Base.9mmBulletsMold",
+    "Base.BallPeenHammer",
+    "Base.GunPowder",
+    "Base.Hammer",
+    "Base.HammerStone",
+    "Base.Handle",
+    "Base.IronIngot",
+    "Base.MetalBar",
+    "Base.ShotgunShellsMold",
+    "Base.SmithingMag1",
+    "Base.SmithingMag2",
+    "Base.SmithingMag3",
+    "Base.SmithingMag4",
+    "Base.Tongs"
+  ],
+  "bindings": [
+    {
+      "path": "lua/client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+      "sha256": "84f949e14e0b1430f271fd54ac8f297fca89c2b938e07ce14c194956cd6b705f"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISAnvil.lua",
+      "sha256": "4efa98bb67afb54628b0ea1de18228b2bb5b639c1f361f60b50cbb609c424358"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISBSFurnace.lua",
+      "sha256": "118ab29e39f73c4985620a4f75ab4412510825a1b695dfeeddac398bada504eb"
+    },
+    {
+      "path": "lua/shared/NPCs/MainCreationMethods.lua",
+      "sha256": "45ffde7ac9722b39c6188a3f48a4fe0da73b190a2f2bf6ae3abed56d4eddffd5"
+    },
+    {
+      "path": "lua/client/ISUI/ISLiteratureUI.lua",
+      "sha256": "326082542aceb9bae9d04ad0373a76d01072fb379ce53a9eafe2b9d1fa5d72c5"
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "sha256": "062b2849a34722c52c4dc03a93592059f796504858659092c0a037f9668a0ead"
+    },
+    {
+      "path": "scripts/farming.txt",
+      "sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5"
+    },
+    {
+      "path": "scripts/items_literature.txt",
+      "sha256": "997df444b9710978d3109a29bc64453ea3446bb8fad3e7ee4963baf76dc86175"
+    }
+  ],
+  "native_bindings": [
+    {
+      "path": "zombie/inventory/RecipeManager.class",
+      "sha256": "6bff9573ea7e959e1a3cc808d26caa011140ee10a90d77391e7254ae8e41c2a0"
+    },
+    {
+      "path": "zombie/iso/IsoObject.class",
+      "sha256": "aec77dbf4f58db8428ac452c98e0e53a5f4f213a7fcf146650483c6828aa27f9"
+    }
+  ],
+  "near_anvil_recipes": [
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Fork",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Fork",
+        "Time": "100.0",
+        "Category": "Smithing",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith10",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Spoon",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Spoon",
+        "Time": "100.0",
+        "Category": "Smithing",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith10",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Cooking Pot",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Pot",
+        "Time": "190.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=2",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Roasting Pan",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Pot",
+        "Time": "220.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=2",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Saucepan",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Saucepan",
+        "Time": "170.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=2",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Baking Tray",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "BakingTray",
+        "Time": "220.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=2",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Baking Pan",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "BakingPan",
+        "Time": "220.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=2",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Pan",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Pan",
+        "Time": "220.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=2",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Letter Opener",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "LetterOpener",
+        "Time": "120.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=3",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Nails",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Nails=2",
+        "Time": "120.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=3",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith10",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Paperclips",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Paperclip=10",
+        "Time": "120.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=3",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith10",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Scissors",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Scissors",
+        "Time": "120.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=3",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Door Knob",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Doorknob",
+        "Time": "150.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=3",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Hinge",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Hinge",
+        "Time": "150.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=3",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Butter Knife",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "ButterKnife",
+        "Time": "180.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=3",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Ball Peen Hammer",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "BallPeenHammer",
+        "Time": "170.0",
+        "SkillRequired": "Blacksmith=4",
+        "Category": "Smithing",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Tongs",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Tongs",
+        "Time": "170.0",
+        "SkillRequired": "Blacksmith=4",
+        "Category": "Smithing",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Hammer",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Hammer",
+        "Time": "170.0",
+        "SkillRequired": "Blacksmith=4",
+        "Category": "Smithing",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Sheet Metal",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "SheetMetal",
+        "Time": "190.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=4",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Suture Needle Holder",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "SutureNeedleHolder",
+        "Time": "150.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=5",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Tweezers",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Tweezers",
+        "Time": "120.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=5",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith10",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Suture Needle",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "SutureNeedle",
+        "Time": "150.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=6",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Metal Drum",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "MetalDrum",
+        "Time": "250.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=6",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Kitchen Knife",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "KitchenKnife",
+        "Time": "180.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=7",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Saw",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Saw",
+        "Time": "250.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=7",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Hunting Knife",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "HuntingKnife",
+        "Time": "180.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make 9mm Bullets Mold",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "9mmBulletsMold",
+        "Time": "200.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make 308 Bullets Mold",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "308BulletsMold",
+        "Time": "200.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make 223 Bullets Mold",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "223BulletsMold",
+        "Time": "200.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Shotgun Shells Mold",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "ShotgunShellsMold",
+        "Time": "200.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make 9mm Bullets",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Bullets9mm=2",
+        "Time": "180.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Shotgun Shells",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "ShotgunShells=2",
+        "Time": "180.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make 308 Bullets",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "308Bullets=2",
+        "Time": "180.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make 223 Bullets",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "223Bullets=2",
+        "Time": "180.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=8",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith15",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Crowbar",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Crowbar",
+        "Time": "300.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=9",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Golfclub",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Golfclub",
+        "Time": "250.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=9",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Axe",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Axe",
+        "Time": "300.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=10",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "name": "Make Sledgehammer",
+      "module": "Base",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Sledgehammer",
+        "Time": "300.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=10",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "OnCreate": "BSItem_OnCreate",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/farming.txt",
+      "name": "Make Shovel",
+      "module": "farming",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "Shovel",
+        "Time": "200.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=6",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith25",
+        "NeedToBeLearn": "true"
+      }
+    },
+    {
+      "path": "scripts/farming.txt",
+      "name": "Make Hand Shovel",
+      "module": "farming",
+      "fields": {
+        "NearItem": "Anvil",
+        "Result": "HandShovel",
+        "Time": "200.0",
+        "Category": "Smithing",
+        "SkillRequired": "Blacksmith=6",
+        "OnGiveXP": "Recipe.OnGiveXP.Blacksmith20",
+        "NeedToBeLearn": "true"
+      }
+    }
+  ],
+  "active_lua_name_matches": [
+    {
+      "path": "lua/server/BuildingObjects/ISAnvil.lua",
+      "matches": [
+        "ISAnvil:new"
+      ],
+      "sha256": "4efa98bb67afb54628b0ea1de18228b2bb5b639c1f361f60b50cbb609c424358"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISBSFurnace.lua",
+      "matches": [
+        "BSFurnace.new",
+        "ISBSFurnace:new"
+      ],
+      "sha256": "118ab29e39f73c4985620a4f75ab4412510825a1b695dfeeddac398bada504eb"
+    },
+    {
+      "path": "lua/client/ISUI/ISLiteratureUI.lua",
+      "matches": [
+        "SmithingMag1",
+        "SmithingMag2",
+        "SmithingMag3",
+        "SmithingMag4"
+      ],
+      "sha256": "326082542aceb9bae9d04ad0373a76d01072fb379ce53a9eafe2b9d1fa5d72c5"
+    },
+    {
+      "path": "lua/client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+      "matches": [
+        "ISBSFurnace:new",
+        "ISAnvil:new"
+      ],
+      "sha256": "84f949e14e0b1430f271fd54ac8f297fca89c2b938e07ce14c194956cd6b705f"
+    }
+  ],
+  "findings": [
+    "ISBlacksmithMenu local disableFurnaceAnvil=true blocks the constructor menu callbacks. Existing BSFurnace object interaction remains a different branch.",
+    "ISAnvil.create sets object name Anvil. RecipeManager.isNearItem compares Recipe.NearItem with nearby IsoObject.getName; sprite appearance alone is insufficient.",
+    "SmithingMag1-4 declare learned recipes and are hidden in ISLiteratureUI. No matching active distribution entry was found in the inspected Lua corpus; absence of a text hit is not a world reachability proof.",
+    "doMetalWorkerRecipes defines 40 free recipe assignments, but its three source call sites are commented out. The definition alone grants no profession recipe.",
+    "IsoObject class factory recognizes StoneFurnace and constructs BSFurnace during object reconstruction; this is serialization support and establishes no standard-world spawn.",
+    "Installed readable media text was searched for Anvil/Stone Furnace/crafted_01_19/crafted_01_42. No alternate active creation callback was found. Binary default-world map placement and named-object creation were not decoded, and survival gameplay was not exercised.",
+    "Retain current admitted forging facts without treating declarations as proven survival availability. All 16 wording candidates remain explicitly unresolved in this audit. No absent count target or forced substitute purpose is used."
+  ]
+}

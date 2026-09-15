@@ -4764,6 +4764,10 @@ def supplement_player_uses(root, semantic):
     learning_rule.update(supplement_placed_purposes(root, semantic, by_item, builder, source_hashes))
     learning_rule.update(supplement_native_device_purposes(root, semantic, by_item, builder, source_hashes))
     learning_rule.update(supplement_vehicle_tool_purposes(root, semantic, by_item, builder, source_hashes))
+    from .purpose_evidence import supplement_latest
+    learning_rule.update(supplement_latest(root, semantic, by_item, builder, source_hashes))
+    from .purpose_participant_relations import supplement as supplement_participant_purposes
+    learning_rule.update(supplement_participant_purposes(root, semantic, by_item, builder, source_hashes))
 
     path = 'Iris/tooling/src/iris_tooling/domains/layer3/recovery_sources.py'
     return {'owner': path, 'producer_sha256': hashlib.sha256((root / path).read_bytes()).hexdigest(),
@@ -5276,3 +5280,10 @@ def supplement_placed_purposes(root, semantic, by_item, builder, source_hashes):
         'preconditions': 'Unique WeaponPart, admitted mount action, positive AimingTimeModifier, native part addition and ranged hit-chance movement-penalty consumption.',
         'transformation': 'Expose the supported movement-related aiming role even without Tooltip.',
         'exceptions': 'No light source, stabbing, damage or universal mount compatibility inferred from name.'}}
+
+
+from .purpose_evidence import REVIEW_FUNCTIONS
+FUNCTIONS.update(REVIEW_FUNCTIONS)
+
+from .purpose_participant_relations import FUNCTIONS as PARTICIPANT_FUNCTIONS
+FUNCTIONS.update(PARTICIPANT_FUNCTIONS)

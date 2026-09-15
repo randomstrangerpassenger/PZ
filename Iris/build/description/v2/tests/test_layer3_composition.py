@@ -132,7 +132,7 @@ def test_layer3_composition_contract():
     corrected_refs = {f['fact_id'] for f in correction['facts']}
     assert not predecessor_refs & corrected_refs
     assert {f['fact_id'] for f in semantic_payload['facts']} == predecessor_refs | corrected_refs
-    assert {f['item_id'] for f in correction['facts'] if f['admission']['rule_ref'] not in {'declared_learning_and_recorded_content', 'installed_battery_power_purpose', 'installed_vehicle_light_purpose', 'declared_morale_reading_purpose', 'declared_attachment_purpose', 'placed_sprite_purpose', 'native_attachment_purpose', 'native_device_purpose', 'paired_vehicle_template_tool'}} == {
+    assert {f['item_id'] for f in correction['facts'] if f['admission']['rule_ref'] not in {'declared_learning_and_recorded_content', 'installed_battery_power_purpose', 'installed_vehicle_light_purpose', 'declared_morale_reading_purpose', 'declared_attachment_purpose', 'placed_sprite_purpose', 'native_attachment_purpose', 'native_device_purpose', 'paired_vehicle_template_tool', 'reviewed_time_treatment_traversal', 'reviewed_recipe_poison'}} == {
         'Base.UmbrellaBlack', 'Base.UmbrellaBlue', 'Base.UmbrellaRed', 'Base.UmbrellaWhite',
         'Base.Pills', 'Base.PillsAntiDep', 'Base.PillsBeta', 'Base.PillsSleepingTablets',
         'Base.PillsVitamins', 'Base.Antibiotics', 'Base.Generator'}
@@ -168,7 +168,11 @@ def test_layer3_composition_contract():
     assert {f['payload']['function'] for f in attachments if f['item_id'] == 'Base.AmmoStraps'} == {'attachment_purpose_reload'}
     vehicle_tools = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'paired_vehicle_template_tool']
     assert {(f['item_id'], f['payload']['function']) for f in vehicle_tools} == {('Base.Wrench', 'service_vehicle_parts')}
-    assert len(corrected_refs) == 88 + len(placed) + len(native_attachments) + len(devices) + len(vehicle_tools)
+    latest = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'reviewed_time_treatment_traversal']
+    poison = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'reviewed_recipe_poison']
+    assert [(f['item_id'], f['payload']['function']) for f in poison] == [('Base.Bleach', 'supply_recipe_poison')]
+    assert len(latest) == 21
+    assert len(corrected_refs) == 88 + len(placed) + len(native_attachments) + len(devices) + len(vehicle_tools) + len(latest) + len(poison)
     assert {f['item_id'] for f in correction['facts'] if f['payload'].get('function') == 'supply_vehicle_electrical_power'} == {'Base.CarBattery1', 'Base.CarBattery2', 'Base.CarBattery3'}
     expected = {fact["fact_id"]: fact["item_id"]
                 for payload in (semantic_payload, acquisition_payload) for fact in payload["facts"]}

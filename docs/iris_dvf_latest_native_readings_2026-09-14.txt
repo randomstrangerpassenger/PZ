@@ -1,0 +1,88 @@
+RecipeManager
+  private static boolean isNearItem(zombie.scripting.objects.Recipe, zombie.characters.IsoGameCharacter);
+    Code:
+       0: aload_0
+       1: invokevirtual #336                // Method zombie/scripting/objects/Recipe.getNearItem:()Ljava/lang/String;
+       4: ifnull        20
+       7: aload_0
+       8: invokevirtual #336                // Method zombie/scripting/objects/Recipe.getNearItem:()Ljava/lang/String;
+      11: ldc_w         #339                // String
+      14: invokevirtual #44                 // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+      17: ifeq          22
+      20: iconst_1
+      21: ireturn
+      22: aload_1
+      23: invokevirtual #341                // Method zombie/characters/IsoGameCharacter.getSquare:()Lzombie/iso/IsoGridSquare;
+      26: invokevirtual #345                // Method zombie/iso/IsoGridSquare.getX:()I
+      29: iconst_2
+      30: isub
+      31: istore_2
+      32: iload_2
+      33: aload_1
+      34: invokevirtual #341                // Method zombie/characters/IsoGameCharacter.getSquare:()Lzombie/iso/IsoGridSquare;
+      37: invokevirtual #345                // Method zombie/iso/IsoGridSquare.getX:()I
+      40: iconst_2
+      41: iadd
+      42: if_icmpge     153
+      45: aload_1
+      46: invokevirtual #341                // Method zombie/characters/IsoGameCharacter.getSquare:()Lzombie/iso/IsoGridSquare;
+      49: invokevirtual #350                // Method zombie/iso/IsoGridSquare.getY:()I
+      52: iconst_2
+      53: isub
+      54: istore_3
+      55: iload_3
+      56: aload_1
+      57: invokevirtual #341                // Method zombie/characters/IsoGameCharacter.getSquare:()Lzombie/iso/IsoGridSquare;
+      60: invokevirtual #350                // Method zombie/iso/IsoGridSquare.getY:()I
+      63: iconst_2
+      64: iadd
+      65: if_icmpge     147
+      68: aload_1
+      69: invokevirtual #353                // Method zombie/characters/IsoGameCharacter.getCell:()Lzombie/iso/IsoCell;
+      72: iload_2
+      73: iload_3
+      74: aload_1
+      75: invokevirtual #341                // Method zombie/characters/IsoGameCharacter.getSquare:()Lzombie/iso/IsoGridSquare;
+      78: invokevirtual #357                // Method zombie/iso/IsoGridSquare.getZ:()I
+      81: invokevirtual #360                // Method zombie/iso/IsoCell.getGridSquare:(III)Lzombie/iso/IsoGridSquare;
+      84: astore        4
+      86: aload         4
+      88: ifnull        141
+      91: iconst_0
+      92: istore        5
+      94: iload         5
+      96: aload         4
+      98: invokevirtual #366                // Method zombie/iso/IsoGridSquare.getObjects:()Lzombie/util/list/PZArrayList;
+     101: invokevirtual #370                // Method zombie/util/list/PZArrayList.size:()I
+     104: if_icmpge     141
+     107: aload_0
+     108: invokevirtual #336                // Method zombie/scripting/objects/Recipe.getNearItem:()Ljava/lang/String;
+     111: aload         4
+     113: invokevirtual #366                // Method zombie/iso/IsoGridSquare.getObjects:()Lzombie/util/list/PZArrayList;
+     116: iload         5
+     118: invokevirtual #373                // Method zombie/util/list/PZArrayList.get:(I)Ljava/lang/Object;
+     121: checkcast     #374                // class zombie/iso/IsoObject
+     124: invokevirtual #376                // Method zombie/iso/IsoObject.getName:()Ljava/lang/String;
+     127: invokevirtual #44                 // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+     130: ifeq          135
+     133: iconst_1
+     134: ireturn
+     135: iinc          5, 1
+     138: goto          94
+     141: iinc          3, 1
+     144: goto          55
+     147: iinc          2, 1
+     150: goto          32
+     153: iconst_0
+     154: ireturn
+
+
+
+IsoObject
+  public java.lang.String getName();
+    Code:
+       0: aload_0
+       1: getfield      #97                 // Field name:Ljava/lang/String;
+       4: areturn
+
+

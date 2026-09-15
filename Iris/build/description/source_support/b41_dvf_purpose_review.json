@@ -1,0 +1,61 @@
+{
+  "scope": "Installed B41 local consumers; mod registration is outside this static corpus",
+  "consumer_bindings": [
+    {
+      "path": "lua/server/Traps/TrapDefinition.lua",
+      "sha256": "98b161703097f8c8e30934ea0dd70fde0e6cb7cfe800b4a5e576e1d9aa9d7427",
+      "installed_equal": true
+    },
+    {
+      "path": "lua/server/Traps/STrapGlobalObject.lua",
+      "sha256": "c8e8a39444cc9d2126265371bca31cf984c8f89754d40b82e53f872a2c8f79f4",
+      "installed_equal": true
+    },
+    {
+      "path": "lua/server/Traps/STrapSystem.lua",
+      "sha256": "8b566b176aa837ee50b6e903a7acef2a7321c4ebee7214847afe36b81a3a0ca5",
+      "installed_equal": true
+    },
+    {
+      "path": "lua/client/Traps/TimedActions/ISAddBaitAction.lua",
+      "sha256": "b936f444588487c902a917cd16384519c11f83ddc516d3dd9bd00c2f05b5503c",
+      "installed_equal": true
+    },
+    {
+      "path": "lua/server/Traps/ISUI/ISTrapMenu.lua",
+      "sha256": "c904badc6325a6f95d82bc519bb6d4b8da48dab6dd95bae6c02bc57f727e890c",
+      "installed_equal": true
+    },
+    {
+      "path": "lua/client/ISUI/ISInventoryPaneContextMenu.lua",
+      "sha256": "6db61b9f54e1368a339719635bc60341f3e5420cfb3593e5b03fc32c340b56a4",
+      "installed_equal": true
+    },
+    {
+      "path": "lua/server/Camping/camping_fuel.lua",
+      "sha256": "395f74e42026386732eccc5f33f9b179e6e0bb2b0291575ade132386f50bf325",
+      "installed_equal": true
+    },
+    {
+      "path": "lua/client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+      "sha256": "84f949e14e0b1430f271fd54ac8f297fca89c2b938e07ce14c194956cd6b705f",
+      "installed_equal": true
+    }
+  ],
+  "native_bindings": [
+    {
+      "path": "zombie/inventory/types/AlarmClockClothing.class",
+      "sha256": "e45fe0aab0d00aa4fc5ef42753d3b6697b700245ef70acb6b2606172dbc3e3e9"
+    },
+    {
+      "path": "zombie/radio/ZomboidRadio.class",
+      "sha256": "53f07ccaa3280e393f10796715870f68efa9d2920ae861199de2be3686578a64"
+    }
+  ],
+  "readings": {
+    "alarm": "Both AlarmClockClothing constructors initialize isDigital=true then set false when fullType.contains(\"Classic\"). isDigital returns that field. The inventory menu requires isDigital before offering set/stop alarm. This is a native predicate, not a prose name heuristic.",
+    "radio": "ZomboidRadio.UpdateScripts collects player speech and accepts powered two-way devices with an unmuted microphone and the player within microphone range, including equipped portable radios via checkPlayerForDevice. addFrequencyListEntry leads to SendTransmission. ReceiveTransmission and DistributeTransmission/DistributeToPlayer match receiving channel and range before AddDeviceText. Claim speech transmission on a matching frequency within range; do not promise VOIP, unlimited reach, or successful delivery under every runtime state.",
+    "trap": "ISTrapMenu admits uncooked Food without extras/Drink and with sufficient hunger (or Worm). ISAddBaitAction sends self.bait:getFullType(); STrapSystem forwards args.bait; STrapGlobalObject.addBait stores it unchanged. checkForAnimal requires v.baits[self.bait] on registered Animals. A full local Lua search found registration and baits assignments only in TrapDefinition, plus a test consumer. Recipe conversions produce other item identities; their accepted bait uses must not be inherited by raw input. Direct animal acceptance is required for public hunting-purpose wording.",
+    "drum": "ISBlacksmithMenu checks positive type-specific campingLightFireType first, then truthiness of campingLightFireCategory[item:getCategory()]. Unlike other fire menus it does not apply a fabric-only predicate. Clothing category includes jewellery. The drum must have logs and not be lit or have charcoal; literature lighting consumes the selected item. Retain grounded drum tinder purpose regardless of real-world material."
+  }
+}

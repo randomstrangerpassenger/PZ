@@ -1,0 +1,184 @@
+{
+  "baseline_sha256": "f448125439beff3aba507de3382b74abeb06833dab2cd61ed8a02f613620b451",
+  "sha256": "d2bf6b9ebfd12bf54f7b9fd88972d857e59b0823775de19996790588141d136f",
+  "changes": [
+    {
+      "item_id": "Base.DenimStrips",
+      "coordinates": [
+        "ko/compact",
+        "ko/expanded",
+        "en/compact",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "상처 처치나 의류 수선에 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "ko/expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다.",
+        "en/compact": "It can be used for wound care or clothing repairs. It can supply material for making incendiary devices, tools, and splints.",
+        "en/expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. Infected material can cause wound infection.\nIt can supply material for making incendiary devices, tools, and splints.\nIt can be used to patch garment holes or add padding."
+      },
+      "after": {
+        "ko/compact": "상처 처치나 의류 수선에 쓸 수 있다. 화염 장치, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "ko/expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n화염 장치, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다.",
+        "en/compact": "It can be used for wound care or clothing repairs. It can supply material for making incendiary devices, stone tools, and splints.",
+        "en/expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. Infected material can cause wound infection.\nIt can supply material for making incendiary devices, stone tools, and splints.\nIt can be used to patch garment holes or add padding."
+      }
+    },
+    {
+      "item_id": "Base.DenimStripsDirty",
+      "coordinates": [
+        "ko/compact",
+        "ko/expanded",
+        "en/compact",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "ko/expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n물로 씻어 다시 쓸 수 있다.\n화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "en/compact": "It can be wrapped around wounds. It can be washed with water for reuse. It can supply material for making incendiary devices, tools, and splints.",
+        "en/expanded": "It can be wrapped around wounds. Infected material can cause wound infection.\nIt can be washed with water for reuse.\nIt can supply material for making incendiary devices, tools, and splints."
+      },
+      "after": {
+        "ko/compact": "상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 화염 장치, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "ko/expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n물로 씻어 다시 쓸 수 있다.\n화염 장치, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "en/compact": "It can be wrapped around wounds. It can be washed with water for reuse. It can supply material for making incendiary devices, stone tools, and splints.",
+        "en/expanded": "It can be wrapped around wounds. Infected material can cause wound infection.\nIt can be washed with water for reuse.\nIt can supply material for making incendiary devices, stone tools, and splints."
+      }
+    },
+    {
+      "item_id": "Base.Plank",
+      "coordinates": [
+        "ko/expanded",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "부목 제작, 목공 및 건축에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+        "ko/expanded": "골절을 고정하는 부목 재료로 쓸 수 있다.\n목공과 건축 재료로 쓸 수 있다.\n사냥 장비, 모닥불 도구 및 도구를 만드는 재료로 쓸 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다.\n모닥불 등의 연료로 쓸 수 있다.",
+        "en/compact": "It can be used as material for making splints, woodworking, and construction. It can be used as a weapon. It can be used as fuel for campfires, for example.",
+        "en/expanded": "It can supply splinting material for fractures.\nIt can be used as material for woodworking and construction.\nIt can supply material for making hunting equipment, campfire kits, and tools.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon.\nIt can be used as fuel for campfires, for example."
+      },
+      "after": {
+        "ko/compact": "부목 제작, 목공 및 건축에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+        "ko/expanded": "골절을 고정하는 부목 재료로 쓸 수 있다.\n목공과 건축 재료로 쓸 수 있다.\n사냥 장비, 모닥불 도구 및 톱을 만드는 재료로 쓸 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다.\n모닥불 등의 연료로 쓸 수 있다.",
+        "en/compact": "It can be used as material for making splints, woodworking, and construction. It can be used as a weapon. It can be used as fuel for campfires, for example.",
+        "en/expanded": "It can supply splinting material for fractures.\nIt can be used as material for woodworking and construction.\nIt can supply material for making hunting equipment, campfire kits, and a saw.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon.\nIt can be used as fuel for campfires, for example."
+      }
+    },
+    {
+      "item_id": "Base.RippedSheets",
+      "coordinates": [
+        "ko/expanded",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "응급처치와 의류 수선에 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "ko/expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n골절을 고정하는 부목 재료로 쓸 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다.\n건축 재료로 쓸 수 있다.\n화염 장치, 연막 장치, 모닥불 도구 및 도구를 만드는 재료로 쓸 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "en/compact": "It can be used for first aid or clothing repairs. It can be used as material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.",
+        "en/expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. It can also be disinfected before use. Infected material can cause wound infection.\nIt can supply splinting material for fractures.\nIt can be used to patch garment holes or add padding.\nIt can be used as material for construction.\nIt can supply material for making incendiary devices, smoke devices, campfire kits, and tools.\nIt can be used as fuel or tinder, for example in campfires."
+      },
+      "after": {
+        "ko/compact": "응급처치와 의류 수선에 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "ko/expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n골절을 고정하는 부목 재료로 쓸 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다.\n건축 재료로 쓸 수 있다.\n화염 장치, 연막 장치, 모닥불 도구 및 돌 도구를 만드는 재료로 쓸 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "en/compact": "It can be used for first aid or clothing repairs. It can be used as material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.",
+        "en/expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. It can also be disinfected before use. Infected material can cause wound infection.\nIt can supply splinting material for fractures.\nIt can be used to patch garment holes or add padding.\nIt can be used as material for construction.\nIt can supply material for making incendiary devices, smoke devices, campfire kits, and stone tools.\nIt can be used as fuel or tinder, for example in campfires."
+      }
+    },
+    {
+      "item_id": "Base.RippedSheetsDirty",
+      "coordinates": [
+        "ko/expanded",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "ko/expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n물로 씻어 다시 쓸 수 있다.\n화염 장치, 연막 장치, 모닥불 도구, 도구 및 부목을 만드는 재료로 쓸 수 있다.\n건축 재료로 쓸 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "en/compact": "It can be wrapped around wounds. It can be washed with water for reuse. It can be used as material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.",
+        "en/expanded": "It can be wrapped around wounds. Infected material can cause wound infection.\nIt can be washed with water for reuse.\nIt can supply material for making incendiary devices, smoke devices, campfire kits, tools, and splints.\nIt can be used as material for construction.\nIt can be used as fuel or tinder, for example in campfires."
+      },
+      "after": {
+        "ko/compact": "상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "ko/expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n물로 씻어 다시 쓸 수 있다.\n화염 장치, 연막 장치, 모닥불 도구, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.\n건축 재료로 쓸 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "en/compact": "It can be wrapped around wounds. It can be washed with water for reuse. It can be used as material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.",
+        "en/expanded": "It can be wrapped around wounds. Infected material can cause wound infection.\nIt can be washed with water for reuse.\nIt can supply material for making incendiary devices, smoke devices, campfire kits, stone tools, and splints.\nIt can be used as material for construction.\nIt can be used as fuel or tinder, for example in campfires."
+      }
+    },
+    {
+      "item_id": "Base.SharpedStone",
+      "coordinates": [
+        "ko/compact",
+        "ko/expanded",
+        "en/compact",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "도구를 만드는 재료로 쓸 수 있다. 목재를 가공하는 데 쓸 수 있다.",
+        "ko/expanded": "사냥 장비를 만드는 데 쓸 수 있다.\n도구를 만드는 재료로 쓸 수 있다.\n목재를 가공하는 데 쓸 수 있다.",
+        "en/compact": "It can be used as material for making tools. It can be used for woodworking.",
+        "en/expanded": "It can be used to make hunting equipment.\nIt can be used as material for making tools.\nIt can be used for woodworking."
+      },
+      "after": {
+        "ko/compact": "돌 도구를 만드는 재료로 쓸 수 있다. 목재를 가공하는 데 쓸 수 있다.",
+        "ko/expanded": "사냥 장비를 만드는 데 쓸 수 있다.\n돌 도구를 만드는 재료로 쓸 수 있다.\n목재를 가공하는 데 쓸 수 있다.",
+        "en/compact": "It can be used as material for making stone tools. It can be used for woodworking.",
+        "en/expanded": "It can be used to make hunting equipment.\nIt can be used as material for making stone tools.\nIt can be used for woodworking."
+      }
+    },
+    {
+      "item_id": "Base.Stone",
+      "coordinates": [
+        "ko/expanded",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "건축에 재료로 쓸 수 있다.",
+        "ko/expanded": "건축 재료로 쓸 수 있다.\n도구를 만드는 재료로 쓸 수 있다.",
+        "en/compact": "It can be used as material for construction.",
+        "en/expanded": "It can be used as material for construction.\nIt can be used as material for making tools."
+      },
+      "after": {
+        "ko/compact": "건축에 재료로 쓸 수 있다.",
+        "ko/expanded": "건축 재료로 쓸 수 있다.\n돌 망치를 만드는 재료로 쓸 수 있다.",
+        "en/compact": "It can be used as material for construction.",
+        "en/expanded": "It can be used as material for construction.\nIt can be used as material for making a stone hammer."
+      }
+    },
+    {
+      "item_id": "Base.TreeBranch",
+      "coordinates": [
+        "ko/expanded",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "부목 제작 및 목공에 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+        "ko/expanded": "골절을 고정하는 부목 재료로 쓸 수 있다.\n목공 재료로 쓸 수 있다.\n사냥 장비 및 도구를 만드는 재료로 쓸 수 있다.\n나무를 비벼 모닥불 등에 불을 피우는 데 쓸 수 있다.\n모닥불 등의 연료로 쓸 수 있다.",
+        "en/compact": "It can be used as material for making splints and woodworking. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.",
+        "en/expanded": "It can supply splinting material for fractures.\nIt can be used as material for woodworking.\nIt can supply material for making hunting equipment and tools.\nIt can be used to light fires by wood friction, for example in campfires.\nIt can be used as fuel for campfires, for example."
+      },
+      "after": {
+        "ko/compact": "부목 제작 및 목공에 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+        "ko/expanded": "골절을 고정하는 부목 재료로 쓸 수 있다.\n목공 재료로 쓸 수 있다.\n사냥 장비 및 돌 도구를 만드는 재료로 쓸 수 있다.\n나무를 비벼 모닥불 등에 불을 피우는 데 쓸 수 있다.\n모닥불 등의 연료로 쓸 수 있다.",
+        "en/compact": "It can be used as material for making splints and woodworking. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.",
+        "en/expanded": "It can supply splinting material for fractures.\nIt can be used as material for woodworking.\nIt can supply material for making hunting equipment and stone tools.\nIt can be used to light fires by wood friction, for example in campfires.\nIt can be used as fuel for campfires, for example."
+      }
+    },
+    {
+      "item_id": "Base.Twine",
+      "coordinates": [
+        "ko/expanded",
+        "en/expanded"
+      ],
+      "before": {
+        "ko/compact": "건축에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다.",
+        "ko/expanded": "건축 재료로 쓸 수 있다.\n폭발 장치, 사냥과 낚시 장비 및 도구를 만드는 재료로 쓸 수 있다.",
+        "en/compact": "It can be used as material for construction. It can also be used to make explosive devices.",
+        "en/expanded": "It can be used as material for construction.\nIt can supply material for making explosive devices, hunting and fishing equipment, and tools."
+      },
+      "after": {
+        "ko/compact": "건축에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다.",
+        "ko/expanded": "건축 재료로 쓸 수 있다.\n폭발 장치, 사냥과 낚시 장비 및 돌 도구를 만드는 재료로 쓸 수 있다.",
+        "en/compact": "It can be used as material for construction. It can also be used to make explosive devices.",
+        "en/expanded": "It can be used as material for construction.\nIt can supply material for making explosive devices, hunting and fishing equipment, and stone tools."
+      }
+    }
+  ],
+  "changed_coordinates": 24
+}

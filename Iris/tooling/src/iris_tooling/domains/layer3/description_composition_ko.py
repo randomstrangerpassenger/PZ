@@ -45,6 +45,8 @@ def role(activities, roles, compact=False):
     nouns = "·".join(lex.pair(lex.ROLES[r], "ko") for r in roles)
     if roles == ["tool"] and activities == ["산탄총 총신 단축"]:
         return "산탄총의 총신을 줄이는 도구로 쓸 수 있다"
+    if roles == ["tool"] and names.endswith('는 데'):
+        return names + ' 쓸 수 있다'
     actions = {'음식 나누기': '음식을 나누는', '수박 쪼개기': '수박을 쪼개는',
                '석고 혼합': '석고를 섞는', '목공 작업': '목재를 가공하는', '목공': '목재를 가공하는',
                '금속 부품 용접': '금속 부품을 용접하는', '금속 단조': '금속을 단조하는', '금속 가공': '금속을 가공하는', '금속 용접 건축': '금속을 용접해 건축하는', '건축 작업': '건축에 쓰는'}

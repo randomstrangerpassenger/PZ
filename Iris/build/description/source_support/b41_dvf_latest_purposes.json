@@ -1,0 +1,71 @@
+{
+  "scope": "Installed B41 local action and native consumers; no external mod or runtime guarantee",
+  "consumer_bindings": [
+    {
+      "path": "lua/client/XpSystem/ISUI/ISHealthPanel.lua",
+      "sha256": "fbe2d25c937072e642afcee6af3704d3df60dbf739b40916f45f04932bb2be9f"
+    },
+    {
+      "path": "lua/client/TimedActions/ISComfreyCataplasm.lua",
+      "sha256": "9b4cafce6bdd3bf32d4838c8882962234cd89d8601a49cb20aadc1eb86073130"
+    },
+    {
+      "path": "lua/client/TimedActions/ISPlantainCataplasm.lua",
+      "sha256": "59726dfd62e6956fee9f84918efa072f44b2e68c4f289f9fe717b00d26897060"
+    },
+    {
+      "path": "lua/client/TimedActions/ISGarlicCataplasm.lua",
+      "sha256": "c6cc27b9a95c31b4d436f4f41868c67ce6c225202e3c164cd1e217a70683619d"
+    },
+    {
+      "path": "lua/client/ISUI/ISWorldObjectContextMenu.lua",
+      "sha256": "3560bb01fa0f474283f208b055587b20b0d398fcfd560682d26e3c617506ac28"
+    },
+    {
+      "path": "lua/client/TimedActions/ISClimbSheetRopeAction.lua",
+      "sha256": "0311054071df7316dfc9d106857d054480489abdf461b1445f0dcd1f359a24fd"
+    },
+    {
+      "path": "lua/client/TimedActions/ISClimbThroughWindow.lua",
+      "sha256": "820e7df1844665f20a862106281ad9618a3167df5be78307a3166007c4786585"
+    },
+    {
+      "path": "lua/client/TimedActions/ISAddSheetRope.lua",
+      "sha256": "be18e38dff1c892a7c3e6fe494482fabb6624dbd840783cbc4665cc586213922"
+    }
+  ],
+  "native_bindings": [
+    {
+      "path": "zombie/ui/Clock.class",
+      "sha256": "bbe90eb0760881ddfc78bd136ef431df528d96fad014e404e9e9714a78b3ebd6"
+    },
+    {
+      "path": "zombie/characters/BodyDamage/BodyPart.class",
+      "sha256": "ed11c13c0991cd834aed49dd48a1b41f47bbb5c8135225fe243705bdb88143dc"
+    },
+    {
+      "path": "zombie/ai/states/ClimbThroughWindowState.class",
+      "sha256": "fbba954349f386a4f9bfb28d7f9aed0300006c4caaf56cbd0913b3d1a89634a7"
+    },
+    {
+      "path": "zombie/characters/IsoGameCharacter.class",
+      "sha256": "657577b8f188710cdcd3ef1d00adf4406c6f7b82c48bb212bcdc415926dd59ea"
+    },
+    {
+      "path": "zombie/ai/states/ClimbDownSheetRopeState.class",
+      "sha256": "23e59987136aa7c23214f18fe88d000b98da2a559f57b6aac86572ba48a18ac4"
+    }
+  ],
+  "action_transition": {
+    "path": "media/actiongroups/player/climbwindow/finishclimb.xml",
+    "sha256": "612f8062682ebddfb6081f8d8f41013d98ff69baa2c97f324ad9fba0c286d0b6",
+    "text": "<transitions>\r\n    <transition>\r\n        <transitionTo>climbdownrope</transitionTo>\r\n        <conditions>\r\n            <isTrue>ClimbWindowFinished</isTrue>\r\n            <isTrue>CanClimbDownRope</isTrue>\r\n        </conditions>\r\n    </transition>\r\n    <transition>\r\n        <transitionTo>falling</transitionTo>\r\n        <conditions>\r\n            <isTrue>ClimbWindowFinished</isTrue>\r\n            <isTrue>bFalling</isTrue>\r\n        </conditions>\r\n    </transition>\r\n    <transition>\r\n        <transitionTo>idle</transitionTo>\r\n        <conditions>\r\n            <isTrue>ClimbWindowFinished</isTrue>\r\n        </conditions>\r\n    </transition>\r\n\r\n    <transition>\r\n        <transitionTo>turning</transitionTo>\r\n        <asSubstate>true</asSubstate>\r\n        <conditions>\r\n            <isTrue>isTurningAround</isTrue>\r\n        </conditions>\r\n    </transition>\r\n\r\n</transitions>\r\n"
+  },
+  "readings": {
+    "clock": "Clock.resize scans worn items and direct character inventory for AlarmClock or AlarmClockClothing; visibility is separate from Digital tags and isDigital alarm eligibility. renderDisplay/timeDigits display GameTime. No recursive bag search, date or temperature claim.",
+    "Comfrey": "ISHealthPanel HApplyPoultice dispatches to ISComfreyCataplasm; perform sets ComfreyFactor. BodyPart damage update uses positive getComfreyFactor to subtract fracture time.",
+    "Plantain": "ISHealthPanel HApplyPoultice dispatches to ISPlantainCataplasm; perform sets PlantainFactor. BodyPart damage update uses positive getPlantainFactor to subtract scratch, cut and deep wound time.",
+    "Garlic": "ISHealthPanel HApplyPoultice dispatches to ISGarlicCataplasm; perform sets GarlicFactor. BodyPart damage update uses positive getGarlicFactor to reduce WoundInfectionLevel. This is wound infection, not zombification.",
+    "rope": "ISAddSheetRope attaches either Rope or SheetRope. Window climbing reaches ClimbThroughWindowState; it tests canClimbDownSheetRope and sets ClimbWindowOutcome=rope. Player climbwindow finishclimb.xml transitions to climbdownrope when ClimbWindowFinished and CanClimbDownRope. IsoGameCharacter registers that callback and ClimbDownSheetRopeState supplies descent. ISClimbSheetRopeAction also distinguishes ascent and descent; menu onClimbSheetRope caller passes false so descent is not inferred from that menu alone."
+  }
+}

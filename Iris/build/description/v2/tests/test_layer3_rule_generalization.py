@@ -77,7 +77,7 @@ def test_material_roles_without_vanilla_item_combinations():
                 assert len({r for s in row['segments'] for r in s['fact_refs']}) == 2
             if len(activities) == 3:
                 assert ('야외 활동 장비' if locale == 'ko' else 'outdoor equipment') in row['text']
-                assert all(word in detail['text'] for word in (('야영', '사냥') if locale == 'ko' else ('camping', 'hunting')))
+                assert all(word in detail['text'] for word in (('모닥불', '사냥') if locale == 'ko' else ('campfire', 'hunting')))
                 if 'tool_crafting' in activities:
                     assert row['text'].index('도구' if locale == 'ko' else 'tools') < row['text'].index('야외' if locale == 'ko' else 'outdoor')
 

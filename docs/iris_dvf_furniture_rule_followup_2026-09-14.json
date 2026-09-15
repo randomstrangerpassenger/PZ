@@ -1,0 +1,33 @@
+{
+  "previous_sha256": "716d4c7cf32d74af4dca4447eba83adc2e7fd6bb2f4e48690fd0b652ea969d6a",
+  "sha256": "2d338560526369cb83b017a60534c5f074115639510fe6c4aa6c20f27642c0bf",
+  "coordinates_compared": 8420,
+  "wording_changed_ids": [],
+  "affected_ids_read": [
+    "Base.Doorknob",
+    "Base.Nails",
+    "Base.Plank"
+  ],
+  "texts": {
+    "Base.Doorknob": {
+      "ko/compact": "목공과 건축 재료로 쓸 수 있다.",
+      "ko/expanded": "문을 만드는 재료로 쓸 수 있다.\n서랍을 만드는 재료로 쓸 수 있다.",
+      "en/compact": "It can be used as material for woodworking and construction.",
+      "en/expanded": "It can be used as material for making doors.\nIt can be used as material for making a drawer."
+    },
+    "Base.Nails": {
+      "ko/compact": "목공, 건축 및 무기 수리에 재료로 쓸 수 있다. 위층 창문 등에 탈출용 로프를 고정할 수 있다.",
+      "ko/expanded": "목공과 건축 재료로 쓸 수 있다. 문과 창문의 판자 바리케이드에도 재료로 쓸 수 있다.\n사냥과 낚시 장비를 만드는 재료로 쓸 수 있다.\n못 박은 야구 방망이를 수리할 때 재료로 쓸 수 있다.\n모아서 상자로 포장할 수 있다.\n위층 창문 등에 탈출용 로프를 고정할 수 있다.",
+      "en/compact": "It can be used as material for woodworking, construction, and repairing weapons. It can be used to anchor an escape rope at an upper-floor window or similar attachment.",
+      "en/expanded": "It can be used as material for woodworking and construction. It can also supply window and door barricades.\nIt can be used as material for making hunting and fishing equipment.\nIt can be used as repair material for the Spiked Baseball Bat.\nIt can be collected and packed into a box.\nIt can be used to anchor an escape rope at an upper-floor window or similar attachment."
+    },
+    "Base.Plank": {
+      "ko/compact": "부목 제작, 목공 및 건축에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.",
+      "ko/expanded": "골절을 고정하는 부목 재료로 쓸 수 있다.\n목공과 건축 재료로 쓸 수 있다.\n사냥 장비, 모닥불 도구 및 톱을 만드는 재료로 쓸 수 있다.\n수박을 쪼개는 데 쓸 수 있다.\n무기로 쓸 수 있다.\n모닥불 등의 연료로 쓸 수 있다.",
+      "en/compact": "It can be used as material for making splints, woodworking, and construction. It can be used as a weapon. It can be used as fuel for campfires, for example.",
+      "en/expanded": "It can supply splinting material for fractures.\nIt can be used as material for woodworking and construction.\nIt can supply material for making hunting equipment, campfire kits, and a saw.\nIt can be used for breaking a watermelon.\nIt can be used as a weapon.\nIt can be used as fuel for campfires, for example."
+    }
+  },
+  "rule": "A furniture material with one confirmed result is specific independently of construction_targets. A same-role woodworking overview can cover it; a woodworking tool cannot.",
+  "synthetic_test": "test_furniture_result_does_not_require_unrelated_construction_targets"
+}

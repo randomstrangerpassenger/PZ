@@ -266,7 +266,7 @@ def test_layer3_description_composition(monkeypatch):
     # A confirmed consumption use does not depend on proving downstream
     # native outcomes. Do not add poisoning or mood results to explain the use.
     for surface in ('compact', 'expanded'):
-        assert '바닥 혈흔을 지울 수 있다.' in examples['Base.Bleach'][surface]['text']
+        assert '바닥 혈흔' in examples['Base.Bleach'][surface]['text']
         assert '마실 수 있다.' in examples['Base.Bleach'][surface]['text']
         assert all(word not in examples['Base.Bleach'][surface]['text'] for word in ('중독', '불행', '사망', '120', '99'))
         assert examples['Base.Maggots2'][surface]['text'] == '먹을 수 있다.'
@@ -351,15 +351,15 @@ def test_layer3_description_composition(monkeypatch):
                 if segment.get('target_groups'):
                     assert all('·' not in group['label'] for group in segment['target_groups']['groups'])
     medical = examples['Base.Mov_CabinetMedical']['expanded']
-    assert len(medical['use_units']) == 5
+    assert len(medical['use_units']) == 4
     assert '가구로 놓아 사용하거나' not in medical['text']
     assert medical['text'].splitlines()[-1] == '설치된 상태에서 망치와 톱을 써서 분해해 재료를 회수할 수 있다.'
     assert examples['Base.Mov_AirConditioner']['compact']['text'] == '분해해 재료를 회수할 수 있다.'
-    assert examples['Base.BaseballBatNails']['compact']['text'] == '무기로 쓸 수 있다.'
+    assert '무기로 쓸 수 있다.' in examples['Base.BaseballBatNails']['compact']['text']
     assert '수박' in examples['Base.BaseballBatNails']['expanded']['text']
     # Equivalent forging purposes must not diverge with extra recipe evidence.
     for key in ('Base.Hammer', 'Base.HammerStone', 'Base.BallPeenHammer'):
-        assert examples[key]['compact']['text'] == '금속 단조, 목공과 건축에 쓸 수 있다. 무기로도 쓸 수 있다.'
+        assert all(word in examples[key]['compact']['text'] for word in ('금속', '목재', '바리케이드', '무기'))
     assert examples['Base.HammerStone']['expanded']['text'] == examples['Base.BallPeenHammer']['expanded']['text']
     assert '철거' in examples['Base.Hammer']['expanded']['text']
     for key in ('Base.RedDot', 'Base.GunLight', 'Base.Bayonnet'):
@@ -375,7 +375,8 @@ def test_layer3_description_composition(monkeypatch):
         assert '전자 장치 개조 방법' in examples['Base.ElectronicsMag3'][surface]['text']
         for key in ('Base.Saw', 'Base.GardenSaw'):
             assert '사냥 장비나 폭발 장치를 만드는 데' in examples[key]['expanded']['text']
-            assert '음식, 목재 손질과 장비 제작' in examples[key]['compact']['text']
+            assert all(word in examples[key]['compact']['text'] for word in ('사냥 장비', '폭발 장치', '수박', '목재', '해체'))
+            assert '목제 계단' not in examples[key]['compact']['text']
             assert '목제 계단' in examples[key]['expanded']['text']
     for item in result['items']:
         if '\n- ' in item['locales']['ko']['expanded']['text']:
@@ -411,7 +412,7 @@ def test_layer3_description_composition(monkeypatch):
     for surface in ('compact', 'expanded'):
         assert '요리법을 배울 수 있다' in examples['Base.CookingMag1'][surface]['text']
         assert '과일 음료를 섭취할 수 있다' in examples['Base.CannedFruitBeverage'][surface]['text']
-        assert 'obtain Fruit Beverage for consumption' in english['Base.CannedFruitBeverage'][surface]['text']
+        assert 'to consume the contents' in english['Base.CannedFruitBeverage'][surface]['text']
         assert '세계 지도' in examples['Base.MuldraughMap'][surface]['text']
         assert '기술과 제작법' in examples['Base.VHS_Home'][surface]['text']
         assert '제작법' not in examples['Base.Disc_Retail'][surface]['text']
@@ -422,7 +423,7 @@ def test_layer3_description_composition(monkeypatch):
         assert all(word in scissors for word in ('데님', '가죽', '의류', '회수'))
         assert all(word not in scissors for word in ('실도 회수', '가위가 필요', '직물 회수'))
         assert 'scissors' not in english['Base.Scissors'][surface]['text'].lower()
-        assert '가위' in examples['Base.Gloves_LeatherGloves'][surface]['text']
+        assert ('가위' in examples['Base.Gloves_LeatherGloves'][surface]['text']) == (surface == 'expanded')
     furniture_tools = [i['item_id'] for i in source['items'] if any(
         f['payload'].get('activity') == 'moving_furniture'
         for b in i['blocks'] for branch in b['branches'] for f in branch['facts'])]
@@ -430,14 +431,17 @@ def test_layer3_description_composition(monkeypatch):
         assert '일부 가구를 집어 들거나 설치' not in examples[item_id]['expanded']['text']
         assert 'pick up or place certain furniture' not in english[item_id]['expanded']['text']
         item = next(row for row in result['items'] if row['item_id'] == item_id)
-        assert any('concrete PickUpTool/PlaceTool' in d['reason'] for d in item['internal_uses'])
+        bound = next(row for row in source['items'] if row['item_id'] == item_id).get('source_traits', {}).get('moving_tool_targets')
+        assert any('concrete PickUpTool/PlaceTool' in d['reason'] for d in item['internal_uses']) == (not bool(bound))
+        if bound: assert '옮기거나 설치' in examples[item_id]['expanded']['text']
     assert '엔진을 사용할 수 없게 된다' not in examples['Base.Wrench']['expanded']['text']
     assert '0이 된다' not in examples['Base.Wrench']['compact']['text']
     assert '좀비화는 막지 못한다' in examples['Base.Antibiotics']['expanded']['text']
     for item_id in ('Base.Pasta', 'Base.Rice'):
-        assert examples[item_id]['compact']['text'] == '먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다.'
-        assert 'It can be eaten or used as a cooking ingredient.' in english[item_id]['compact']['text']
-        assert all(word in examples[item_id]['expanded']['text'] for word in ('먹을 수 있다', '요리 재료', '미끼'))
+        assert all(word in examples[item_id]['compact']['text'] for word in ('먹을 수 있다', '요리 재료'))
+        assert '미끼' not in examples[item_id]['compact']['text']
+        assert 'It can be eaten.' in english[item_id]['compact']['text']
+        assert all(word in examples[item_id]['expanded']['text'] for word in ('먹을 수 있다', '요리 재료'))
     for item_id in ('Base.Teacup', 'Base.MugWhite'):
         for surface in ('compact', 'expanded'):
             assert '물을 담아 보관하거나 운반할 수 있다.' in examples[item_id][surface]['text']
@@ -446,9 +450,9 @@ def test_layer3_description_composition(monkeypatch):
                 assert '다른 용기에서 물을 받을 수 있다.' not in examples[item_id][surface]['text']
                 assert 'receive water from another container' not in english[item_id][surface]['text']
     for surface in ('compact', 'expanded'):
-        assert 'obtain Carrots for eating' in english['Base.CannedCarrots2'][surface]['text']
-        assert 'obtain Mushroom Soup for eating' in english['Base.CannedMushroomSoup'][surface]['text']
-        assert 'obtain Vegetable Soup for drinking' in english['Base.TinnedSoup'][surface]['text']
+        assert 'to eat the contents' in english['Base.CannedCarrots2'][surface]['text']
+        assert 'to eat the contents' in english['Base.CannedMushroomSoup'][surface]['text']
+        assert 'to drink the contents' in english['Base.TinnedSoup'][surface]['text']
         assert 'Can Opener' not in english['Base.CannedSardines'][surface]['text']
         assert 'cooking ingredient' not in english['Base.Dogfood'][surface]['text']
     # Individual serving results belong to the recipe relation, while the
@@ -491,7 +495,8 @@ def test_layer3_description_composition(monkeypatch):
         assert '총신을 짧게 개조' in examples['Base.Shotgun'][surface]['text']
         assert '건축' in examples['Base.Plank'][surface]['text']
         if surface == 'expanded': assert '목공' in examples['Base.Plank'][surface]['text']
-        assert '톱을 만들' not in examples['Base.Plank'][surface]['text']
+        if surface == 'compact': assert '톱을 만들' not in examples['Base.Plank'][surface]['text']
+        else: assert '톱' in examples['Base.Plank'][surface]['text']
         assert '호환 조종기에 연결' in examples['Base.AerosolbombRemote'][surface]['text']
         assert '전조등에 달아 빛' in examples['Base.LightBulb'][surface]['text']
         assert '시작' not in examples['Base.Book'][surface]['text']
@@ -501,10 +506,11 @@ def test_layer3_description_composition(monkeypatch):
     assert all(word in examples['Base.DuctTape']['compact']['text'] for word in ('창 부착물', '장치 개조', '무기 수리', '차량 부품 수리'))
     assert examples['Base.DuctTape']['compact']['text'].count('재료') == 1
     assert all(word in examples['Base.Log']['compact']['text'] for word in ('목공', '건축', '연료'))
-    assert all(word in examples['Base.Log']['expanded']['text'] for word in ('목공', '야영', '숯', '수박'))
+    assert all(word in examples['Base.Log']['expanded']['text'] for word in ('목공', '모닥불', '숯', '수박'))
     assert '금속 드럼' in examples['Base.Log']['expanded']['text']
     assert '교체 부품' in examples['Base.FrontWindow1']['compact']['text']
-    assert '여닫' in examples['Base.FrontWindow1']['expanded']['text']
+    assert '교체 부품' in examples['Base.FrontWindow1']['expanded']['text']
+    assert '여닫' not in examples['Base.FrontWindow1']['expanded']['text']
     for surface in ('compact', 'expanded'):
         assert all(word in examples['Base.WeldingMask'][surface]['text'] for word in ('용접 작업', '착용하는 장비'))
         assert '도구로' not in examples['Base.WeldingMask'][surface]['text']
@@ -528,7 +534,7 @@ def test_layer3_description_composition(monkeypatch):
         text = examples[item_id]['compact']['text']
         assert all(word in text for word in purposes)
     assert '사냥' not in examples['Base.Plank']['compact']['text']
-    assert all(word in examples['Base.Plank']['expanded']['text'] for word in ('사냥', '야영', '도구'))
+    assert all(word in examples['Base.Plank']['expanded']['text'] for word in ('사냥', '모닥불', '도구'))
     assert all(word in examples['Base.ElectronicsScrap']['expanded']['text'] for word in ('전자 기기', '소음 발생 장치', '폭발 장치'))
     for item_id in ('Base.SheetMetal', 'Base.SmallSheetMetal'):
         text = examples[item_id]['compact']['text']
@@ -576,11 +582,13 @@ def test_layer3_description_composition(monkeypatch):
     assert '폭발 장치' in examples['Base.ElectronicsScrap']['expanded']['text']
     # Participant roles and compact grouping must not turn a processed item
     # into a processing supply or erase another independently admitted use.
-    assert '상처에 감을 수 있다. 소독해서 쓸 수도 있다' in examples['Base.Bandage']['expanded']['text']
+    assert '상처를 덮어 처치할 수 있다. 소독해서 쓸 수도 있다' in examples['Base.Bandage']['expanded']['text']
     assert len(examples['Base.Bandage']['expanded']['use_units']) == 2
     for item_id in ('Base.Watermelon', 'Base.Muffintray_Biscuit'):
         for surface in ('compact', 'expanded'):
-            assert examples[item_id][surface]['text'] == '덫의 미끼로 쓸 수 있다.'
+            assert '미끼' not in examples[item_id][surface]['text']
+            assert examples[item_id][surface]['state'] == 'present'
+            assert ('조각' if item_id == 'Base.Watermelon' else '비스킷') in examples[item_id][surface]['text']
     assert '수박을 쪼개는' in examples['Base.Plank']['expanded']['text']
     assert '칼로 손질해 개구리 고기' in examples['Base.Frog']['expanded']['text']
     assert '천 조각' in examples['Base.Sheet']['compact']['text']

@@ -45,6 +45,10 @@ def vehicle_tool_roles(text, item_id):
 
 
 def enrich(root, semantic, composition):
+    from . import purpose_evidence
+    accepted_baits = purpose_evidence.load(root)
+    from .purpose_participant_relations import participant_relations
+    reviewed = participant_relations(root)
     observations = semantic['observations']
     declarations = {}
     declaration_refs = {}
@@ -165,20 +169,56 @@ def enrich(root, semantic, composition):
 
     recipe_files = {}
 
-    def recipe_record(observation):
+    def recipe_record(observation, kind="recipe"):
         content = observation['content']
         if content.get('module'):
-            return {'clauses': content['clauses'], 'module': content['module']}
+            return {'clauses': content['clauses'], 'module': content['module'], 'name': content.get('name', content.get('recipe_name', ''))}
         path = observation['source_path']
         if path not in recipe_files:
             raw = (root / path).read_bytes()
             if hashlib.sha256(raw).hexdigest() != observation['source_sha256']:
                 raise ValueError('admitted recipe source drift: ' + path)
             recipe_files[path] = reader.declarations(raw.decode('utf-8-sig'), path)
-        matches = [r for r in recipe_files[path] if r['kind'] == 'recipe' and r['raw'] == content['raw']]
+        matches = [r for r in recipe_files[path] if r['kind'] == kind
+                   and r['raw'].replace('\r\n', '\n') == content['raw'].replace('\r\n', '\n')]
         if len(matches) != 1:
             return None
         return matches[0]
+
+    build_path = 'lua/client/BuildingObjects/ISUI/ISBuildMenu.lua'
+    build_raw = (root / build_path).read_bytes()
+    build_sha = hashlib.sha256(build_raw).hexdigest()
+    if not any(o['source_path'] == build_path and o['source_sha256'] == build_sha for o in observations.values()):
+        raise ValueError('carpentry target consumer is not bound to the admitted source')
+    build_text = reader.mask(build_raw.decode('utf-8-sig'), lua=True)
+    target_labels = {
+        'onStonePile': ('돌무더기', 'stone piles'), 'onWoodenPicket': ('나무 피켓', 'wooden pickets'),
+        'onBarbedFence': ('철조망 울타리', 'barbed-wire fences'),
+        'onSangBagWall': ('모래주머니 벽', 'sandbag walls'), 'onGravelBagWall': ('자갈주머니 벽', 'gravel-bag walls'),
+        'onPillarLamp': ('기둥 조명', 'pillar lamps'), 'onLogWall': ('통나무 벽', 'log walls'),
+        'onCreateBarrel': ('빗물받이', 'rain collectors'), 'onBed': ('침대', 'beds'),
+        'onSmallWoodTableWithDrawer': ('서랍 달린 탁자', 'tables with drawers'),
+        'onDoubleWoodenDoor': ('문', 'doors'), 'onWoodenDoor': ('문', 'doors'),
+    }
+    construction_targets = defaultdict(list)
+    for m in re.finditer(r'ISBuildMenu\.(\w+)\s*=\s*function\([^\n]*\)(.*?)(?=\n(?:ISBuildMenu\.\w+\s*=\s*function|function ISBuildMenu\.)|\Z)', build_text, re.S):
+        for material in set(re.findall(r'\["need:([\w.]+)"\]', m[2])):
+            construction_targets[material].append({'callback': m[1], 'names': dict(zip(('ko', 'en'), target_labels[m[1]])) if m[1] in target_labels else None,
+                                                   'source_path': build_path, 'source_sha256': build_sha})
+
+    evolved = []
+    for ref, observation in observations.items():
+        content = observation.get('content', {})
+        if not isinstance(content, dict) or not content.get('raw', '').lstrip().startswith('evolvedrecipe '): continue
+        record = recipe_record(observation, 'evolvedrecipe')
+        if not record: continue
+        fields = {k: v[0] for k, v in reader.properties(record, ':').items() if len(v) == 1}
+        if not fields.get('BaseItem') or not fields.get('ResultItem'): continue
+        base = reader.qualify(record['module'], fields['BaseItem'])
+        result = reader.qualify(record['module'], fields['ResultItem'])
+        if result not in declarations: continue
+        evolved.append({'base_item': base, 'result': named(result, food=True),
+                        'fields': fields, 'observation_ref': ref})
 
     by_item = defaultdict(list)
     for fact in semantic['facts']:
@@ -196,6 +236,10 @@ def enrich(root, semantic, composition):
         item_id = item['item_id']
         item['source_traits'] = {k: declarations.get(item_id, {})[k]
                                  for k in ('FabricType', 'FoodType') + purpose_fields if k in declarations.get(item_id, {})}
+        item['source_traits']['purpose_evidence'] = purpose_evidence.for_item(item_id, declarations.get(item_id, {}), accepted_baits)
+        item['source_traits']['construction_targets'] = construction_targets.get(item_id, [])
+        if any(f['payload'].get('activity') == 'food_ingredient_addition' for f in by_item[item_id]):
+            item['source_traits']['cooking_relations'] = [dict(r, subject_role='base' if item_id == r['base_item'] else 'prepared') for r in evolved if item_id in {r['base_item'], r['result']['item_id']}]
         learned = []
         for fact in by_item[item_id]:
             fn = fact['payload'].get('function', '')
@@ -269,6 +313,18 @@ def enrich(root, semantic, composition):
             dirty = recovered + 'Dirty'
             if dirty in declarations and 'FindItem(materials[1] .. "Dirty")' in groups_text:
                 item['source_traits']['fabric_dirty_result'] = named(dirty)
+        activities = {f['payload'].get('activity') for f in by_item[item_id]}
+        functions_present = {f['payload'].get('function') for f in by_item[item_id]}
+        if 'moving_furniture' in activities and item_id in reviewed['moving']:
+            item['source_traits']['moving_tool_targets'] = reviewed['moving'][item_id]
+        if 'clean_world_blood' in functions_present and item_id in reviewed['cleaning']:
+            item['source_traits']['blood_cleaning_role'] = reviewed['cleaning'][item_id]
+        if 'learn_literature_mechanics' in functions_present:
+            learned_keys = declarations.get(item_id, {}).get('TeachedRecipes', '').split(';')
+            if learned_keys and all(k.strip() in reviewed['mechanics'] for k in learned_keys):
+                item['source_traits']['mechanic_learning_targets'] = [reviewed['mechanics'][k.strip()] for k in learned_keys]
+        if any(k in item['source_traits'] for k in ('moving_tool_targets', 'blood_cleaning_role', 'mechanic_learning_targets')):
+            item['source_traits']['participant_relation_evidence'] = reviewed['evidence']
         relations = []
         repair_targets = {}
         for fact in by_item[item_id]:
@@ -397,13 +453,16 @@ def enrich(root, semantic, composition):
                     'SliceWatermelon', 'SliceBread', 'SliceBreadDough', 'SliceHam',
                     'SliceSalami', 'SlicePie', 'CutFish', 'CutAnimal',
                     'PutCakeBatterInBakingPan', 'GetMuffin', 'GetBiscuit',
-                    'GetCookies', 'SlicePizza', 'BeanBowl', 'MakeOatmeal')}
+                    'GetCookies', 'SlicePizza', 'BeanBowl', 'MakeOatmeal', 'SpikedBat', 'UpgradeSpear')}
                 if callbacks and (len(callbacks) != 1 or callbacks[0] not in fixed_result_callbacks
                                   or 'function ' + callbacks[0] + '(' not in groups_text):
                     continue
                 participants, opaque = reader.recipe_participants(record, declarations, groups)
                 expected = {'keep'} if role == 'tool' else {'input', 'destroy'}
-                if opaque or not any(p['item_id'] == item_id and p['role'] in expected for p in participants):
+                # Unknown peer operands do not erase an admitted participant
+                # and an explicit result identity. We expose no counts or
+                # completeness claim about the remaining recipe inputs.
+                if not any(p['item_id'] == item_id and p['role'] in expected for p in participants):
                     continue
                 outputs = [p for p in participants if p['role'] == 'result']
                 if not outputs or any(p['item_id'] not in declarations for p in outputs):
@@ -422,7 +481,21 @@ def enrich(root, semantic, composition):
                                         and declarations[p['item_id']].get('Type') == 'Food'), 'kind': 'declared',
                                  'count': p['clause'].split('=', 1)[1] if '=' in p['clause'] else '1'} for p in outputs],
                     'observation_refs': sorted({ref, groups_ref}) if callbacks else [ref],
+                    'uninterpreted_operands': opaque,
                 }
+                inputs = [p for p in participants if p['role'] in {'input', 'destroy'}]
+                if (record.get('name', '').startswith(('Fix ', 'Repair ')) and inputs
+                        and inputs[0]['item_id'] == item_id and role == 'material'
+                        and len(outputs) == 1 and declarations[item_id].get('Type') == declarations[outputs[0]['item_id']].get('Type')):
+                    recipe_relations[key]['processing_role'] = 'restoration_target'
+                recipe_relations[key]['inputs'] = [named(p['item_id']) for p in participants
+                    if p['role'] in {'input', 'destroy'} and p['item_id'] in declarations]
+                if (role == 'material' and len(outputs) == 1 and callbacks
+                        and declarations[item_id].get('Type') == 'Weapon'
+                        and declarations[outputs[0]['item_id']].get('Type') == 'Weapon'
+                        and declarations[item_id].get('Categories')
+                        and declarations[item_id].get('Categories') == declarations[outputs[0]['item_id']].get('Categories')):
+                    recipe_relations[key]['processing_role'] = 'weapon_modification_target'
                 # A processing material may explain the immediate result's
                 # purpose. This bounded join does not inherit every later use.
                 if role in {'material', 'ingredient', 'container'} and len(outputs) == 1:

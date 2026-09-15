@@ -1,0 +1,718 @@
+
+GROUP 0 Base.Apron_Black, Base.Apron_IceCream, Base.Apron_Jay, Base.Apron_PileOCrepe, Base.Apron_PizzaWhirled, Base.Apron_Spiffos, Base.Apron_White, Base.Apron_WhiteTEXTURE, Base.Boilersuit, Base.Boilersuit_BlueRed, Base.Boilersuit_Flying, Base.Boilersuit_Prisoner, Base.Boilersuit_PrisonerKhaki, Base.Boilersuit_Yellow, Base.BoobTube, Base.BoobTubeSmall, Base.DressKnees_Straps, Base.Dress_Knees, Base.Dress_Long, Base.Dress_Normal, Base.Dress_SatinNegligee, Base.Dress_Short, Base.Dress_SmallBlackStrapless, Base.Dress_SmallBlackStraps, Base.Dress_SmallStrapless, Base.Dress_SmallStraps, Base.Dress_Straps, Base.Dress_long_Straps, Base.HospitalGown, Base.JacketLong_Doctor, Base.JacketLong_Santa, Base.JacketLong_SantaGreen, Base.Jacket_ArmyCamoDesert, Base.Jacket_ArmyCamoGreen, Base.Jacket_Chef, Base.Jacket_CoatArmy, Base.Jacket_NavyBlue, Base.Jacket_Police, Base.Jacket_Ranger, Base.Jacket_Varsity, Base.Jacket_WhiteTINT, Base.Jumper_DiamondPatternTINT, Base.Jumper_PoloNeck, Base.Jumper_RoundNeck, Base.Jumper_TankTopDiamondTINT, Base.Jumper_TankTopTINT, Base.Jumper_VNeck, Base.LongCoat_Bathrobe, Base.LongJohns, Base.LongJohns_Bottoms, Base.Shirt_Baseball_KY, Base.Shirt_Baseball_Rangers, Base.Shirt_Baseball_Z, Base.Shirt_Bowling_Blue, Base.Shirt_Bowling_Brown, Base.Shirt_Bowling_Green, Base.Shirt_Bowling_LimeGreen, Base.Shirt_Bowling_Pink, Base.Shirt_Bowling_White, Base.Shirt_CamoDesert, Base.Shirt_CamoGreen, Base.Shirt_CamoUrban, Base.Shirt_CropTopNoArmTINT, Base.Shirt_CropTopTINT, Base.Shirt_FormalTINT, Base.Shirt_FormalWhite, Base.Shirt_FormalWhite_ShortSleeve, Base.Shirt_FormalWhite_ShortSleeveTINT, Base.Shirt_HawaiianRed, Base.Shirt_HawaiianTINT, Base.Shirt_Jockey01, Base.Shirt_Jockey02, Base.Shirt_Jockey03, Base.Shirt_Jockey04, Base.Shirt_Jockey05, Base.Shirt_Jockey06, Base.Shirt_Lumberjack, Base.Shirt_OfficerWhite, Base.Shirt_PoliceBlue, Base.Shirt_PoliceGrey, Base.Shirt_Priest, Base.Shirt_PrisonGuard, Base.Shirt_Ranger, Base.Shirt_Scrubs, Base.Shirt_Workman, Base.Shorts_CamoGreenLong, Base.Shorts_CamoUrbanLong, Base.Shorts_LongSport, Base.Shorts_LongSport_Red, Base.Shorts_ShortFormal, Base.Shorts_ShortSport, Base.Skirt_Knees, Base.Skirt_Long, Base.Skirt_Mini, Base.Skirt_Normal, Base.Skirt_Short, Base.Suit_Jacket, Base.Suit_JacketTINT, Base.Trousers, Base.Trousers_ArmyService, Base.Trousers_Black, Base.Trousers_CamoDesert, Base.Trousers_CamoGreen, Base.Trousers_CamoUrban, Base.Trousers_Chef, Base.Trousers_DefaultTEXTURE, Base.Trousers_DefaultTEXTURE_HUE, Base.Trousers_DefaultTEXTURE_TINT, Base.Trousers_NavyBlue, Base.Trousers_Police, Base.Trousers_PoliceGrey, Base.Trousers_PrisonGuard, Base.Trousers_Ranger, Base.Trousers_Santa, Base.Trousers_SantaGReen, Base.Trousers_Scrubs, Base.Trousers_Suit, Base.Trousers_SuitTEXTURE, Base.Trousers_SuitWhite, Base.Trousers_WhiteTEXTURE, Base.Trousers_WhiteTINT, Base.Tshirt_ArmyGreen, Base.Tshirt_BusinessSpiffo, Base.Tshirt_CamoDesert, Base.Tshirt_CamoGreen, Base.Tshirt_CamoUrban, Base.Tshirt_DefaultDECAL, Base.Tshirt_DefaultDECAL_TINT, Base.Tshirt_DefaultTEXTURE, Base.Tshirt_DefaultTEXTURE_TINT, Base.Tshirt_Fossoil, Base.Tshirt_Gas2Go, Base.Tshirt_IndieStoneDECAL, Base.Tshirt_McCoys, Base.Tshirt_PileOCrepe, Base.Tshirt_PizzaWhirled, Base.Tshirt_PoliceBlue, Base.Tshirt_PoliceGrey, Base.Tshirt_PoloStripedTINT, Base.Tshirt_PoloTINT, Base.Tshirt_Profession_FiremanBlue, Base.Tshirt_Profession_FiremanRed, Base.Tshirt_Profession_FiremanRed02, Base.Tshirt_Profession_FiremanWhite, Base.Tshirt_Profession_PoliceBlue, Base.Tshirt_Profession_PoliceWhite, Base.Tshirt_Profession_RangerBrown, Base.Tshirt_Profession_RangerGreen, Base.Tshirt_Profession_VeterenGreen, Base.Tshirt_Profession_VeterenRed, Base.Tshirt_Ranger, Base.Tshirt_Rock, Base.Tshirt_Scrubs, Base.Tshirt_SpiffoDECAL, Base.Tshirt_Sport, Base.Tshirt_SportDECAL, Base.Tshirt_ThunderGas, Base.Tshirt_ValleyStation, Base.Tshirt_WhiteLongSleeve, Base.Tshirt_WhiteLongSleeveTINT, Base.Tshirt_WhiteTINT, Base.Vest_DefaultTEXTURE, Base.Vest_DefaultTEXTURE_TINT, Base.Vest_Waistcoat, Base.Vest_WaistcoatTINT, Base.Vest_Waistcoat_GigaMart, Base.WeddingDress, Base.WeddingJacket
+ko/compact: 착용할 수 있다. 천 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 착용할 수 있다.
+찢어서 천 조각을 얻을 수 있다.
+시트 로프를 만들 때 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn. It can provide cloth scraps. It can also be used as fuel and tinder.
+en/expanded: It can be worn.
+It can be ripped to obtain cloth scraps.
+It can be used as material for making sheet rope.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 1 Base.Book, Base.Magazine
+ko/compact: 기분 전환을 위한 읽을거리로 쓸 수 있다. 모닥불 도구를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 기분 전환을 위한 읽을거리로 쓸 수 있다.
+모닥불 도구를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be read for a change of mood. It can be used as material for making campfire kits. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be read for a change of mood.
+It can be used as material for making campfire kits.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 2 Base.CannedBellPepper
+ko/compact: 개봉해 파프리카를 먹을 수 있다. 꺼낸 파프리카를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 파프리카를 먹을 수 있다.
+꺼낸 파프리카를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 3 Base.CannedBolognese
+ko/compact: 통조림 따개로 개봉해 볼로냐 소스를 먹을 수 있다. 꺼낸 볼로냐 소스를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 볼로냐 소스를 먹을 수 있다.
+꺼낸 볼로냐 소스를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the spaghetti bolognese inside. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the spaghetti bolognese inside.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 4 Base.CannedBroccoli
+ko/compact: 개봉해 브로콜리를 먹을 수 있다. 꺼낸 브로콜리를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 브로콜리를 먹을 수 있다.
+꺼낸 브로콜리를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 5 Base.CannedCabbage
+ko/compact: 개봉해 양배추를 먹을 수 있다. 꺼낸 양배추를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 양배추를 먹을 수 있다.
+꺼낸 양배추를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 6 Base.CannedCarrots
+ko/compact: 개봉해 당근을 먹을 수 있다. 꺼낸 당근을 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 당근을 먹을 수 있다.
+꺼낸 당근을 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 7 Base.CannedCarrots2
+ko/compact: 통조림 따개로 개봉해 당근을 먹을 수 있다. 꺼낸 당근을 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 당근을 먹을 수 있다.
+꺼낸 당근을 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 8 Base.CannedChili
+ko/compact: 통조림 따개로 개봉해 칠리소스를 먹을 수 있다. 꺼낸 칠리소스를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 칠리소스를 먹을 수 있다.
+꺼낸 칠리소스를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 9 Base.CannedCorn
+ko/compact: 통조림 따개로 개봉해 옥수수를 먹을 수 있다. 꺼낸 옥수수를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 옥수수를 먹을 수 있다.
+꺼낸 옥수수를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 10 Base.CannedCornedBeef
+ko/compact: 개봉해 소고기를 먹을 수 있다. 꺼낸 소고기를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 소고기를 먹을 수 있다.
+꺼낸 소고기를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 11 Base.CannedEggplant
+ko/compact: 개봉해 가지를 먹을 수 있다. 꺼낸 가지를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 가지를 먹을 수 있다.
+꺼낸 가지를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 12 Base.CannedFruitBeverage
+ko/compact: 통조림 따개로 개봉해 과일 음료를 섭취할 수 있다. 꺼낸 과일 음료를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 과일 음료를 섭취할 수 있다.
+꺼낸 과일 음료를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to consume the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to consume the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 13 Base.CannedFruitCocktail
+ko/compact: 통조림 따개로 개봉해 프루트 칵테일을 먹을 수 있다. 꺼낸 프루트 칵테일을 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 프루트 칵테일을 먹을 수 있다.
+꺼낸 프루트 칵테일을 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 14 Base.CannedLeek
+ko/compact: 개봉해 파를 먹을 수 있다. 꺼낸 파를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 파를 먹을 수 있다.
+꺼낸 파를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 15 Base.CannedMilk
+ko/compact: 통조림 따개로 개봉해 연유를 마실 수 있다. 꺼낸 연유를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 연유를 마실 수 있다.
+꺼낸 연유를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to drink the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to drink the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 16 Base.CannedMushroomSoup
+ko/compact: 통조림 따개로 개봉해 버섯스프를 먹을 수 있다. 꺼낸 버섯스프를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 버섯스프를 먹을 수 있다.
+꺼낸 버섯스프를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 17 Base.CannedPeaches
+ko/compact: 통조림 따개로 개봉해 복숭아를 먹을 수 있다. 꺼낸 복숭아를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 복숭아를 먹을 수 있다.
+꺼낸 복숭아를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 18 Base.CannedPeas
+ko/compact: 통조림 따개로 개봉해 완두콩을 먹을 수 있다. 꺼낸 완두콩을 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 완두콩을 먹을 수 있다.
+꺼낸 완두콩을 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 19 Base.CannedPineapple
+ko/compact: 통조림 따개로 개봉해 파인애플을 먹을 수 있다. 꺼낸 파인애플을 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 파인애플을 먹을 수 있다.
+꺼낸 파인애플을 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 20 Base.CannedPotato
+ko/compact: 개봉해 감자를 먹을 수 있다. 꺼낸 감자를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 감자를 먹을 수 있다.
+꺼낸 감자를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 21 Base.CannedPotato2
+ko/compact: 통조림 따개로 개봉해 감자를 먹을 수 있다. 꺼낸 감자를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 감자를 먹을 수 있다.
+꺼낸 감자를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 22 Base.CannedRedRadish
+ko/compact: 개봉해 순무를 먹을 수 있다. 꺼낸 순무를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 순무를 먹을 수 있다.
+꺼낸 순무를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 23 Base.CannedSardines
+ko/compact: 개봉해 정어리를 먹을 수 있다. 꺼낸 정어리를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 정어리를 먹을 수 있다.
+꺼낸 정어리를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 24 Base.CannedTomato
+ko/compact: 개봉해 토마토를 먹을 수 있다. 꺼낸 토마토를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 토마토를 먹을 수 있다.
+꺼낸 토마토를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 25 Base.CannedTomato2
+ko/compact: 통조림 따개로 개봉해 토마토를 먹을 수 있다. 꺼낸 토마토를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 토마토를 먹을 수 있다.
+꺼낸 토마토를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 26 Base.DenimStrips
+ko/compact: 상처 처치나 의류 수선에 쓸 수 있다. 화염 장치, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.
+ko/expanded: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+화염 장치, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+en/compact: It can be used for wound care or clothing repairs. It can supply material for making incendiary devices, stone tools, and splints.
+en/expanded: It can be used to clean burns.
+It can be wrapped around wounds. Infected material can cause wound infection.
+It can supply material for making incendiary devices, stone tools, and splints.
+It can be used to patch garment holes or add padding.
+
+GROUP 27 Base.DenimStripsDirty
+ko/compact: 상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 화염 장치, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.
+ko/expanded: 상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+물로 씻어 다시 쓸 수 있다.
+화염 장치, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.
+en/compact: It can be wrapped around wounds. It can be washed with water for reuse. It can supply material for making incendiary devices, stone tools, and splints.
+en/expanded: It can be wrapped around wounds. Infected material can cause wound infection.
+It can be washed with water for reuse.
+It can supply material for making incendiary devices, stone tools, and splints.
+
+GROUP 28 Base.Dogfood
+ko/compact: 통조림 따개로 개봉해 개 사료를 먹을 수 있다.
+ko/expanded: 통조림 따개로 개봉해 개 사료를 먹을 수 있다.
+en/compact: It can be opened with a can opener to eat the contents.
+en/expanded: It can be opened with a can opener to eat the contents.
+
+GROUP 29 Base.Dungarees, Base.Shirt_Denim, Base.Shorts_LongDenim, Base.Shorts_ShortDenim, Base.TrousersMesh_DenimLight, Base.Trousers_Denim, Base.Trousers_JeanBaggy
+ko/compact: 착용할 수 있다. 데님 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 착용할 수 있다.
+가위로 잘라 데님 조각을 얻을 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn. It can provide denim strips. It can also be used as fuel and tinder.
+en/expanded: It can be worn.
+It can be cut with scissors to obtain denim strips.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 30 Base.EggCarton
+ko/compact: 개봉해 달걀을 먹을 수 있다. 꺼낸 달걀을 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 달걀을 먹을 수 있다.
+꺼낸 달걀을 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 31 Base.Gloves_LeatherGloves, Base.Gloves_LeatherGlovesBlack
+ko/compact: 착용할 수 있다. 가죽 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 손에 낄 수 있다.
+가위로 잘라 가죽 조각을 얻을 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn. It can provide leather strips. It can also be used as fuel and tinder.
+en/expanded: It can be worn on the hands.
+It can be cut with scissors to obtain leather strips.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 32 Base.Gloves_LongWomenGloves, Base.Gloves_WhiteTINT
+ko/compact: 착용할 수 있다. 천 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 손에 낄 수 있다.
+찢어서 천 조각을 얻을 수 있다.
+시트 로프를 만들 때 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn. It can provide cloth scraps. It can also be used as fuel and tinder.
+en/expanded: It can be worn on the hands.
+It can be ripped to obtain cloth scraps.
+It can be used as material for making sheet rope.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 33 Base.HoodieDOWN_WhiteTINT
+ko/compact: 후드를 조절해 착용할 수 있다. 천 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 착용할 수 있다.
+후드를 쓸 수 있다.
+찢어서 천 조각을 얻을 수 있다.
+시트 로프를 만들 때 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn with the hood up or down. It can provide cloth scraps. It can also be used as fuel and tinder.
+en/expanded: It can be worn.
+Its hood can be raised.
+It can be ripped to obtain cloth scraps.
+It can be used as material for making sheet rope.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 34 Base.HoodieUP_WhiteTINT
+ko/compact: 후드를 조절해 착용할 수 있다. 천 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 착용할 수 있다.
+후드를 벗을 수 있다.
+찢어서 천 조각을 얻을 수 있다.
+시트 로프를 만들 때 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn with the hood up or down. It can provide cloth scraps. It can also be used as fuel and tinder.
+en/expanded: It can be worn.
+Its hood can be lowered.
+It can be ripped to obtain cloth scraps.
+It can be used as material for making sheet rope.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 35 Base.JacketLong_Random, Base.Jacket_Black, Base.Jacket_LeatherBarrelDogs, Base.Jacket_LeatherIronRodent, Base.Jacket_LeatherWildRacoons, Base.TrousersMesh_Leather, Base.Trousers_LeatherBlack
+ko/compact: 착용할 수 있다. 가죽 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 착용할 수 있다.
+가위로 잘라 가죽 조각을 얻을 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn. It can provide leather strips. It can also be used as fuel and tinder.
+en/expanded: It can be worn.
+It can be cut with scissors to obtain leather strips.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 36 Base.Log
+ko/compact: 목공 및 건축에 재료로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+ko/expanded: 목공과 건축 재료로 쓸 수 있다.
+모닥불 도구를 만드는 재료로 쓸 수 있다.
+금속 드럼에서 숯을 만드는 재료로 쓸 수 있다.
+모아서 묶을 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+en/compact: It can be used as material for woodworking and construction. It can be used as fuel for campfires, for example.
+en/expanded: It can be used as material for woodworking and construction.
+It can be used as material for making campfire kits.
+It can be made into charcoal in a metal drum.
+It can be bundled with other logs.
+It can be used for breaking a watermelon.
+It can be used as fuel for campfires, for example.
+
+GROUP 37 Base.Needle
+ko/compact: 의류를 수선하거나 덧댄 천을 떼는 데 쓸 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다.
+ko/expanded: 의류의 구멍을 덧대거나 패딩을 붙이고, 덧댄 천을 떼어낼 수 있다. 떼어낸 천은 회수할 수도 있다.
+깊은 상처를 봉합하는 데 쓸 수 있다.
+매트리스를 만드는 데 쓸 수 있다.
+en/compact: It can be used to mend clothing or remove patches. It can be used to stitch a deep wound.
+en/expanded: It can mend garment holes, add padding and remove patches, with a chance to recover the removed fabric.
+It can be used to stitch a deep wound.
+It can be used for mattress crafting.
+
+GROUP 38 Base.Newspaper
+ko/compact: 기분 전환을 위한 읽을거리로 쓸 수 있다. 연막 장치, 모닥불 도구 및 모자를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 기분 전환을 위한 읽을거리로 쓸 수 있다.
+연막 장치, 모닥불 도구 및 모자를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be read for a change of mood. It can supply material for making smoke devices, campfire kits, and hats. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be read for a change of mood.
+It can supply material for making smoke devices, campfire kits, and hats.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 39 Base.Pillow
+ko/compact: 매트리스를 만드는 재료로 쓸 수 있다.
+ko/expanded: 매트리스를 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for making mattresses.
+en/expanded: It can be used as material for making mattresses.
+
+GROUP 40 Base.Plank
+ko/compact: 부목 제작, 목공 및 건축에 재료로 쓸 수 있다. 무기로 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+ko/expanded: 골절을 고정하는 부목 재료로 쓸 수 있다.
+목공과 건축 재료로 쓸 수 있다.
+사냥 장비, 모닥불 도구 및 톱을 만드는 재료로 쓸 수 있다.
+수박을 쪼개는 데 쓸 수 있다.
+무기로 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+en/compact: It can be used as material for making splints, woodworking, and construction. It can be used as a weapon. It can be used as fuel for campfires, for example.
+en/expanded: It can supply splinting material for fractures.
+It can be used as material for woodworking and construction.
+It can supply material for making hunting equipment, campfire kits, and a saw.
+It can be used for breaking a watermelon.
+It can be used as a weapon.
+It can be used as fuel for campfires, for example.
+
+GROUP 41 Base.RippedSheets
+ko/compact: 응급처치와 의류 수선에 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+골절을 고정하는 부목 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+건축 재료로 쓸 수 있다.
+화염 장치, 연막 장치, 모닥불 도구 및 돌 도구를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be used for first aid or clothing repairs. It can be used as material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be used to clean burns.
+It can be wrapped around wounds. It can also be disinfected before use. Infected material can cause wound infection.
+It can supply splinting material for fractures.
+It can be used to patch garment holes or add padding.
+It can be used as material for construction.
+It can supply material for making incendiary devices, smoke devices, campfire kits, and stone tools.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 42 Base.RippedSheetsDirty
+ko/compact: 상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+물로 씻어 다시 쓸 수 있다.
+화염 장치, 연막 장치, 모닥불 도구, 돌 도구 및 부목을 만드는 재료로 쓸 수 있다.
+건축 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be wrapped around wounds. It can be washed with water for reuse. It can be used as material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be wrapped around wounds. Infected material can cause wound infection.
+It can be washed with water for reuse.
+It can supply material for making incendiary devices, smoke devices, campfire kits, stone tools, and splints.
+It can be used as material for construction.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 43 Base.SackProduce_Apple
+ko/compact: 개봉해 꺼낸 사과를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 사과를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 44 Base.SackProduce_BellPepper
+ko/compact: 개봉해 꺼낸 파프리카를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 파프리카를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 45 Base.SackProduce_Broccoli
+ko/compact: 개봉해 꺼낸 브로콜리를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 브로콜리를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 46 Base.SackProduce_Cabbage
+ko/compact: 개봉해 꺼낸 양배추를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 양배추를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 47 Base.SackProduce_Carrot
+ko/compact: 개봉해 꺼낸 당근을 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 당근을 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 48 Base.SackProduce_Cherry
+ko/compact: 개봉해 꺼낸 체리를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 체리를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 49 Base.SackProduce_Corn
+ko/compact: 개봉해 꺼낸 옥수수를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 옥수수를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 50 Base.SackProduce_Eggplant
+ko/compact: 개봉해 꺼낸 가지를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 가지를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 51 Base.SackProduce_Grapes
+ko/compact: 개봉해 꺼낸 포도를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 포도를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 52 Base.SackProduce_Leek
+ko/compact: 개봉해 꺼낸 파를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 파를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 53 Base.SackProduce_Lettuce
+ko/compact: 개봉해 꺼낸 양상추를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 양상추를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 54 Base.SackProduce_Onion
+ko/compact: 개봉해 양파를 얻을 수 있다.
+ko/expanded: 개봉해 양파를 얻을 수 있다.
+en/compact: The produce can be taken out of the sack.
+en/expanded: The produce can be taken out of the sack.
+
+GROUP 55 Base.SackProduce_Peach
+ko/compact: 개봉해 꺼낸 복숭아를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 복숭아를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 56 Base.SackProduce_Pear
+ko/compact: 개봉해 꺼낸 배를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 배를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 57 Base.SackProduce_Potato
+ko/compact: 개봉해 꺼낸 감자를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 감자를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 58 Base.SackProduce_RedRadish
+ko/compact: 개봉해 꺼낸 순무를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 순무를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 59 Base.SackProduce_Strawberry
+ko/compact: 개봉해 꺼낸 딸기를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 딸기를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 60 Base.SackProduce_Tomato
+ko/compact: 개봉해 꺼낸 토마토를 요리 재료로 쓸 수 있다.
+ko/expanded: 개봉해 꺼낸 토마토를 요리 재료로 쓸 수 있다.
+en/compact: The produce can be taken out and used as cooking ingredients.
+en/expanded: The produce can be taken out and used as cooking ingredients.
+
+GROUP 61 Base.Scarf_StripeBlackWhite, Base.Scarf_StripeBlueWhite, Base.Scarf_StripeRedWhite, Base.Scarf_White
+ko/compact: 착용할 수 있다. 천 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 목에 두를 수 있다.
+찢어서 천 조각을 얻을 수 있다.
+시트 로프를 만들 때 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn. It can provide cloth scraps. It can also be used as fuel and tinder.
+en/expanded: It can be worn around the neck.
+It can be ripped to obtain cloth scraps.
+It can be used as material for making sheet rope.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 62 Base.Scissors
+ko/compact: 데님이나 가죽 의류를 잘라 조각을 회수할 수 있다. 머리와 수염을 손질할 수 있다. 제작한 창에 부착해 쓸 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 데님이나 가죽 의류를 잘라 조각을 회수할 수 있다.
+머리와 수염을 손질할 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used to cut denim or leather clothing into strips. It can be used to groom hair and beards. It can be attached to a crafted spear. It can be used as a weapon.
+en/expanded: It can be used to cut denim or leather clothing into strips.
+It can be used to groom hair and beards.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+GROUP 63 Base.SharpedStone
+ko/compact: 돌 도구를 만드는 재료로 쓸 수 있다. 목재를 가공하는 데 쓸 수 있다.
+ko/expanded: 사냥 장비를 만드는 데 쓸 수 있다.
+돌 도구를 만드는 재료로 쓸 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+en/compact: It can be used as material for making stone tools. It can be used for woodworking.
+en/expanded: It can be used to make hunting equipment.
+It can be used as material for making stone tools.
+It can be used for woodworking.
+
+GROUP 64 Base.Sheet
+ko/compact: 모닥불 도구 및 매트리스를 만드는 재료로 쓸 수 있다. 천 조각을 회수할 수 있다. 창문이나 문에 커튼으로 달아 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 모닥불 도구 및 매트리스를 만드는 재료로 쓸 수 있다.
+찢어서 천 조각을 얻을 수 있다.
+시트 로프를 만들 때 재료로 쓸 수 있다.
+창문이나 문에 커튼으로 달아 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be used as material for making campfire kits and mattresses. It can provide cloth scraps. It can be used as a curtain on a window or door. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be used as material for making campfire kits and mattresses.
+It can be ripped to obtain cloth scraps.
+It can be used as material for making sheet rope.
+It can be used as a curtain on a window or door.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 65 Base.Socks_Ankle, Base.Socks_Long
+ko/compact: 착용할 수 있다. 천 조각을 회수할 수 있다. 연료나 불쏘시개로도 쓸 수 있다.
+ko/expanded: 발에 신을 수 있다.
+찢어서 천 조각을 얻을 수 있다.
+시트 로프를 만들 때 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be worn. It can provide cloth scraps. It can also be used as fuel and tinder.
+en/expanded: It can be worn on the feet.
+It can be ripped to obtain cloth scraps.
+It can be used as material for making sheet rope.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 66 Base.Stake
+ko/compact: 텐트를 만드는 재료로 쓸 수 있다. 무기로 쓸 수 있다.
+ko/expanded: 텐트를 만드는 재료로 쓸 수 있다.
+무기로 쓸 수 있다.
+en/compact: It can be used as material for making tents. It can be used as a weapon.
+en/expanded: It can be used as material for making tents.
+It can be used as a weapon.
+
+GROUP 67 Base.Stone
+ko/compact: 건축에 재료로 쓸 수 있다.
+ko/expanded: 건축 재료로 쓸 수 있다.
+돌 망치를 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for construction.
+en/expanded: It can be used as material for construction.
+It can be used as material for making a stone hammer.
+
+GROUP 68 Base.Tarp, camping.TentPeg
+ko/compact: 텐트를 만드는 재료로 쓸 수 있다.
+ko/expanded: 텐트를 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for making tents.
+en/expanded: It can be used as material for making tents.
+
+GROUP 69 Base.Thread
+ko/compact: 매트리스를 만드는 재료로 쓸 수 있다. 의류의 구멍을 덧대거나 패딩을 추가할 수 있다. 깊은 상처를 봉합하는 데 쓸 수 있다.
+ko/expanded: 매트리스를 만드는 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+깊은 상처를 봉합하는 데 쓸 수 있다.
+en/compact: It can be used as material for making mattresses. It can be used to patch garment holes or add padding. It can be used to stitch a deep wound.
+en/expanded: It can be used as material for making mattresses.
+It can be used to patch garment holes or add padding.
+It can be used to stitch a deep wound.
+
+GROUP 70 Base.TinnedBeans
+ko/compact: 통조림 따개로 개봉해 콩을 먹을 수 있다. 꺼낸 콩을 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 콩을 먹을 수 있다.
+꺼낸 콩을 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 71 Base.TinnedSoup
+ko/compact: 통조림 따개로 개봉해 스프를 마실 수 있다. 꺼낸 스프를 요리 재료로도 쓸 수 있다.
+ko/expanded: 통조림 따개로 개봉해 스프를 마실 수 있다.
+꺼낸 스프를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened with a can opener to drink the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened with a can opener to drink the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 72 Base.TreeBranch
+ko/compact: 부목 제작 및 목공에 재료로 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+ko/expanded: 골절을 고정하는 부목 재료로 쓸 수 있다.
+목공 재료로 쓸 수 있다.
+사냥 장비 및 돌 도구를 만드는 재료로 쓸 수 있다.
+나무를 비벼 모닥불 등에 불을 피우는 데 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+en/compact: It can be used as material for making splints and woodworking. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.
+en/expanded: It can supply splinting material for fractures.
+It can be used as material for woodworking.
+It can supply material for making hunting equipment and stone tools.
+It can be used to light fires by wood friction, for example in campfires.
+It can be used as fuel for campfires, for example.
+
+GROUP 73 Base.TunaTin
+ko/compact: 개봉해 참치를 먹을 수 있다. 꺼낸 참치를 요리 재료로도 쓸 수 있다.
+ko/expanded: 개봉해 참치를 먹을 수 있다.
+꺼낸 참치를 요리 재료로도 쓸 수 있다.
+en/compact: It can be opened to eat the contents. Its contents can also be used as a cooking ingredient.
+en/expanded: It can be opened to eat the contents.
+Its contents can also be used as a cooking ingredient.
+
+GROUP 74 Base.Twigs
+ko/compact: 모닥불 도구를 만드는 재료로 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+ko/expanded: 모닥불 도구를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+en/compact: It can be used as material for making campfire kits. It can be used as fuel or tinder, for example in campfires.
+en/expanded: It can be used as material for making campfire kits.
+It can be used as fuel or tinder, for example in campfires.
+
+GROUP 75 Base.Twine
+ko/compact: 건축에 재료로 쓸 수 있다. 폭발 장치를 만들 때도 쓸 수 있다.
+ko/expanded: 건축 재료로 쓸 수 있다.
+폭발 장치, 사냥과 낚시 장비 및 돌 도구를 만드는 재료로 쓸 수 있다.
+en/compact: It can be used as material for construction. It can also be used to make explosive devices.
+en/expanded: It can be used as material for construction.
+It can supply material for making explosive devices, hunting and fishing equipment, and stone tools.
+
+GROUP 76 Base.WoodenStick
+ko/compact: 부목 제작에 재료로 쓸 수 있다. 야외 활동 장비를 만들 때도 쓸 수 있다. 나무를 비벼 불을 피우는 데 쓸 수 있다. 모닥불 등의 연료로 쓸 수 있다.
+ko/expanded: 골절을 고정하는 부목 재료로 쓸 수 있다.
+사냥과 낚시 장비 및 텐트를 만드는 재료로 쓸 수 있다.
+나무를 비벼 모닥불 등에 불을 피우는 데 쓸 수 있다.
+모닥불 등의 연료로 쓸 수 있다.
+en/compact: It can be used as material for making splints. It can also be used to make outdoor equipment. It can be used to attempt lighting fires by wood friction. It can be used as fuel for campfires, for example.
+en/expanded: It can supply splinting material for fractures.
+It can supply material for making hunting and fishing equipment and tents.
+It can be used to light fires by wood friction, for example in campfires.
+It can be used as fuel for campfires, for example.
+
+GROUP 77 farming.BroccoliBagSeed
+ko/compact: 봉지에 든 브로콜리 씨앗을 밭에 심을 수 있다.
+ko/expanded: 봉지에 든 브로콜리 씨앗을 밭에 심을 수 있다.
+en/compact: The seeds can be taken out and sown in a planting bed.
+en/expanded: The seeds can be taken out and sown in a planting bed.
+
+GROUP 78 farming.CabbageBagSeed
+ko/compact: 봉지에 든 양배추 씨앗을 밭에 심을 수 있다.
+ko/expanded: 봉지에 든 양배추 씨앗을 밭에 심을 수 있다.
+en/compact: The seeds can be taken out and sown in a planting bed.
+en/expanded: The seeds can be taken out and sown in a planting bed.
+
+GROUP 79 farming.CarrotBagSeed
+ko/compact: 봉지에 든 당근 씨앗을 밭에 심을 수 있다.
+ko/expanded: 봉지에 든 당근 씨앗을 밭에 심을 수 있다.
+en/compact: The seeds can be taken out and sown in a planting bed.
+en/expanded: The seeds can be taken out and sown in a planting bed.
+
+GROUP 80 farming.PotatoBagSeed
+ko/compact: 봉지에 든 감자 씨앗을 밭에 심을 수 있다.
+ko/expanded: 봉지에 든 감자 씨앗을 밭에 심을 수 있다.
+en/compact: The seeds can be taken out and sown in a planting bed.
+en/expanded: The seeds can be taken out and sown in a planting bed.
+
+GROUP 81 farming.RedRadishBagSeed
+ko/compact: 봉지에 든 순무 씨앗을 밭에 심을 수 있다.
+ko/expanded: 봉지에 든 순무 씨앗을 밭에 심을 수 있다.
+en/compact: The seeds can be taken out and sown in a planting bed.
+en/expanded: The seeds can be taken out and sown in a planting bed.
+
+GROUP 82 farming.StrewberrieBagSeed
+ko/compact: 봉지에 든 딸기 씨앗을 밭에 심을 수 있다.
+ko/expanded: 봉지에 든 딸기 씨앗을 밭에 심을 수 있다.
+en/compact: The seeds can be taken out and sown in a planting bed.
+en/expanded: The seeds can be taken out and sown in a planting bed.
+
+GROUP 83 farming.TomatoBagSeed
+ko/compact: 봉지에 든 토마토 씨앗을 밭에 심을 수 있다.
+ko/expanded: 봉지에 든 토마토 씨앗을 밭에 심을 수 있다.
+en/compact: The seeds can be taken out and sown in a planting bed.
+en/expanded: The seeds can be taken out and sown in a planting bed.

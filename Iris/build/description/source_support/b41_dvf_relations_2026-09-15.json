@@ -1,0 +1,95 @@
+{
+  "consumer_bindings": [
+    {
+      "path": "lua/client/Moveables/ISMoveableDefinitions.lua",
+      "sha256": "766681dde6e9a625ee2e271a7fe6aeb1d176ddc247508888ac3611cda1995bdb"
+    },
+    {
+      "path": "lua/client/Moveables/ISMoveableSpriteProps.lua",
+      "sha256": "9800c1c162ad7925662785259128b1d8e0991425f78044832621280f7c6e0fad"
+    },
+    {
+      "path": "lua/client/TimedActions/ISCleanBlood.lua",
+      "sha256": "a126d25e354fd5e272d542950acf22c6bc77dd6caae40149b056ab90deb1ad98"
+    },
+    {
+      "path": "lua/client/ISUI/ISWorldObjectContextMenu.lua",
+      "sha256": "3560bb01fa0f474283f208b055587b20b0d398fcfd560682d26e3c617506ac28"
+    },
+    {
+      "path": "lua/client/ISUI/ISInventoryPaneContextMenu.lua",
+      "sha256": "6db61b9f54e1368a339719635bc60341f3e5420cfb3593e5b03fc32c340b56a4"
+    },
+    {
+      "path": "lua/client/TimedActions/ISAddItemInRecipe.lua",
+      "sha256": "996a07170f7a8a31ae927017715d3f6eab1c404a19657d129879455a13e683a9"
+    },
+    {
+      "path": "lua/server/Vehicles/Vehicles.lua",
+      "sha256": "b1cb012e0572ee3d08d1f66b1b8f33c0cb66f378f696320b02ea8d1d74423c61"
+    },
+    {
+      "path": "scripts/vehicles/template_seat.txt",
+      "sha256": "db276fb10ee616ef917f661988c473e7c857b4e4da1a6021da03356cfedecd6d"
+    },
+    {
+      "path": "scripts/vehicles/vehicle_van.txt",
+      "sha256": "c7c038f8df5203df9e835bb9db0366fbdd76721fa69ee13e85bad2654b9ee2b7"
+    },
+    {
+      "path": "scripts/vehicles/vehicle_car_modern02.txt",
+      "sha256": "26934af9da543fe380e7be46375c43bc83fc9a56a335dfe44b174a80fe1a2903"
+    },
+    {
+      "path": "scripts/items_literature.txt",
+      "sha256": "997df444b9710978d3109a29bc64453ea3446bb8fad3e7ee4963baf76dc86175"
+    },
+    {
+      "path": "scripts/items_food.txt",
+      "sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6"
+    },
+    {
+      "path": "lua/shared/Translate/EN/Tooltip_EN.txt",
+      "sha256": "5217b24221ea76e74c1eff90a2da425a640d6088f3ed1fe2e2b7b22357752cd6"
+    },
+    {
+      "path": "lua/shared/Translate/KO/Tooltip_KO.txt",
+      "sha256": "78b3522914f25dfb82e239cb6f889212c41352f2da5d3feef699848b1f90a2a9"
+    }
+  ],
+  "native_bindings": [
+    {
+      "path": "zombie/scripting/objects/EvolvedRecipe.class",
+      "sha256": "c1f7069b00806b112f224e5c7577f448ea5a9bb6232b0bf7cbc898d21e32919a"
+    },
+    {
+      "path": "zombie/scripting/objects/Item.class",
+      "sha256": "766b650fe9e0edb48321efdc96d28832319e52137a9562f89ade5e2a1b6aae69"
+    },
+    {
+      "path": "zombie/characters/IsoGameCharacter.class",
+      "sha256": "657577b8f188710cdcd3ef1d00adf4406c6f7b82c48bb212bcdc415926dd59ea"
+    }
+  ],
+  "readings": {
+    "moving": "IsMoveAble and exact PickUpTool/PlaceTool sprite properties join addToolDefinition items; hasTool chooses by mode and resolves inventory items. canPickUpMoveable/canPlaceMoveable and actions consume this requirement. No tools inferred from appearance or registry membership alone.",
+    "cleaning": "ISCleanBlood.isValid requires Bleach and one of BathTowel/DishCloth/Broom/Mop. perform consumes the Bleach supply and removes square blood. Tool and cleaning supply are distinct participant roles.",
+    "mechanics": "Literature TeachedRecipes names Basic/Intermediate/Advanced Mechanics. Vehicle work tables name recipes; VehicleUtils.testRecipes calls isRecipeKnown. Bound original tooltips identify standard/family, commercial vans/pickups, and performance models.",
+    "poisoning": "EvolvedRecipe.getItemsCanBeUse adds known Food poison with nonnull PoisonLevelForRecipe when the target has at least three extra ingredients. Item maps PoisonDetectionLevel to Food.PoisonLevelForRecipe and UseForPoison. isKnownPoison rejects NoDetect and nonpositive PoisonPower, then handles herbal knowledge/detection/nonnull recipe poison. Lua doEvorecipeMenu removes poison when settings forbid it (including the Bleach-specific setting). ISAddItemInRecipe.perform calls recipe.addItem, whose addPoison path adds to result Food.PoisonPower and consumes source poison. This supports conditional recipe use, not an ingestion warning."
+  },
+  "user_override": "Bleach drinking remains only 마실 수 있다 / It can be drunk; do not add poisoning/toxicity consequences to ingestion.",
+  "mechanic_targets": {
+    "Basic Mechanics": {
+      "ko": "일반 차량이나 가족용 모델",
+      "en": "standard and family cars"
+    },
+    "Intermediate Mechanics": {
+      "ko": "승합차나 픽업 트럭",
+      "en": "vans and pickup trucks"
+    },
+    "Advanced Mechanics": {
+      "ko": "스포츠카 같은 고성능 차량",
+      "en": "performance cars"
+    }
+  }
+}

@@ -48,10 +48,25 @@ function Lookup.get(fullType, locale)
     return rows
 end
 
-local function sameRows(left, right)
-    if not validRows(left) or not validRows(right) or #left ~= #right then return false end
-    for i=1,#left do if left[i] ~= right[i] then return false end end
-    return true
+local function baseIdentity(base)
+    if type(base) ~= "table" or getmetatable(base) ~= nil or
+        not validRows(base.ko) or not validRows(base.en) then return nil end
+    local first, second = 17, 29
+    local firstMod, secondMod = 2147483647, 2147483629
+    local function update(byte)
+        first = (first * 257 + byte + 1) % firstMod
+        second = (second * 257 + byte + 1) % secondMod
+    end
+    for marker, locale in ipairs({"ko", "en"}) do
+        update(marker)
+        for _, row in ipairs(base[locale]) do
+            for index=1,#row do update(string.byte(row, index)) end
+            update(0)
+        end
+        update(255)
+    end
+    return tostring(first) .. ":" .. tostring(second) .. ":" ..
+        tostring(#base.ko) .. ":" .. tostring(#base.en)
 end
 
 -- Pick a complete bilingual view once per opening. The producer, not runtime,
@@ -70,7 +85,9 @@ function Lookup.open(fullType, pick)
     if entry == nil then return {ko=ko, en=en} end
     if type(entry) ~= "table" or getmetatable(entry) ~= nil or
         type(entry.base) ~= "table" or getmetatable(entry.base) ~= nil or
-        not sameRows(entry.base.ko, ko) or not sameRows(entry.base.en, en) or
+        entry.base ~= rawget(data, fullType) or
+        type(entry.base_identity) ~= "string" or
+        baseIdentity(entry.base) ~= entry.base_identity or
         type(entry.variants) ~= "table" or getmetatable(entry.variants) ~= nil then return nil, "invalid_interaction_entry" end
     local count, last, seen = 0, 0, {}
     for key, variant in pairs(entry.variants) do

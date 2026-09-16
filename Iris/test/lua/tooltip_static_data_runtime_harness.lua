@@ -122,6 +122,24 @@ local function same(a, b)
     assert(type(a) == "table" and #a == #b, "row count")
     for i = 1, #b do assert(a[i] == b[i], "row content/order") end
 end
+local function baseIdentity(base)
+    local first, second = 17, 29
+    local firstMod, secondMod = 2147483647, 2147483629
+    local function update(byte)
+        first = (first * 257 + byte + 1) % firstMod
+        second = (second * 257 + byte + 1) % secondMod
+    end
+    for marker, locale in ipairs({"ko", "en"}) do
+        update(marker)
+        for _, row in ipairs(base[locale]) do
+            for index=1,#row do update(string.byte(row, index)) end
+            update(0)
+        end
+        update(255)
+    end
+    return tostring(first) .. ":" .. tostring(second) .. ":" ..
+        tostring(#base.ko) .. ":" .. tostring(#base.en)
+end
 local dataLoads = 0
 package.preload[DATA] = function()
     dataLoads = dataLoads + 1
@@ -462,6 +480,7 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
         -- fallback to the old generic sentence.
         payload["Fixture.NoRecipe"]={ko={"코어", "옛 문장"},en={"core", "old generic"}}
         recipeData["Fixture.NoRecipe"]={base=payload["Fixture.NoRecipe"],variants={},
+            base_identity=baseIdentity(payload["Fixture.NoRecipe"]),
             without_recipe={ko={"코어"},en={"core"}}}
         tip.item.fullType="Fixture.NoRecipe"; tip.drawn={}; ISToolTipInv.render(tip)
         same(tip.drawn, {"코어"})

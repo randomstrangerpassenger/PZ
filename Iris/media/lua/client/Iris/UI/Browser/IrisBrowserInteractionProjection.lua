@@ -201,6 +201,10 @@ function IrisBrowserInteractionProjection.build(interactionState, evolvedRecipeS
                         return fault("inconsistent_evolved_action:" .. actionKey)
                     end
                     evolvedActions[actionKey] = action
+                    local ownedConditions = {}
+                    for index, condition in ipairs(relation.conditions) do
+                        ownedConditions[index] = condition
+                    end
                     local row = {
                         kind = "flat", identity = identity, identities = {identity},
                         source = "evolved_recipe", baseOrdinal = canonicalOrdinal,
@@ -209,7 +213,7 @@ function IrisBrowserInteractionProjection.build(interactionState, evolvedRecipeS
                         targetLabel = target, action = action, actionKey = actionKey,
                         food_type_id = relation.food_type_id, target_id = relation.target_id,
                         source_full_type = relation.source_full_type, role = relation.role,
-                        conditions = relation.conditions, sourceLine = relation,
+                        conditions = ownedConditions, sourceLine = relation,
                         relationCount = 1,
                     }
                     table.insert(evolvedRows, row)

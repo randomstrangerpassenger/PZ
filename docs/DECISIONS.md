@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·획득·표현·offline composition 경계 반영
-> 기준일: 2026-09-16 (이번 갱신 범위: Iris 내부 리팩토링 완료·검증 처분·사용자 인게임 확인; 기존 DVF 품질·B42 방향·제품 current 이력 유지)
+> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·획득·표현·offline composition 및 runtime/build/storage 경량화 경계 반영
+> 기준일: 2026-09-16 (이번 갱신 범위: Iris 내부 리팩토링과 runtime/build/storage 경량화 구현·자동 검증·사용자 인게임 수락 완료; 기존 DVF 품질·B42 방향·제품 current 이력 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -2553,6 +2553,18 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - 후속 설명 교정은 사용자가 나중에 구체 사항을 제공할 별도 과제다. B 통과를 모든 설명의 영구적인 품질 보증으로 확대하지 않는다. C 구현, current 공동 활성화, 일반 strict production finalization, release는 이번 완료 범위가 아니다. 원래 D6 재채택 계약과 historical 자료는 보존한다.
 
 동일 수락 후보는 `.tmp/tooltip/preview/Iris.zip`이며 정확한 product/ZIP identity와 인계 내용은 [최종 수락 기록](iris_tooltip_supply_closeout.md)이 소유한다. 이번 세 문서 갱신은 구현·수락 상태의 동기화이며 새 검증 결과나 권한을 만들지 않는다.
+
+### 2026-09-16 — Iris runtime/build/storage 경량화
+
+- **채택:** EvolvedRecipe의 exact-value interning, Tooltip StaticData base/동일 행 공유와 stale-pair identity, Recovery의 선택적 복사·단일 provenance 집합, Browser Detail의 section 단위 갱신을 채택한다. 공개 KO/EN 의미·순서, 기존 lookup facade, Tooltip 두 파일 설치 단위, full invalidation 경계는 유지한다.
+- **직접 효과:** EvolvedRecipe generated Lua는 1,742,824→899,122 bytes, relation당 반복 value table은 8,812→172 pooled value로 줄었다. Tooltip Variants는 768,344→398,532 bytes, StaticData와의 합계는 1,884,530→1,514,718 bytes다. 이는 source/runtime 표현의 byte·table 감소이며 Kahlua heap·latency·FPS 개선 수치로 확대하지 않는다.
+- **Browser/Recovery 경계:** Browser의 Layer 3·interaction·variant 변경은 해당 section child만 교체하고 item·locale·generation·width 변화는 full rebuild를 유지한다. Recovery는 read-only input을 공유하되 application과 authority가 바뀌는 acquisition row만 소유 복사한다. 입력 의미나 product authority를 바꾸지 않는다.
+- **보관 처분:** 두 acquisition 표본은 기존 CAS에서 verify/restore됐지만 exact duplicate 절감은 0이고 active reader 이동도 확정되지 않았다. 원본은 유지하며 archive 압축 크기를 실제 저장소 절감으로 세지 않는다.
+- **no-op/보류:** 최근 리팩토링 뒤 잔여 구조 추출은 no-op이다. Tooltip chunking은 post-dedup 실익이 새 member/I/O/failure point를 정당화하지 않아 보류한다. `.gitattributes`는 effective rule이 맞아 변경하지 않는다.
+- **정리:** `Iris/tooling/.tmp/uv-cache/`만 ignore하고 확인된 cache를 제거했다. 기존 자료·authority·LFS payload·사용자 파일은 처분하지 않았다.
+- **수락 경계:** 계획이 지정한 focused, Recovery, 같은-process B→Menu 및 Lua syntax 검사는 exit 0이다. 구현 인계 뒤 사용자가 안내된 최종 저장소 Iris의 실제 PZ 검증 통과를 보고했으므로 이 경량화 subject는 `complete`다. 게임 빌드·해상도·UI 배율·외부 모드 구성은 별도로 제공되지 않았으며 source generated files의 갱신과 실제 관찰을 current adoption이나 release로 확대하지 않는다.
+
+직접 byte/table 지표, 실패 후 수정 이력, exact 검사 결과는 [경량화 closeout](iris_runtime_build_storage_optimization_closeout.md)을 따른다. 이 기록은 기존 repository-lightweighting terminal subject를 재개하거나 대체하지 않는다.
 
 ### 2026-09-11 — DVF-RECOVERY-C expanded Menu 후보 구현
 

@@ -433,12 +433,24 @@ local lookup = assert(dofile([[{(candidate_a / evolved_recipe.RUNTIME_RELATIVE_P
 local apple = lookup.get("Base.Apple").relations
 local pepper = lookup.get("Base.Pepper").relations
 local waterPot = lookup.get("Base.WaterPot").relations
+local cabbage = lookup.get("farming.Cabbage").relations
 assert(apple[1].source_full_type == "Base.Apple")
 assert(apple[1].target_id == "Soup")
 assert(apple[1].canonical_ordinal == 1)
 assert(apple[1].target_label_by_locale.KO == "수프")
 assert(apple[1].action_by_locale.KO == "재료로 추가 가능")
 assert(apple[1].action_key == "ingredient:none")
+assert(apple[1].conditions == pepper[1].conditions)
+assert(apple[1].conditions == cabbage[1].conditions)
+assert(apple[1].target_label_by_locale == pepper[1].target_label_by_locale)
+assert(apple[1].action_by_locale == cabbage[1].action_by_locale)
+assert(apple[1].display_by_locale == cabbage[1].display_by_locale)
+local beforeKO = apple[1].display_by_locale.KO
+local projected = {{{{display = apple[1].display_by_locale.KO}}}}
+projected[1].display = "consumer-owned"
+assert(apple[1].display_by_locale.KO == beforeKO)
+assert(cabbage[1].display_by_locale.KO == beforeKO)
+assert(lookup.get("Base.Apple").relations[1].display_by_locale.KO == beforeKO)
 io.write(apple[1].display_by_locale.KO, string.char(31))
 io.write(apple[2].display_by_locale.KO, string.char(31))
 io.write(pepper[1].display_by_locale.KO, string.char(31))

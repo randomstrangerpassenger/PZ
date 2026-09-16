@@ -58,6 +58,39 @@ local function evolved(identity, foodTypeId, role, conditions, en, ko)
 end
 local function available(lines) return {status = "available", lines = lines} end
 
+local generatedLookup = assert(dofile(
+    repositoryRoot .. "/Iris/media/lua/client/Iris/Data/IrisEvolvedRecipeLookup.lua"
+))
+local generatedAcorn = assert(generatedLookup.get("Base.Acorn").relations)
+local generatedBanana = assert(generatedLookup.get("Base.Banana").relations)
+local function relationByTarget(relations, target)
+    for _, relation in ipairs(relations) do
+        if relation.target_id == target and relation.action_key == "ingredient:none" then
+            return relation
+        end
+    end
+    return nil
+end
+local acornBread = assert(relationByTarget(generatedAcorn, "Bread"))
+local bananaBread = assert(relationByTarget(generatedBanana, "Bread"))
+assert(acornBread.conditions == bananaBread.conditions)
+assert(acornBread.target_label_by_locale == bananaBread.target_label_by_locale)
+assert(acornBread.action_by_locale == bananaBread.action_by_locale)
+assert(acornBread.display_by_locale == bananaBread.display_by_locale)
+local generatedProjection = Projection.build(
+    {status = "verified_empty", lines = {}},
+    {status = "available", relations = generatedAcorn},
+    "KO", tr
+)
+local originalConditionCount = #acornBread.conditions
+generatedProjection.evolvedRows[1].conditions[1] = "ui-owned"
+generatedProjection.evolvedRows[1].display = "ui-owned"
+assert(#acornBread.conditions == originalConditionCount)
+assert(#bananaBread.conditions == originalConditionCount)
+assert(acornBread.display_by_locale.KO == bananaBread.display_by_locale.KO)
+assert(relationByTarget(generatedLookup.get("Base.Acorn").relations, "Bread").display_by_locale.KO ==
+    acornBread.display_by_locale.KO)
+
 assertEqual("empty", Policy.density(0), "empty density")
 assertEqual("single", Policy.density(1), "single density")
 assertEqual("small", Policy.density(2), "small lower density")
@@ -415,6 +448,12 @@ function uiBrowser:showDetail(fullType, forceRebuild)
     assertEqual(true, forceRebuild, "section callback forces detail rebuild")
     renderUi()
 end
+local partialRefreshes = 0
+function uiBrowser:refreshDetailSection(name)
+    assertEqual("interaction", name, "interaction controls request only their section")
+    partialRefreshes = partialRefreshes + 1
+    renderUi()
+end
 local function findButton(title)
     for _, child in ipairs(uiBrowser.detailPanel.children) do
         if child.kind == "button" and child.title == title then return child end
@@ -472,9 +511,11 @@ renderUi()
 local fixedOnlyTexts = rowTexts("%[Recipe%]")
 assertEqual(4, #fixedOnlyTexts, "locale transition preserves four Recipe names")
 click(findButton("[-] Recipe (4)"), "EN Recipe section collapse control")
+assertEqual(1, partialRefreshes, "Recipe collapse uses one interaction-only refresh")
 assertEqual(0, rowCount("%[Recipe%]"), "EN Recipe click collapses Recipe rows")
 assertEqual(0, navigationCount(), "collapsed EN Recipe section hides navigation controls")
 click(findButton("[+] Recipe (4)"), "EN Recipe section expand control")
+assertEqual(2, partialRefreshes, "Recipe expand uses one interaction-only refresh")
 assertEqual(4, rowCount("%[Recipe%]"), "EN Recipe click restores Recipe rows")
 assertEqual(4, navigationCount(), "expanded EN Recipe section restores navigation controls")
 
@@ -515,6 +556,7 @@ local search = findSearch()
 assertEqual(true, search ~= nil, "dense Evolved section exposes separate search")
 search.text = "Dish 7"
 search.onTextChange()
+assertEqual(5, partialRefreshes, "Evolved search uses one interaction-only refresh")
 assertEqual(search, findSearch(), "Evolved search survives its result rebuild")
 assertEqual(4, rowCount("%[Recipe%]"), "Evolved search preserves fixed Recipe rows")
 assertEqual(1, rowCount("evolved_recipe"), "search reveals matching collapsed Evolved row")

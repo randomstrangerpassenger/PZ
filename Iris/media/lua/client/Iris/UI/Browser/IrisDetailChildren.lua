@@ -66,6 +66,55 @@ local function collectDetailChildren(detailPanel)
     return {}
 end
 
+function Children.snapshotDetailChildren(detailPanel)
+    local snapshot = {}
+    for _, child in ipairs(collectDetailChildren(detailPanel)) do
+        snapshot[child] = true
+    end
+    return snapshot
+end
+
+function Children.captureDetailSection(browser, name, order, before, startY, endY)
+    browser.detailSections = browser.detailSections or {}
+    browser.detailChildSections = browser.detailChildSections or {}
+    local section = {name = name, order = order, startY = startY, endY = endY, children = {}}
+    for _, child in ipairs(collectDetailChildren(browser.detailPanel)) do
+        if not before[child] then
+            table.insert(section.children, child)
+            browser.detailChildSections[child] = name
+            browser.detailChildBaseY[child] = child.y or 0
+        end
+    end
+    browser.detailSections[name] = section
+    return endY
+end
+
+function Children.removeDetailSection(browser, name)
+    local section = browser.detailSections and browser.detailSections[name]
+    if not section then return nil end
+    for _, child in ipairs(section.children or {}) do
+        browser.detailPanel:removeChild(child)
+        browser.detailChildBaseY[child] = nil
+        browser.detailChildSections[child] = nil
+    end
+    browser.detailSections[name] = nil
+    return section
+end
+
+function Children.shiftDetailSectionsAfter(browser, order, delta)
+    if delta == 0 then return end
+    for _, section in pairs(browser.detailSections or {}) do
+        if section.order > order then
+            section.startY = section.startY + delta
+            section.endY = section.endY + delta
+            for _, child in ipairs(section.children or {}) do
+                local baseY = browser.detailChildBaseY[child]
+                if baseY ~= nil then browser.detailChildBaseY[child] = baseY + delta end
+            end
+        end
+    end
+end
+
 function Children.removeDetailChildren(detailPanel)
     for _, child in ipairs(collectDetailChildren(detailPanel)) do
         if child then
@@ -76,7 +125,7 @@ end
 
 function Children.captureDetailChildPositions(browser)
     browser.detailChildBaseY = {}
-    for _, child in ipairs(collectLuaDetailChildren(browser.detailPanel)) do
+    for _, child in ipairs(collectDetailChildren(browser.detailPanel)) do
         local fallbackY = child.y or 0
         browser.detailChildBaseY[child] = ObjectAccess.invokeMethod(child, "getY", fallbackY)
     end

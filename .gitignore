@@ -29,6 +29,7 @@ Thumbs.db
 **/.ruff_cache/
 **/.mypy_cache/
 /Iris/tooling/.venv/
+/Iris/tooling/.tmp/uv-cache/
 /Iris/build/package/
 
 # Build outputs

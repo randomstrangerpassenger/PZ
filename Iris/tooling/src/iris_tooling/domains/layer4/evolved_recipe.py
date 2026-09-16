@@ -1324,23 +1324,58 @@ def load_owner(path: Path) -> dict[str, Any]:
 
 def render_runtime(owner: dict[str, Any]) -> bytes:
     metrics = validate_owner(owner)
+    relations_by_fulltype = owner["relations_by_fulltype"]
+    condition_values = sorted(
+        {
+            tuple(relation["conditions"])
+            for relations in relations_by_fulltype.values()
+            for relation in relations
+        }
+    )
+    locale_values = sorted(
+        {
+            (localized["EN"], localized["KO"])
+            for relations in relations_by_fulltype.values()
+            for relation in relations
+            for localized in (
+                relation["target_label_by_locale"],
+                relation["action_by_locale"],
+                relation["display_by_locale"],
+            )
+        }
+    )
+    condition_refs = {value: index for index, value in enumerate(condition_values, 1)}
+    locale_refs = {value: index for index, value in enumerate(locale_values, 1)}
     lines = [
         "-- Iris Build 41 EvolvedRecipe lookup",
         "-- Auto-generated from source-accounted Layer 4 QG owner data.",
         f"-- Candidate contract: {CANDIDATE_SCHEMA_VERSION}",
         "-- Fixed Recipe navigation fields are intentionally absent.",
-        "local records = {",
+        "local sharedConditions = {",
     ]
-    relations_by_fulltype = owner["relations_by_fulltype"]
+    for values in condition_values:
+        rendered = ", ".join(lua_string(value) for value in values)
+        lines.append("    {" + rendered + "},")
+    lines.extend(["}", "", "local sharedLocales = {"])
+    for english, korean in locale_values:
+        lines.append(
+            "    { EN = "
+            + lua_string(english)
+            + ", KO = "
+            + lua_string(korean)
+            + " },"
+        )
+    lines.extend(["}", "", "local records = {"])
     for full_type in sorted(relations_by_fulltype):
         lines.append(f"    [{lua_string(full_type)}] = {{")
         for relation in relations_by_fulltype[full_type]:
-            conditions = ", ".join(
-                lua_string(value) for value in relation["conditions"]
-            )
             display = relation["display_by_locale"]
             targets = relation["target_label_by_locale"]
             actions = relation["action_by_locale"]
+            condition_ref = condition_refs[tuple(relation["conditions"])]
+            target_ref = locale_refs[(targets["EN"], targets["KO"])]
+            action_ref = locale_refs[(actions["EN"], actions["KO"])]
+            display_ref = locale_refs[(display["EN"], display["KO"])]
             lines.append(
                 "        { relation_id = "
                 + lua_string(relation["relation_id"])
@@ -1356,21 +1391,15 @@ def render_runtime(owner: dict[str, Any]) -> bytes:
                 + lua_string(relation["action_key"])
                 + ", canonical_ordinal = "
                 + str(relation["canonical_ordinal"])
-                + ", conditions = {"
-                + conditions
-                + "}, target_label_by_locale = { EN = "
-                + lua_string(targets["EN"])
-                + ", KO = "
-                + lua_string(targets["KO"])
-                + " }, action_by_locale = { EN = "
-                + lua_string(actions["EN"])
-                + ", KO = "
-                + lua_string(actions["KO"])
-                + "}, display_by_locale = { EN = "
-                + lua_string(display["EN"])
-                + ", KO = "
-                + lua_string(display["KO"])
-                + " } },"
+                + ", conditions = sharedConditions["
+                + str(condition_ref)
+                + "], target_label_by_locale = sharedLocales["
+                + str(target_ref)
+                + "], action_by_locale = sharedLocales["
+                + str(action_ref)
+                + "], display_by_locale = sharedLocales["
+                + str(display_ref)
+                + "] },"
             )
         lines.append("    },")
     lines.extend(

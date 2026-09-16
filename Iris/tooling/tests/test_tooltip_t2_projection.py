@@ -445,7 +445,13 @@ def test_projection(tmp_path):
             project_recipe_variants(bad_base, bad_owners, bad_names, bad_old, actions, contract)
     source = Path(__file__).resolve().parents[3]
     actual = current_variants(source)
-    assert variants_bytes(actual) == (source / DATA_ROOT / VARIANTS_NAME).read_bytes()
+    serialized_variants = variants_bytes(actual)
+    assert serialized_variants == (source / DATA_ROOT / VARIANTS_NAME).read_bytes()
+    assert b'local static = require("Iris/Data/IrisTooltipStaticData")' in serialized_variants
+    assert b"        base = {" not in serialized_variants
+    assert b"base_identity = " in serialized_variants
+    assert b"baseRow(" in serialized_variants
+    assert b', "ko", ' in serialized_variants and b', "en", ' in serialized_variants
     cabbage = actual["farming.Cabbage"]["variants"]
     assert len(cabbage) == 1 and cabbage[0]["id"] == "uc.recipe.make_jar_of_cabbage"
     assert cabbage[0]["ko"][-1] == "[레시피] 병에 양배추 절이기"

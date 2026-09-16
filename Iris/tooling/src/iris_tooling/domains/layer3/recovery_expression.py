@@ -398,14 +398,19 @@ def normalize(semantic, acquisition, applications, contract):
             inv.require(ref not in facts, 'duplicate qualified fact')
             facts[ref] = {'ref': ref, 'authority_ref': aid, 'fact_id': fact['fact_id'],
                           'item_id': fact['item_id'], 'fact_kind': fact['fact_kind'],
-                          'payload': deepcopy(fact['payload']),
+                          'payload': dict(fact['payload']),
                           'provenance_refs': sorted(expression.qualify(aid, p) for p in fact['provenance_refs']),
                           'context_ref': expression.qualify(aid, fact['context_fact_ref']) if 'context_fact_ref' in fact else None,
                           'applies_to_refs': sorted(expression.qualify(aid, p) for p in fact.get('applies_to_fact_refs', [])),
                           'qualifier_refs': []}
             for p in fact['provenance_refs']:
                 inv.require(p in payload['provenance'], 'missing provenance')
-                provenance[expression.qualify(aid, p)] = deepcopy(payload['provenance'][p])
+                qualified = expression.qualify(aid, p)
+                source = payload['provenance'][p]
+                if qualified in provenance:
+                    inv.require(provenance[qualified] == source, 'inconsistent provenance reuse')
+                else:
+                    provenance[qualified] = deepcopy(source)
     for fact in facts.values():
         refs = fact['applies_to_refs'] + ([fact['context_ref']] if fact['context_ref'] else [])
         for ref in refs:
@@ -443,10 +448,24 @@ def produce(inputs, bindings):
         island.update(additions)
     inv.require(all(set(facts[r]['qualifier_refs']) <= island for r in island), 'note island has external qualifier')
     inv.require(all(not facts[r]['context_ref'] or facts[r]['context_ref'] in island for r in island), 'note island has external context')
-    regular = deepcopy(inputs)
-    regular['facts'] = {r: f for r, f in regular['facts'].items() if r not in island}
-    regular['provenance'] = {r: p for r, p in regular['provenance'].items()
-                             if any(r in f['provenance_refs'] for f in regular['facts'].values())}
+    regular_facts = {r: f for r, f in facts.items() if r not in island}
+    provenance_refs = {
+        ref
+        for fact in regular_facts.values()
+        for ref in fact['provenance_refs']
+    }
+    regular = {
+        **inputs,
+        'facts': regular_facts,
+        'provenance': {
+            ref: value
+            for ref, value in inputs['provenance'].items()
+            if ref in provenance_refs
+        },
+        # Only these branches are filtered below. Facts, provenance, profiles,
+        # targets and subject types are read-only throughout the pure composer.
+        'applications': deepcopy(inputs['applications']),
+    }
     for app in regular['applications'].values():
         app['fact_question_bindings'] = [b for b in app['fact_question_bindings']
             if expression.qualify(b['authority_ref'], b['fact_ref']) not in island]
@@ -601,7 +620,7 @@ def produce(inputs, bindings):
 
 
 def prepare(base, semantic, bindings):
-    acquisition = deepcopy(base['acquisition'])
+    acquisition = base['acquisition']
     applications = combined.consume_payloads(semantic, acquisition, base['contract'], base['inherited'],
                                              bindings['semantic'], bindings['acquisition'])
     inputs = normalize(semantic, acquisition, applications, base['contract'])

@@ -49,7 +49,11 @@ local function ensureSearchEntry(browser, slot)
         local value = entry:getInternalText() or ""
         if state and state.query ~= value then
             state.query = value
-            browser:showDetail(entry.irisFullType, true)
+            if browser.refreshDetailSection then
+                browser:refreshDetailSection("interaction")
+            else
+                browser:showDetail(entry.irisFullType, true)
+            end
         end
     end
     browser:addChild(entry)

@@ -27,6 +27,10 @@ local DetailChildren = require("Iris/UI/Browser/IrisDetailChildren")
 local removeDetailChildren = DetailChildren.removeDetailChildren
 local captureDetailChildPositions = DetailChildren.captureDetailChildPositions
 local applyDetailScrollOffset = DetailChildren.applyDetailScrollOffset
+local snapshotDetailChildren = DetailChildren.snapshotDetailChildren
+local captureDetailSection = DetailChildren.captureDetailSection
+local removeDetailSection = DetailChildren.removeDetailSection
+local shiftDetailSectionsAfter = DetailChildren.shiftDetailSectionsAfter
 
 local function addMultilineLabels(panel, text, x, yOffset, height, r, g, b, font)
     local availableWidth = math.max(1, panel.width - x - 10)
@@ -141,10 +145,86 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         end
     end
 
+    local function renderSection(browser, name, order, yOffset, render)
+        local before = snapshotDetailChildren(browser.detailPanel)
+        local endY = render(yOffset)
+        return captureDetailSection(browser, name, order, before, yOffset, endY)
+    end
+
+    local function renderLayer3(browser, yOffset)
+        local state = browser.currentDetailContext
+        local sections = state and state.wikiSections
+        local model = browser.currentDetailModel
+        if not sections or not sections.renderLayer3Section or not model then return yOffset end
+        local units = sections.getLayer3Records(model)
+        for index, unit in ipairs(units) do
+            yOffset = yOffset + 7
+            addMultilineLabels(browser.detailPanel, "•", 10, yOffset, 18,
+                0.92, 0.92, 0.92, UIFont.Medium)
+            yOffset = TargetGroupView.render(browser.detailPanel, unit, 25, yOffset, UIFont.Medium,
+                model.locale, browser.targetGroupState, tostring(index), function()
+                    browser:refreshDetailSection("layer3")
+                end, function(text, x, y)
+                    return addMultilineLabels(browser.detailPanel, text, x, y, 18, 0.92, 0.92, 0.92, UIFont.Medium)
+                end)
+        end
+        return yOffset
+    end
+
+    local function renderInteraction(browser, yOffset)
+        local state = browser.currentDetailContext
+        if not state or not browser.currentDetailModel then return yOffset end
+        return InteractionRenderer.render(
+            browser, IrisBrowser, state.fullType, state.item, yOffset, {
+                safeRequire = safeRequire,
+                tr = tr,
+                IrisAPI = state.api,
+                model = browser.currentDetailModel,
+                browserGeneration = state.browserGeneration,
+            }
+        )
+    end
+
+    local function renderVariants(browser, yOffset)
+        local state = browser.currentDetailContext
+        if not state then return yOffset end
+        return addVariantList(
+            browser, IrisBrowser, state.browserData, state.fullType, yOffset
+        )
+    end
+
+    function IrisBrowser:refreshDetailSection(name)
+        local renderers = {
+            layer3 = renderLayer3,
+            interaction = renderInteraction,
+            variants = renderVariants,
+        }
+        local render = renderers[name]
+        local previous = self.detailSections and self.detailSections[name]
+        if not render or not previous or not self.currentDetailModel then
+            self:showDetail(self.currentSelectedFullType, true)
+            return
+        end
+        local startY, oldEnd, order = previous.startY, previous.endY, previous.order
+        removeDetailSection(self, name)
+        local newEnd = renderSection(self, name, order, startY, function(y)
+            return render(self, y)
+        end)
+        local delta = newEnd - oldEnd
+        shiftDetailSectionsAfter(self, order, delta)
+        self.detailContentHeight = self.detailContentHeight + delta
+        local maxScroll = math.max(0, self.detailContentHeight - self.detailPanel.height)
+        self.detailScrollY = math.max(0, math.min(self.detailScrollY, maxScroll))
+        applyDetailScrollOffset(self)
+    end
+
     function IrisBrowser:rebuildDetailContent(fullType)
         removeDetailChildren(self.detailPanel)
         self.detailChildBaseY = {}
+        self.detailChildSections = {}
+        self.detailSections = {}
         self.currentDetailModel = nil
+        self.currentDetailContext = nil
         self.detailBuiltFullType = fullType
         self.detailBuiltLocale = TranslationResolver.getLangKey("EN")
         for _, slot in ipairs({"interactionSearchEntry", "evolvedSearchEntry"}) do
@@ -182,68 +262,73 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         local yOffset = 10
         local displayName = model.displayName
 
-        yOffset = addMultilineLabels(self.detailPanel, displayName, 10, yOffset, 25,
-            0.6, 0.9, 1.0, UIFont.Medium) + 5
-
-        if IrisWikiSections and IrisWikiSections.renderCoreInfoSection then
-            local coreInfo = IrisWikiSections.renderCoreInfoSection(model)
-            if coreInfo and coreInfo ~= "" then
-                yOffset = addMultilineLabels(self.detailPanel, coreInfo, 10, yOffset, 18,
-                    0.7, 0.85, 0.9, UIFont.Medium) + 4
-            end
-        end
-
         local IrisAPI = nil
         local apiOk, apiResult = safeRequire("Iris/IrisAPI")
         if apiOk then IrisAPI = apiResult end
-
-        if IrisAPI and IrisAPI.Description and IrisAPI.Description.getDescription then
-            local descOk, descText = ProtectedCall.data(function()
-                return IrisAPI.Description.getDescription(fullType, nil, model.locale)
-            end)
-            if descOk then
-                yOffset = addSeparatedMultilineSection(self.detailPanel, descText, yOffset, 0.85, 0.85, 0.85)
-            end
-        end
-
-        if IrisWikiSections and IrisWikiSections.renderLayer3Section then
-            local units = IrisWikiSections.getLayer3Records(model)
-            for index, unit in ipairs(units) do
-                yOffset = yOffset + 7
-                addMultilineLabels(self.detailPanel, "•", 10, yOffset, 18,
-                    0.92, 0.92, 0.92, UIFont.Medium)
-                yOffset = TargetGroupView.render(self.detailPanel, unit, 25, yOffset, UIFont.Medium,
-                    model.locale, self.targetGroupState, tostring(index), function()
-                        self:showDetail(fullType, true)
-                    end, function(text, x, y)
-                        return addMultilineLabels(self.detailPanel, text, x, y, 18, 0.92, 0.92, 0.92, UIFont.Medium)
-                    end)
-            end
-        end
-
-        if IrisWikiSections and IrisWikiSections.renderLiteratureSection then
-            local literatureText = IrisWikiSections.renderLiteratureSection(model)
-            yOffset = addSeparatedMultilineSection(self.detailPanel, literatureText, yOffset, 0.85, 0.85, 0.85)
-        end
-
         local browserState = IrisBrowserData and IrisBrowserData.getBuildState and
             IrisBrowserData.getBuildState() or {generation = 0}
-        yOffset = InteractionRenderer.render(self, IrisBrowser, fullType, item, yOffset, {
-            safeRequire = safeRequire,
-            tr = tr,
-            IrisAPI = IrisAPI,
-            model = model,
+        self.currentDetailContext = {
+            api = IrisAPI,
+            browserData = IrisBrowserData,
             browserGeneration = browserState.generation,
-        })
+            fullType = fullType,
+            item = item,
+            wikiSections = IrisWikiSections,
+        }
 
-        yOffset = addVariantList(self, IrisBrowser, IrisBrowserData, fullType, yOffset)
-
-        if IrisWikiSections and IrisWikiSections.renderMetaInfoSection then
-            local metaInfo = IrisWikiSections.renderMetaInfoSection(model)
-            yOffset = addMetaInfoSection(self.detailPanel, metaInfo, yOffset)
-        end
+        yOffset = renderSection(self, "identity", 1, yOffset, function(y)
+            y = addMultilineLabels(self.detailPanel, displayName, 10, y, 25,
+                0.6, 0.9, 1.0, UIFont.Medium) + 5
+            if IrisWikiSections and IrisWikiSections.renderCoreInfoSection then
+                local coreInfo = IrisWikiSections.renderCoreInfoSection(model)
+                if coreInfo and coreInfo ~= "" then
+                    y = addMultilineLabels(self.detailPanel, coreInfo, 10, y, 18,
+                        0.7, 0.85, 0.9, UIFont.Medium) + 4
+                end
+            end
+            if IrisAPI and IrisAPI.Description and IrisAPI.Description.getDescription then
+                local descOk, descText = ProtectedCall.data(function()
+                    return IrisAPI.Description.getDescription(fullType, nil, model.locale)
+                end)
+                if descOk then
+                    y = addSeparatedMultilineSection(self.detailPanel, descText, y, 0.85, 0.85, 0.85)
+                end
+            end
+            return y
+        end)
+        yOffset = renderSection(self, "layer3", 2, yOffset, function(y)
+            return renderLayer3(self, y)
+        end)
+        yOffset = renderSection(self, "literature", 3, yOffset, function(y)
+            if IrisWikiSections and IrisWikiSections.renderLiteratureSection then
+                return addSeparatedMultilineSection(
+                    self.detailPanel,
+                    IrisWikiSections.renderLiteratureSection(model),
+                    y,
+                    0.85, 0.85, 0.85
+                )
+            end
+            return y
+        end)
+        yOffset = renderSection(self, "interaction", 4, yOffset, function(y)
+            return renderInteraction(self, y)
+        end)
+        yOffset = renderSection(self, "variants", 5, yOffset, function(y)
+            return renderVariants(self, y)
+        end)
+        yOffset = renderSection(self, "meta", 6, yOffset, function(y)
+            if IrisWikiSections and IrisWikiSections.renderMetaInfoSection then
+                return addMetaInfoSection(
+                    self.detailPanel,
+                    IrisWikiSections.renderMetaInfoSection(model),
+                    y
+                )
+            end
+            return y
+        end)
 
         self.detailContentHeight = yOffset + 20
+        self.detailBuiltWidth = self.detailPanel.width
         local maxScroll = math.max(0, self.detailContentHeight - self.detailPanel.height)
         self.detailScrollY = math.max(0, math.min(self.detailScrollY, maxScroll))
         captureDetailChildPositions(self)
@@ -261,7 +346,7 @@ function IrisBrowserDetail.install(IrisBrowser, context)
             IrisBrowserData.getBuildState() or {generation = 0}
         if not forceRebuild and fullType and self.detailBuiltFullType == fullType and
             self.detailBuiltLocale == locale and self.detailBuiltGeneration == buildState.generation and
-            self.currentDetailModel then
+            self.detailBuiltWidth == self.detailPanel.width and self.currentDetailModel then
             applyDetailScrollOffset(self)
             return
         end
@@ -291,25 +376,25 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         if not expandKey then return end
 
         self.recipeExpandedByFullType[expandKey] = not (self.recipeExpandedByFullType[expandKey] == true)
-        self:showDetail(self.currentSelectedFullType, true)
+        self:refreshDetailSection("variants")
     end
 
     function IrisBrowser:onToggleInteractionDensity(button)
         if not button.interactionStateKey then return end
         InteractionState.toggleFull(self, button.interactionStateKey)
-        self:showDetail(self.currentSelectedFullType, true)
+        self:refreshDetailSection("interaction")
     end
 
     function IrisBrowser:onToggleFixedRecipeInteraction(button)
         if not button.interactionStateKey then return end
         InteractionState.toggleRecipe(self, button.interactionStateKey)
-        self:showDetail(self.currentSelectedFullType, true)
+        self:refreshDetailSection("interaction")
     end
 
     function IrisBrowser:onToggleEvolvedInteraction(button)
         if not button.evolvedInteractionStateKey then return end
         InteractionState.toggleEvolved(self, button.evolvedInteractionStateKey)
-        self:showDetail(self.currentSelectedFullType, true)
+        self:refreshDetailSection("interaction")
     end
 
     function IrisBrowser:onToggleInteractionRequirements(button)
@@ -317,7 +402,7 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         InteractionState.toggleRequirements(
             self, button.interactionStateKey, button.interactionIdentity, button.defaultExpanded
         )
-        self:showDetail(self.currentSelectedFullType, true)
+        self:refreshDetailSection("interaction")
     end
 end
 

@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-09-16 (이번 갱신 범위: Iris 내부 리팩토링 및 사용자 인게임 확인 완료; 기존 DVF 품질·B42 포팅 과제와 완료 이력 유지)
+> 기준일: 2026-09-16 (이번 갱신 범위: Iris 내부 리팩토링과 runtime/build/storage 경량화의 구현·자동 검증·사용자 인게임 확인 완료; 기존 DVF 품질·B42 포팅 과제와 완료 이력 유지)
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -1225,3 +1225,18 @@ Canonical 전체 실행의 215 passed / 3 failed 이력과 실패 세 노드의 
 재개 시 확인된 점화 주체·음식 미끼·복합 도구 목적군·중복 수행 요건을 공통 규칙으로 교정하고 실제 영향 범위를 재판정했다. 42개 차량 부품의 구체 기능 부족은 개별 purpose_unresolved로 기록한다. 포괄적인 결함 0 선언을 복원하거나 자동 검사 성공을 의미 품질 승인으로 사용하지 않는다. 누적 전수 자체 읽기/변경 범위 재판정의 상세와 한계는 `iris_dvf_use_description_report.md`의 최신 절 및 `review/uses/items.json`에 있다.
 
 현재는 **implemented_only**: corpus `2301a4a4b8d24a28447ea53e3e47dd7143b362fb9e3b3b2531cf3152e4491e30`, B `.tmp/tooltip/run-cr4yy73j/s/.tmp/package/Iris.zip`, C `.tmp/menu/run-5b363prk/p/Iris.zip`(SHA256 `a55538e4cdaf47c771258a2c75d33dce0f93ba66cc524eb465873d1fa0086080`). 마지막 설명/B 묶음 exit 0(2 passed, 91.80s), 같은 B를 받은 C exit 0(1 passed, 72.08s). 실제 PZ는 미관찰이고 complete/독립 품질 승인/live 전환이 아니다. 과거 ffde 후보는 역사적 자동 검사 결과로만 남긴다.
+
+## 2026-09-16 Iris runtime/build/storage 경량화 — 완료
+
+- [x] EvolvedRecipe exact-value pool과 Browser consumer mutation isolation.
+- [x] Tooltip StaticData base/동일 행 공유, bilingual stale-pair guard, 기존 두 파일 install/package 경계 유지.
+- [x] 직접 크기 감소: EvolvedRecipe 1,742,824→899,122 bytes, Tooltip Variants 768,344→398,532 bytes. Kahlua heap·latency·FPS는 미측정이며 개선 수치 비주장.
+- [x] Recovery full-input copy와 반복 provenance scan 축소; 새 non-editable candidate의 전용 계약 통과.
+- [x] Browser Layer 3/interaction/variant section 부분 갱신과 static model·unrelated child·scroll/focus 보존.
+- [x] CAS 표본 create/verify/restore 조사 완료; exact duplicate 절감 0과 reader 이동 미확정으로 자료 이동 없음.
+- [x] 확인된 `Iris/tooling/.tmp/uv-cache/` ignore 및 10,392,380-byte cache 정리.
+- [x] 잔여 구조 dedup no-op, Tooltip chunking 보류, `.gitattributes` no-op 처분.
+- [x] 관련 focused 14 passed, Recovery 1 passed, B→Menu 2 passed, repository Lua syntax exit 0.
+- [x] 사용자가 최종 저장소 Iris의 실제 PZ/Kahlua KO/EN Tooltip·Menu 공존 및 Browser 부분 갱신 검증 통과를 보고함. 게임 빌드·해상도·UI 배율·외부 모드 구성은 미제공.
+
+계획된 구현·자동 계약·사용자 실제 PZ 관찰이 끝나 이 subject를 complete로 닫는다. 추가 confidence 검사·증거 산출물·재생산은 수행하지 않았다. current adoption·release·기존 lightweighting terminal 기록은 변경하지 않았다. 상세 지표와 명령은 [경량화 closeout](iris_runtime_build_storage_optimization_closeout.md)에 있다.

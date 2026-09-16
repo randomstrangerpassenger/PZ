@@ -87,7 +87,15 @@ if arg[2] == "expanded" then
     Widget.__index = Widget
     function Widget:new(x,y,w,h) return setmetatable({x=x,y=y,width=w,height=h,children={}}, self) end
     function Widget:addChild(child) self.children[#self.children+1]=child end
-    function Widget:removeChild(child) for i,v in ipairs(self.children) do if v==child then table.remove(self.children,i); return end end end
+    function Widget:removeChild(child)
+        for i,v in ipairs(self.children) do
+            if v==child then
+                table.remove(self.children,i)
+                self.removeCount=(self.removeCount or 0)+1
+                return
+            end
+        end
+    end
     function Widget:getChildren() return self.children end
     function Widget:getY() return self.y end
     function Widget:setY(y) self.y=y end
@@ -179,10 +187,25 @@ if arg[2] == "expanded" then
                 if groupCount > 0 then
                     assert(listStarts(panel) == inlineNames, "Long target lists default closed")
                     local height = panel == content and content.irisContentHeight or browser.detailContentHeight
+                    local modelBefore, identityChild, removedBefore, oldLayer3Children
+                    if panel == browser.detailPanel then
+                        modelBefore = browser.currentDetailModel
+                        identityChild = browser.detailSections.identity.children[1]
+                        removedBefore = panel.removeCount or 0
+                        oldLayer3Children = #browser.detailSections.layer3.children
+                    end
                     click(controls[1])
                     assert(listStarts(panel) > inlineNames and listStarts(panel) <= groupedNames)
                     local expandedHeight = panel == content and content.irisContentHeight or browser.detailContentHeight
                     assert(expandedHeight > height, "Expanding adds actual rows")
+                    if panel == browser.detailPanel then
+                        assert(browser.currentDetailModel == modelBefore,
+                            "Target toggle reuses the static detail model")
+                        assert(browser.detailSections.identity.children[1] == identityChild,
+                            "Target toggle preserves unrelated identity children")
+                        assert((panel.removeCount or 0) - removedBefore == oldLayer3Children,
+                            "Target toggle removes only its previous section children")
+                    end
                     click(buttons(panel)[1])
                     assert(listStarts(panel) == inlineNames)
                     assert((panel == content and content.irisContentHeight or browser.detailContentHeight) == height)

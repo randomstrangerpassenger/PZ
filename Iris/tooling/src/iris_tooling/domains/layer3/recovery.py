@@ -572,22 +572,35 @@ def installed_identity(root):
 
 def acquisition_content(payload):
     """Acquisition meaning is invariant under a dependency-only successor."""
-    content = deepcopy(payload)
-    for key in ('authority_id', 'semantic_readpoint', 'binding_change'):
-        content.pop(key, None)
-    for row in [*content['results'], *content['fact_question_bindings']]:
-        row['authority_ref'] = 'self'
+    content = {
+        key: value
+        for key, value in payload.items()
+        if key not in {'authority_id', 'semantic_readpoint', 'binding_change'}
+    }
+    content['results'] = [
+        {**row, 'authority_ref': 'self'} for row in payload['results']
+    ]
+    content['fact_question_bindings'] = [
+        {**row, 'authority_ref': 'self'}
+        for row in payload['fact_question_bindings']
+    ]
     return content
 
 
 def acquisition_successor(base, semantic_ref):
-    payload = deepcopy(base['acquisition'])
+    predecessor = base['acquisition']
+    payload = dict(predecessor)
     aid = 'iris-layer3-acquisition-results-recovery-1'
     payload['authority_id'] = aid
     payload['semantic_readpoint'] = semantic_ref
-    for row in [*payload['results'], *payload['fact_question_bindings']]:
-        row['authority_ref'] = aid
-    content_hash = digest(canonical(acquisition_content(base['acquisition'])))
+    payload['results'] = [
+        {**row, 'authority_ref': aid} for row in predecessor['results']
+    ]
+    payload['fact_question_bindings'] = [
+        {**row, 'authority_ref': aid}
+        for row in predecessor['fact_question_bindings']
+    ]
+    content_hash = digest(canonical(acquisition_content(predecessor)))
     inv.require(digest(canonical(acquisition_content(payload))) == content_hash, 'acquisition content drift')
     payload['binding_change'] = {
         'kind': 'dependency_only', 'predecessor': base['reader'].bindings[READPOINTS['acquisition']],

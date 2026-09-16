@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 from . import expression_rules as base
-from . import recovery_expression as vocabulary
-from . import recovery_sources as source
+from . import recovery_phrase_views as vocabulary
+from . import recovery_vocabulary as source
 from . import acquisition_expression
 
 FUNCTIONS = {**base.FUNCTIONS, **{k: v[1:] for k, v in source.FUNCTIONS.items()},

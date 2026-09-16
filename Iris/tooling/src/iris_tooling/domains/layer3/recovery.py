@@ -1078,7 +1078,18 @@ def main(argv=None):
     payload, audit, corrections = semantic_candidate(base, found)
     recovery_adjudication.reassess(base, payload, audit)
     inventory = recovery_migration.extract(predecessor_inventory(base))
-    for module in (recovery_expression, recovery_sources, recovery_migration, recovery_adjudication):
+    from . import (
+        recovery_vocabulary,
+        recovery_phrase_views,
+        recovery_source_index,
+        recovery_crafting_roles,
+        recovery_claims,
+        recovery_question_rules,
+        recovery_direct_review,
+        recovery_activities_review,
+    )
+    for module in (recovery_expression, recovery_sources, recovery_migration, recovery_adjudication,
+                   recovery_vocabulary, recovery_phrase_views, recovery_source_index, recovery_crafting_roles, recovery_claims, recovery_question_rules, recovery_direct_review, recovery_activities_review):
         installed = Path(module.__file__).resolve()
         inv.require(installed.is_relative_to(root / 'Iris/tooling/.venv/Lib/site-packages')
                     and inv.sha(installed) == inv.sha(root / CODE / (installed.stem + '.py')),
@@ -1086,6 +1097,8 @@ def main(argv=None):
     focused = 'Iris/build/description/v2/tests/test_layer3_recovery.py'
     for path in (CODE + 'recovery.py', CODE + 'recovery_expression.py', CODE + 'recovery_sources.py', CODE + 'recovery_migration.py', CODE + 'recovery_adjudication.py', PLAN, focused):
         base['reader'].read(path)
+    for name in ('recovery_vocabulary', 'recovery_phrase_views', 'recovery_source_index', 'recovery_crafting_roles', 'recovery_claims', 'recovery_question_rules', 'recovery_direct_review', 'recovery_activities_review'):
+        base['reader'].read(CODE + name + '.py')
     relative = output.relative_to(root).as_posix()
     semantic_ref = {'path': relative + '/semantic.json', 'sha256': digest(canonical(payload))}
     acquisition = acquisition_successor(base, semantic_ref)

@@ -121,7 +121,7 @@ def candidate_rows(before, embedded, places, pools):
     return rows
 
 
-def build(root, output):
+def build(root, output, *, description_ref=None):
     from iris_tooling.domains.tooltip_static_data_projection.contract import load_contract
     from iris_tooling.domains.tooltip_static_data_projection.projection import project
     from iris_tooling.domains.tooltip_static_data_projection.recipe_variants import DATA_ROOT, read_static_data
@@ -129,7 +129,7 @@ def build(root, output):
     output = workspace(root, output)
     supply.require(not output.exists(), 'S2 candidate output already exists')
     sources = source_binding(root)
-    payload = supply.build(root)
+    payload = supply.build(root, description_ref=description_ref)
     before, _, _ = supply.current_support(root)
     contract, _ = load_contract(root)
     baseline, _, _ = project(before, contract)

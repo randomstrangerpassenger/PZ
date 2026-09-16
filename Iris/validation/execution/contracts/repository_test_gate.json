@@ -18,6 +18,12 @@
     },
     "required_environment": {
       "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR": "1"
+    },
+    "menu_inputs": {
+      "tooltip": {
+        "path": ".tmp/tooltip/preview/Iris.zip",
+        "sha256": "33b5927127442b16dca917c6f49f3e661743123c0cbd3d5890d47cb6fca96860"
+      }
     }
   },
   "claim": "Exact clean-checkout gate over adjudicated surviving current validation contracts.",
@@ -382,7 +388,13 @@
   "result_plugin": "Iris.validation.execution.pytest_outcome_recorder",
   "schema_version": "iris-clean-checkout-full-repository-gate-v8",
   "source_disposition_policy": {
-    "evidence_only_sources": [],
+    "evidence_only_sources": [
+      {
+        "path": "docs/review/prose/before/test_layer3_description_composition.py",
+        "physical_preservation": "executable_source",
+        "reason": "Immutable before-source copy for prose review; no recurring execution obligation. The actual Layer 3 description composition contract runs from Iris/build/description/v2/tests."
+      }
+    ],
     "explicit_current_required_sources": [
       {
         "path": "Iris/build/description/v2/tests/test_layer3_product_integration.py",
@@ -561,6 +573,31 @@
         "owner_decision": "not_applicable_dedicated_route",
         "path": "Iris/tooling/tests/test_tooltip_t2_cli.py",
         "reason": "The dedicated focused tests in docs/iris_tooltip_t2_deterministic_ko_en_static_lua_projection_plan.md cover this lifecycle; do not duplicate them in the full gate."
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_layer3_composition.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate."
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_layer3_description_composition.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate."
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_layer3_dvf_purpose_review.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate."
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_layer3_recovery.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate."
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_layer3_rule_generalization.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate."
       }
     ],
     "explicit_historical_optional_sources": [

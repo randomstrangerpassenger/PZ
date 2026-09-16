@@ -41,18 +41,59 @@ def command(argv, cwd, checkpoint, product_id):
 
 def test_current_menu_input_binding():
     """Validate the current canonical menu input without building a package."""
-    payload, blocks = product.read_menu_inputs(ROOT)
+    inputs = {}
+    inputs_path = os.environ.get('IRIS_REFACTOR_MENU_INPUTS')
+    if inputs_path is not None:
+        expected = json.loads(Path(inputs_path).read_bytes())
+        assert set(expected) == {'description', 'blocks'}
+        description_ref, blocks_ref = product.menu_input_refs(expected['description'], expected['blocks'])
+        inputs = {'description_ref': description_ref, 'blocks_ref': blocks_ref}
+    payload, blocks = product.read_menu_inputs(ROOT, **inputs)
     menu, trace = product.expanded_projection(payload, blocks)
     assert len(menu) == len(trace) == len(payload['items']) == 2105
     for item in payload['items']:
         assert trace[item['item_id']]['source'] == item
+    # Explicit candidates retain the same fixed corpus paths and fail closed.
+    assert product.menu_input_refs() == (product.DESCRIPTION, product.BLOCKS)
+    with pytest.raises(ValueError, match='both Menu input refs'):
+        product.read_menu_inputs(ROOT, description_ref=product.DESCRIPTION)
+    for description_ref, blocks_ref in (({}, product.BLOCKS),
+            (dict(product.DESCRIPTION, path='../descriptions.json'), product.BLOCKS),
+            (product.DESCRIPTION, dict(product.BLOCKS, sha256='bad'))):
+        with pytest.raises(ValueError, match='malformed Menu input ref'):
+            product.read_menu_inputs(ROOT, description_ref=description_ref, blocks_ref=blocks_ref)
+    for key in ('description', 'blocks'):
+        refs = {'description_ref': dict(product.DESCRIPTION), 'blocks_ref': dict(product.BLOCKS)}
+        refs[key + '_ref']['sha256'] = '0' * 64
+        with pytest.raises(ValueError, match='canonical input drift'):
+            product.read_menu_inputs(ROOT, **refs)
 
 
 def test_product_contract(tmp_path, monkeypatch):
+    inputs = {}
+    inputs_path = os.environ.get('IRIS_REFACTOR_MENU_INPUTS')
+    if inputs_path is not None:
+        expected = json.loads(Path(inputs_path).read_bytes())
+        assert set(expected) == {'description', 'blocks'}
+        description_ref, blocks_ref = product.menu_input_refs(expected['description'], expected['blocks'])
+        inputs = {'description_ref': description_ref, 'blocks_ref': blocks_ref}
+        for ref in inputs.values():
+            assert product.binding(ROOT, ref['path']) == ref
     candidate_zip = os.environ.get('IRIS_MENU_TOOLTIP_CANDIDATE')
+    if inputs_path is not None or os.environ.get('IRIS_SHARED_MENU_VALIDATION'):
+        assert candidate_zip, 'shared B candidate is missing'
+    tooltip_ref = None
+    expected_owner = None
     if candidate_zip:
-        monkeypatch.setattr(product, 'ACCEPTED_TOOLTIP', product.binding(ROOT, candidate_zip))
-        monkeypatch.setattr(product, 'ACCEPTED_DESCRIPTION', product.DESCRIPTION)
+        shared = json.loads(os.environ['IRIS_MENU_TOOLTIP_BINDING'])
+        assert Path(shared['repository']).resolve() == ROOT
+        tooltip_ref = shared['tooltip']
+        assert tooltip_ref['path'] == candidate_zip
+        assert product.binding(ROOT, candidate_zip) == tooltip_ref
+        assert shared['description'] == inputs.get('description_ref', product.DESCRIPTION)
+        expected_owner = shared['owner']
+    build_inputs = dict(inputs, tooltip_ref=tooltip_ref)
+    accepted_description = inputs.get('description_ref', product.DESCRIPTION) if candidate_zip else None
     # pytest's nested directory is deliberately not used for generation paths.
     # This same execution boundary owns two products, one stage and one ZIP.
     parent = ROOT / '.tmp/menu'
@@ -63,8 +104,10 @@ def test_product_contract(tmp_path, monkeypatch):
     assert workspace.is_relative_to(parent.resolve())
     print(f'workspace={workspace}', flush=True)
     before = (ROOT / product.DATA_ROOT / 'IrisLayer3DataCurrent.lua').read_bytes()
-    payload, blocks = product.read_menu_inputs(ROOT)
-    accepted, owner = product.accepted_tooltip(ROOT)
+    payload, blocks = product.read_menu_inputs(ROOT, **inputs)
+    accepted, owner = product.accepted_tooltip(ROOT, tooltip_ref, accepted_description)
+    if expected_owner is not None:
+        assert owner['product_id'] == expected_owner
     assert len(payload['items']) == 2105
     states = Counter(row['locales'][lang]['expanded']['state'] for row in payload['items'] for lang in product.LOCALES)
     assert states == {'present': 3952, 'absent': 258}
@@ -73,8 +116,8 @@ def test_product_contract(tmp_path, monkeypatch):
         assert sum(r['locales'][lang]['expanded']['state']=='absent' for r in payload['items']) == 129
     print('input: states=4210 present=3952 absent=258 acquisition supplied separately', flush=True)
     first, second = workspace / 'a', workspace / 'b'
-    manifest = install.admit(first) if resume else product.build_menu_product(ROOT, first)
-    other = install.admit(second) if resume else product.build_menu_product(ROOT, second)
+    manifest = install.admit(first, **inputs) if resume else product.build_menu_product(ROOT, first, **build_inputs)
+    other = install.admit(second, **inputs) if resume else product.build_menu_product(ROOT, second, **build_inputs)
     if resume:
         # Explicit continuation of this exact candidate, not a reusable PASS
         # receipt. The caller reports the earlier command's completed stages.
@@ -121,7 +164,7 @@ def test_product_contract(tmp_path, monkeypatch):
     print(f'conservation: product={pid} states=4210 refs/scopes/order/detail-links retained; two builds byte-equal', flush=True)
     stage = workspace / 's'
     if not resume:
-        install.stage(ROOT, first, stage)
+        install.stage(ROOT, first, stage, **build_inputs)
     for name in manifest['b_preserved']:
         assert (stage / name).read_bytes() == accepted[name]
     assert json.loads((stage / product.DATA_ROOT / 'IrisTooltipOwner.json').read_bytes()) == owner
@@ -196,7 +239,7 @@ foreach ($name in @('IrisTooltip.lock', 'IrisLayer3Product.lock')) {
     raw = member.read_bytes()
     member.write_bytes(raw + b'-- drift\n')
     with pytest.raises(ValueError, match='member mismatch'):
-        install.admit(first)
+        install.admit(first, **inputs)
     member.write_bytes(raw)
     with pytest.raises(ValueError):
         product.local(first, '../escape')
@@ -209,12 +252,12 @@ foreach ($name in @('IrisTooltip.lock', 'IrisLayer3Product.lock')) {
     with monkeypatch.context() as patch:
         patch.setattr(install, 'local', lambda root,path: drift if root==ROOT and path==ref else original_local(root,path))
         with pytest.raises(ValueError, match='source drift'):
-            install.stage(ROOT, first, workspace / 'unused')
+            install.stage(ROOT, first, workspace / 'unused', **inputs)
     for lockname in ('IrisTooltip.lock', 'IrisLayer3Product.lock'):
         lock = stage / product.DATA_ROOT / lockname
         lock.write_text('locked')
         with pytest.raises(ValueError, match='locked'):
-            install.stage(stage, first, stage / '.tmp/menu/unused')
+            install.stage(stage, first, stage / '.tmp/menu/unused', **inputs)
         lock.unlink()
     # v2 never uses live promote, whose successor-owner refusal is preserved.
     with pytest.raises(ValueError, match='Tooltip successor'):
@@ -224,7 +267,7 @@ foreach ($name in @('IrisTooltip.lock', 'IrisLayer3Product.lock')) {
     pointer.write_bytes(b'return {}\n')
     damaged = install.inventory(stage / 'Iris/media')
     with pytest.raises(InterruptedError):
-        install.restore_candidate(ROOT, first, stage, stage / '.tmp/j0', interrupt_after=0)
+        install.restore_candidate(ROOT, first, stage, stage / '.tmp/j0', interrupt_after=0, **build_inputs)
     assert install.inventory(stage / 'Iris/media') == damaged
     assert install.recover(stage, stage / '.tmp/j0') == 'rolled_back'
     original_write = install.atomic_write
@@ -235,11 +278,11 @@ foreach ($name in @('IrisTooltip.lock', 'IrisLayer3Product.lock')) {
     with monkeypatch.context() as patch:
         patch.setattr(install, 'atomic_write', interrupted)
         with pytest.raises(KeyboardInterrupt):
-            install.restore_candidate(ROOT, first, stage, stage / '.tmp/j1')
+            install.restore_candidate(ROOT, first, stage, stage / '.tmp/j1', **build_inputs)
     assert install.recover(stage, stage / '.tmp/j1') == 'rolled_back'
     assert install.inventory(stage / 'Iris/media') == damaged
-    assert install.restore_candidate(ROOT, first, stage, stage / '.tmp/j2') == 'complete'
-    assert install.restore_candidate(ROOT, first, stage, stage / '.tmp/j3') == 'no_op'
+    assert install.restore_candidate(ROOT, first, stage, stage / '.tmp/j2', **build_inputs) == 'complete'
+    assert install.restore_candidate(ROOT, first, stage, stage / '.tmp/j3', **build_inputs) == 'no_op'
     assert pointer.read_bytes() == original
     assert (ROOT / product.DATA_ROOT / 'IrisLayer3DataCurrent.lua').read_bytes() == before
     print(f'recovery: candidate={pid} interrupted/rollback/idempotence/source-pointer preserved', flush=True)

@@ -462,9 +462,13 @@ def main() -> int:
     registry_path = build_tools_root / "dvf_3_3_registry_authority_canonical_closure.py"
     registry_lines = {
         "path": relative(registry_path, repository_root),
-        "physical": physical_line_count(registry_path),
-        "nonblank": nonblank_line_count(registry_path),
-        "disposition": "deferred_by_design_read_only",
+        "physical": physical_line_count(registry_path) if registry_path.is_file() else 0,
+        "nonblank": nonblank_line_count(registry_path) if registry_path.is_file() else 0,
+        "disposition": (
+            "restored_historical_source" if registry_path.is_file()
+            else "historical_executable_archived"
+        ),
+        "archive_path": "Iris/_archive/registry.zip",
     }
 
     payload = {

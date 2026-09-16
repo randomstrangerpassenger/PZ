@@ -178,3 +178,12 @@ docs/review/uses/items.json filter=lfs diff=lfs merge=lfs -text
 
 # Preserve byte-bound DVF source evidence across checkouts.
 Iris/build/description/source_support/b41_dvf_*.json -text
+
+# Preserve new shared infrastructure and runner dependency bytes.
+Iris/tooling/src/iris_tooling/common/*.py -text
+Iris/validation/execution/repository_contracts.py -text
+Iris/validation/execution/checkout_workspace.py -text
+Iris/validation/execution/process_results.py -text
+Iris/validation/source_analysis/repository_sources.py -text
+
+Iris/tooling/src/iris_tooling/domains/public_text/composition/*.py -text

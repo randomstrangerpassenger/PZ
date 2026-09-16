@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-from iris_tooling.build.compose_layer3_text import (
+from .composition.entrypoint import (
     BODY_PLAN_PROFILES_PATH, CURRENT_OVERLAY_SUPPORT_PATH, IDENTITY_RULES_PATH,
     HISTORICAL_COMPOSE_CONTEXT, PRECEDENCE_RULES_PATH, STAGING_COMPOSE_CONTEXT,
     build_rendered,

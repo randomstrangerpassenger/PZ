@@ -17,7 +17,7 @@ from iris_tooling.domains.tooltip_t1.models import TooltipContractError
 
 DESCRIPTION = {
     'path': descriptions.DEFAULT_OUTPUT,
-    'sha256': '8510f3003f7150ad034d83ef1496a2540b3fc5ac62acecb622d7c3bce7ba6ed3',
+    'sha256': 'ba2f6b144f0839a5579434a99b65898b9451b00f3a7d54b35208b0281bebb706',
 }
 SCHEMA = 'iris-tooltip-s2-supply-v2'
 STATES = {'present', 'absent', 'out_of_dvf_target'}
@@ -42,7 +42,8 @@ def current_support(root):
     locator = route['tooltip_t1_production_handoff']
     # This is consumption of the explicit legacy locator, not a new T2 output.
     handoff_root = Path(locator['final_root']).resolve()
-    require(handoff_root.is_relative_to(root), 'admitted input outside selected repository')
+    # An isolated candidate may consume the sealed predecessor at its explicit
+    # locator. read_handoff still validates its exact root, subject and members.
     contract, _ = load_contract(root)
     accepted = read_handoff(handoff_root, locator, support_count=contract['support_count'],
                             support_sha256=contract['support_sha256'])

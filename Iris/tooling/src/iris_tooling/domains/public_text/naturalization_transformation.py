@@ -7,11 +7,11 @@ from pathlib import Path
 import re
 from typing import Any
 
-from iris_tooling.build.compose_layer3_text import (
+from .composition.entrypoint import (
     BODY_PLAN_PROFILES_PATH, IDENTITY_RULES_PATH, PRECEDENCE_RULES_PATH,
     STAGING_COMPOSE_CONTEXT, build_candidate_rendered,
 )
-from iris_tooling.build.naturalization_compiler_identity import build_compiler_identity
+from .composition.compiler_identity import build_compiler_identity
 
 from .naturalization_context import (
     COMPILER_IMPLEMENTATION_PATHS, CORPUS_MANIFEST_PATH, DATA_ROOT,

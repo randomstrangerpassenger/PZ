@@ -16,7 +16,7 @@ import zipfile
 from .product_projection import (
     BINDING, DATA_ROOT, GENERATIONS, POINTER, SCHEMA, canonical, digest, local,
     require, table_bytes, new_output,
-    MENU_SCHEMA, DESCRIPTION, BLOCKS, accepted_tooltip,
+    MENU_SCHEMA, DESCRIPTION, BLOCKS, accepted_tooltip, menu_input_refs,
 )
 
 COMPAT = '''-- Derived compatibility view; the common pointer is the only switch.
@@ -78,7 +78,8 @@ return component.data
     return result
 
 
-def admit(candidate: Path):
+def admit(candidate: Path, *, description_ref=None, blocks_ref=None):
+    description_ref, blocks_ref = menu_input_refs(description_ref, blocks_ref)
     candidate = candidate.resolve()
     raw = local(candidate, "product_manifest.json").read_bytes()
     manifest = json.loads(raw)
@@ -86,7 +87,7 @@ def admit(candidate: Path):
     product_id = manifest["product_id"]
     is_menu = manifest["schema_version"] == MENU_SCHEMA
     require(manifest["schema_version"] in {SCHEMA, MENU_SCHEMA} and re.fullmatch(r"l3p-[0-9a-f]{64}", product_id)
-            and (manifest["identity"].get("description") == DESCRIPTION and manifest["identity"].get("blocks") == BLOCKS
+            and (manifest["identity"].get("description") == description_ref and manifest["identity"].get("blocks") == blocks_ref
                  if is_menu else manifest["identity"].get("expression") == BINDING)
             and product_id == "l3p-" + digest(canonical(manifest["identity"])), "product identity mismatch")
     expected = {"Index.lua", "Tooltip.lua", "Recipe.lua", "Descriptor.lua",
@@ -109,8 +110,8 @@ def inventory(root):
             for p in sorted(root.rglob("*")) if p.is_file()}
 
 
-def runtime_overlay(candidate):
-    manifest = admit(candidate)
+def runtime_overlay(candidate, *, description_ref=None, blocks_ref=None):
+    manifest = admit(candidate, description_ref=description_ref, blocks_ref=blocks_ref)
     product_id = manifest["product_id"]
     prefix = GENERATIONS + "/" + product_id + "/"
     files = {prefix + name: local(candidate, name).read_bytes() for name in manifest["members"]}
@@ -129,15 +130,17 @@ def runtime_overlay(candidate):
     return files
 
 
-def stage(root, candidate, output):
+def stage(root, candidate, output, *, description_ref=None, blocks_ref=None, tooltip_ref=None):
     """A new isolated source tree, suitable for its own package_iris.ps1."""
     root, output = root.resolve(), output.resolve()
     new_output(root, output)
-    manifest = admit(candidate)
+    manifest = admit(candidate, description_ref=description_ref, blocks_ref=blocks_ref)
     for name in ("IrisLayer3Product.lock", "IrisTooltip.lock"):
         require(not local(root, (DATA_ROOT / name).as_posix()).exists(), "product writer locked")
     if manifest["schema_version"] == MENU_SCHEMA:
         require(output.is_relative_to(root / ".tmp/menu"), "Menu stage must stay in repository .tmp/menu")
+        if tooltip_ref is not None:
+            require(manifest['identity'].get('tooltip_input') == tooltip_ref, 'B candidate binding mismatch')
         accepted, _ = accepted_tooltip(root, manifest['identity'].get('tooltip_input'), manifest['identity']['description'])
     # Reject source drift since the single product invocation; staging cannot
     # silently substitute a newer runtime or owner for the observed candidate.
@@ -172,7 +175,7 @@ def stage(root, candidate, output):
                 require(target.read_bytes() == accepted[name], "unclassified B runtime drift: " + name)
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(accepted[name])
-    for name, raw in runtime_overlay(candidate).items():
+    for name, raw in runtime_overlay(candidate, description_ref=description_ref, blocks_ref=blocks_ref).items():
         target = local(data_root, name)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(raw)
@@ -191,7 +194,7 @@ def stage(root, candidate, output):
     return manifest["product_id"]
 
 
-def restore_candidate(root, candidate, source, journal, *, interrupt_after=None):
+def restore_candidate(root, candidate, source, journal, *, interrupt_after=None, description_ref=None, blocks_ref=None, tooltip_ref=None):
     """Recover a candidate overlay in place; never authorize live promotion.
 
     Uses the existing journal/lock protocol for interrupted candidate repair.
@@ -200,10 +203,12 @@ def restore_candidate(root, candidate, source, journal, *, interrupt_after=None)
     root, source, journal = root.resolve(), source.resolve(), journal.resolve()
     require(source.is_relative_to(root / ".tmp/menu") and journal.is_relative_to(source / ".tmp"),
             "candidate recovery must remain inside Menu stage")
-    manifest = admit(candidate)
+    manifest = admit(candidate, description_ref=description_ref, blocks_ref=blocks_ref)
     require(manifest["schema_version"] == MENU_SCHEMA, "candidate schema required")
-    accepted, _ = accepted_tooltip(root)
-    files = {(DATA_ROOT / n).as_posix(): raw for n, raw in runtime_overlay(candidate).items()}
+    if tooltip_ref is not None:
+        require(manifest['identity'].get('tooltip_input') == tooltip_ref, 'B candidate binding mismatch')
+    accepted, _ = accepted_tooltip(root, tooltip_ref, description_ref)
+    files = {(DATA_ROOT / n).as_posix(): raw for n, raw in runtime_overlay(candidate, description_ref=description_ref, blocks_ref=blocks_ref).items()}
     files.update({n: accepted[n] for n in manifest["b_preserved"]})
     lock = local(source, (DATA_ROOT / "IrisLayer3Product.lock").as_posix())
     require(not lock.exists(), "product writer locked")

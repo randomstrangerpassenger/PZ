@@ -6,19 +6,19 @@ from pathlib import Path
 import re
 from typing import Any
 
-from iris_tooling.build.compose_layer3_body_profile import (
+from .composition.body_profile import (
     build_candidate_body_plan_requirements, load_profile_resolution_rules,
     resolve_body_profile,
 )
-from iris_tooling.build.compose_layer3_identity import (
+from .composition.identity import (
     build_candidate_lead_context, select_candidate_lead_realization,
 )
-from iris_tooling.build.compose_layer3_text import (
+from .composition.entrypoint import (
     BODY_PLAN_PROFILES_PATH, CURRENT_OVERLAY_SUPPORT_PATH, IDENTITY_RULES_PATH,
     PRECEDENCE_RULES_PATH, STAGING_COMPOSE_CONTEXT, ComposeEntrypointGuardError,
     build_candidate_rendered, build_rendered,
 )
-from iris_tooling.build.naturalization_compiler_identity import build_compiler_identity
+from .composition.compiler_identity import build_compiler_identity
 
 from .naturalization_context import (
     BODY_PLAN_APPLICABILITY_APPROVAL_PATH, CORPUS_MANIFEST_PATH, DATA_ROOT,

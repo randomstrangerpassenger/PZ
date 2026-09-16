@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from iris_tooling.build.naturalization_compiler_identity import compiler_source_paths
-from iris_tooling.build.repository_context import (
+from .composition.compiler_identity import compiler_source_paths
+from iris_tooling.common.repository_context import (
     current_layer3_generation_root,
     require_external_workspace,
     require_repository_context,

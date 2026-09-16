@@ -6,6 +6,11 @@ local nativeRequire = require
 local requireCounts = {}
 require = function(moduleName)
     requireCounts[moduleName] = (requireCounts[moduleName] or 0) + 1
+    -- Model a loader that returns nil for the absent optional product pointer.
+    -- Standard Lua throws instead, which hid legacy Menu routing failures.
+    if mode == "layer3" and moduleName == "Iris/Data/IrisLayer3ProductCurrent" then
+        return nil
+    end
     return nativeRequire(moduleName)
 end
 
@@ -63,6 +68,7 @@ if mode == "layer3" then
         string.rep("0", 64) .. "/Chunks/Chunk999"
     local realLayer3Index = require("Iris/Data/IrisLayer3DataChunkIndex")
     local lookup = require("Iris/Data/IrisLayer3DataLookup")
+    assert(not lookup.isProduct, "absent product pointer must retain the legacy Menu route")
     local first = assert(lookup.get("Base.223Box"))
     local afterFirst = lookup.getDiagnostics()
     assert(afterFirst.loadedChunkCount == 1 and afterFirst.requireCallCount == 1)

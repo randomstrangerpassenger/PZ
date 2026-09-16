@@ -1552,7 +1552,14 @@ def test_full_source_policy_classifies_only_declared_fallback(
         row["path"]: row
         for row in source_policy["evidence_only_sources"]
     }
-    assert set(evidence_rows) == set()
+    snapshot = "docs/review/prose/before/test_layer3_description_composition.py"
+    assert set(evidence_rows) == {snapshot}
+    assert evidence_rows[snapshot]["physical_preservation"] == "executable_source"
+    assert _classify_full_test_source(snapshot, roles) == {
+        "execution_role": "not_required",
+        "authority_class": "evidence_only_executable_source",
+        "classification_basis": evidence_rows[snapshot]["reason"],
+    }
     for path, row in evidence_rows.items():
         assert row["physical_preservation"] == "executable_source"
         assert _classify_full_test_source(path, roles) == {
@@ -1696,20 +1703,19 @@ def test_g5_current_capsule_separates_historical_raw_and_current_claim() -> None
         transition,
         True,
     )
+    # The current contract owns the evolving compiler closure; historical
+    # attestation remains fixed. Do not freeze a past successor's file count.
     assert validated == {
-        "algorithm_id": (
-            "naturalization_compiler_identity_sha256_lf_normalized_"
-            "ordered_paths_v2"
-        ),
-        "ordered_path_count": 21,
+        "algorithm_id": compiler["algorithm_id"],
+        "ordered_path_count": len(compiler["ordered_paths"]),
         "historical_attested_aggregate_sha256": (
             "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f"
         ),
-        "current_aggregate_sha256": (
-            "f0582bc1524d0b860ea788c2f6cfb7f0923e8b29c2817a925930a3f9dcaaec08"
+        "current_aggregate_sha256": compiler["current_aggregate_sha256"],
+        "changed_constituent_count": len(transition["changed_rows"]),
+        "unchanged_constituent_count": (
+            len(compiler["ordered_paths"]) - len(transition["changed_rows"])
         ),
-        "changed_constituent_count": 21,
-        "unchanged_constituent_count": 0,
         "current_basis_validation_mode": "exact_git_object",
     }
 

@@ -10,6 +10,7 @@ import hashlib
 import re
 
 from . import source_reader as reader
+from . import recovery_source_index as participant_index
 
 FUNCTIONS = {'unpack_canned_food', 'unpack_produce', 'unpack_ammunition',
              'unpack_seeds', 'unpack_eggs', 'unpack_jarred_food',
@@ -127,7 +128,7 @@ def enrich(root, semantic, composition):
     purpose_fields = ('Type', 'DisplayCategory', 'Categories', 'SubCategory', 'Tags', 'Ranged', 'Poison',
                       'ExplosionPower', 'FirePower', 'SmokeRange', 'NoiseRange',
                       'RemoteController', 'RemoteRange', 'SensorRange', 'ExplosionTimer',
-                      'CanBeRemote', 'CanBePlaced', 'AcceptMediaType', 'MediaCategory', 'ClothingItemExtraOption', 'WorldObjectSprite', 'BodyLocation', 'CanBeEquipped')
+                      'CanBeRemote', 'CanBePlaced', 'AcceptMediaType', 'MediaCategory', 'ClothingItemExtraOption', 'WorldObjectSprite', 'BodyLocation', 'CanBeEquipped', 'TwoWay', 'IsTelevision')
 
     def named(item, food=False):
         fields = declarations[item]
@@ -183,7 +184,10 @@ def enrich(root, semantic, composition):
                    and r['raw'].replace('\r\n', '\n') == content['raw'].replace('\r\n', '\n')]
         if len(matches) != 1:
             return None
-        return matches[0]
+        record = dict(matches[0])
+        headers = participant_index.module_imports((root / path).read_text(encoding='utf-8-sig'), path)
+        record['module_imports'] = [h for h in headers if h['module'] == record['module']]
+        return record
 
     build_path = 'lua/client/BuildingObjects/ISUI/ISBuildMenu.lua'
     build_raw = (root / build_path).read_bytes()
@@ -200,10 +204,43 @@ def enrich(root, semantic, composition):
         'onSmallWoodTableWithDrawer': ('서랍 달린 탁자', 'tables with drawers'),
         'onDoubleWoodenDoor': ('문', 'doors'), 'onWoodenDoor': ('문', 'doors'),
     }
+    # Callback semantics establish a purpose hierarchy, independent of item IDs,
+    # source order and the number of recipes that happen to use a participant.
+    construction_families = {
+        'furniture': ('가구', 'furniture', {
+            'onBarElement', 'onWoodenCrate', 'onBed', 'onSmallWoodTable',
+            'onSmallWoodTableWithDrawer', 'onLargeWoodTable', 'onWoodChair',
+            'onBookcase', 'onSmallBookcase', 'onShelve', 'onDoubleShelve'}),
+        'structures': ('건축 구조물', 'building structures', {
+            'onBarbedFence', 'onWoodenFenceStake', 'onSangBagWall', 'onGravelBagWall',
+            'onWoodenFence', 'onWoodenPillar', 'onLogWall', 'onWoodenWall',
+            'onWoodenWallFrame', 'onWoodenWindowsFrame', 'onWoodenFloor',
+            'onWoodenBrownFloor', 'onWoodenLightBrownFloor', 'onDarkWoodenStairs',
+            'onBrownWoodenStairs', 'onLightBrownWoodenStairs', 'onDoubleWoodenDoor',
+            'onWoodenDoor', 'onWoodenDoorFrame'}),
+        'fixtures': ('조명·집수·퇴비화 설비', 'lighting, rain collection and composting fixtures', {
+            'onPillarLamp', 'onCreateBarrel', 'onCompost'}),
+        'markers': ('표식', 'markers', {'onWoodenCross', 'onStonePile', 'onWoodenPicket', 'onSign'}),
+    }
+    target_labels.update({
+        'onWoodenCross': ('나무 십자가', 'wooden crosses'), 'onSign': ('표지판', 'signs'),
+        'onCompost': ('퇴비통', 'composters'), 'onBarElement': ('바 가구', 'bar furniture'),
+        'onWoodenFenceStake': ('말뚝 울타리', 'stake fences'), 'onWoodenFence': ('나무 울타리', 'wooden fences'),
+        'onWoodenPillar': ('나무 기둥', 'wooden pillars'), 'onWoodenWall': ('나무 벽', 'wooden walls'),
+        'onWoodenWallFrame': ('나무 벽 골조', 'wooden wall frames'),
+        'onWoodenWindowsFrame': ('나무 창문틀', 'wooden window frames'),
+        'onWoodenCrate': ('나무 상자', 'wooden crates'),
+        'onSmallWoodTable': ('탁자', 'tables'), 'onLargeWoodTable': ('탁자', 'tables'),
+        'onWoodChair': ('나무 의자', 'wooden chairs'), 'onBookcase': ('책장', 'bookcases'),
+        'onSmallBookcase': ('책장', 'bookcases'), 'onShelve': ('선반', 'shelves'),
+        'onDoubleShelve': ('선반', 'shelves'), 'onWoodenDoorFrame': ('문틀', 'door frames'),
+        **{k: ('나무 바닥', 'wooden floors') for k in ('onWoodenFloor', 'onWoodenBrownFloor', 'onWoodenLightBrownFloor')},
+        **{k: ('나무 계단', 'wooden stairs') for k in ('onDarkWoodenStairs', 'onBrownWoodenStairs', 'onLightBrownWoodenStairs')},
+    })
     construction_targets = defaultdict(list)
     for m in re.finditer(r'ISBuildMenu\.(\w+)\s*=\s*function\([^\n]*\)(.*?)(?=\n(?:ISBuildMenu\.\w+\s*=\s*function|function ISBuildMenu\.)|\Z)', build_text, re.S):
         for material in set(re.findall(r'\["need:([\w.]+)"\]', m[2])):
-            construction_targets[material].append({'callback': m[1], 'names': dict(zip(('ko', 'en'), target_labels[m[1]])) if m[1] in target_labels else None,
+            construction_targets[material].append({'callback': m[1], 'purpose_family': next((k for k, v in construction_families.items() if m[1] in v[2]), None), 'names': dict(zip(('ko', 'en'), target_labels[m[1]])) if m[1] in target_labels else None,
                                                    'source_path': build_path, 'source_sha256': build_sha})
 
     evolved = []
@@ -238,6 +275,50 @@ def enrich(root, semantic, composition):
                                  for k in ('FabricType', 'FoodType') + purpose_fields if k in declarations.get(item_id, {})}
         item['source_traits']['purpose_evidence'] = purpose_evidence.for_item(item_id, declarations.get(item_id, {}), accepted_baits)
         item['source_traits']['construction_targets'] = construction_targets.get(item_id, [])
+        welding_targets = {}
+        for fact in by_item[item_id]:
+            for p in fact['provenance_refs']:
+                for ref in semantic['provenance'][p]['observation_refs']:
+                    content = observations[ref].get('content', {})
+                    if not isinstance(content, dict) or content.get('required_item') != item_id:
+                        continue
+                    group = content.get('learned_group')
+                    welding_labels = {'Make Metal Containers': ('금속 보관함', 'metal storage containers'),
+                                      'Make Metal Walls': ('금속 벽 골조', 'metal wall frames'),
+                                      'Make Metal Roof': ('금속 바닥', 'metal floors')}
+                    if group == 'Make Metal Fences':
+                        callback = content['factory'].split('.')[-1]
+                        group = ('wire_fence' if callback in {'onWiredFence', 'onBigWiredFence'} else
+                                 'gate' if callback in {'onFenceGate', 'onBigMetalFenceGate', 'onDoublePoleDoor', 'onDoubleMetalDoor'} else 'fence')
+                        welding_labels.update({'wire_fence': ('철망 울타리', 'wire fences'),
+                                               'gate': ('금속 울타리 문', 'metal gates'),
+                                               'fence': ('금속 울타리', 'metal fences')})
+                    if group in welding_labels:
+                        entry = welding_targets.setdefault(group, {'names': dict(zip(('ko', 'en'), welding_labels[group])), 'observation_refs': []})
+                        entry['observation_refs'].append(ref)
+        if welding_targets:
+            item['source_traits']['welding_targets'] = list(welding_targets.values())
+        stage_targets = {}
+        for fact in by_item[item_id]:
+            if fact['fact_kind'] != 'context_role':
+                continue
+            for p in fact['provenance_refs']:
+                for ref in semantic['provenance'][p]['observation_refs']:
+                    content = observations[ref].get('content', {})
+                    if not isinstance(content, dict) or not content.get('raw', '').lstrip().startswith('multistagebuild '):
+                        continue
+                    record = recipe_record(observations[ref], 'multistagebuild')
+                    if not record:
+                        continue
+                    props = reader.properties(record, ':')
+                    target = re.fullmatch(r'(Wooden|Metal)(Wall|Window)Lvl\d+', props.get('Name', [''])[0])
+                    if target:
+                        ko_name = ('나무' if target[1] == 'Wooden' else '금속') + (' 벽' if target[2] == 'Wall' else ' 창문틀')
+                        en_name = ('wooden' if target[1] == 'Wooden' else 'metal') + (' walls' if target[2] == 'Wall' else ' window frames')
+                        entry = stage_targets.setdefault(target[1] + target[2], {'names': {'ko': ko_name, 'en': en_name}, 'observation_refs': []})
+                        entry['observation_refs'].append(ref)
+        if stage_targets:
+            item['source_traits']['stage_targets'] = list(stage_targets.values())
         if any(f['payload'].get('activity') == 'food_ingredient_addition' for f in by_item[item_id]):
             item['source_traits']['cooking_relations'] = [dict(r, subject_role='base' if item_id == r['base_item'] else 'prepared') for r in evolved if item_id in {r['base_item'], r['result']['item_id']}]
         learned = []
@@ -382,7 +463,7 @@ def enrich(root, semantic, composition):
                 record = recipe_record(observation)
                 if record is None:
                     continue
-                participants, opaque = reader.recipe_participants(record, declarations, groups)
+                participants, opaque = participant_index.recipe_participants(record, declarations, groups)
                 if opaque or not any(p['item_id'] == item_id and p['role'] in {'input', 'destroy'} for p in participants):
                     continue
                 outputs = [p for p in participants if p['role'] == 'result']
@@ -453,12 +534,13 @@ def enrich(root, semantic, composition):
                     'SliceWatermelon', 'SliceBread', 'SliceBreadDough', 'SliceHam',
                     'SliceSalami', 'SlicePie', 'CutFish', 'CutAnimal',
                     'PutCakeBatterInBakingPan', 'GetMuffin', 'GetBiscuit',
-                    'GetCookies', 'SlicePizza', 'BeanBowl', 'MakeOatmeal', 'SpikedBat', 'UpgradeSpear')}
+                    'GetCookies', 'SlicePizza', 'BeanBowl', 'MakeOatmeal', 'SpikedBat', 'UpgradeSpear',
+                    'RadioCraft', 'AddBaseIngredientToCookingVessel')}
                 if callbacks and (len(callbacks) != 1 or callbacks[0] not in fixed_result_callbacks
                                   or 'function ' + callbacks[0] + '(' not in groups_text):
                     continue
-                participants, opaque = reader.recipe_participants(record, declarations, groups)
-                expected = {'keep'} if role == 'tool' else {'input', 'destroy'}
+                participants, opaque = participant_index.recipe_participants(record, declarations, groups)
+                expected = {'keep'} if role == 'tool' else {'keep', 'input', 'destroy'} if role == 'container' else {'input', 'destroy'}
                 # Unknown peer operands do not erase an admitted participant
                 # and an explicit result identity. We expose no counts or
                 # completeness claim about the remaining recipe inputs.
@@ -484,10 +566,44 @@ def enrich(root, semantic, composition):
                     'uninterpreted_operands': opaque,
                 }
                 inputs = [p for p in participants if p['role'] in {'input', 'destroy'}]
+                if (context['payload']['activity'] == 'woodworking' and role == 'material' and inputs
+                        and any(p['item_id'] == item_id and p['ordinal'] == min(x['ordinal'] for x in inputs) for p in inputs)):
+                    recipe_relations[key]['processing_role'] = 'processing_target'
+                # Names describe reviewed operations, not the participant's identity.
+                # Keep the same preparation purpose on every vessel in the relation.
+                preparation = {
+                    'Place Pie in Baking Pan': ('파이', 'pies'),
+                    'Place Cake in Baking Pan': ('케이크', 'cakes'),
+                    'Prepare Muffins': ('머핀', 'muffins'),
+                    'Make Biscuits': ('비스킷', 'biscuits'),
+                    'Make Cake Batter': ('케이크 반죽', 'cake batter'),
+                    'Make Bread Dough': ('빵 반죽', 'bread dough'),
+                    'Make Pie Dough': ('파이 반죽', 'pie dough'),
+                    'Make Pizza': ('피자', 'pizza'),
+                }.get(record.get('name'))
+                if role == 'container' and context['payload']['activity'] == 'cookie_preparation':
+                    preparation = ('쿠키', 'cookies')
+                if role == 'container' and preparation:
+                    recipe_relations[key]['preparation_purpose'] = dict(zip(('ko', 'en'), preparation))
+                    recipe_relations[key]['preparation_role'] = 'mixing' if (record.get('name') in {'Make Cake Batter', 'Make Bread Dough', 'Make Pie Dough', 'Make Pizza'} or any(p['item_id'] == item_id and p['role'] == 'keep' for p in participants)) else 'baking_vessel'
+                if role == 'container' and not preparation:
+                    dish_labels = {'Prepare Pasta': ('파스타', 'pasta'), 'Prepare Rice': ('쌀 요리', 'rice dishes')}
+                    cooking_bases = [r for r in evolved if r['base_item'] in {p['item_id'] for p in outputs}]
+                    dishes = {r['fields']['Name'] for r in cooking_bases}
+                    if len(dishes) == 1 and dishes <= dish_labels.keys():
+                        # A preparation result is the next cooking base. Join
+                        # only its dish purpose, never its effects or later uses.
+                        pair = dish_labels[sorted(dishes)[0]]
+                        recipe_relations[key]['preparation_purpose'] = dict(zip(('ko', 'en'), pair))
+                        recipe_relations[key]['preparation_role'] = 'cooking_vessel'
+                        recipe_relations[key]['observation_refs'] = sorted(set(recipe_relations[key]['observation_refs']) | {r['observation_ref'] for r in cooking_bases})
                 if (record.get('name', '').startswith(('Fix ', 'Repair ')) and inputs
-                        and inputs[0]['item_id'] == item_id and role == 'material'
-                        and len(outputs) == 1 and declarations[item_id].get('Type') == declarations[outputs[0]['item_id']].get('Type')):
-                    recipe_relations[key]['processing_role'] = 'restoration_target'
+                        and len(outputs) == 1 and inputs[0]['item_id'] in declarations
+                        and declarations[inputs[0]['item_id']].get('Type') == declarations[outputs[0]['item_id']].get('Type')):
+                    recipe_relations[key]['operation'] = 'restoration'
+                    recipe_relations[key]['restoration_target'] = named(inputs[0]['item_id'])
+                    if inputs[0]['item_id'] == item_id and role == 'material':
+                        recipe_relations[key]['processing_role'] = 'restoration_target'
                 recipe_relations[key]['inputs'] = [named(p['item_id']) for p in participants
                     if p['role'] in {'input', 'destroy'} and p['item_id'] in declarations]
                 if (role == 'material' and len(outputs) == 1 and callbacks

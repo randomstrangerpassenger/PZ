@@ -701,6 +701,8 @@ def produce(root: Path):
     names = ["description_composition_" + suffix + ".py" for suffix in
              ("model", "planner", "lexicon", "ko", "en", "families", "uses", "results")]
     names += ["expression_rules.py", "recovery_expression.py", "recovery_sources.py", "acquisition_expression.py", "purpose_evidence.py", "purpose_participant_relations.py"]
+    names += ['description_composition_frame_rules.py', 'description_composition_frame_state.py', 'description_composition_crafting_frames.py', 'description_composition_cooking_frames.py', 'description_composition_media_frames.py', 'description_composition_medical_frames.py', 'description_composition_supplies_frames.py']
+    names += ['recovery_vocabulary.py', 'recovery_phrase_views.py', 'recovery_source_index.py', 'recovery_crafting_roles.py', 'recovery_claims.py', 'recovery_question_rules.py', 'recovery_direct_review.py', 'recovery_activities_review.py']
     producer = {"version": model.VERSION, "files": {
         CODE + name: hashlib.sha256((root / CODE / name).read_bytes()).hexdigest() for name in names}}
     return source, compose(source, identity, producer)

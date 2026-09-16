@@ -241,6 +241,8 @@ function Get-StatelessRuntimePayloadIdentity {
         'IrisLayer3DataChunks.lua',
         'IrisLayer3DataChunkIndex.lua',
         'IrisLayer3DataLookup.lua',
+        'IrisLayer3ProductLookup.lua',
+        'IrisLayer3LegacyLookup.lua',
         'UseCaseDescriptions/ChunkIndex.lua',
         'UseCaseDescriptions/LineCountIndex.lua',
         'IrisRuntimeLookupPackageIdentity.json',

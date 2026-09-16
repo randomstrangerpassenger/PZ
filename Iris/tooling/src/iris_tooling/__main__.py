@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import argparse
+from importlib import import_module
 from collections.abc import Sequence
 import json
 from pathlib import Path
 import subprocess
 import sys
 
-from iris_tooling.build.repository_context import configure_repository
+from iris_tooling.common.repository_context import configure_repository
 
 
 BUILD_TARGETS = ("classification", "rightclick", "layer3", "layer4", "public-text", "tooltip-t1", "tooltip-t2")
@@ -74,23 +75,21 @@ def _require_repository(parser: argparse.ArgumentParser, repository_root: Path |
     return root
 
 
-def _domain_main(target: str, remainder: Sequence[str]) -> int:
-    if target == "classification":
-        from iris_tooling.domains.classification.cli import main as command_main
-    elif target == "rightclick":
-        from iris_tooling.domains.rightclick.cli import main as command_main
-    elif target == "layer3":
-        from iris_tooling.domains.layer3.cli import main as command_main
-    elif target == "layer4":
-        from iris_tooling.domains.layer4.cli import main as command_main
-    elif target == "tooltip-t1":
-        from iris_tooling.domains.tooltip_t1.cli import main as command_main
-    elif target == "tooltip-t2":
-        from iris_tooling.domains.tooltip_static_data_projection.cli import main as command_main
-    else:
-        from iris_tooling.domains.public_text.cli import main as command_main
-    return command_main(remainder)
+DOMAIN_MODULES = {
+    "classification": "iris_tooling.domains.classification.cli",
+    "rightclick": "iris_tooling.domains.rightclick.cli",
+    "layer3": "iris_tooling.domains.layer3.cli",
+    "layer4": "iris_tooling.domains.layer4.cli",
+    "public-text": "iris_tooling.domains.public_text.cli",
+    "tooltip-t1": "iris_tooling.domains.tooltip_t1.cli",
+    "tooltip-t2": "iris_tooling.domains.tooltip_static_data_projection.cli",
+}
 
+
+def _domain_main(target: str, remainder: Sequence[str]) -> int:
+    # Import only the selected owner; legacy commands use the same registry.
+    module = DOMAIN_MODULES.get(target, DOMAIN_MODULES["public-text"])
+    return import_module(module).main(remainder)
 
 def _validate_full(
     args: argparse.Namespace,

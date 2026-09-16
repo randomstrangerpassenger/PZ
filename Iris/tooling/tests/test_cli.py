@@ -9,6 +9,27 @@ import pytest
 from iris_tooling.__main__ import main
 
 
+@pytest.mark.parametrize(('command', 'module', 'forwarded'), [
+    (['build', 'classification', '--output', '한글 path'],
+     'classification', ['build', '--output', '한글 path']),
+    (['build', 'tooltip-t2', '--output', 'candidate'],
+     'tooltip_static_data_projection', ['--output', 'candidate']),
+    (['public-text', '--output', 'candidate'], 'public_text', ['--output', 'candidate']),
+])
+def test_domain_dispatch_preserves_owner_and_arguments(monkeypatch, command, module, forwarded):
+    repository = Path(__file__).resolve().parents[3]
+    imported = []
+    def load(name):
+        imported.append(name)
+        def owner_main(arguments):
+            assert list(arguments) == forwarded
+            return 7
+        return SimpleNamespace(main=owner_main)
+    monkeypatch.setattr('iris_tooling.__main__.import_module', load)
+    assert main(['--repository-root', str(repository), *command]) == 7
+    assert imported == [f'iris_tooling.domains.{module}.cli']
+
+
 def test_help_is_repository_independent(capfd, monkeypatch, tmp_path: Path) -> None:
     assert main([]) == 0
     assert "Iris repository-bound offline build and validation adapter" in capfd.readouterr().out

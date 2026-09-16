@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-2 완료 및 문제 3·B/C 잔여 책임; 기존 완료 이력 유지)
+> 기준일: 2026-09-16 (이번 갱신 범위: Iris 내부 리팩토링 및 사용자 인게임 확인 완료; 기존 DVF 품질·B42 포팅 과제와 완료 이력 유지)
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -1203,6 +1203,22 @@ Problem 3 수락 당시 후속 범위는 새 corpus와 B의 기존 r6 S2 공급 
 ## 2026-09-12 의미 판정 재개 — partial
 
 후속 실제 원문 검토에서 공통 점화 frame의 내부 지원 문구, 도구 설명의 수행 요건 나열, 음식 미끼의 추상적 주어, 차량 부품 목적의 미확정 문제가 확인되었다. 위 ‘잔여 표현 결함 0 / 실제 PZ만 남음’ 판단을 철회한다. ledger의 읽기 이력과 자동 검사 결과는 보존하지만 의미 적합성 수락으로 사용하지 않는다. 기존 ffde6886... corpus와 run-7ztpp37i C ZIP은 당시 자동 검사 통과 후보이며 의미 품질 승인 후보가 아니다. 공통 규칙과 같은 의미/조합 범위를 교정하고 재판정할 때까지 partial이다.
+
+## 2026-09-16 Iris 내부 리팩토링 — 완료
+
+- [x] 설명 frame 및 Recovery의 vocabulary/source/claim/question 책임 분리.
+- [x] 공통 serialization/context와 naturalization composition 구현 분리, 기존 adapter 유지.
+- [x] 명시적 B→Menu 후보 입력 전달과 checkout 입력 준비 보완.
+- [x] Repository runner 내부 모듈 분리 및 source classification 누락 해소.
+- [x] Product/legacy lookup, Browser child/scroll, Wiki 공통 필드 처리 분리.
+- [x] 테스트 위치·ID 유지(no-op), 역사 registry 실행자 3개 archive, Tooltip 정책 문서 복원.
+- [x] Package support·Menu 입력 fixture와 G5의 과거 고정 기대값 수정. 실패했던 세 노드 재검사 **3 passed, exit 0**.
+- [x] Optional product pointer의 nil 반환을 구분해 저장소 실행의 설명 누락 수정. 기존 Layer3 조회 검사 **1 passed, exit 0**, 변경 Lua 2개 문법 검사 **exit 0**.
+- [x] 수정 후 저장소 Iris 실행의 **사용자 인게임 검증 통과**.
+
+Canonical 전체 실행의 215 passed / 3 failed 이력과 실패 세 노드의 후속 PASS를 구분한다. 전체 suite를 다시 실행하지 않았으며, 사용자의 지시에 따라 추가 동일성 증명·봉인 없이 완료했다. 이번 세션의 리팩토링 범위에 남은 관찰 gate는 없다.
+
+인게임 확인 대상은 저장소 Iris 폴더다. 별도 후보 ZIP의 인게임 확인이나 설명 corpus 전체 품질 수락으로 확대하지 않으며, 기존 DVF 표현 개선·B42 포팅 과제는 각 절의 상태를 따른다. Accepted/current 입력과 공개 배포는 갱신하지 않았다. 상세 명령·결과·사용자 확인은 [리팩토링 실행 기록](iris_refactoring_implementation_plan.md#2026-09-16-비-pz-잔여-해소)에 있다.
 
 ## 2026-09-12 공통 목적군 교정 후 후보
 

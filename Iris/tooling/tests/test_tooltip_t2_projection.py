@@ -120,8 +120,20 @@ def test_s2_supply_and_owner_integration(tmp_path):
     from iris_tooling.domains.tooltip_static_data_projection.serialization import artifact_binding, RUN_RECEIPT, LUA_NAME, MANIFEST_NAME
     repository = Path(__file__).resolve().parents[3]
     assert tmp_path.resolve().is_relative_to(repository / '.tmp'), 'integration fixture must stay in selected repository'
-    payload = supply.build(repository)
-    assert payload == supply.build(repository), 'deterministic supply'
+    expected_description = None
+    inputs_path = os.environ.get('IRIS_REFACTOR_MENU_INPUTS')
+    if inputs_path is not None:
+        from iris_tooling.domains.layer3 import product_projection as menu_product
+        expected = json.loads(Path(inputs_path).read_bytes())
+        assert set(expected) == {'description', 'blocks'}
+        expected_description, expected_blocks = menu_product.menu_input_refs(**{
+            'description_ref': expected['description'], 'blocks_ref': expected['blocks']})
+        for ref in (expected_description, expected_blocks):
+            assert menu_product.binding(repository, ref['path']) == ref
+    payload = supply.build(repository, description_ref=expected_description)
+    assert payload == supply.build(repository, description_ref=expected_description), 'deterministic supply'
+    if inputs_path is not None:
+        assert payload['binding']['expression'] == expected_description
     embedded = {'sha256': sha256_bytes(canonical_bytes(payload)), 'payload': payload}
     before, _, _ = supply.current_support(repository)
     contract, contract_hash = load_contract(repository)
@@ -134,14 +146,16 @@ def test_s2_supply_and_owner_integration(tmp_path):
     tmp_path = Path(tempfile.mkdtemp(prefix='run-', dir=parent))
     print(f'workspace={tmp_path}', flush=True)
     handoff = tmp_path / 'h'
-    receipt = s2_candidate.build(repository, handoff)
+    receipt = s2_candidate.build(repository, handoff, description_ref=expected_description)
     second = tmp_path / 'i'
-    assert receipt == s2_candidate.build(repository, second)
+    assert receipt == s2_candidate.build(repository, second, description_ref=expected_description)
     for name in (s2_candidate.SUBJECT, s2_candidate.ROWS, s2_candidate.RECEIPT):
         assert (handoff / name).read_bytes() == (second / name).read_bytes()
     receipt_sha = sha256_bytes((handoff / 'run_receipt.json').read_bytes())
     rows = [json.loads(line) for line in (handoff / 't2_handoff_input.jsonl').read_bytes().splitlines()]
     accepted = s2_candidate.admit(repository, handoff, receipt_sha)
+    if inputs_path is not None:
+        assert accepted.binding['description'] == expected_description
     with pytest.raises(TooltipContractError, match='receipt hash'):
         s2_candidate.admit(repository, handoff, '0' * 64)
     saved_subject = (handoff / s2_candidate.SUBJECT).read_bytes()
@@ -178,6 +192,8 @@ def test_s2_supply_and_owner_integration(tmp_path):
     assert (t2 / LUA_NAME).read_bytes() == raw
     candidate, other = tmp_path / 'c', tmp_path / 'd'
     owner = install.build(repository, t2, candidate)
+    if inputs_path is not None:
+        assert json.loads(owner['identity_json'])['t1_input']['description'] == expected_description
     assert owner == install.build(repository, other_t2, other)
     pools = interaction_candidates(repository, data)
     new_variants = project_interaction_variants(data, rows, pools)
@@ -268,6 +284,13 @@ def test_s2_supply_and_owner_integration(tmp_path):
         # The next selected product node consumes these exact B bytes, runs
         # syntax and both runtime harnesses on the common B/C stage and ZIP.
         os.environ['IRIS_MENU_TOOLTIP_CANDIDATE'] = (package / 'Iris.zip').relative_to(repository).as_posix()
+        os.environ['IRIS_MENU_TOOLTIP_BINDING'] = json.dumps({
+            'repository': str(repository),
+            'tooltip': {'path': os.environ['IRIS_MENU_TOOLTIP_CANDIDATE'],
+                        'sha256': sha256_bytes((package / 'Iris.zip').read_bytes())},
+            'description': accepted.binding['description'],
+            'owner': owner['product_id'],
+        })
 
 
 def test_package_rejects_tooltip_writer_lock():

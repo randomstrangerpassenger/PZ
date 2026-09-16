@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from iris_tooling.common import serialization
+
 import hashlib
 import json
 from pathlib import Path
@@ -11,25 +13,15 @@ class PublicTextEmissionError(RuntimeError):
 
 
 def canonical_json_bytes(value: Any) -> bytes:
-    return (
-        json.dumps(
-            value,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        )
-        + "\n"
-    ).encode("utf-8")
+    return serialization.compact_json_bytes(value)
 
 
 def pretty_json_bytes(value: Any) -> bytes:
-    return (
-        json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
-    ).encode("utf-8")
+    return serialization.pretty_json_bytes(value)
 
 
 def sha256_bytes(value: bytes) -> str:
-    return hashlib.sha256(value).hexdigest()
+    return serialization.raw_sha256(value)
 
 
 def write_once_or_same(path: Path, payload: bytes) -> str:

@@ -58,9 +58,22 @@ MENU_RUNTIME = (
 )
 
 
-def read_menu_inputs(root):
+def menu_input_refs(description_ref=None, blocks_ref=None):
+    """Resolve caller-owned candidate refs without changing current defaults."""
+    require((description_ref is None) == (blocks_ref is None), "both Menu input refs are required")
+    refs = (DESCRIPTION, BLOCKS) if description_ref is None else (description_ref, blocks_ref)
+    result = []
+    for ref, current in zip(refs, (DESCRIPTION, BLOCKS)):
+        require(isinstance(ref, dict) and set(ref) == {"path", "sha256"}
+                and ref["path"] == current["path"]
+                and isinstance(ref["sha256"], str)
+                and re.fullmatch(r"[0-9a-f]{64}", ref["sha256"]), "malformed Menu input ref")
+        result.append(dict(ref))
+    return tuple(result)
+
+def read_menu_inputs(root, *, description_ref=None, blocks_ref=None):
     from . import description_composition_results, composition_results
-    for ref in (DESCRIPTION, BLOCKS):
+    for ref in menu_input_refs(description_ref, blocks_ref):
         require(binding(root, ref["path"]) == ref, "canonical input drift: " + ref["path"])
     return description_composition_results.read_result(root), composition_results.read_result(root)
 
@@ -169,18 +182,19 @@ def expanded_projection(payload, blocks):
     return runtime, trace
 
 
-def build_menu_product(root: Path, output: Path, *, tooltip_ref=None):
+def build_menu_product(root: Path, output: Path, *, tooltip_ref=None, description_ref=None, blocks_ref=None):
     """Explicit canonical C candidate; does not invoke historical B writers."""
     root, output = root.resolve(), output.resolve()
     require(output.is_relative_to(root / ".tmp/menu"), "Menu candidate must stay in repository .tmp/menu")
     new_output(root, output)
     for name in ("IrisLayer3Product.lock", "IrisTooltip.lock"):
         require(not local(root, (DATA_ROOT / name).as_posix()).exists(), "product writer locked")
-    payload, blocks = read_menu_inputs(root)
+    description_ref, blocks_ref = menu_input_refs(description_ref, blocks_ref)
+    payload, blocks = read_menu_inputs(root, description_ref=description_ref, blocks_ref=blocks_ref)
     tooltip_ref = tooltip_ref or ACCEPTED_TOOLTIP
-    accepted, owner = accepted_tooltip(root, tooltip_ref, DESCRIPTION)
+    accepted, owner = accepted_tooltip(root, tooltip_ref, description_ref)
     menu, trace = expanded_projection(payload, blocks)
-    owners = [DESCRIPTION, BLOCKS, tooltip_ref]
+    owners = [description_ref, blocks_ref, tooltip_ref]
     # Bind exactly the source media/tools that staging reads, including files
     # shared with B. Accepted B bytes themselves come from the admitted ZIP.
     paths = [p.relative_to(root).as_posix() for p in local(root, "Iris/media").rglob("*") if p.is_file()
@@ -196,7 +210,7 @@ def build_menu_product(root: Path, output: Path, *, tooltip_ref=None):
     changed = {n: {"before": digest(accepted[n]), "after": digest(local(root, n).read_bytes())}
                for n in sorted(replaced) if n in accepted and n.startswith("Iris/media/lua/client/Iris/")
                and n.removeprefix("Iris/media/lua/client/Iris/") in MENU_RUNTIME}
-    identity = {"schema": MENU_SCHEMA, "description": DESCRIPTION, "blocks": BLOCKS,
+    identity = {"schema": MENU_SCHEMA, "description": description_ref, "blocks": blocks_ref,
                 "tooltip_input": tooltip_ref,
                 "tooltip_product_id": owner["product_id"], "owners": owners, "producer": producers,
                 "b_preserved": preserved, "shared_changes": changed,
@@ -437,7 +451,7 @@ def build_product(root: Path, output: Path):
             {k: [v["id"] for v in r["variants"]] for k, r in previous_variants.items()}, "Recipe selection domain changed")
     producers = [binding(root, CODE + name + ".py") for name in ("product_projection", "product_install")]
     producers.append(binding(root, CONTRACT))
-    for name in ("IrisLayer3DataLookup.lua", "IrisLayer3EnglishLookup.lua", "layer3_renderer.lua",
+    for name in ("IrisLayer3DataLookup.lua", "IrisLayer3ProductLookup.lua", "IrisLayer3LegacyLookup.lua", "IrisLayer3EnglishLookup.lua", "layer3_renderer.lua",
                  "IrisTooltipStaticDataLookup.lua"):
         producers.append(binding(root, (DATA_ROOT / name).as_posix()))
     for path in ("Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailModelAssembler.lua",

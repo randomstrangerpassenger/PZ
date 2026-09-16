@@ -1,7 +1,7 @@
 # DECISIONS.md
 
 > 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·획득·표현·offline composition 경계 반영
-> 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-2 offline 조합기 완료와 문제 3 인계 결정; 기존 제품 current·sealed 결정 유지)
+> 기준일: 2026-09-16 (이번 갱신 범위: Iris 내부 리팩토링 완료·검증 처분·사용자 인게임 확인; 기존 DVF 품질·B42 방향·제품 current 이력 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -2559,3 +2559,15 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 동일 canonical corpus를 `iris-layer3-product-v2`로 투영하고 Browser Detail/Wiki에 ordered visibility units를 연결했다. 동일 branch/ref는 의미 동일성의 판정으로 사용하지 않고 보수적인 연속 표시 제약으로만 소비한다. 원문·qualifier scope·unresolved·detail links를 보존하고 문장 재작성/접기는 추가하지 않았다. accepted B의 독립 owner 및 retained bytes를 C stage/ZIP과 결속한다. C의 public facade는 유지하며 product fault/unsupported locale에서 predecessor·다른 locale로 돌아가지 않는다.
 
 C 상태는 **implemented_only**다. 마지막 required product node는 exit 0 (`1 passed in 100.05s`), actual PZ Menu 관찰은 `unvalidated_but_in_scope`다. current activation/strict finalization/release는 미수행이다. [C 실행 결과](iris_dvf_expanded_menu_structuring_common_candidate_recovery_closeout.md)가 exact candidate·검사·관찰 인계를 소유한다. 현재 required-validation 안내 경로는 `Iris/validation/execution/required_validations.json`이며 앞선 historical/current_route locator 기록을 소급 수정하지 않는다.
+
+### 2026-09-16 — Iris 내부 리팩토링 완료 및 수락 경계
+
+설명/Recovery·offline 공통 기반·Menu Lua·repository runner의 책임 분리를 완료했다. 기존 사실/표현 owner와 accepted/current 입력은 유지한다. 명시적 후보 입력은 B 공급에서 Menu installer까지 전달하며, 이 구현 완료로 제품 current 활성화나 배포를 수행하지 않는다. 9월 15일의 partial 판단은 아래 처분과 후속 검사·사용자 관찰로 갱신한다.
+
+- **실행 소스 분류:** 조합·설명·purpose·Recovery·rule-generalization 5개 소스는 기존 전용 producer 계약에서 검사한다. 일반 pytest 제외 사유와 대체 명령을 기록하고 dedicated-route로 등록했다. Prose review의 before 테스트 사본은 반복 실행 의무가 없는 evidence-only source다. Active validator가 요구하는 Tooltip 정책 문서도 복원했다.
+- **유지·보관 처분:** 기존 테스트 위치·unittest ID·required runner를 유지하며 추가 relocation이나 framework 변환은 하지 않는다. 짧은 atomic write 공통화와 untracked r1–r5 보관도 no-op이다. Current 반복 실행 의무가 없는 registry closure 본체와 run/validate 진입점 3개는 `Iris/_archive/registry.zip`에 보관했다. Current frozen fixture materializer와 역사 기록은 유지한다.
+- **검증 범위:** 사용자의 지시에 따라 추가 raw-byte·해시 동일성 증명과 그에 따른 재생산·봉인을 중단한다. 이후 명시적으로 요청한 실패 3건은 기존 거부 조건을 유지하면서 fixture를 수정하고 해당 노드만 재실행했다. G5는 과거 successor의 고정 파일 수·current 해시 대신 현재 계약을 참조한다. 새 successor나 validation authority를 만들지 않았다.
+- **런타임 오류 수정:** Optional `ProductCurrent`의 보호 호출 성공만으로 product 존재를 판단하지 않는다. 반환값이 nil이면 기존 legacy 조회 경로를 유지한다. 실제 product가 있는 경우의 기존 거부 조건은 유지한다.
+- **수락:** 마지막 전체 실행의 215 passed / 3 failed 이력은 보존하고, 실패한 세 노드의 후속 3 passed(exit 0)를 별도로 기록한다. 설명 누락 수정의 기존 Layer3 조회 검사와 Lua 문법 검사는 통과했으며, 사용자가 저장소 Iris 폴더 실행에서 인게임 검증 통과를 확인했다. 이번 리팩토링은 완료다. 이 확인을 별도 후보 ZIP의 인게임 검증, 전체 suite 재실행, 설명 corpus 전체 품질 수락으로 확대하지 않는다.
+
+작업은 저장소 안의 Before/After 사본과 짧은 공유 실행 경로를 사용했다. 일회성 보조 스크립트는 정규 검사기나 새로운 authority가 아니다. 상세 구현·명령·결과·사용자 확인은 [리팩토링 실행 기록](iris_refactoring_implementation_plan.md#2026-09-16-비-pz-잔여-해소)을 따른다.

@@ -1,6 +1,6 @@
 --[[
     IrisWikiSections.lua - 위키 패널 섹션 렌더링
-    
+
     필수 섹션:
     A) 기본 정보 (무게, 타입, 모듈)
     B) 태그 목록 (복수 태그) — 알파벳 정렬
@@ -28,28 +28,33 @@ local function getLabel(key)
 end
 
 --- A) 기본 정보 섹션 렌더링
-function IrisWikiSections.renderBasicInfoSection(item)
-    local model = DetailViewModel.ensure(item)
-    if not model then return nil end
-    local parts = {}
-    
+local function appendIdentityFields(parts, model)
     -- 무게
     local weight = model.weight
     if weight and type(weight) == "number" then
         table.insert(parts, string.format("%s: %.1f", getLabel("Iris_Detail_Weight"), weight))
     end
-    
+
     -- 타입
     local itemType = model.itemType
     if itemType then
         table.insert(parts, getLabel("Iris_Detail_Type") .. ": " .. tostring(itemType))
     end
-    
+
+end
+
+function IrisWikiSections.renderBasicInfoSection(item)
+    local model = DetailViewModel.ensure(item)
+    if not model then return nil end
+    local parts = {}
+
+    appendIdentityFields(parts, model)
+
     -- 모듈 (이름만 추출)
     if model.moduleName then
         table.insert(parts, getLabel("Iris_Detail_Module") .. ": " .. model.moduleName)
     end
-    
+
     if #parts == 0 then
         return nil
     end
@@ -144,41 +149,41 @@ function IrisWikiSections.renderFoodSection(item)
     if not model then return nil end
     local food = model.food
     local parts = {}
-    
+
     -- 배고픔 변화
     local hunger = food.hunger
     if hunger and type(hunger) == "number" and hunger ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Hunger") .. ": " ..
             Presentation.formatSigned(hunger, "percent_scaled"))
     end
-    
+
     -- 갈증 변화
     local thirst = food.thirst
     if thirst and type(thirst) == "number" and thirst ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Thirst") .. ": " ..
             Presentation.formatSigned(thirst, "percent_scaled"))
     end
-    
+
     -- 스트레스 변화
     local stress = food.stress
     if stress and type(stress) == "number" and stress ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Stress") .. ": " ..
             Presentation.formatSigned(stress, "percent_scaled"))
     end
-    
+
     -- 권태감 변화
     local boredom = food.boredom
     if boredom and type(boredom) == "number" and boredom ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Boredom") .. ": " ..
             Presentation.formatSigned(boredom, "percent_scaled"))
     end
-    
+
     -- 칼로리
     local calories = food.calories
     if calories and type(calories) == "number" and calories > 0 then
         table.insert(parts, string.format("%s: %.0f", getLabel("Iris_Detail_Calories"), calories))
     end
-    
+
     if #parts == 0 then
         return nil
     end
@@ -191,7 +196,7 @@ function IrisWikiSections.renderWeaponSection(item)
     if not model then return nil end
     local weapon = model.weapon
     local parts = {}
-    
+
     -- 최소/최대 데미지
     local minDmg = weapon.minDamage
     local maxDmg = weapon.maxDamage
@@ -200,7 +205,7 @@ function IrisWikiSections.renderWeaponSection(item)
             table.insert(parts, string.format("%s: %.1f~%.1f", getLabel("Iris_Detail_Damage"), minDmg, maxDmg))
         end
     end
-    
+
     -- 사거리
     local minRange = weapon.minRange
     local maxRange = weapon.maxRange
@@ -209,19 +214,19 @@ function IrisWikiSections.renderWeaponSection(item)
             table.insert(parts, string.format("%s: %.1f~%.1f", getLabel("Iris_Detail_Range"), minRange, maxRange))
         end
     end
-    
+
     -- 크리티컬 확률
     local critChance = weapon.criticalChance
     if critChance and type(critChance) == "number" and critChance > 0 then
         table.insert(parts, string.format("%s: %.0f%%", getLabel("Iris_Detail_Critical"), critChance))
     end
-    
+
     -- 내구도
     local maxCondition = weapon.conditionMax
     if maxCondition and type(maxCondition) == "number" and maxCondition > 0 then
         table.insert(parts, string.format("%s: %.0f", getLabel("Iris_Detail_Durability"), maxCondition))
     end
-    
+
     if #parts == 0 then
         return nil
     end
@@ -233,14 +238,14 @@ function IrisWikiSections.renderConnectionSection(item)
     local model = DetailViewModel.ensure(item)
     if not model then return nil end
     local parts = {}
-    
+
     -- Recipe
     local recipeInfo = model.connections.recipes
     local recipeCount = DetailViewModel.arrayLength(recipeInfo)
     if recipeCount > 0 then
         table.insert(parts, getLabel("Iris_Detail_Recipe") .. ": " .. recipeCount)
     end
-    
+
     -- Moveables
     local moveablesInfo = model.connections.moveables
     if moveablesInfo then
@@ -248,13 +253,13 @@ function IrisWikiSections.renderConnectionSection(item)
             table.insert(parts, getLabel("Iris_Detail_Furniture") .. ": O")
         end
     end
-    
+
     -- Fixing
     local fixingInfo = model.connections.fixing
     if fixingInfo and fixingInfo.isFixer then
         table.insert(parts, getLabel("Iris_Detail_Fixer") .. ": O")
     end
-    
+
     if #parts == 0 then
         return nil
     end
@@ -267,31 +272,31 @@ function IrisWikiSections.renderMiscSection(item)
     if not model then return nil end
     local moveable = model.moveable
     local parts = {}
-    
+
     -- 용량 (컨테이너)
     local capacity = moveable.capacity
     if capacity and type(capacity) == "number" and capacity > 0 then
         table.insert(parts, string.format("%s: %.0f", getLabel("Iris_Detail_Capacity"), capacity))
     end
-    
+
     -- 광원 강도
     local lightStr = moveable.lightStrength
     if lightStr and type(lightStr) == "number" and lightStr > 0 then
         table.insert(parts, string.format("%s: %.1f", getLabel("Iris_Detail_Light"), lightStr))
     end
-    
+
     -- 방수 여부
     local isWaterproof = moveable.waterproof
     if isWaterproof then
         table.insert(parts, getLabel("Iris_Detail_Waterproof"))
     end
-    
+
     -- 보온 효과
     local insulation = moveable.insulation
     if insulation and type(insulation) == "number" and insulation > 0 then
         table.insert(parts, string.format("%s: %.1f", getLabel("Iris_Detail_Insulation"), insulation))
     end
-    
+
     if #parts == 0 then
         return nil
     end
@@ -303,31 +308,31 @@ function IrisWikiSections.getAllSections(item)
     local model = DetailViewModel.ensure(item)
     if not model then return {} end
     local sections = {}
-    
+
     local basicInfo = IrisWikiSections.renderBasicInfoSection(model)
     if basicInfo then table.insert(sections, basicInfo) end
-    
+
     local tags = IrisWikiSections.renderTagsSection(model)
     if tags then table.insert(sections, tags) end
-    
+
     local layer3 = IrisWikiSections.renderLayer3Section(model)
     if layer3 then table.insert(sections, layer3) end
-    
+
     local food = IrisWikiSections.renderFoodSection(model)
     if food then table.insert(sections, food) end
-    
+
     local weapon = IrisWikiSections.renderWeaponSection(model)
     if weapon then table.insert(sections, weapon) end
 
     local literature = IrisWikiSections.renderLiteratureSection(model)
     if literature then table.insert(sections, literature) end
-    
+
     local connection = IrisWikiSections.renderConnectionSection(model)
     if connection then table.insert(sections, connection) end
-    
+
     local misc = IrisWikiSections.renderMiscSection(model)
     if misc then table.insert(sections, misc) end
-    
+
     return sections
 end
 
@@ -357,21 +362,11 @@ function IrisWikiSections.renderCoreInfoSection(item)
     local model = DetailViewModel.ensure(item)
     if not model then return nil end
     local parts = {}
-    
-    -- 무게
-    local weight = model.weight
-    if weight and type(weight) == "number" then
-        table.insert(parts, string.format("%s: %.1f", getLabel("Iris_Detail_Weight"), weight))
-    end
-    
-    -- 타입
-    local itemType = model.itemType
-    if itemType then
-        table.insert(parts, getLabel("Iris_Detail_Type") .. ": " .. tostring(itemType))
-    end
-    
+
+    appendIdentityFields(parts, model)
+
     -- === 핵심 수치 (아이템 종류에 따라) ===
-    
+
     -- 데미지 (무기류)
     local minDmg = model.weapon.minDamage
     local maxDmg = model.weapon.maxDamage
@@ -380,27 +375,27 @@ function IrisWikiSections.renderCoreInfoSection(item)
             table.insert(parts, string.format("%s: %.1f~%.1f", getLabel("Iris_Detail_Damage"), minDmg, maxDmg))
         end
     end
-    
+
     -- 내구도
     local maxCondition = model.weapon.conditionMax
     if maxCondition and type(maxCondition) == "number" and maxCondition > 0 then
         table.insert(parts, string.format("%s: %.0f", getLabel("Iris_Detail_Durability"), maxCondition))
     end
-    
+
     -- 갈증 변화 (음식류) - PZ에서 이미 정수값으로 저장
     local thirst = model.food.thirst
     if thirst and type(thirst) == "number" and thirst ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Thirst") .. ": " ..
             Presentation.formatSigned(thirst, "percent_scaled"))
     end
-    
+
     -- 허기 변화 (음식류) - PZ에서 이미 정수값으로 저장
     local hunger = model.food.hunger
     if hunger and type(hunger) == "number" and hunger ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Hunger") .. ": " ..
             Presentation.formatSigned(hunger, "percent_scaled"))
     end
-    
+
     if #parts == 0 then
         return nil
     end
@@ -417,7 +412,7 @@ function IrisWikiSections.renderRecipeInfoSection(item)
     if recipeCount > 0 then
         return getLabel("Iris_Detail_Recipe") .. ": " .. recipeCount
     end
-    
+
     -- 레시피 0개면 nil 반환 (빈 줄 표시 금지)
     return nil
 end
@@ -428,25 +423,25 @@ function IrisWikiSections.renderMetaInfoSection(item)
     local model = DetailViewModel.ensure(item)
     if not model then return nil end
     local lines = {}
-    
+
     -- 시각적 구분선
     table.insert(lines, "────────────────────")
-    
+
     -- 분류 ID (태그)
     if DetailViewModel.arrayLength(model.tags) > 0 then
         table.insert(lines, getLabel("Iris_Detail_ClassificationID") .. ": " .. table.concat(DetailViewModel.copyArray(model.tags), ", "))
     end
-    
+
     -- 모듈
     if model.moduleName then
         table.insert(lines, getLabel("Iris_Detail_Module") .. ": " .. model.moduleName)
     end
-    
+
     -- 구분선만 있으면 nil 반환
     if #lines <= 1 then
         return nil
     end
-    
+
     return table.concat(lines, "\n")
 end
 

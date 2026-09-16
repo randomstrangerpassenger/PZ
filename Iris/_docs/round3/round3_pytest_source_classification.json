@@ -18,8 +18,8 @@
   "source_set_binding": {
     "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
     "tracked_policy_sources": {
-      "count": 55,
-      "sha256": "f454a28398b73174eb62e63822f4419dc2745c6fbb0d7799a797531c14446c2d"
+      "count": 60,
+      "sha256": "16ec1dfd0f5905f6b529958e385da1d36d19c48109479cea2af8c067e4189c9a"
     },
     "approved_clean_checkout_absent_policy_sources": {
       "count": 0,
@@ -226,6 +226,41 @@
       "reviewed_at": "2026-08-10",
       "semantic_disposition": "regular_product_contract",
       "target_regular_membership": true
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_composition.py",
+      "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate.",
+      "alternative_validation": "docs/iris_refactoring_implementation_plan.md section 7 A/B",
+      "owner": "repository-owner-preapproval-2026-09-16",
+      "reviewed_at": "2026-09-16"
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_description_composition.py",
+      "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate.",
+      "alternative_validation": "docs/iris_refactoring_implementation_plan.md section 7 A/B",
+      "owner": "repository-owner-preapproval-2026-09-16",
+      "reviewed_at": "2026-09-16"
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_dvf_purpose_review.py",
+      "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate.",
+      "alternative_validation": "docs/iris_refactoring_implementation_plan.md section 7 A/B",
+      "owner": "repository-owner-preapproval-2026-09-16",
+      "reviewed_at": "2026-09-16"
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_recovery.py",
+      "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate.",
+      "alternative_validation": "docs/iris_refactoring_implementation_plan.md section 7 A/B",
+      "owner": "repository-owner-preapproval-2026-09-16",
+      "reviewed_at": "2026-09-16"
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_rule_generalization.py",
+      "reason": "Layer 3 composition/recovery contract uses its dedicated isolated producer route; the adopted refactoring plan section 7 A/B preserves the existing contract and candidate-input checks without adding producer execution to the full product gate.",
+      "alternative_validation": "docs/iris_refactoring_implementation_plan.md section 7 A/B",
+      "owner": "repository-owner-preapproval-2026-09-16",
+      "reviewed_at": "2026-09-16"
     }
   ]
 }

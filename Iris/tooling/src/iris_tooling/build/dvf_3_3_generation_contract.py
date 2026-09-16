@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from iris_tooling.common import serialization
+
 import hashlib
 import json
 from pathlib import Path
@@ -32,6 +34,17 @@ CANONICAL_INPUTS = (
 )
 
 GENERATOR_IMPLEMENTATION_FILES = (
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/entrypoint.py',
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/body_profile.py',
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/item.py',
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/render.py',
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/blocks.py',
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/identity.py',
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/io.py',
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/style.py',
+    'Iris/tooling/src/iris_tooling/domains/public_text/composition/compiler_identity.py',
+    "Iris/tooling/src/iris_tooling/common/serialization.py",
+    "Iris/tooling/src/iris_tooling/common/repository_context.py",
     "Iris/tooling/src/iris_tooling/build/dvf_3_3_generation_contract.py",
     "Iris/tooling/src/iris_tooling/build/build_dvf_3_3_complete_generation.py",
     "Iris/tooling/src/iris_tooling/build/compose_layer3_io.py",
@@ -59,7 +72,7 @@ class GenerationContractError(RuntimeError):
 
 
 def sha256_bytes(data: bytes) -> str:
-    return hashlib.sha256(data).hexdigest()
+    return serialization.raw_sha256(data)
 
 
 def sha256_file(path: Path) -> str:
@@ -71,15 +84,7 @@ def sha256_file(path: Path) -> str:
 
 
 def canonical_json_bytes(value: Any) -> bytes:
-    return (
-        json.dumps(
-            value,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        )
-        + "\n"
-    ).encode("utf-8")
+    return serialization.compact_json_bytes(value)
 
 
 def write_canonical_json(path: Path, value: Any) -> None:

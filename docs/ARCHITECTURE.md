@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.7
-> 기준일: 2026-09-11 (이번 갱신 범위: Iris DVF 설명 합성 책임, 생존 모드 공개 표현 및 품질 수락 후 B/C 소비 경계; 제품 current 경계 유지)
+> 기준일: 2026-09-16 (이번 갱신 범위: Iris offline·runner·Lua 책임 분리와 optional product pointer 처리; 기존 DVF·B41/B42·제품 current 경계 유지)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -902,3 +902,23 @@ Runtime은 완성된 KO/EN view 하나를 Tooltip opening 동안 유지한다. L
 `product_projection.build_menu_product()` → v2 Menu chunks → candidate ProductCurrent/Descriptor/compatibility DataCurrent/Index → `IrisLayer3DataLookup` → `layer3_renderer.getDisplay()` → readonly Detail model → `IrisWikiSections.getLayer3Units()` → Browser Detail 및 WikiPanel. 표시 단위는 원문 segment의 연속 구간이며 관계 의미를 재분류하지 않는다. FullType/locale/state와 segment 순서를 보존한다. accepted B는 별도 Tooltip owner와 raw bytes로 같은 corpus에 결속하고 historical unified Tooltip writer를 C에 재사용하지 않는다.
 
 C 구현·자동 검증은 완료했으며 실제 PZ 관찰은 미실시이므로 **implemented_only**다. source current/production activation은 전환하지 않았다. [후보와 관찰 인계](iris_dvf_expanded_menu_structuring_common_candidate_recovery_closeout.md)를 따른다.
+
+### Iris 내부 책임 분리 (2026-09-16)
+
+Offline 공통 serialization과 repository context는 `iris_tooling/common`이 소유한다. 기존 build context import는 같은 상태를 재수출한다. Naturalization의 composition·profile·render·compiler identity 구현은 `domains/public_text/composition`에 있고 이전 build 모듈은 호환 adapter다. 기존 style-rule data 경로와 입력/출력 guard는 유지한다.
+
+Layer 3 설명 조립은 ordered assembly에서 crafting/cooking/media/medical/supplies handler를 호출한다. Lexicon은 정적 vocabulary/phrase view를 읽고 Recovery source 조사와 분리된다. Recovery는 source index·crafting roles·claims·question review를 별도 모듈로 두며 기존 orchestrator가 사실/판정/표현을 연결한다. 분리된 소스는 해당 producer inventory에 포함한다.
+
+Runtime 조회와 UI의 책임은 다음과 같다.
+
+- `IrisLayer3DataLookup`은 `IrisLayer3ProductLookup` 또는 `IrisLayer3LegacyLookup` factory를 선택한다. Product는 세션의 product snapshot, legacy는 기존 generation 조회·cache·diagnostics를 소유한다.
+- Optional `IrisLayer3ProductCurrent`는 보호 호출이 성공해도 반환값이 nil이면 존재하는 product로 취급하지 않는다. 이 구분은 product pointer가 없는 저장소 실행에서 legacy 설명을 잘못 차단하지 않도록 한다. 실제 product의 오류를 legacy 본문으로 보충하는 경로는 만들지 않는다.
+- Browser Detail의 child 수집·제거·위치·scroll 처리는 `IrisDetailChildren`이 담당한다. Wiki는 기본 identity-field 조립을 공유한다. 기존 facade와 cache 수명을 유지하며 Iris runtime은 계속 100% Lua다.
+
+명시적 B→Menu 후보 입력은 공급·projection·installer에 전달한다. Repository runner의 checkout 준비도 선언된 corpus refs와 B ZIP owner를 같은 실행 경계에 제공한다. 기존 accepted/current 기본값과 입력 거부 조건은 유지한다.
+
+Repository runner는 `repository_contracts`, `source_analysis/repository_sources`, `checkout_workspace`, `process_results`로 계약·소스 분석·checkout 준비·실행 결과 처리를 분리했다. 기존 진입점과 validation authority는 유지한다. 조합/Recovery는 전용 실행 경로를 사용하고 prose review의 before 사본은 실행 의무가 없는 증거로 분류한다. 테스트 위치와 unittest ID를 유지한다.
+
+완료된 registry closure 본체와 run/validate 진입점 3개는 `Iris/_archive/registry.zip`에 보관한다. Current fixture materialization은 repository runner가 독립적으로 소유한다. 과거 required ID와 receipt는 역사 기록으로 유지한다.
+
+구현과 관련 자동 검사 후, 저장소 실행에서 발견된 Layer3 설명 누락을 위 optional pointer 분기로 수정했고 사용자 인게임 확인까지 완료했다. 이 수락은 저장소 Iris 실행에 해당하며 별도 ZIP의 인게임 검증이나 제품 current 활성화를 뜻하지 않는다. 상세 실행 결과는 [리팩토링 실행 기록](iris_refactoring_implementation_plan.md#2026-09-16-비-pz-잔여-해소)을 따른다.

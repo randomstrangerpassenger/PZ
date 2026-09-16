@@ -4,14 +4,17 @@ param(
     [Parameter(Mandatory = $true)][string]$HarnessModule,
     [ValidateSet('pre_refactor_characterization','post_refactor_acceptance')][string]$TimeAxis = 'pre_refactor_characterization',
     [string]$RepositoryRoot,
-    [string]$PzExecutable = 'G:/Program Files (x86)/Steam/steamapps/common/ProjectZomboid/ProjectZomboid64.exe',
-    [string]$AcceptedOptionsPath = 'C:/Users/MW/Zomboid/options.ini',
+    [ValidateNotNullOrEmpty()][string]$PzExecutable,
+    [ValidateNotNullOrEmpty()][string]$AcceptedOptionsPath,
     [int]$TimeoutSeconds = 240
 )
 
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+
+if ([string]::IsNullOrWhiteSpace($PzExecutable)) { throw 'PzExecutable is required; supply the game executable explicitly.' }
+if ([string]::IsNullOrWhiteSpace($AcceptedOptionsPath)) { throw 'AcceptedOptionsPath is required; supply the accepted options file explicitly.' }
 
 function Get-RelativePath([string]$Root, [string]$Path) {
     $rootUri = New-Object System.Uri(([System.IO.Path]::GetFullPath($Root).TrimEnd('\') + '\'))
@@ -27,6 +30,7 @@ function Get-TextSha([string]$Text) {
 if (-not $RepositoryRoot) { $RepositoryRoot = (& git rev-parse --show-toplevel 2>&1 | Out-String).Trim() }
 $RepositoryRoot = [System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\','/')
 if (-not (Test-Path -LiteralPath $PzExecutable -PathType Leaf)) { throw "PZ executable missing: $PzExecutable" }
+if (-not (Test-Path -LiteralPath $AcceptedOptionsPath -PathType Leaf)) { throw "PZ options missing: $AcceptedOptionsPath" }
 $subjectCommit = (& git -C $RepositoryRoot rev-parse HEAD).Trim()
 $subjectTree = (& git -C $RepositoryRoot rev-parse 'HEAD^{tree}').Trim()
 $previousErrorActionPreference = $ErrorActionPreference
